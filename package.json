@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.18.0",
+    "ai": "^2.2.14",
     "autoprefixer": "10.4.14",
     "contentful": "^10.6.1",
     "framer-motion": "^10.12.17",
     "next": "13.4.7",
+    "openai-edge": "^1.2.2",
     "postcss": "8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",

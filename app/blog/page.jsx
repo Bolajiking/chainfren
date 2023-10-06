@@ -14,7 +14,7 @@ const page = async () => {
     const blogEntries = await getBlogEntries();
     
   return (
-    <div className='w-screen flex justify-center items-center gap-12 flex-col'>
+    <div className='w-screen flex justify-center items-center gap-12 flex-col relative'>
         <div className="text-center text-5xl">Blog</div>
         <div className=" flex flex-col gap-8 w-[50%]">
         {blogEntries.items.map((post)=>{
@@ -31,6 +31,7 @@ const page = async () => {
            )
         })}
         </div>
+     
     </div>
   )
 }
