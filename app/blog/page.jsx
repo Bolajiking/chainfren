@@ -10,8 +10,8 @@ const getBlogEntries = async () => {
     const entries = await client.getEntries({ content_type: "blog" });
     return entries;
   };
-const page =  () => {
-    const blogEntries =  getBlogEntries();
+const page = async () => {
+    const blogEntries = await getBlogEntries();
     
   return (
     <div className='w-screen flex justify-center items-center gap-12 flex-col relative'>
