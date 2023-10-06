@@ -6,7 +6,7 @@ const client = createClient({
     accessToken: process.env.ACCESS_TOKEN,
 });
 
-const page = async (prop) => {
+const page =  (prop) => {
     const {params}=prop
     const {slug}=params
     
@@ -19,7 +19,7 @@ const page = async (prop) => {
         return queryResult.items[0];
       };
 
-      const blogPost= await fetchBlogPost(slug)
+      const blogPost=  fetchBlogPost(slug)
       const {title,content,image}=blogPost.fields
 
   return (
