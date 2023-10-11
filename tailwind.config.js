@@ -7,20 +7,19 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
       colors:{
-        'primary':'#fff',
-        'secondary':' rgba(25, 41, 106, 1)',
-        'light':'rgba(25, 41, 106, 0.5)',
-        'red':'rgba(247, 82, 82, 1)',
-        'text-light':'rgba(217, 217, 217, 1)',
-        'pink':'rgba(243, 88, 175, 1)',
+        'primary':'rgba(9, 1, 27, 0.8)',
+        'secondary':'#0091FF',
+
+
+      },
+      fontFamily:{
+        sans:['var(--fontspring)']
       }
     },
   },
   plugins: [],
 }
+// background: linear-gradient(0deg, rgba(9, 24, 67, 0.4), rgba(9, 24, 67, 0.4)),
+// linear-gradient(91.32deg, #40CBFF 0.8%, #40FFCC 103.85%);
+
