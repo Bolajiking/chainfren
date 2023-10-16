@@ -1,16 +1,21 @@
-
 import Nav from "./components/Nav"
 import Hero from "./components/Hero"
 import About from "./components/About"
+import Services from "./components/Services"
+import Article from "./components/Article"
+import Subscribe from "./components/Subscribe"
 
 export default function Home() {
 
   return (
     
-    <div className=" font-fontspring ">
-      <Nav />
+    <div className=" font-fontspring">
+
      <Hero />
       <About />
+      <Services />
+      <Article />
+      <Subscribe />
     </div>
   )
 }

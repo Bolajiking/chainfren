@@ -1,7 +1,8 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
-
+import Nav from './components/Nav'
+import Footer from './components/Footer'
 const Fontspring=localFont({
   src:[
     {
@@ -47,9 +48,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${Fontspring.className} `}>
-
+        <Nav />
         {children}
-
+    <Footer />
 
         </body>
     </html>

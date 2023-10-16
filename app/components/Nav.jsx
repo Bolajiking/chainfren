@@ -3,7 +3,7 @@ import Image from 'next/image'
 import logo from '../../public/logo.svg'
 const Nav = () => {
   return (
-    <div className="bg-[#09011B] text-white sticky">
+    <div className="bg-[#09011B] text-white sticky top-0 z-20 ">
     <div className='flex justify-between items-center xl:max-w-[1150px] sm:px-8 py-6    mx-auto'>
         <div className=""><Image src={logo} /></div>
         <div className="hidden items-center gap-9 md:flex font-normal">

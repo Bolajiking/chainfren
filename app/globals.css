@@ -2,6 +2,111 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    margin: 0;
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100px;
+    background: transparent;
+    border-radius: 4rem;
+    box-shadow: 0 0 60px 60px #40acff21;
+    transform: rotate(30deg);
+    animation: card 10s ease-in infinite forwards;
+}
+.onex::after{
+    animation: card  18s ease-in-out 0s infinite ;
+    animation-direction: reverse;
+    animation-fill-mode: both;
+}
+.fourx::after{
+    bottom: -15px;
+    top: unset;
+    animation:card 17s ease-in 9s infinite forwards ;
+}
+.threex::after{
+    animation: card  18s ease 2s infinite ;
+    animation-direction: reverse;
+    animation-fill-mode: both;
+}
+.twox::after{
+    bottom: -10px;
+    top: unset;
+    animation: card  18s ease-in-out 6s infinite ;
+    animation-direction: reverse;
+    animation-fill-mode: both;
+}
+@keyframes card {
+    0% {
+        transform:rotate(30deg)  translateX(calc(-100% - 120px));
+    }
+    100% {
+        transform:rotate(30deg)  translateX(600px) translateY(-350px);
+    }
+}
+.subscribe-card {
+    background: linear-gradient(to bottom right, #09011B 20%, #482684 50%, #3b61b2, #0D7DDD);
+    background-size: 200% 200%;
+    animation: gradient 20s linear infinite both;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0;
+    }
+    25% {
+        background-position: 100% 0;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    75% {
+        background-position: 0 100%;
+    }
+    100% {
+        background-position: 0 0;
+    }
+   
+}
+
+.box-gradient::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 100%);
+    animation: box-gradient 6s ease-in-out infinite forwards  ;
+    opacity: 0;
+}
+.two::after,.five::after,.eight::after{
+    animation: box-gradient 6s ease-in-out 5s infinite forwards  ;
+}
+.four::after,.six::after,.nine::after{
+    animation: box-gradient 6s ease-in-out 3s infinite forwards  ;
+}
+@keyframes box-gradient {
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+.test::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    bottom: unset;
+    top: -55%;
+    height: 400px;
+    background-color: #08153C;
+    border-radius: 50%;
+    z-index: 0;
+    box-shadow: 0 0 1000px 150px #08153C;
+    border: 1px solid #08153C ;
 }
