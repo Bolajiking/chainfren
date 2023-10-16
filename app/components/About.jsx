@@ -11,8 +11,8 @@ const About = () => {
             <div className=" text-xl">Chainfren is a dedicated web3 consulting company with a mission to onboard new stakeholders in the decentralized space. 
 Our team of experts is passionate about helping brands and businesses navigate the rapidly evolving world of crypto and blockchain technologies</div>
         </div>
-        <div className="absolute right-0 bottom-16"><Image src={pic1} width={300} height={300} /></div>
-        <div className="absolute left-0 bottom-16"><Image src={pic2} width={350} height={350} /></div>
+        <div className="absolute right-0 bottom-16 z-[1]"><Image src={pic1} width={300} height={300} /></div>
+        <div className="absolute left-0 bottom-16 z-[1]"><Image src={pic2} width={350} height={350} /></div>
     </div>
   )
 }

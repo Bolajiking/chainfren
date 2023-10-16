@@ -102,11 +102,12 @@
     position: absolute;
     width: 100%;
     bottom: unset;
-    top: -55%;
-    height: 400px;
+    top: -5%;
+    height: 30vw;
     background-color: #08153C;
     border-radius: 50%;
     z-index: 0;
-    box-shadow: 0 0 1000px 150px #08153C;
+    box-shadow: 0 0 100vw 30vw #08153C;
     border: 1px solid #08153C ;
+    filter: blur(30px);
 }

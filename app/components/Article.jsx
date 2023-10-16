@@ -1,14 +1,17 @@
 import React from 'react'
 import Image from 'next/image'
 import pic from '../../public/blogpic.png'
+import Test from './Test'
 const Article = () => {
   return (
-    <div>
-        <div className="border-[#0E1435CC]  border-[1px] bg-primary h-screen flex justify-center">
-            <div className="xl:w-[1050px] flex justify-center flex-col items-center gap-10">
+    <div className=''>
+        
+        <div className="border-[#0E1435CC] relative  border-[1px] bg-primary  flex justify-center">
+        <Test blog={false} />
+            <div className="xl:w-[1050px] flex justify-center flex-col items-center gap-10 py-8">
             <button className='bg-[#0079D8] px-4 py-1 rounded-2xl text-white'>Latest Articles</button>
-            <div className="flex flex-wrap w-full gap-8">
-                <div className="flex-1 overflow-hidden flex flex-col h-[25rem] rounded-md border-[1px] border-[#0E1435CC]">
+            <div className="flex flex-wrap w-full gap-8 ">
+                <div className="flex-1 overflow-hidden flex flex-col h-[25rem] rounded-md border-[1px]  border-[#0E1435CC]">
                     <div className="flex-1 "><Image src={pic}  /></div>
                     <div className="flex-1 p-6 text-white flex flex-col gap-2 ">
                         <div className="text-lg font-medium">Demystifying Blockchain: A Beginner's Guide</div>
