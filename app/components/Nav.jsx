@@ -28,7 +28,7 @@ const Nav = () => {
             <div className="">Services</div>
             <div className="">Blog</div>
             <div className="">Contact Us</div>
-            <button className='py-2 rounded-3xl px-4 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>Learn Web 3</button>
+            <button className='py-[9px] rounded-3xl px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>Learn Web 3</button>
         </div>
     </div>
     </div>

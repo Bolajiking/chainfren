@@ -12,7 +12,7 @@ const Hero = () => {
       <div className="w-full h-full flex-col items-center justify-center gap-6 flex z-[1]">
             <Test blog={true} />
             <div className="text-[4rem] leading-[5rem] text-center font-bold mt-8">Empowering Creators,<br />Brands and Businesses in the<div className='bg-gradient-to-r from-white to-[#40ACFF] bg-clip-text text-transparent'>Web3 Space</div></div>
-     <div className="text-[#ffffff43] text-center">We Provide Bespoke Consulting Services To Help You <br /> Embrace The Decentralized Future.</div>
+     <div className="text-[#ffffffc1] text-center">We Provide Bespoke Consulting Services To Help You <br /> Embrace The Decentralized Future.</div>
      <div className=""><button className='py-[10px] mt-4 rounded-3xl px-8  bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>Get Started</button></div>
      </div>
  
