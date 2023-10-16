@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     
-    <div className=" font-fontspring">
+    <div className=" font-fontspring bg-primary">
 
      <Hero />
       <About />

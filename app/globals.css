@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+body{
+    background-color: #09011B;
+}
 .card::after {
     content: '';
     position: absolute;
@@ -77,14 +79,17 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 100%);
-    animation: box-gradient 6s ease-in-out infinite forwards  ;
+
     opacity: 0;
 }
+.one::after,.three::after,.seven::after{
+    animation: box-gradient 6s ease-in-out infinite forwards  ;
+}
 .two::after,.five::after,.eight::after{
-    animation: box-gradient 6s ease-in-out 5s infinite forwards  ;
+    animation: box-gradient 6s ease-in-out 8s infinite forwards  ;
 }
 .four::after,.six::after,.nine::after{
-    animation: box-gradient 6s ease-in-out 3s infinite forwards  ;
+    animation: box-gradient 6s ease-in-out 4s infinite forwards  ;
 }
 @keyframes box-gradient {
     0%{
