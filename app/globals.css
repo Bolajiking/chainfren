@@ -26,7 +26,7 @@ body{
     right: 120px;
 }
 .card:hover::after{
-    opacity: 0.6;
+    opacity: 0.5;
     box-shadow: 0 0 80px 40px #40acff;
 }
 .fourx::after{
