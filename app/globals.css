@@ -46,7 +46,7 @@ body{
         transform:rotate(30deg)  translateX(600px) translateY(-350px);
     }
 }
-.subscribe-card {
+/* .subscribe-card {
     background: linear-gradient(to bottom right, #09011B 20%, #482684 50%, #3b61b2, #0D7DDD);
     background-size: 200% 200%;
     animation: gradient 20s linear infinite both;
@@ -69,8 +69,31 @@ body{
         background-position: 0 0;
     }
    
+} */
+.sub-gradient-one{
+    position: absolute;
+    width: 0;
+    height: 0;
+    box-shadow: 0 0 13vw 15vw #3D1F73;
+    bottom: 0;
+    left: 20vw;
 }
-
+.sub-gradient-two{
+    position: absolute;
+    width: 0;
+    height: 0;
+    box-shadow: 0 0 15vw 15vw #1575dc;
+    bottom: 10vw;
+    right: 10vw;
+}
+.sub-gradient-three{
+    position: absolute;
+    width: 0;
+    height: 0;
+    box-shadow: 0 0 12vw 14vw #2c71ca;
+    bottom: 0;
+    left: 45vw;
+}
 .box-gradient::after{
     content: '';
     position: absolute;
@@ -82,14 +105,14 @@ body{
 
     opacity: 0;
 }
-.one::after,.three::after,.seven::after{
-    animation: box-gradient 6s ease-in-out infinite forwards  ;
+.one::after{
+    animation: box-gradient 6s ease-in-out infinite  ;
 }
-.two::after,.five::after,.eight::after{
-    animation: box-gradient 6s ease-in-out 8s infinite forwards  ;
+.two::after{
+    animation: box-gradient 6s ease-in-out 8s infinite  ;
 }
-.four::after,.six::after,.nine::after{
-    animation: box-gradient 6s ease-in-out 4s infinite forwards  ;
+.four::after{
+    animation: box-gradient 6s ease-in-out 4s infinite  ;
 }
 @keyframes box-gradient {
     0%{

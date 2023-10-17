@@ -42,12 +42,41 @@ const Fontspring=localFont({
     },
   ],variable:'--Fontspring'
 })
+const HKGrotesk=localFont({
+  src:[
+    {
+      path: '../fonts/hk/HKGrotesk-Regular.otf',
+      weight: '400',
+      style:'regular'
+    },
+    {
+      path: '../fonts/hk/HKGrotesk-Bold.otf',
+      weight: '700',
+      style:'bold'
+    },
+    {
+      path: '../fonts/hk/HKGrotesk-Light.otf',
+      weight: '300',
+      style:'light'
+    },
+    {
+      path: '../fonts/hk/HKGrotesk-Semibold.otf',
+      weight: '600',
+      style:'semibold'
+    },
+    {
+      path: '../fonts/hk/HKGrotesk-Medium.otf',
+      weight: '500',
+      style:'medium'
+    },
 
+  ],variable:'--HKGrotesk'
+})
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${Fontspring.className} `}>
+      <body className={`${Fontspring.className} ${HKGrotesk.variable} `}>
         <Nav />
         {children}
     <Footer />

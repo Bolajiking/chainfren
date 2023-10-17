@@ -15,7 +15,7 @@ const Article = () => {
                     <div className="flex-1 "><Image src={pic}  /></div>
                     <div className="flex-1 p-6 text-white flex flex-col gap-2 ">
                         <div className="text-lg font-medium">Demystifying Blockchain: A Beginner's Guide</div>
-                    <div className="text-[#FFFFFF99] text-sm">Decentralized Finance (DeFi) is reshaping the financial landscape, offering an alternative to traditional banking and financial services. In...</div>
+                    <div className="text-[#FFFFFF99] text-sm font-HK">Decentralized Finance (DeFi) is reshaping the financial landscape, offering an alternative to traditional banking and financial services. In...</div>
                     <div className="flex items-center justify-between mt-4 ">
                         <div className="">Read More</div>
                         <div className="text-[#FFFFFF99] text-sm">20-09-2023</div>

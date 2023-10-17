@@ -12,191 +12,190 @@ const Test = ({blog}) => {
   return (
     <div className='absolute top-0 left-0 w-full  flex '>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''} ${blog && 'box-gradient one'}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
         </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] box-gradient one relative transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px]  duration-300 ease-linear relative   border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog && 'box-gradient two'}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={`   ${blog? 'opacity-20':''}   transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
         </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''} box-gradient  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''} ${blog && 'box-gradient one'}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}   transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
       </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] box-gradient three relative transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-         <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={`    transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog && 'box-gradient four'}   transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+         <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
             </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px]  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-         <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className="  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+         <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
             </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
    </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] box-gradient five relative transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-         <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={`    transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+         <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px] duration-300  ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ${blog && 'box-gradient two'} ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
             </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-         <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+         <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
             </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''} ${blog && 'box-gradient four'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}   transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
    </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px]  duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
 </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-         <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-            </div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+         <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} ${blog && 'box-gradient one'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>            </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] box-gradient six relative transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={`   transition border-[1px] ${blog && 'box-gradient one'}  duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300  ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
    </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
 </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px] ${blog && 'box-gradient four'} duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
   </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] box-gradient eight relative transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={`    transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
  </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
 </div>
         <div className="w-full flex-col flex">
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className="border-[1px] transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-80':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-60':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-40':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog? 'opacity-20':''}  transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
-          <div onMouseEnter={(e)=>hover(e)} className={`border-[1px] ${blog&& 'opacity-5'} transition duration-300 ease-linear  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={`   transition border-[1px] ${blog && 'box-gradient two'}  duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className=" transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]"></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-80':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-60':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-40':''}   transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog? 'opacity-20':''}  transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
+          <div onMouseEnter={(e)=>hover(e)} className={` ${blog&& 'opacity-5'} ${blog && 'box-gradient one'} transition border-[1px] duration-300 ease-linear relative  border-[#FFFFFF07] W-[5.88234vw] h-[5.88234vw]`}></div>
    </div>
     </div>
   )

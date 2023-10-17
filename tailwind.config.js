@@ -14,7 +14,8 @@ module.exports = {
 
       },
       fontFamily:{
-        sans:['var(--fontspring)']
+        sans:['var(--Fontspring)'],
+        serif:['var(--HKGrotesk)']
       }
     },
   },

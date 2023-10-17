@@ -18,17 +18,17 @@ const Services = () => {
             <div className=" w-[48%] bg-primary z-[1] h-[16rem] border-[1px] p-8 flex flex-col gap-4 border-[#0E1435CC] bg-[url('/card-bg.png')] card relative overflow-hidden rounded-md twox bg-[length:300px_300px] bg-no-repeat bg-right-top"> 
             <Image src={img2} width={55} height={55} alt='Smart Contract and Tokenomics illustration' />
             <div className=" text-xl font-medium">Smart Contract and Tokenomics</div>
-            <div className="text-[#FFFFFF99] font-light text-sm">Our experts help you create secure smart contracts and design robust tokenomics models for your projects.</div>
+            <div className="text-[#FFFFFF99] font-light font-serif text-sm">Our experts help you create secure smart contracts and design robust tokenomics models for your projects.</div>
             </div>
             <div className=" w-[48%] bg-primary z-[1] h-[16rem] border-[1px] p-8 flex flex-col gap-4 border-[#0E1435CC] bg-[url('/card-bg.png')] card relative overflow-hidden rounded-md threex bg-[length:300px_300px] bg-no-repeat bg-right-top"> 
             <Image src={img3} width={55} height={55} alt='Community Building and Engagement illustration' />
             <div className=" text-xl font-medium">Community Building and Engagement</div>
-            <div className="text-[#FFFFFF99] font-light text-sm">We help you build and nurture a thriving community around your project, leveraging the power of decentralized networks.</div>
+            <div className="text-[#FFFFFF99] font-light font-serif text-sm">We help you build and nurture a thriving community around your project, leveraging the power of decentralized networks.</div>
             </div>
             <div className=" w-[48%] bg-primary z-[1] h-[16rem] border-[1px] p-8 flex flex-col gap-4 border-[#0E1435CC] bg-[url('/card-bg.png')] card relative overflow-hidden rounded-md fourx bg-[length:300px_300px] bg-no-repeat bg-right-top"> 
             <Image src={img4} width={55} height={55} alt='Learning Platform illustration' />
             <div className=" text-xl font-medium">Learning Platform</div>
-            <div className="text-[#FFFFFF99] font-light text-sm">We provide a comprehensive learning platform, equipping you with the knowledge and skills needed to thrive in the web3 ecosystem.</div>
+            <div className="text-[#FFFFFF99] font-light font-serif text-sm">We provide a comprehensive learning platform, equipping you with the knowledge and skills needed to thrive in the web3 ecosystem.</div>
             </div>
         </div>
         </div>
