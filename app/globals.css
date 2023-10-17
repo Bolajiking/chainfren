@@ -7,45 +7,38 @@ body{
 .card::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 100px;
+
+    width: 0;
+    height: 130px;
     background: transparent;
     border-radius: 4rem;
-    box-shadow: 0 0 60px 60px #40acff21;
-    transform: rotate(30deg);
-    animation: card 10s ease-in infinite forwards;
+    box-shadow: 0 0 60px 40px #40acff;
+    opacity: 0.2;
+    transform: rotate(35deg);
+    transition: all 500ms ease-in-out ;
 }
 .onex::after{
-    animation: card  18s ease-in-out 0s infinite ;
-    animation-direction: reverse;
-    animation-fill-mode: both;
-}
-.fourx::after{
-    bottom: -15px;
-    top: unset;
-    animation:card 17s ease-in 9s infinite forwards ;
-}
-.threex::after{
-    animation: card  18s ease 2s infinite ;
-    animation-direction: reverse;
-    animation-fill-mode: both;
+    left: 190px;
+    top: 0px;
 }
 .twox::after{
-    bottom: -10px;
-    top: unset;
-    animation: card  18s ease-in-out 6s infinite ;
-    animation-direction: reverse;
-    animation-fill-mode: both;
+    bottom: -40px;
+    right: 120px;
 }
-@keyframes card {
-    0% {
-        transform:rotate(30deg)  translateX(calc(-100% - 120px));
-    }
-    100% {
-        transform:rotate(30deg)  translateX(600px) translateY(-350px);
-    }
+.card:hover::after{
+    opacity: 0.6;
+    box-shadow: 0 0 80px 40px #40acff;
 }
+.fourx::after{
+    bottom: -40px;
+    left: 100px;
+}
+.threex::after{
+    left: 300px;
+    top: 0px;
+}
+
+
 /* .subscribe-card {
     background: linear-gradient(to bottom right, #09011B 20%, #482684 50%, #3b61b2, #0D7DDD);
     background-size: 200% 200%;
