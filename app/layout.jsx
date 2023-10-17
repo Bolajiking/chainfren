@@ -60,7 +60,7 @@ const HKGrotesk=localFont({
       style:'light'
     },
     {
-      path: '../fonts/hk/HKGrotesk-Semibold.otf',
+      path: '../fonts/hk/HKGrotesk-SemiBold.otf',
       weight: '600',
       style:'semibold'
     },

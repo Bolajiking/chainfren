@@ -128,7 +128,7 @@ body{
 .test::after{
     content: '';
     position: absolute;
-    width: 100%;
+    width: 25%;
     bottom: unset;
     top: -5%;
     height: 30vw;
