@@ -1,23 +1,61 @@
 import React from 'react'
-import { createClient } from "contentful";
 import Link from 'next/link';
-
-const client =  createClient({
-  space: process.env.SPACE_ID,
-  accessToken: process.env.ACCESS_TOKEN,
-});
+import pic from '../../public/blogpic.png'
+import Image from 'next/image';
+import { client } from '../contentful/contentful';
+import ContentfulImage from '../components/utils/ContentfulImage';
+import Date from '../components/utils/Date';
 const getBlogEntries = async () => {
-    const entries = await client.getEntries({ content_type: "blog" });
+    const entries = await client.getEntries({ content_type: "post" });
     return entries;
   };
 const page = async  () => {
     const blogEntries = await getBlogEntries();
     
   return (
-    <div className='w-screen flex justify-center items-center gap-12 flex-col relative'>
-        <div className="text-center text-5xl">Blog</div>
-        <div className=" flex flex-col gap-8 w-[50%]">
-        {blogEntries.items.map((post)=>{
+    <div className=' flex justify-center items-center gap-12  flex-col relative'>
+        <div className="text-center text-5xl text-white">Blog</div>
+          <div className="max-w-[1120px]">
+        <div className="flex flex-wrap w-full gap-4 mx-auto px-8">
+            {
+                blogEntries.items.map((post,index)=>{
+                    const {title,slug,excerpt,coverimage,content,date}=post.fields
+                    return(
+                        <div className='w-[32%]'>
+                        <Link href={`./blog/${slug}`}>
+                        <div key={index} className=" overflow-hidden flex flex-col h-[25rem] rounded-md border-[1px] bg-primary z-[1]  border-[#0E1435CC]">
+                        <div className="flex-1 "><ContentfulImage
+                        alt={`cover image for ${title}`}
+                        src={coverimage.fields.file.url}
+                        width={coverimage.fields.file.details.image.width}
+                        height={coverimage.fields.file.details.image.height}    
+                        /></div>
+                        <div className="flex-1 p-6 text-white flex flex-col gap-2 ">
+                            <div className="text-lg font-medium">{title}</div>
+                        <div className="text-[#FFFFFF99] text-sm font-HK">{excerpt}</div>
+                        <div className="flex items-center justify-between mt-4 ">
+                            <div className="">Read More</div>
+                            <div className="text-[#FFFFFF99] text-sm"><Date datestring={date} /></div>
+                        </div>
+                        </div>
+                        
+                    </div>
+                    </Link>
+                    </div>
+                    )
+                })
+            }
+
+
+            </div>
+            </div>
+    </div>
+  )
+}
+
+export default page
+
+        {/* {blogEntries.items.map((post)=>{
            
             const {title,slug,image,content} =post.fields
             
@@ -29,11 +67,4 @@ const page = async  () => {
                
             </div>
            )
-        })}
-        </div>
-     
-    </div>
-  )
-}
-
-export default page
+        })} */}

@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
+import Subscribe from './components/Subscribe'
 const Fontspring=localFont({
   src:[
     {
@@ -79,6 +80,7 @@ export default function RootLayout({ children }) {
       <body className={`${Fontspring.className} ${HKGrotesk.variable} `}>
         <Nav />
         {children}
+        <Subscribe />
     <Footer />
 
         </body>

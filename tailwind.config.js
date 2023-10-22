@@ -16,11 +16,15 @@ module.exports = {
       fontFamily:{
         sans:['var(--Fontspring)'],
         serif:['var(--HKGrotesk)']
+      },
+      fontSize:{
+        xlClamp:"clamp(2rem,10vw,4rem)",
+        lgClamp:"clamp(1.5rem,10vw,3.5rem)",
+        mdClamp:"clamp(1rem, 10vw, 3rem)"
+        
       }
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }
-// background: linear-gradient(0deg, rgba(9, 24, 67, 0.4), rgba(9, 24, 67, 0.4)),
-// linear-gradient(91.32deg, #40CBFF 0.8%, #40FFCC 103.85%);
 

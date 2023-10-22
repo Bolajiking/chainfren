@@ -87,6 +87,17 @@ body{
     bottom: 0;
     left: 45vw;
 }
+@media (max-width:500px) {
+    .sub-gradient-one{
+        box-shadow: 0 0 18vw 20vw #3D1F73;
+    }
+    .sub-gradient-two{
+        box-shadow: 0 0 19vw 19vw #1575dc;
+    }
+    .sub-gradient-three{
+        box-shadow: 0 0 15vw 15vw #2c71ca;
+    }
+}
 .box-gradient::after{
     content: '';
     position: absolute;
@@ -131,4 +142,10 @@ body{
     box-shadow: 0 0 100vw 30vw #08153C;
     border: 1px solid #08153C ;
     filter: blur(30px);
+}
+@media (max-width:640px) {
+    .test::after{
+        width: 80%;
+        box-shadow: 0 0 400vw 140vw #08153C ;
+    }
 }
