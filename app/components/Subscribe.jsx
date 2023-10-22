@@ -3,7 +3,7 @@ import subpic from '../../public/subscribe-pic.png'
 import Image from 'next/image'
 const Subscribe = () => {
   return (
-    <div className='bg-primary md:py-56 py-32 flex justify-center items-center text-white px-8'>
+    <div className='bg-primary md:py-56 py-32 flex justify-center items-center text-white px-4'>
         <div className="rounded-xl max-w-[1050px] w-full z[0] py-[2rem] lg:py-[5rem] px-4   md:px-8  relative  overflow-hidden border-[1px]  border-[#0E1435CC] flex flex-col justify-center items-center gap-2 md:gap-8">
         <div className="sub-gradient-one z-[0] "></div>
             <div className="sub-gradient-two z-[0]"></div>
