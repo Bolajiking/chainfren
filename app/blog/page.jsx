@@ -1,10 +1,9 @@
 import React from 'react'
 import Link from 'next/link';
-import pic from '../../public/blogpic.png'
-import Image from 'next/image';
 import { client } from '../contentful/contentful';
 import ContentfulImage from '../components/utils/ContentfulImage';
 import Date from '../components/utils/Date';
+
 const getBlogEntries = async () => {
     const entries = await client.getEntries({ content_type: "post" });
     return entries;

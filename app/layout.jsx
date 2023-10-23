@@ -76,8 +76,8 @@ const HKGrotesk=localFont({
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${Fontspring.className} ${HKGrotesk.variable} `}>
+    <html lang="en" >
+      <body className={`${Fontspring.className} ${HKGrotesk.variable}  `}>
         <Nav />
         {children}
         <Subscribe />

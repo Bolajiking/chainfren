@@ -42,8 +42,8 @@ const Nav = () => {
 </svg>}
 {
   <div className={`md:hidden  absolute top-20 ${navOpen ? 'h-auto py-8':'h-0 py-0' } transition-all  ease-in-out overflow-hidden left-[50%] translate-x-[-50%] w-[90%] bg-[#09021D]  px-6 flex flex-col gap-6 rounded-lg`}>
-    <Link href={'#about'} className="text-lg">About</Link>
-    <Link href={'#services'} className="text-lg">Services</Link>
+    <Link href={'/#about'} className="text-lg">About</Link>
+    <Link href={'/#services'} className="text-lg">Services</Link>
     <Link href={'/blog'} className="text-lg">Blog</Link>
     <Link href={'/contact'} className="text-lg">Contact Us</Link>
     <button className="py-2 rounded-3xl px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold">Learn web3</button>
@@ -52,8 +52,8 @@ const Nav = () => {
 
         </div>
         <div className='hidden items-center gap-9 md:flex font-normal'>
-          <Link href='#about'>About</Link>
-          <Link href='#services'>Services</Link>
+          <Link href='/#about'>About</Link>
+          <Link href='/#services'>Services</Link>
           <Link href='/blog'>Blog</Link>
           <Link href='/contact'>Contact Us</Link>
           <button className='py-[9px] rounded-3xl px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>

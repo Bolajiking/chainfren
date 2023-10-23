@@ -18,7 +18,7 @@ const page = () => {
                        <div className="w-full md:w-[90%] border-b-[1px] border-black pb-4"> <input type="text" className='w-full outline-none text-[1.3rem]' placeholder='Name' /></div>
                        <div className="w-full md:w-[90%] border-b-[1px] border-black pb-4"> <input type="text" className='w-full outline-none text-[1.3rem]' placeholder='Email address' /></div>
                         <div className="w-full md:w-[90%] border-b-[1px] border-black"><textarea name="" id="" cols="30" rows="3" className='w-full outline-none text-[1.3rem]' placeholder='Message'></textarea></div>
-                        <div className="flex items-start gap-4"><input type="checkbox"  name="" id="" placeholder='' /><div className="text-xs text-[#000000a7]  -mt-1">I would like to subscribe to the Chainfrens newsletter to receive web3 insights, updates, and special offers.</div></div>
+                        <div className="flex items-start gap-4"><input type="checkbox"  name="" id="" placeholder='' /><div className="text-sm text-[#000000a7]  -mt-1">I would like to subscribe to the Chainfrens newsletter to receive web3 insights, updates, and special offers.</div></div>
                         <button className='py-[10px] rounded-3xl px-8 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>Send message</button>
                     </div>
                 </div>
@@ -28,8 +28,10 @@ const page = () => {
                 </div>
                 </div>
                 <div className="flex w-full mx-auto pt-6 pb-12 md:py-16 flex-col md:flex-row">
-                     <div className="flex-[0.8]  text-5xl font-medium">
+                     <div className="flex-[0.8]   text-5xl font-medium">
+                        <div className="md2:w-[420px]">
                      We are always reachable via email & social media
+                     </div>
                      </div>
                     <div className="flex-1 flex items-start flex-col gap-12 ">
                         <div className="text-3xl underline font-semibold mt-6 md:mt-0">Hello@Chainfren.com</div>
