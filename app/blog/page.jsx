@@ -23,7 +23,7 @@ const page = async  () => {
                     return(
                         <div className='w-full sm:w-[48%] lg:w-[32%] h-full'>
                         <Link href={`./blog/${slug}`}>
-                        <div key={index} className=" overflow-hidden h-[30vw]   flex flex-col  rounded-md border-[1px] bg-[#0A0623] z-[1]  border-[#0E1435CC]">
+                        <div key={index} className=" overflow-hidden h-[25rem]   flex flex-col  rounded-md border-[1px] bg-[#0A0623] z-[1]  border-[#0E1435CC]">
                         <div className=" h-[40%] object-cover"><ContentfulImage
                         alt={`cover image for ${title}`}
                         src={coverimage.fields.file.url}
