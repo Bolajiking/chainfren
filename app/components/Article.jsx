@@ -20,7 +20,7 @@ const Article =async () => {
         <Background animation={false} />
             <div className="xl:w-[1120px] flex justify-center flex-col items-center gap-10 py-8">
             <button className='bg-[#0079D8] px-4 py-1 rounded-2xl text-white'>Latest Articles</button>
-            <div className="flex flex-wrap w-full justify-between">
+            <div className="flex gap-4 md:gap:0 flex-col md:flex-row md:flex-wrap w-full px-4 md:px-0 md:justify-between">
             {
                 blogEntries.map((post,index)=>{
                     const {title,slug,excerpt,coverimage,content,date}=post.fields
