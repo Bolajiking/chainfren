@@ -22,7 +22,10 @@ module.exports = {
         lgClamp:"clamp(1.5rem,10vw,3.5rem)",
         mdClamp:"clamp(1rem, 10vw, 3rem)"
         
-      }
+      },
+     screens:{
+      md2:'870px'
+     }
     },
   },
   plugins: [require('@tailwindcss/typography')],

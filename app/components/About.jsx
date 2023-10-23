@@ -5,7 +5,7 @@ import pic2 from '../../public/img2.png'
 const About = () => {
 
   return (
-    <div className=' py-4  relative flex flex-col text-white justify-center items-center test bg-primary w-full 2xl:max-w-[1170px] mx-auto'>
+    <div id='about' className=' py-4  relative flex flex-col text-white justify-center items-center test bg-primary w-full 2xl:max-w-[1170px] mx-auto'>
         <div className="flex py-16 flex-col items-center justify-center md:w-[550px] px-5 md:px-0 text-center gap-12 z-[1]">
             <button className='bg-[#0079D8] px-4 py-1 rounded-2xl'>About Chainfren</button>
             <div className=" text-xl">Chainfren is a dedicated web3 consulting company with a mission to onboard new stakeholders in the decentralized space. 

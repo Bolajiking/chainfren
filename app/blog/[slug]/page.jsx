@@ -21,16 +21,18 @@ const page = async (prop) => {
         console.log(content);
   return (
     <div>
-      <div className="w-[850px] px-8 mx-auto flex items-center flex-col">
+      <div className=" px-4 sm:px-8 mx-auto flex items-center md:w-[800px] flex-col">
         <div className="text-[#FFFFFF99] text-sm text-left mt-8 mb-4 self-start">Blog</div>
-      <div className="text-5xl  text-white text-left mb-8">{title}</div>
+      <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl  text-white text-left mb-8 font-serif ">{title}</div>
+      <div className="w-full h-full object-cover">
           <ContentfulImage
             alt={`cover image for ${title}`}
             src={coverimage.fields.file.url}
             width={coverimage.fields.file.details.image.width}
             height={coverimage.fields.file.details.image.height}    
           />
-          <div className="text-white prose self-start  flex items-center">
+          </div>
+          <div className="text-white prose max-w-none mt-8 w-full  block ">
             <Richtext content={content} />
             </div>
           

@@ -6,7 +6,7 @@ import img3 from '../../public/S03.png'
 import img4 from '../../public/S04.png'
 const Services = () => {
   return (
-    <div className='bg-primary flex justify-center items-center text-white '>
+    <div id='services' className='bg-primary flex justify-center items-center text-white '>
         <div className="xl:w-[1120px] flex justify-center items-center flex-col gap-16 py-20">
         <button className='bg-[#0079D8] px-4 py-1 rounded-2xl text-white z-[1]'>Our Services</button>
         <div className="flex flex-wrap  flex-col md:flex-row w-full justify-between gap-y-6 px-4 md:px-8">

@@ -13,27 +13,27 @@ const page = async  () => {
     const blogEntries = await getBlogEntries();
     
   return (
-    <div className=' flex justify-center items-center gap-12  flex-col relative'>
-        <div className="text-center text-5xl text-white">Blog</div>
-          <div className="max-w-[1120px]">
-        <div className="flex flex-wrap w-full gap-4 mx-auto px-8">
+    <div className=' flex justify-center items-center   flex-col relative'>
+        <div className="text-center text-3xl  md:text-5xl mt-8 text-white">Blog</div>
+          <div className="max-w-[1120px] mt-12">
+        <div className="flex flex-col sm:flex-row flex-wrap justify-between w-full  gap-4 mx-auto px-8 font-serif">
             {
                 blogEntries.items.map((post,index)=>{
                     const {title,slug,excerpt,coverimage,content,date}=post.fields
                     return(
-                        <div className='w-[32%]'>
+                        <div className='w-full sm:w-[48%] lg:w-[32%] h-full'>
                         <Link href={`./blog/${slug}`}>
-                        <div key={index} className=" overflow-hidden flex flex-col h-[25rem] rounded-md border-[1px] bg-primary z-[1]  border-[#0E1435CC]">
-                        <div className="flex-1 "><ContentfulImage
+                        <div key={index} className=" overflow-hidden h-[30vw]   flex flex-col  rounded-md border-[1px] bg-[#0A0623] z-[1]  border-[#0E1435CC]">
+                        <div className=" h-[40%] object-cover"><ContentfulImage
                         alt={`cover image for ${title}`}
                         src={coverimage.fields.file.url}
                         width={coverimage.fields.file.details.image.width}
-                        height={coverimage.fields.file.details.image.height}    
+                        height={200}    
                         /></div>
-                        <div className="flex-1 p-6 text-white flex flex-col gap-2 ">
-                            <div className="text-lg font-medium">{title}</div>
-                        <div className="text-[#FFFFFF99] text-sm font-HK">{excerpt}</div>
-                        <div className="flex items-center justify-between mt-4 ">
+                        <div className=" p-4 h-[60%] text-white flex  flex-col gap-2 ">
+                            <div className="text-lg font-medium font-serif">{title}</div>
+                        <div className="text-[#FFFFFF99] text-sm font-serif ">{excerpt}</div>
+                        <div className="flex items-center font-serif justify-self-end mt-auto  justify-between  ">
                             <div className="">Read More</div>
                             <div className="text-[#FFFFFF99] text-sm"><Date datestring={date} /></div>
                         </div>

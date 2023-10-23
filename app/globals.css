@@ -1,6 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+html{
+	scroll-behavior: smooth !important;
+}
+html:focus-within {
+	scroll-behavior: smooth;
+  }
 body{
     background-color: #09011B;
 }
@@ -39,30 +45,6 @@ body{
 }
 
 
-/* .subscribe-card {
-    background: linear-gradient(to bottom right, #09011B 20%, #482684 50%, #3b61b2, #0D7DDD);
-    background-size: 200% 200%;
-    animation: gradient 20s linear infinite both;
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 0;
-    }
-    25% {
-        background-position: 100% 0;
-    }
-    50% {
-        background-position: 100% 100%;
-    }
-    75% {
-        background-position: 0 100%;
-    }
-    100% {
-        background-position: 0 0;
-    }
-   
-} */
 .sub-gradient-one{
     position: absolute;
     width: 0;
