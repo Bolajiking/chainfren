@@ -46,7 +46,7 @@ const Nav = () => {
     <Link href={'/#services'} className="text-lg">Services</Link>
     <Link href={'/blog'} className="text-lg">Blog</Link>
     <Link href={'/contact'} className="text-lg">Contact Us</Link>
-    <button className="py-2 rounded-3xl px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold">Learn web3</button>
+    <Link href={'/learn'}> <button className="py-2 rounded-3xl px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold">Learn web3</button></Link>
   </div>
 }
 
