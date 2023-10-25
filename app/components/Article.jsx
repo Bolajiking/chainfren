@@ -23,15 +23,15 @@ const Article =async () => {
             <div className="flex gap-4 md:gap:0 flex-col md:flex-row md:flex-wrap w-full px-4 md:px-0 md:justify-between">
             {
                 blogEntries.map((post,index)=>{
-                    const {title,slug,excerpt,coverimage,content,date}=post.fields
+                    const {title,slug,excerpt,coverImage,content,date}=post.fields
                     return(
                         <div className='w-full sm:w-[48%] lg:w-[32%] h-full z-10'>
                         <Link href={`./blog/${slug}`}>
                         <div key={index} className=" overflow-hidden h-[25rem]   flex flex-col  rounded-md border-[1px] bg-[#0A0623] z-[1]  border-[#0E1435CC]">
                         <div className=" h-[40%] object-cover"><ContentfulImage
                         alt={`cover image for ${title}`}
-                        src={coverimage.fields.file.url}
-                        width={coverimage.fields.file.details.image.width}
+                        src={coverImage.fields.file.url}
+                        width={coverImage.fields.file.details.image.width}
                         height={200}    
                         /></div>
                         <div className=" p-4 h-[60%] text-white flex  flex-col gap-2 bg-primary">
