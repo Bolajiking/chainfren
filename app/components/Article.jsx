@@ -7,7 +7,7 @@ import Link from 'next/link'
 import ContentfulImage from './utils/ContentfulImage'
 import Date from './utils/Date'
 const getBlogEntries = async () => {
-    const entries = await client.getEntries({ content_type: "post" });
+    const entries = await client.getEntries({ content_type: "blog" });
     return entries;
   };
 const Article =async () => {

@@ -5,10 +5,32 @@ import ContentfulImage from './ContentfulImage'
 
 const options = {
   renderMark: {
-
-  },renderNode: {
-    [BLOCKS.PARAGRAPH]: (node, children) => <p className='text-white text-justify'>{children}</p>
+    [MARKS.CODE]: text => {
+      return (
+        <pre>
+          <code>{text}</code>
+        </pre>
+      )
+    }
   },
+  renderNode: {
+    [BLOCKS.PARAGRAPH]: (node, children) => {
+      if (
+        node.content.find(item =>
+          item.marks?.find(mark => mark.type === 'code')
+        )
+      ) {
+        return (
+          <div>
+            <pre>
+              <code>{children}</code>
+            </pre>
+          </div>
+        )
+      }
+
+      return <p className='text-white'>{children}</p>
+    },
 
     [INLINES.ENTRY_HYPERLINK]: node => {
       if (node.data.target.sys.contentType.sys.id === 'post') {
@@ -23,7 +45,7 @@ const options = {
     [INLINES.HYPERLINK]: node => {
       const text = node.content.find(item => item.nodeType === 'text')?.value
       return (
-        <a href={node.data.uri} target='_blank' rel='noopener noreferrer' className='text-white'>
+        <a href={node.data.uri} target='_blank' rel='noopener noreferrer'>
           {text}
         </a>
       )
@@ -45,18 +67,17 @@ const options = {
 
     [BLOCKS.EMBEDDED_ASSET]: node => {
       return (
-
         <ContentfulImage
           src={node.data.target.fields.file.url}
           height={node.data.target.fields.file.details.image.height}
           width={node.data.target.fields.file.details.image.width}
           alt={node.data.target.fields.title}
-
+          className='h-20 w-20'
         />
-
       )
     }
   }
+}
 
 
 const Richtext = ({ content }) => {

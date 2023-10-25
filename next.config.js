@@ -8,7 +8,7 @@ module.exports = {
           protocol: 'https',
           hostname: 'images.ctfassets.net',
           port: '',
-          pathname: '/v7p04le55fr7/**',
+          pathname: '/3e17eg8a93v6/**',
         },
       ],
 

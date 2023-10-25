@@ -9,7 +9,7 @@ const page = async (prop) => {
     
     const fetchBlogPost = async (x) => {
         const queryOptions = {
-          content_type: "post",
+          content_type: "blog",
           "fields.slug[match]": x,
         };
         const queryResult = await client.getEntries(queryOptions);
@@ -17,8 +17,8 @@ const page = async (prop) => {
       };
 
       const blogPost= await fetchBlogPost(slug)
-      const {title,content,coverimage}=blogPost.fields
-        console.log(content);
+      const {title,content,coverImage}=blogPost.fields
+
   return (
     <div>
       <div className=" px-4 sm:px-8 mx-auto flex items-center md:w-[800px] flex-col">
@@ -27,9 +27,9 @@ const page = async (prop) => {
       <div className="w-full h-full object-cover">
           <ContentfulImage
             alt={`cover image for ${title}`}
-            src={coverimage.fields.file.url}
-            width={coverimage.fields.file.details.image.width}
-            height={coverimage.fields.file.details.image.height}    
+            src={coverImage.fields.file.url}
+            width={coverImage.fields.file.details.image.width}
+            height={coverImage.fields.file.details.image.height}    
           />
           </div>
           <div className="text-white prose max-w-none mt-8 w-full  block ">
@@ -50,7 +50,7 @@ export default page
 
 export async function generateStaticParams() {
   const queryOptions = {
-    content_type: "post",
+    content_type: "blog",
     select: "fields.slug",
   };
   const articles = await client.getEntries(queryOptions)

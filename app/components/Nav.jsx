@@ -27,7 +27,7 @@ const Nav = () => {
 
 
   return (
-    <div className={`bg-[#09011bce] relative ${visible ? 'top-0' : 'top-[-100%]'} text-white sticky transition-[top] duration-[700ms] ease-in-out z-20 backdrop-blur-xl`}>
+    <div className={`bg-[#09011bce] border-b-[1px] border-[#40ACFF0F] relative ${visible ? 'top-0' : 'top-[-100%]'} text-white sticky transition-[top] duration-[700ms] ease-in-out z-20 backdrop-blur-xl`}>
       <div className='flex justify-between items-center xl:max-w-[1150px] px-4 sm:px-8 py-5 mx-auto'>
         <div className=''>
          <Link href={'/'}> <Image src={logo} alt="chainfrens Logo" /> </Link>
@@ -56,13 +56,14 @@ const Nav = () => {
           <Link href='/#services'>Services</Link>
           <Link href='/blog'>Blog</Link>
           <Link href='/contact'>Contact Us</Link>
-          <button className='py-[9px] rounded-3xl px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>
+          <Link href={'/learn'}><button className='py-[9px] rounded-3xl px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>
             Learn Web 3
-          </button>
+          </button></Link>
         </div>
       </div>
     </div>
   );
 }
+
 
 export default Nav;
