@@ -1,9 +1,11 @@
 import React from 'react'
-import Footer from '@/app/components/Footer'
+import Footer2 from '@/app/components/Footer2'
 import Sidebar2 from '@/app/components/Sidebar2'
 import { client } from '@/app/contentful/contentful'
 import Richtext from '@/app/components/utils/Richtext'
 import ContentfulImage from '@/app/components/utils/ContentfulImage'
+import Chatcomponent from '@/app/components/Chatcomponent'
+import Ai from '@/app/components/Ai'
 
 const page = async (props) => {
   const {params}=props
@@ -19,16 +21,21 @@ const page = async (props) => {
   };
 
   const courses=await fetchCourse(slug)
-  console.log(courses);
+
   const {title,content,coverImage}=courses.fields
   return (
 <div className="h-full relative font-serif ">
-<div className="w-[22.5%] hidden md:block border-r-[1px] border-[#40ACFF0F] fixed h-[100vh]">
+<div className="md:w-[22.5%] w-auto border-r-[1px] dark:border-[#40ACFF0F] border-[#F1F5FA]
+ fixed h-[100vh]">
 <Sidebar2 />
 </div>
-<div className="w-full md:w-[77.5%] h-full ml-auto px-4 md:px-12 pt-12 ">
+
+
+<Chatcomponent />
+<div className="w-full md:w-[77.5%] dark:bg-primary bg-[#FBFAFA] h-full ml-auto px-4 md:px-12 pt-12 ">
   <div className="lg:w-[700px] md2:min-w-[500px] pb-32">
-<div className="text-2xl sm:text-3xl md:text-[42px] font-semibold text-white text-left mb-8 font-serif ">{title}</div>
+<div className="text-2xl sm:text-3xl md:text-[42px] font-semibold dark:text-white text-black
+ text-left mb-8 font-serif ">{title}</div>
       <div className="w-full h-full object-cover">
           <ContentfulImage
             alt={`cover image for ${title}`}
@@ -37,7 +44,8 @@ const page = async (props) => {
             height={coverImage.fields.file.details.image.height}    
           />
           </div>
-          <div className="text-white prose  max-w-none mt-8 w-full  block ">
+          <div className="dark:text-white text-black
+ prose  max-w-none mt-8 w-full  block ">
             <Richtext content={content} />
             </div>
           
@@ -46,10 +54,20 @@ const page = async (props) => {
         
             
 
-    <Footer />
+    <Footer2 />
 </div>
+<Ai responsive={true} />
 </div>
   )
 }
-
+export async function generateStaticParams() {
+  const queryOptions = {
+    content_type: "courses",
+    select: "fields.slug",
+  };
+  const courses = await client.getEntries(queryOptions)
+  return courses.items.map((course) => ({
+    slug: course.fields.slug,
+  }));
+}
 export default page

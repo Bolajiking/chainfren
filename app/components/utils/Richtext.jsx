@@ -29,7 +29,7 @@ const options = {
         )
       }
 
-      return <p className='text-white'>{children}</p>
+      return <p className='dark:text-white text-black text-lg'>{children}</p>
     },
 
     [INLINES.ENTRY_HYPERLINK]: node => {
@@ -81,7 +81,7 @@ const options = {
 
 
 const Richtext = ({ content }) => {
-  return <div className=' prose max-w-none  w-full font-serif prose-h1:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-a:text-blue-300'>{documentToReactComponents(content, options)}</div>
+  return <div className=' prose max-w-none  w-full font-serif dark:prose-h1:text-white dark:prose-h2:text-white dark:prose-h3:text-white dark:prose-h4:text-white dark:prose-h5:text-white dark:prose-h6:text-white prose-a:text-blue-300 prose-h6:text-black prose-h5:text-black prose-h4:text-black prose-h3:text-black prose-h2:text-black'>{documentToReactComponents(content, options)}</div>
 }
 
 export default Richtext

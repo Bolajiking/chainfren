@@ -1,7 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
-
+import ContextProvider from './components/utils/Provider'
 const Fontspring=localFont({
   src:[
     {
@@ -76,10 +76,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" >
       <body className={`${Fontspring.className} ${HKGrotesk.variable}  `}>
-
+        <ContextProvider>
         {children}
-
-
+        </ContextProvider>
         </body>
     </html>
   )

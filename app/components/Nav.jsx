@@ -4,8 +4,10 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../../public/logo.svg';
+import { useGlobalContext } from "../components/utils/Provider"
 
 const Nav = () => {
+  const{dark}= useGlobalContext()
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const [navOpen,setNavOpen]=useState(false)
@@ -27,7 +29,8 @@ const Nav = () => {
 
 
   return (
-    <div className={`bg-[#09011bce] border-b-[1px] border-[#40ACFF0F] relative ${visible ? 'top-0' : 'top-[-100%]'} text-white sticky transition-[top] duration-[700ms] ease-in-out z-20 backdrop-blur-xl`}>
+    <div className={`${dark?"dark":""}`}>
+    <div className={`dark:bg-[#09011bce]   bg-[##FFFFFF] border-b-[1px] dark:border-[#40ACFF0F]  border-[#F1F5FA] relative ${visible ? 'top-0' : 'top-[-100%]'} text-white sticky transition-[top] duration-[700ms] ease-in-out z-20 backdrop-blur-xl`}>
       <div className='flex justify-between items-center xl:max-w-[1150px] px-4 sm:px-8 py-5 mx-auto'>
         <div className=''>
          <Link href={'/'}> <Image src={logo} alt="chainfrens Logo" /> </Link>
@@ -46,7 +49,7 @@ const Nav = () => {
     <Link href={'/#services'} className="text-lg">Services</Link>
     <Link href={'/blog'} className="text-lg">Blog</Link>
     <Link href={'/contact'} className="text-lg">Contact Us</Link>
-    <Link href={'/learn'}> <button className="py-2 rounded-3xl px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold">Learn web3</button></Link>
+    <Link href={'/learn'}> <button className="py-2 w-full rounded-3xl px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold">Learn web3</button></Link>
   </div>
 }
 
@@ -56,11 +59,12 @@ const Nav = () => {
           <Link href='/#services'>Services</Link>
           <Link href='/blog'>Blog</Link>
           <Link href='/contact'>Contact Us</Link>
-          <Link href={'/learn'}><button className='py-[9px] rounded-3xl px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>
+          <Link href={'/learn'}><button className='py-[9px] rounded-3xl w-full px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>
             Learn Web 3
           </button></Link>
         </div>
       </div>
+    </div>
     </div>
   );
 }

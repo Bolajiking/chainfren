@@ -20,10 +20,10 @@ const page = async (prop) => {
       const {title,content,coverImage}=blogPost.fields
 
   return (
-    <div>
+    <div className='dark:bg-primary bg-white'>
       <div className=" px-4 sm:px-8 mx-auto flex items-center md:w-[800px] flex-col">
-        <div className="text-[#FFFFFF99] text-sm text-left mt-8 mb-4 self-start">Blog</div>
-      <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl  text-white text-left mb-8 font-serif ">{title}</div>
+        <div className="dark:text-[#FFFFFF99] text-black text-sm text-left mt-8 mb-4 self-start">Blog</div>
+      <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl  dark:text-white text-black text-left mb-8 font-serif ">{title}</div>
       <div className="w-full h-full object-cover">
           <ContentfulImage
             alt={`cover image for ${title}`}

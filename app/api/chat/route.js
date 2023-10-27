@@ -9,7 +9,11 @@ const openai = new OpenAIApi(config)
  
 // IMPORTANT! Set the runtime to edge
 export const runtime = 'edge'
- 
+const initialMessages = [
+    {
+     role: "system",
+    content: `You are a chat bot, you work on the chainfrens website e-learning platform as an ai chatbot which helps in answering student's web3 and other educational questions.`,
+   },];
 export async function POST(req) {
   // Extract the `messages` from the body of the request
   const { messages } = await req.json()
@@ -18,7 +22,7 @@ export async function POST(req) {
   const response = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo',
     stream: true,
-    messages
+    messages: [...initialMessages, ...messages],
   })
   // Convert the response into a friendly text-stream
   const stream = OpenAIStream(response)
