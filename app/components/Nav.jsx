@@ -60,7 +60,7 @@ const Nav = () => {
               <Link href={'/blog'} className="text-lg">Blog</Link>
               <Link href={'/contact'} className="text-lg">Contact Us</Link>
               <Link href={'/learn'}>
-                <button className="py-2 w-full rounded-3xl px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold">Learn web3</button>
+                <button className="py-2 w-full rounded-3xl px-6 bg-gradient-to-r transition-all hover:scale-150  hover:shadow-[#40FFCC] from-[#40CBFF] to-[#40FFCC] text-primary font-semibold">Learn web3</button>
               </Link>
             </div>
           }

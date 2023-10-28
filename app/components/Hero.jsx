@@ -33,9 +33,11 @@ const Hero = () => {
 
         {/* Get Started button */}
         <div>
+          <Link href={'/contact'}>
           <button className="py-[10px] mt-4 rounded-3xl px-8 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold">
             Get Started
           </button>
+          </Link>
         </div>
       </div>
     </div>
