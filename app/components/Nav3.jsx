@@ -4,9 +4,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../../public/logo.svg';
 import Darkmode from './darkmode';
-
-const Nav = () => {
-  
+import logodark from '../../public/logodark.svg';
+import { useGlobalContext } from './utils/Provider';
+const Nav3 = () => {
+  const {dark} =useGlobalContext()
   // State to track the previous scroll position
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   // State to control the visibility of the navigation bar
@@ -33,32 +34,29 @@ const Nav = () => {
   }, [prevScrollPos]);
 
   return (
-    <div className={`bg-[#09011bce] border-b-[1px] border-[#40ACFF0F] relative ${visible ? 'top-0' : 'top-[-100%]'} text-white sticky transition-[top] duration-[700ms] ease-in-out z-20 backdrop-blur-xl`}>
+    <div className={`dark:bg-[#09011bce]   bg-[#FFFFFF]
+    border-b-[1px] dark:border-[#40ACFF0F] border-[#F1F5FA]
+    relative ${visible ? 'top-0' : 'top-[-100%]'} dark:text-white text-black sticky transition-[top] duration-[700ms] ease-in-out z-20 backdrop-blur-xl`}>
       <div className='flex justify-between items-center xl:max-w-[1150px] px-4 sm:px-8 py-5 mx-auto'>
         <div>
           {/* Logo with a link to the home page */}
-          <Link href={'/'}>
-            <Image src={logo} alt="chainfrens Logo" />
-          </Link>
+
+          <Link href={'/'}> {dark?<Image src={logo} alt="chainfrens Logo" className='mt-2'  width={120} height={60} />:<Image src={logodark} className='mt-2'  alt="chainfrens Logo"  width={120} height={60} /> }</Link>
         </div>
-
-
+        <div className="flex gap-4 items-center">
+          <div className="md:hidden">
+        {<Darkmode />}</div>
         <div onClick={e => setNavOpen(!navOpen)} className="md:hidden">
-          {navOpen ? (
-            // Close icon for mobile menu
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 20L19.9706 3.02944L21.6676 4.72649L4.69706 21.6971L3 20Z" fill="white" />
-              <path d="M22 20L5.02944 3.02944L3.33238 4.72649L20.3029 21.6971L22 20Z" fill="white" />
-            </svg>
-          ) : (
-            // Hamburger icon for mobile menu
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 3.59998H24V5.99998H0V3.59998ZM7.38462 10.8H24V13.2H7.38462V10.8ZM0 18H24V20.4H0V18Z" fill="white" />
-            </svg>
-          )}
+          {navOpen ? <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 20L19.9706 3.02944L21.6676 4.72649L4.69706 21.6971L3 20Z" fill={`${dark?'white':'black'}`}/>
+        <path d="M22 20L5.02944 3.02944L3.33238 4.72649L20.3029 21.6971L22 20Z" fill={`${dark?'white':'black'}`}/>
+        </svg>
+        :   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 3.59998H24V5.99998H0V3.59998ZM7.38462 10.8H24V13.2H7.38462V10.8ZM0 18H24V20.4H0V18Z" fill={`${dark?'white':'black'}`}/>
+        </svg>}
           {
             // Mobile navigation menu
-            <div className={`md:hidden absolute top-20 ${navOpen ? 'h-auto py-8' : 'h-0 py-0'} transition-all ease-in-out overflow-hidden left-[50%] translate-x-[-50%] w-[90%] bg-[#09021D] px-6 flex flex-col gap-6 rounded-lg`}>
+            <div className={`md:hidden absolute text-white top-20 ${navOpen ? 'h-auto py-8' : 'h-0 py-0'} transition-all ease-in-out overflow-hidden left-[50%] translate-x-[-50%] w-[90%] bg-[#09021D] px-6 flex flex-col gap-6 rounded-lg`}>
               <Link href={'/#about'} className="text-lg">About</Link>
               <Link href={'/#services'} className="text-lg">Services</Link>
               <Link href={'/blog'} className="text-lg">Blog</Link>
@@ -68,7 +66,7 @@ const Nav = () => {
               </Link>
             </div>
           }
-
+        </div>
         </div>
         <div className='hidden items-center gap-9 md:flex font-normal'>
           {/* Desktop navigation links */}
@@ -87,4 +85,4 @@ const Nav = () => {
   );
 }
 
-export default Nav;
+export default Nav3;

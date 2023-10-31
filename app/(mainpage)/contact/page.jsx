@@ -1,7 +1,12 @@
 import React from 'react'
 import Background from '../../components/Background'
+import Nav from '@/app/components/Nav'
+import Subscribe from '@/app/components/Subscribe'
+import Footer from '@/app/components/Footer'
 const page = () => {
   return (
+    <>
+    <Nav />
     <div className="">
         <div className=" relative  overflow-hidden flex flex-col justify-center gap-6 text-white items-center py-16">
             <div className="mx-auto test absolute lg:top-[28rem] "></div>
@@ -88,7 +93,9 @@ const page = () => {
             </div>
         </div>
     </div>
-    
+    <Subscribe />
+    <Footer />
+    </>
   )
 }
 

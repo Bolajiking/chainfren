@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { client } from '@/app/contentful/contentful';
 import ContentfulImage from '../../components/utils/ContentfulImage';
 import Date from '../../components/utils/Date';
+import Nav from '@/app/components/Nav';
+import Subscribe from '@/app/components/Subscribe';
+import Footer from '@/app/components/Footer';
 
 const getBlogEntries = async () => {
     const entries = await client.getEntries({ content_type: "blog" });
@@ -12,6 +15,8 @@ const page = async  () => {
     const blogEntries = await getBlogEntries();
     
   return (
+    <>
+    <Nav />
     <div className=' flex justify-center items-center   flex-col relative'>
         <div className="text-center text-3xl  md:text-5xl mt-8 text-white">Blog</div>
           <div className="max-w-[1120px] mt-12">
@@ -49,6 +54,9 @@ const page = async  () => {
             </div>
             </div>
     </div>
+    <Subscribe />
+    <Footer />
+    </>
   )
 }
 

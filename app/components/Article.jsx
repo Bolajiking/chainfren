@@ -50,8 +50,9 @@ const Article =async () => {
                 })
             }
             </div>
+            <Link href={'/blog'}>
             <button className='py-[10px] rounded-3xl px-7 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>View More</button>
-
+            </Link>
             </div>
 
         </div>
