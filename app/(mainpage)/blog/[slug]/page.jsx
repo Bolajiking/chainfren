@@ -29,7 +29,7 @@ const page = async (prop) => {
         <div className="dark:text-[#FFFFFF99] text-black text-sm text-left mt-8 mb-4 self-start">Blog</div>
         <div className="hidden md:block"><Darkmode /></div>
         </div>
-      <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl  dark:text-white text-black text-left mb-8 font-serif ">{title}</div>
+      <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl  dark:text-white text-black text-left mb-8 font-serif ">Introduction</div>
       <div className="w-full h-full object-cover">
           <ContentfulImage
             alt={`cover image for ${title}`}
