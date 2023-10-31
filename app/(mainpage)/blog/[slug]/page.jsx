@@ -2,7 +2,7 @@ import React from 'react'
 import { client  } from '@/app/contentful/contentful';
 import ContentfulImage from '@/app/components/utils/ContentfulImage';
 import Richtext from '@/app/components/utils/Richtext';
-import Darkmode from '@/app/components/darkmode';
+import Darkmode from '@/app/components/Darkmode';
 
 const page = async (prop) => {
     const {params}=prop
