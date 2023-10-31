@@ -6,7 +6,7 @@ import Image from 'next/image';
 import logo from '../../public/logo.svg';
 import logodark from '../../public/logodark.svg';
 import { useGlobalContext } from './utils/Provider';
-import Darkmode from './darkmode';
+import Darkmode from './Darkmode';
 
 const Nav2 = () => {
   const {nav,setNav,dark,setDark}=useGlobalContext()

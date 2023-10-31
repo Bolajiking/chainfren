@@ -23,6 +23,9 @@ const page = async (props) => {
   const courses=await fetchCourse(slug)
 
   const {title,content,coverImage}=courses.fields
+
+
+
   return (
 <div className="h-full relative font-serif ">
 <div className="md:w-[22.5%] w-auto border-r-[1px] dark:border-[#40ACFF0F] border-[#F1F5FA]

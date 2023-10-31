@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../../public/logo.svg';
-import Darkmode from './darkmode';
+
 
 const Nav = () => {
   
