@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useGlobalContext } from './utils/Provider';
-const darkmode = () => {
+const Darkmode = () => {
     const {dark,setDark}=useGlobalContext()
   return (
     <div className=''>
@@ -33,4 +33,4 @@ dark:border-[#ffffff18] border-[#F1F5FA] dark:bg-transparent h-10 w-10 flex item
   )
 }
 
-export default darkmode
+export default Darkmode
