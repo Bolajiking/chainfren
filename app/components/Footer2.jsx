@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Footer = () => {
+const Footer2 = () => {
   return (
     <div className='dark:bg-primary bg-[#FBFAFA] -mt-2 flex justify-center text-[#FFFFFF99]'>
         <div className="w-[1050px] border-t-[0.1px] dark:border-[#0D1030] border-[#F0F0F0]
@@ -50,4 +50,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default Footer2

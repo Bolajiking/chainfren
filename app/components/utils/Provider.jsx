@@ -6,8 +6,9 @@ const Provider = ({children}) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [ai,setAi]=useState(false)
     const [dark,setDark]=useState(true)
+    const [heading,setHeading]=useState()
    return (
-    <context.Provider value={{nav,setNav,searchQuery,setSearchQuery,ai,setAi,dark,setDark}}>
+    <context.Provider value={{nav,setNav,searchQuery,setSearchQuery,ai,setAi,dark,setDark,heading,setHeading}}>
             {children}
     </context.Provider>
 

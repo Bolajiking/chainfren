@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { useGlobalContext } from './utils/Provider';
+import { useGlobalContext } from './utils/Provider'
 const Darkmode = () => {
     const {dark,setDark}=useGlobalContext()
   return (
