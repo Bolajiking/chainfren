@@ -33,6 +33,23 @@ const options = {
 
       return <p className='dark:text-white text-black text-lg'>{children}</p>
     },
+       [BLOCKS.HEADING_4]: (node, children) => {
+      if (
+        node.content.find(item =>
+          item.marks?.find(mark => mark.type === 'code')
+        )
+      ) {
+        return (
+          <div>
+            <pre>
+              <code>{children}</code>
+            </pre>
+          </div>
+        )
+      }
+
+      return <h4 id={`${children[0].props.children}`} className='dark:text-white scroll-mt-24  text-black text-lg'>{children}</h4>
+    },
 
     [INLINES.ENTRY_HYPERLINK]: node => {
       if (node.data.target.sys.contentType.sys.id === 'post') {

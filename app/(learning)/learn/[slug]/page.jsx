@@ -30,7 +30,7 @@ const page = async (props) => {
 <div className="h-full relative font-serif ">
 <div className="md:w-[22.5%] w-auto border-r-[1px] dark:border-[#40ACFF0F] border-[#F1F5FA]
  fixed h-[100vh]">
-<Sidebar2 />
+<Sidebar2 title={title} slug={slug} />
 </div>
 
 
