@@ -32,7 +32,7 @@ const Sidebar2 = ({title,slug}) => {
         <div className="dark:text-white text-black text-lg">Introduction</div>
         <div className="flex flex-col gap-4 ">
         {heading?.map((h4)=>{
-            return <Link href={`${h4}`} className="">{h4}</Link>
+            return <Link href={`./${slug}/#${h4}`} className="">{h4}</Link>
           })}
         </div>
           </div>
