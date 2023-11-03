@@ -2,7 +2,6 @@
 import React from 'react'
 import Ai from './Ai'
 import { useGlobalContext } from './utils/Provider'
-import Chatcomponent from './Chatcomponent'
 import Link from 'next/link'
 
 const Sidebar2 = ({title,slug}) => {
