@@ -1,8 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
-import pic1 from '../../public/asset1.png'
-import pic2 from '../../public/asset2.png'
-import pic3 from '../../public/asset3.png'
+import pic1 from '../../public/Asset1.png'
+import pic2 from '../../public/Asset2.png'
+import pic3 from '../../public/Asset3.png'
 const About = () => {
 
   return (
