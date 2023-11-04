@@ -22,7 +22,7 @@ const Chatcomponent = () => {
   </div>
 
   <div className="w-full h-[22.9rem] rounded-t-xl relative   bg-white">
-  <div className=' relative w-full h-full pt-4  pb-16 overflow-y-auto flex flex-col gap-2 '>
+  <div className=' relative w-full h-full pt-4  pb-16 overflow-y-auto flex flex-col gap-2'>
         {
             messages.map((message)=>{
                 return(

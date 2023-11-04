@@ -7,6 +7,7 @@ import { client } from '@/app/contentful/contentful';
 import ContentfulImage from '@/app/components/utils/ContentfulImage';
 import Searchcomponent from '@/app/components/utils/Searchcomponent';
 import Search from '@/app/components/utils/Search';
+import Chatcomponent from '@/app/components/Chatcomponent';
 
 
 // Fetch course entries from Contentful
@@ -51,6 +52,9 @@ const Page =async () => {
       <div className="md:w-[22.5%] w-auto border-r-[1px] dark:bg-primary bg-white dark:border-[#40ACFF0F]  border-[#F1F5FA]
  fixed h-[100vh]">
         <Sidebar />
+      </div>
+      <div className="">
+      <Chatcomponent />
       </div>
 
       <div className="md:w-[77.5%] w-full h-full ml-auto px-4 dark:bg-primary bg-[#FBFAFA]">

@@ -2,6 +2,7 @@
 import React,{useContext} from 'react'
 import {useGlobalContext} from './utils/Provider'
 import Search from './utils/Search'
+import Ai from './Ai'
 
 
 const Sidebar = () => {
@@ -22,6 +23,7 @@ const Sidebar = () => {
         <div className="">Solana</div>
         <div className="">Base</div>
         <div className="">Arbitrium</div>
+        <Ai />
     </div>
 
     {
@@ -37,6 +39,7 @@ const Sidebar = () => {
     <div className="">Solana</div>
     <div className="">Base</div>
     <div className="">Arbitrium</div>
+    <Ai />
     </div>
       </div>
       }

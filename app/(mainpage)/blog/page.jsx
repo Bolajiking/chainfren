@@ -3,9 +3,7 @@ import Link from 'next/link';
 import { client } from '@/app/contentful/contentful';
 import ContentfulImage from '../../components/utils/ContentfulImage';
 import Date from '../../components/utils/Date';
-import Nav from '@/app/components/Nav';
-import Subscribe from '@/app/components/Subscribe';
-import Footer from '@/app/components/Footer';
+import Darkmode from '@/app/components/Darkmode';
 
 const getBlogEntries = async () => {
     const entries = await client.getEntries({ content_type: "blog" });
@@ -16,30 +14,32 @@ const page = async  () => {
     
   return (
     <>
-    <Nav />
-    <div className=' flex justify-center items-center   flex-col relative'>
-        <div className="text-center text-3xl  md:text-5xl mt-8 text-white">Blog</div>
+    <div className=' flex justify-center items-center   flex-col relative dark:bg-primary bg-white'>
+        <div className="flex items-center justify-center relative md:w-[600px] lg:w-[1025px] ">
+        <div className="text-center text-3xl  md:text-5xl mt-8 text-black dark:text-white">Blog</div>
+        <div className="hidden md:block absolute right-0 top-12"><Darkmode /></div>
+        </div>
           <div className="max-w-[1120px] mt-12">
-        <div className="flex flex-col sm:flex-row flex-wrap justify-between w-full  gap-4 mx-auto px-8 font-serif">
+        <div className="flex flex-col sm:flex-row flex-wrap w-full  gap-4 mx-auto px-8 font-serif">
             {
                 blogEntries.items.map((post,index)=>{
                     const {title,slug,excerpt,coverImage,content,date}=post.fields
                     return(
                         <div className='w-full sm:w-[48%] lg:w-[32%] h-full'>
                         <Link href={`./blog/${slug}`}>
-                        <div key={index} className=" overflow-hidden h-[25rem]   flex flex-col  rounded-md border-[1px] bg-[#0A0623] z-[1]  border-[#0E1435CC]">
+                        <div key={index} className=" overflow-hidden h-[25rem]   flex flex-col  rounded-md border-[1px] bg-[#F0F0F0] dark:bg-[#0A0623] z-[1] border:text-[#606060] dark:border-[#0E1435CC]">
                         <div className=" h-[40%] object-cover"><ContentfulImage
                             alt={`cover image for ${title}`}
                             src={coverImage.fields.file.url}
                             width={coverImage.fields.file.details.image.width}
                             height={200}    
                         /></div>
-                        <div className=" p-4 h-[60%] text-white flex  flex-col gap-2 ">
-                            <div className="text-lg font-medium font-serif">{title}</div>
-                        <div className="text-[#FFFFFF99] text-sm font-serif ">{excerpt}</div>
-                        <div className="flex items-center font-serif justify-self-end mt-auto  justify-between  ">
-                            <div className="">Read More</div>
-                            <div className="text-[#FFFFFF99] text-sm"><Date datestring={date} /></div>
+                        <div className=" p-4 h-[60%] text-black dark:text-white flex  flex-col gap-2 ">
+                            <div className="text-lg font-medium font-serif ">{title}</div>
+                        <div className="dark:text-[#FFFFFF99] text-[#606060] text-sm font-serif ">{excerpt}</div>
+                        <div className="flex items-center font-serif justify-self-end mt-auto  justify-between">
+                            <div className="dark:text-[#FFFFFF99] text-[#606060]">Read More</div>
+                            <div className="dark:text-[#FFFFFF99] text-[#606060]  text-sm"><Date datestring={date} /></div>
                         </div>
                         </div>
                         
@@ -54,8 +54,7 @@ const page = async  () => {
             </div>
             </div>
     </div>
-    <Subscribe />
-    <Footer />
+
     </>
   )
 }
