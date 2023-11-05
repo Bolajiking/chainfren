@@ -17,15 +17,15 @@ const Article =async () => {
     <div className=''>
         
         <div className="border-[#0E1435CC] relative  border-[1px] py-7 bg-[#0A0623]  flex justify-center overflow-hidden">
-        <Background animation={false} />
+        <div className="hidden lg:block"><Background animation={false} /></div>
             <div className="xl:w-[1120px] flex justify-center flex-col items-center gap-10 py-8">
             <button className='bg-[#0079D8] px-4 py-1 rounded-2xl text-white'>Latest Articles</button>
-            <div className="flex gap-4 md:gap:0 flex-col md:flex-row md:flex-wrap w-full px-4 md:px-0 md:justify-between">
+            <div className="flex gap-4 md:gap:0 flex-col sm2:flex-row  sm2:flex-wrap w-full px-4  lg:justify-between">
             {
                 blogEntries.map((post,index)=>{
                     const {title,slug,excerpt,coverImage,content,date}=post.fields
                     return(
-                        <div className='w-full sm:w-[48%] lg:w-[32%] h-full z-10'>
+                        <div className='w-full sm:w-[48%] lg:w-[32%] lg:h-full z-10'>
                         <Link href={`./blog/${slug}`}>
                         <div key={index} className=" overflow-hidden h-[25rem]   flex flex-col  rounded-[10px] border-[1px] bg-[#0A0623] z-[1]  border-[#0E1435CC]">
                         <div className=" h-[40%] object-cover"><ContentfulImage
@@ -50,7 +50,7 @@ const Article =async () => {
                 })
             }
             </div>
-            <Link href={'/blog'}>
+            <Link href={'/blog'} className='z-[1]'>
             <button className='py-[10px] rounded-3xl px-7 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>View More</button>
             </Link>
             </div>
