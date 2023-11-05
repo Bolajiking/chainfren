@@ -27,7 +27,7 @@ const Article =async () => {
                     return(
                         <div className='w-full sm:w-[48%] lg:w-[32%] h-full z-10'>
                         <Link href={`./blog/${slug}`}>
-                        <div key={index} className=" overflow-hidden h-[25rem]   flex flex-col  rounded-md border-[1px] bg-[#0A0623] z-[1]  border-[#0E1435CC]">
+                        <div key={index} className=" overflow-hidden h-[25rem]   flex flex-col  rounded-[10px] border-[1px] bg-[#0A0623] z-[1]  border-[#0E1435CC]">
                         <div className=" h-[40%] object-cover"><ContentfulImage
                         alt={`cover image for ${title}`}
                         src={coverImage.fields.file.url}
@@ -36,7 +36,7 @@ const Article =async () => {
                         /></div>
                         <div className=" p-4 h-[60%] text-white flex  flex-col gap-2 bg-primary">
                             <div className="text-lg font-medium font-serif">{title}</div>
-                        <div className="text-[#FFFFFF99] text-sm font-serif ">{excerpt}</div>
+                        <div className="text-[#FFFFFF99] font-serif text-base">{excerpt}</div>
                         <div className="flex items-center font-serif justify-self-end mt-auto  justify-between  ">
                             <div className="">Read More</div>
                             <div className="text-[#FFFFFF99] text-sm"><Date datestring={date} /></div>

@@ -27,7 +27,7 @@ const page = async  () => {
                     return(
                         <div className='w-full sm:w-[48%] lg:w-[32%] h-full'>
                         <Link href={`./blog/${slug}`}>
-                        <div key={index} className=" overflow-hidden h-[25rem]   flex flex-col  rounded-md border-[1px] bg-[#F0F0F0] dark:bg-[#0A0623] z-[1] border:text-[#606060] dark:border-[#0E1435CC]">
+                        <div key={index} className=" overflow-hidden h-[25rem]   flex flex-col  rounded-[10px] border-[1px] bg-[#F0F0F0] dark:bg-[#0A0623] z-[1] border:text-[#606060] dark:border-[#0E1435CC]">
                         <div className=" h-[40%] object-cover"><ContentfulImage
                             alt={`cover image for ${title}`}
                             src={coverImage.fields.file.url}
@@ -36,7 +36,7 @@ const page = async  () => {
                         /></div>
                         <div className=" p-4 h-[60%] text-black dark:text-white flex  flex-col gap-2 ">
                             <div className="text-lg font-medium font-serif ">{title}</div>
-                        <div className="dark:text-[#FFFFFF99] text-[#606060] text-sm font-serif ">{excerpt}</div>
+                        <div className="dark:text-[#FFFFFF99] text-[#606060] text-base ">{excerpt}</div>
                         <div className="flex items-center font-serif justify-self-end mt-auto  justify-between">
                             <div className="dark:text-[#FFFFFF99] text-[#606060]">Read More</div>
                             <div className="dark:text-[#FFFFFF99] text-[#606060]  text-sm"><Date datestring={date} /></div>
