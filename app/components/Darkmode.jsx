@@ -6,7 +6,7 @@ const Darkmode = () => {
   return (
     <div className=''>
     <button onClick={()=>setDark(!dark)} className="border-[1px] rounded-full  bg-transparent
-dark:border-[#ffffff18] border-[#F1F5FA] dark:bg-transparent h-10 w-10 flex items-center justify-center">
+border-[#ffffff18] dark:bg-transparent h-10 w-10 flex items-center justify-center">
    { dark?<svg width="17" height="17" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M3.81274 3.8125L4.74082 4.74058" stroke="#6B6776" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M1.25 10H2.5625" stroke="#6B6776" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
