@@ -34,25 +34,25 @@ const Nav3 = () => {
   }, [prevScrollPos]);
 
   return (
-    <div className={`dark:bg-[#09011bce]   bg-[#FFFFFF]
-    border-b-[1px] dark:border-[#40ACFF0F] border-[#F1F5FA]
-    relative ${visible ? 'top-0' : 'top-[-100%]'} dark:text-white text-black sticky transition-[top] duration-[700ms] ease-in-out z-20 backdrop-blur-xl`}>
+    <div className={`bg-[#09011bce]  
+    border-b-[1px] border-[#40ACFF0F] 
+    relative ${visible ? 'top-0' : 'top-[-100%]'} text-white  sticky transition-[top] duration-[700ms] ease-in-out z-20 backdrop-blur-xl`}>
       <div className='flex justify-between items-center xl:max-w-[1150px] px-4 sm:px-8 py-5 mx-auto'>
         <div>
           {/* Logo with a link to the home page */}
 
-          <Link href={'/'}> {dark?<Image src={logo} alt="chainfrens Logo" className='mt-2'  width={120} height={60} />:<Image src={logodark} className='mt-2'  alt="chainfrens Logo"  width={120} height={60} /> }</Link>
+          <Link href={'/'}> {<Image src={logo} alt="chainfrens Logo" className='mt-2'  width={120} height={60} /> }</Link>
         </div>
         <div className="flex gap-4 items-center">
           <div className="md:hidden">
         {<Darkmode />}</div>
         <div onClick={e => setNavOpen(!navOpen)} className="md:hidden">
           {navOpen ? <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 20L19.9706 3.02944L21.6676 4.72649L4.69706 21.6971L3 20Z" fill={`${dark?'white':'black'}`}/>
-        <path d="M22 20L5.02944 3.02944L3.33238 4.72649L20.3029 21.6971L22 20Z" fill={`${dark?'white':'black'}`}/>
+        <path d="M3 20L19.9706 3.02944L21.6676 4.72649L4.69706 21.6971L3 20Z" fill='white'/>
+        <path d="M22 20L5.02944 3.02944L3.33238 4.72649L20.3029 21.6971L22 20Z" fill='white'/>
         </svg>
         :   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 3.59998H24V5.99998H0V3.59998ZM7.38462 10.8H24V13.2H7.38462V10.8ZM0 18H24V20.4H0V18Z" fill={`${dark?'white':'black'}`}/>
+        <path d="M0 3.59998H24V5.99998H0V3.59998ZM7.38462 10.8H24V13.2H7.38462V10.8ZM0 18H24V20.4H0V18Z" fill='white'/>
         </svg>}
           {
             // Mobile navigation menu

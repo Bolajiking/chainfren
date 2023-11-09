@@ -7,12 +7,13 @@ export default function RootLayout({ children }) {
   const {dark}=useGlobalContext()
   console.log(dark);
     return (
+      <>
+                  <Nav3 />
             <div className={`${dark?'dark':''}` }>
-            <Nav3 />
             {children}
             <Subscribe2 />
             <Footer3 />
       </div>
-
+      </>
     )
   }

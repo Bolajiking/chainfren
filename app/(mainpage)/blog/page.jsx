@@ -19,7 +19,7 @@ const page = async  () => {
         <div className="text-center text-3xl  md:text-5xl mt-8 text-black dark:text-white">Blog</div>
         <div className="hidden md:block absolute right-0 top-12"><Darkmode /></div>
         </div>
-          <div className="max-w-[1120px] mt-12">
+          <div className="max-w-[1120px] mt-12 pb-32 md:pb-0">
         <div className="flex flex-col sm:flex-row flex-wrap w-full  gap-4 mx-auto px-8 font-serif">
             {
                 blogEntries.items.map((post,index)=>{
@@ -36,7 +36,7 @@ const page = async  () => {
                         /></div>
                         <div className=" p-4 h-[60%] text-black dark:text-white flex  flex-col gap-2 ">
                             <div className="text-lg font-medium font-serif ">{title}</div>
-                        <div className="dark:text-[#FFFFFF99] text-[#606060] text-base ">{excerpt}</div>
+                        <div className="dark:text-[#FFFFFF99] text-[#606060] text-sm ">{excerpt}</div>
                         <div className="flex items-center font-serif justify-self-end mt-auto  justify-between">
                             <div className="dark:text-[#FFFFFF99] text-[#606060]">Read More</div>
                             <div className="dark:text-[#FFFFFF99] text-[#606060]  text-sm"><Date datestring={date} /></div>

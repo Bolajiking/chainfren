@@ -10,8 +10,6 @@ module.exports = {
       colors:{
         'primary':'#09011B',
         'secondary':'#0091FF',
-
-
       },
       fontFamily:{
         sans:['var(--Fontspring)'],
@@ -21,7 +19,6 @@ module.exports = {
         xlClamp:"clamp(2rem,10vw,4rem)",
         lgClamp:"clamp(1.5rem,10vw,3.5rem)",
         mdClamp:"clamp(1rem, 10vw, 3rem)"
-        
       },
      screens:{
       md2:'870px',
