@@ -39,7 +39,7 @@ const Sidebar = () => {
     <div className="">Solana</div>
     <div className="">Base</div>
     <div className="">Arbitrium</div>
-    <Ai />
+    {/* <Ai /> */}
     </div>
       </div>
       }

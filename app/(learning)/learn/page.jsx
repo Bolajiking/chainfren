@@ -58,7 +58,8 @@ const Page =async () => {
       </div>
 
       <div className="md:w-[77.5%] w-full h-full ml-auto px-4 dark:bg-primary bg-[#FBFAFA]">
-        <div className="xl:p-16 lg:px-8 lg:pt-12 pt-8 md:pt-0 md2:px-4 md2:pt-10">
+        <div className="lg:text-7xl text-4xl dark:text-white text-black h-[70vh] flex justify-center items-center">Coming soon...</div>
+        {/* <div className="xl:p-16 lg:px-8 lg:pt-12 pt-8 md:pt-0 md2:px-4 md2:pt-10">
         <div className="md:hidden  border-[1px] dark:border-[#262036] border-[#F1F5FA]
  rounded-3xl px-4 py-[14px] flex justify-center items-center">
           <Search />
@@ -66,7 +67,7 @@ const Page =async () => {
           <div className="flex flex-col sm2:flex-row sm2:flex-wrap mx-auto pt-8 md:pt-0 gap-6 pb-8 md:pb-0">
          <Searchcomponent data={Courses}  />
           </div>
-        </div>
+        </div> */}
         <Footer2 />
       </div>
     </div>
