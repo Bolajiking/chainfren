@@ -73,16 +73,6 @@ const page = () => {
 
                    </div>
                </div>
-                <div className="flex w-full flex-col md:flex-row gap-12 md:gap-0 mx-auto pt-12 pb-6 md:py-16">
-                    <div className="flex-[0.8]  text-3xl md:text-5xl  font-medium">Send us a message</div>
-                    <div className="flex-1 flex flex-col items-start gap-8">
-                       <div className="w-full md:w-[90%] border-b-[1px] border-black pb-4"> <input type="text" className='w-full outline-none text-[1.3rem]' placeholder='Name' /></div>
-                       <div className="w-full md:w-[90%] border-b-[1px] border-black pb-4"> <input type="text" className='w-full outline-none text-[1.3rem]' placeholder='Email address' /></div>
-                        <div className="w-full md:w-[90%] border-b-[1px] border-black"><textarea name="" id="" cols="30" rows="3" className='w-full outline-none text-[1.3rem]' placeholder='Message'></textarea></div>
-                        <div className="flex items-start gap-4"><input type="checkbox"  name="" id="" placeholder='' /><div className=" font-semibold text-[#000000a7]  -mt-1">I would like to subscribe to the Chainfrens newsletter to receive web3 insights, updates, and special offers.</div></div>
-                        <button className='py-[10px] rounded-3xl px-8 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>Send message</button>
-                    </div>
-                </div>
                 <div className="flex w-full mx-auto pt-12 pb-6 flex-col md:flex-row gap-10 md:gap-0 md:py-16 ">
                     <div className="flex-[0.8]  text-5xl font-medium">or Schedule a meeting with us</div>
                     <div className="flex-1"><button className='py-[10px] rounded-3xl px-8 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>Book a call</button>
