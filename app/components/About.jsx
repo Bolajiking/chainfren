@@ -11,9 +11,9 @@ const About = () => {
             <button className='bg-[#0079D8] px-4 py-1 rounded-2xl'>About Chainfren</button>
             <div className="flex w-full gap-32 justify-center items-center">
             <Image src={pic2} className='hidden lg:block' width={150} height={150} />
-            <div className=" text-xl">Chainfren is a dedicated web3 ideation and consulting company with a mission to onboard new stakeholders in the decentralized space. 
-At Chainfren, Our mission is to empower creators, brands, and businesses to harness the limitless potential of blockchain technology and thrive in the web3 ecosystem.
-Our team of industry leading experts is passionate about helping brands and businesses navigate the rapidly evolving world of web3 and blockchain technologies</div>
+            <div className=" text-xl">Web3 provides society with a  last chance for building a fair, open and decentralized internet where economic value is widespread and not in the hands of a few. 
+At Chainfren, Our mission is to onboard new stakeholders to harness the limitless potential of web3 and blockchain technologies and thrive in the evolving digital age.
+Our team of industry experts is passionate about helping forward thinking creators, brands, and businesses who want to lead the charge in this new paradigm</div>
             <Image src={pic3} className='hidden lg:block' width={200} height={200} />
         </div>
         <Image src={pic1} className='z-[1] px-4 md2:px-0' width={700} height={600} />
