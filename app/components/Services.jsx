@@ -42,7 +42,7 @@ Recognizing the unique needs of artists, creators, brands, we offer bespoke solu
             </div>
            
             <div className=" text-xl font-normal">Web3 Marketing </div>
-            <div className="text-[#FFFFFF99] font-light text-sm">By combining AI, blockchain, and data analytics, we offer our clients cutting-edge marketing solutions that are tailored to the unique demands and opportunities of the Web3 world.</div>
+            <div className="text-[#FFFFFF99] font-light text-sm">By combining AI, blockchain, and data analytics, we offer our clients cutting edge marketing solutions that are tailored to the unique demands and opportunities of the Web3 world.</div>
             </div>
             <div className="w-full mx-auto group/card sm:w-[90%] md:w-[48%] bg-primary z-[1] h-[17rem] sm2:h-[16rem] border-[1px] p-4 lg:p-8 flex flex-col gap-4 border-[#0E1435CC] bg-[url('/card-bg.png')] relative overflow-hidden rounded-[10px]  bg-[length:200px_200px] md:bg-[length:300px_300px] bg-no-repeat bg-right-top"> 
             <div className="relative">
