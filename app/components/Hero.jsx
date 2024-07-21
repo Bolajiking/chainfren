@@ -13,22 +13,18 @@ const Hero = () => {
         {/* Main heading */}
         <div className=" md:text-xlClamp text-mdClamp px-5 md:px-0   sm:leading-[5rem] text-center font-bold mx-auto    font-sans">
          <div className="flex md:w-[750px] lg:w-[800px] xl:w-[900px] flex-wrap justify-center gap-3">
-              <span className='sm:leading-[3.2rem] leading-[2.5rem]  sm:ml-10'>Empowering</span>
-              <span className='sm:leading-[3.2rem] leading-[2.5rem]  lg:mr-10 '>Creators,</span>
-              <span className='sm:leading-[3.2rem] leading-[2.5rem] '>Brands</span>
-              <span className='sm:leading-[3.2rem] leading-[2.5rem] '>and</span>
-              <span className='sm:leading-[3.2rem] leading-[2.5rem] '>Businesses</span>
-              <span className='sm:leading-[3.2rem] leading-[2.5rem] '>in the</span>
+              <span className='sm:leading-[3.2rem] leading-[2.5rem]  sm:ml-10'>Enabling</span>
+              <span className='sm:leading-[3.2rem] leading-[2.5rem]  lg:mr-10 '>Digital</span>
+              <span className='sm:leading-[3.2rem] leading-[2.5rem] '>Wealth</span>
+             
          </div>
 
-          <div className="bg-gradient-to-r from-white to-[#40ACFF] bg-clip-text text-transparent">
-            Web3 Space
-          </div>
+           <div className="bg-gradient-to-r from-white to-[#40ACFF] bg-clip-text text-transparent">for Creators,Brands and Startups</div>
         </div>
     
         {/* Subtitle */}
         <div className="text-[#ffffffc1] text-center text-lg  px-4 md:px-0 sm:w-[500px] ">
-          We Provide Bespoke Consulting Services To Help You  Embrace The Decentralized Future.
+          We provide bespoke web3 ideation and consulting services to help you thrive in the digital age
         </div>
 
         {/* Get Started button */}
