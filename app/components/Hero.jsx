@@ -16,10 +16,11 @@ const Hero = () => {
               <span className='sm:leading-[3.2rem] leading-[2.5rem]  sm:ml-10'>Enabling</span>
               <span className='sm:leading-[3.2rem] leading-[2.5rem]  lg:mr-10 '>Digital</span>
               <span className='sm:leading-[3.2rem] leading-[2.5rem] '>Wealth</span>
+           <span className='sm:leading-[3.2rem] leading-[2.5rem] '>for</span>
              
          </div>
 
-           <div className="bg-gradient-to-r from-white to-[#40ACFF] bg-clip-text text-transparent">for Creators,Brands and Startups</div>
+           <div className="bg-gradient-to-r from-white to-[#40ACFF] bg-clip-text text-transparent">Creators,Brands and Startups</div>
         </div>
     
         {/* Subtitle */}
