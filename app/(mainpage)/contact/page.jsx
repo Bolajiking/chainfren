@@ -74,8 +74,8 @@ const page = () => {
                    </div>
                </div>
                 <div className="flex w-full mx-auto pt-12 pb-6 flex-col md:flex-row gap-10 md:gap-0 md:py-16 ">
-                    <div className="flex-[0.8]  text-5xl font-medium">or Schedule a meeting with us</div>
-                    <div className="flex-1"><a href="https://wa.me/2348160250508?text=Hi%20Chainfren"><button className='py-[10px] rounded-3xl px-8 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>Book a call</button></a>
+                    <div className="flex-[0.8]  text-5xl font-medium">or Text us</div>
+                    <div className="flex-1"><a href="https://wa.me/2348160250508?text=Hi%20Chainfren"><button className='py-[10px] rounded-3xl px-8 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>Say Hi!</button></a>
                 </div>
                 </div>
                 {/* 
