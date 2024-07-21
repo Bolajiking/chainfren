@@ -14,13 +14,13 @@ const Hero = () => {
         <div className=" md:text-xlClamp text-mdClamp px-5 md:px-0   sm:leading-[5rem] text-center font-bold mx-auto    font-sans">
          <div className="flex md:w-[750px] lg:w-[800px] xl:w-[900px] flex-wrap justify-center gap-3">
               <span className='sm:leading-[3.2rem] leading-[2.5rem]  sm:ml-10'>Enabling</span>
-              <span className='sm:leading-[3.2rem] leading-[2.5rem]  lg:mr-10 '>Digital</span>
+              <span className='sm:leading-[3.2rem] leading-[2.5rem]  lg:mr-6 '>Digital</span>
               <span className='sm:leading-[3.2rem] leading-[2.5rem] '>Wealth</span>
            <span className='sm:leading-[3.2rem] leading-[2.5rem] '>for</span>
              
          </div>
 
-           <div className="bg-gradient-to-r from-white to-[#40ACFF] bg-clip-text text-transparent">Creators,Brands and Startups</div>
+           <div className="bg-gradient-to-r from-white to-[#40ACFF] bg-clip-text text-transparent">Creators, Brands and Startups</div>
         </div>
     
         {/* Subtitle */}
