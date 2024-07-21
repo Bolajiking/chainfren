@@ -12,7 +12,7 @@ const About = () => {
             <div className="flex w-full gap-y-36 justify-center items-center">
             <Image src={pic2} className='hidden lg:block' width={150} height={150} />
             <div className=" text-xl text-left my-2 ">Web3 provides society with a  last chance for building a fair, open and decentralized internet where economic value is widespread and not in the hands of a few. 
-<div className="">At Chainfren, Our mission is to onboard new stakeholders to harness the limitless potential of web3 and blockchain technologies and thrive in the evolving digital age.
+<div className="mt-3 pt-3">At Chainfren, Our mission is to onboard new stakeholders to harness the limitless potential of web3 and blockchain technologies and thrive in the evolving digital age.
 Our team of industry experts is passionate about helping forward thinking creators, brands, and businesses who want to lead the charge in this new paradigm.</div></div>
             <Image src={pic3} className='hidden lg:block' width={200} height={200} />
         </div>
