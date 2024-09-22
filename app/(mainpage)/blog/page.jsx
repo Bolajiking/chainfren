@@ -25,7 +25,7 @@ const page = async  () => {
                 blogEntries.items.map((post,index)=>{
                     const {title,slug,excerpt,coverImage,content,date}=post.fields
                     return(
-                        <div className='w-full lg:w-[80%] h-full md:h-[80%]'>
+                        <div className='w-full h-full md:h-[80%]'>
                         <Link href={`./blog/${slug}`}>
                         <div key={index} className=" overflow-hidden h-[15rem] items-center  flex flex-col  rounded-[10px] border-[1px] hover:border-[2px] hover:border-[#000] bg-[#F0F0F0] dark:bg-[#0A0623] z-[1] border:text-[#606060] dark:border-[#0E1435CC]">
 {/*                         <div className=" h-[40%] object-cover"><ContentfulImage
