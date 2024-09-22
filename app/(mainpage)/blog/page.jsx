@@ -35,7 +35,7 @@ const page = async  () => {
                             height={200}    
                         /></div> */}
                         <div className=" p-4 h-[60%] text-black dark:text-white flex  flex-col gap-2 ">
-                            <div className="text-lg mt-3 font-medium font-serif ">{title}</div>
+                            <div className="text-2xl mt-3 font-medium font-serif ">{title}</div>
                         <div className="dark:text-[#FFFFFF99] text-[#606060] text-sm ">{excerpt}</div>
                         <div className="flex items-center font-serif justify-self-end mt-6 md:mt-10  justify-between">
                             <div className="dark:text-[#FFFFFF99] text-[#606060]">Read More</div>
