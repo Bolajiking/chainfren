@@ -27,7 +27,7 @@ const page = async  () => {
                     return(
                         <div className='w-full h-full md:h-[80%]'>
                         <Link href={`./blog/${slug}`}>
-                        <div key={index} className=" overflow-hidden h-[15rem] items-center  flex flex-col  rounded-[10px] border-[1px] bg-[#F0F0F0] dark:bg-[#0A0623] z-[1] border:text-[#606060] dark:border-[#0E1435CC]">
+                        <div key={index} className=" overflow-hidden h-[15rem] items-center  flex flex-col  rounded-[10px] border-[1px] hover:border-[2px] bg-[#F0F0F0] dark:bg-[#0A0623] z-[1] border:text-[#606060] dark:border-[#0E1435CC]">
 {/*                         <div className=" h-[40%] object-cover"><ContentfulImage
                             alt={`cover image for ${title}`}
                             src={coverImage.fields.file.url}
@@ -35,12 +35,13 @@ const page = async  () => {
                             height={200}    
                         /></div> */}
                         <div className=" p-4 h-[60%] text-black dark:text-white flex  flex-col gap-2 ">
-                            <div className="text-2xl mt-3 font-medium font-serif ">{title}</div>
-                        <div className="dark:text-[#FFFFFF99] text-[#606060] text-sm ">{excerpt}</div>
-                        <div className="flex items-center font-serif justify-self-end mt-6 md:mt-10  justify-between">
-                            <div className="dark:text-[#FFFFFF99] text-[#606060]">Read More</div>
+                            <div className="flex items-center font-serif justify-self-end mt-6 md:mt-10  justify-between">
+{/*                             <div className="dark:text-[#FFFFFF99] text-[#606060]">Read More</div> */}
                             <div className="dark:text-[#FFFFFF99] text-[#606060]  text-sm"><Date datestring={date} /></div>
                         </div>
+                            <div className="text-2xl mt-3 font-medium font-serif ">{title}</div>
+                        <div className="dark:text-[#FFFFFF99] text-[#606060] text-sm mt-4 ">{excerpt}</div>
+                        
                         </div>
                         
                     </div>
