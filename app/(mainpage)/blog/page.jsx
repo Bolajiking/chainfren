@@ -40,7 +40,7 @@ const page = async  () => {
                             <div className="dark:text-[#FFFFFF99] text-[#606060]  text-sm"><Date datestring={date} /></div>
                         </div>
                             <div className="text-lg md:text-2xl lg:text-3xl md:mt-3 md:font-bold font-medium font-serif ">{title}</div>
-                        <div className="dark:text-[#FFFFFF99] text-[#606060] text-sm md:text-base lg:mt-3 ">{excerpt}</div>
+                        <div className="dark:text-[#FFFFFF99] text-[#606060] text-sm md:text-base lg:mt-3 ">{`${excerpt}...`}</div>
                         
                         </div>
                         
