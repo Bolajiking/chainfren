@@ -35,11 +35,11 @@ const page = async  () => {
                             height={200}    
                         /></div> */}
                         <div className=" p-4 h-[60%] text-black dark:text-white flex  flex-col gap-2 ">
-                            <div className="flex items-center font-serif justify-self-end mt-6 md:mt-10  justify-between">
+                            <div className="flex items-center font-serif justify-self-end mt-2 md:mt-10  justify-between">
 {/*                             <div className="dark:text-[#FFFFFF99] text-[#606060]">Read More</div> */}
                             <div className="dark:text-[#FFFFFF99] text-[#606060]  text-sm"><Date datestring={date} /></div>
                         </div>
-                            <div className="text-lg md:text-2xl lg:text-3xl mt-3 font-bold font-medium font-serif ">{title}</div>
+                            <div className="text-lg md:text-2xl lg:text-3xl md:mt-3 md:font-bold font-medium font-serif ">{title}</div>
                         <div className="dark:text-[#FFFFFF99] text-[#606060] text-sm md:text-base lg:mt-3 ">{excerpt}</div>
                         
                         </div>
