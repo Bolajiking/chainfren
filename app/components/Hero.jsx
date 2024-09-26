@@ -6,26 +6,29 @@ const Hero = () => {
   return (
     <div className="relative bg-primary flex text-white flex-col items-center justify-center gap-6 overflow-hidden xl:h-screen">
 
-      <div className="w-full h-full flex-col items-center justify-center -mt-10  py-[35%] sm:py-[15%] gap-6 flex z-[1]">
+      <div className="w-full h-full flex-col items-center justify-center -mt-10 py-[35%] sm:py-[15%] gap-8 flex z-[1]">
         {/* Background component with animation prop */}
         <Background animation={true} />
 
-        {/* Main heading */}
-        <div className=" md:text-xlClamp text-mdClamp px-5 md:px-0   sm:leading-[5rem] text-center font-bold mx-auto    font-sans">
-         <div className="flex md:w-[750px] lg:w-[800px] xl:w-[900px] flex-wrap justify-center gap-3">
-              <span className='sm:leading-[3.2rem] leading-[2.5rem]  sm:ml-10'>Enabling</span>
-              <span className='sm:leading-[3.2rem] leading-[2.5rem]  '>Digital</span>
-              <span className='sm:leading-[3.2rem] leading-[2.5rem] '>Wealth</span>
-           <span className='sm:leading-[3.2rem] leading-[2.5rem] '>for</span>
-             
-         </div>
-
-           <div className="bg-gradient-to-r from-white to-[#40ACFF] bg-clip-text text-transparent">Creators, Brands and Startups</div>
+        {/* Updated main heading with larger text */}
+        <div className="md:text-2xlClamp text-xlClamp px-5 md:px-0 sm:leading-[5.5rem] text-center font-bold mx-auto font-sans">
+          <div className="flex md:w-[800px] lg:w-[850px] xl:w-[950px] flex-wrap justify-center gap-3">
+            <span className='sm:leading-[3.5rem] leading-[2.8rem]'>Unlocking</span>
+          </div>
+          <div className="bg-gradient-to-r from-white to-[#40ACFF] bg-clip-text text-transparent">
+            Digital Wealth
+          </div>
+          <div className="flex md:w-[800px] lg:w-[850px] xl:w-[950px] flex-wrap justify-center gap-3 mt-2">
+            <span className='sm:leading-[3.5rem] leading-[2.8rem]'>for</span>
+            <span className='sm:leading-[3.5rem] leading-[2.8rem]'>Creators</span>
+            <span className='sm:leading-[3.5rem] leading-[2.8rem]'>and</span>
+            <span className='sm:leading-[3.5rem] leading-[2.8rem]'>Brands</span>
+          </div>
         </div>
     
-        {/* Subtitle */}
-        <div className="text-[#ffffffc1] text-center text-lg  px-4 md:px-0 sm:w-[500px] ">
-          We provide bespoke web3 ideation and consulting services to help you thrive in the digital age
+        {/* Updated subtitle with more top margin */}
+        <div className="text-[#ffffffc1] text-center text-lg px-4 md:px-0 sm:w-[750px] mt-4">
+          We are a web3 company enabling the power of crypto and digital assets to build products and experiences that drive valuable growth in the digital age
         </div>
 
         {/* Get Started button */}
