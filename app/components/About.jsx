@@ -6,12 +6,9 @@ import pic3 from '../../public/Asset3.png'
 
 const About = () => {
   return (
-    <div id='about' className=' py-4  relative flex flex-col text-white justify-center items-center test bg-primary w-full 2xl:max-w-[1170px] mx-auto'>
-      <div className="flex py-8 pb-0  flex-col items-center justify-center md:w-[700px]  lg:w-[1100px] px-5 md:px-0 text-center gap-8 lg:gap-0 z-[1]">
-        {/* "About Us" button - visible only on mobile and tablet views (hidden on lg screens and above) */}
-        <button className="lg:hidden bg-secondary text-white py-2 px-4 rounded-full mb-4">
-          About Us
-        </button>
+    <div id='about' className='py-4 relative flex flex-col text-white justify-center items-center test bg-primary w-full 2xl:max-w-[1170px] mx-auto'>
+      <div className="flex py-8 pb-0 flex-col items-center justify-center md:w-[700px] lg:w-[1100px] px-5 md:px-0 text-center gap-8 lg:gap-0 z-[1]">
+        {/* Removed the "About Us" button from all views */}
         <div className="flex w-full gap-y-36 justify-center items-center">
           <Image src={pic2} className='hidden lg:block' width={150} height={150} alt="Side image 1" />
           <div className="text-2xl text-left my-2 ">
