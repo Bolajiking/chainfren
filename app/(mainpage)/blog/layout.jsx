@@ -1,5 +1,5 @@
 'use client'
-import Nav3 from '@/app/components/Nav3';
+import Nav from '@/app/components/Nav';
 import Subscribe2 from '@/app/components/Subscribe2';
 import Footer3 from '@/app/components/Footer3';
 import { useGlobalContext } from '@/app/components/utils/Provider';
@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
   console.log(dark);
     return (
       <>
-                  <Nav3 />
+                  <Nav />
             <div className={`${dark?'dark':''}` }>
             {children}
             <Subscribe2 />

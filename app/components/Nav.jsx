@@ -61,9 +61,6 @@ const Nav = () => {
                 <Link href='/products/chainfren-studio' className="block px-4 py-2 text-sm hover:bg-gray-700">
                   Chainfren Studio
                 </Link>
-                <Link href='/products/product2' className="block px-4 py-2 text-sm hover:bg-gray-700">
-                  Product 2
-                </Link>
               </div>
             </div>
             <Link href='/blog'>Blog</Link>

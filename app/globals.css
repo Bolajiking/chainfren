@@ -40,39 +40,59 @@ body{
     top: 0px;
 }
 
- m,
-.sub-gradient-one{
+.sub-gradient-one,
+.sub-gradient-two,
+.sub-gradient-three {
     position: absolute;
     width: 0;
     height: 0;
+}
+
+.sub-gradient-one {
     box-shadow: 0 0 13vw 15vw #3D1F73;
     bottom: 0;
     left: 20vw;
 }
-.sub-gradient-two{
-    position: absolute;
-    width: 0;
-    height: 0;
+
+.sub-gradient-two {
     box-shadow: 0 0 15vw 15vw #1575dc;
     bottom: 10vw;
     right: 10vw;
 }
-.sub-gradient-three{
-    position: absolute;
-    width: 0;
-    height: 0;
+
+.sub-gradient-three {
     box-shadow: 0 0 12vw 14vw #2c71ca;
     bottom: 0;
     left: 45vw;
 }
+
+.glow-effect {
+    text-shadow: 0 0 10px rgba(64, 172, 255, 0.5),
+                 0 0 20px rgba(64, 172, 255, 0.3),
+                 0 0 30px rgba(64, 172, 255, 0.2);
+    animation: glow 3s ease-in-out infinite alternate;
+  }
+  
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 10px rgba(64, 172, 255, 0.5),
+                   0 0 20px rgba(64, 172, 255, 0.3),
+                   0 0 30px rgba(64, 172, 255, 0.2);
+    }
+    to {
+      text-shadow: 0 0 20px rgba(64, 172, 255, 0.6),
+                   0 0 30px rgba(64, 172, 255, 0.4),
+                   0 0 40px rgba(64, 172, 255, 0.3);
+    }
+  }
 @media (max-width:500px) {
-    .sub-gradient-one{
+    .sub-gradient-one {
         box-shadow: 0 0 18vw 20vw #3D1F73;
     }
-    .sub-gradient-two{
+    .sub-gradient-two {
         box-shadow: 0 0 19vw 19vw #1575dc;
     }
-    .sub-gradient-three{
+    .sub-gradient-three {
         box-shadow: 0 0 15vw 15vw #2c71ca;
     }
 }
@@ -111,19 +131,18 @@ body{
     content: '';
     position: absolute;
     width: 25%;
-    bottom: unset;
     top: -5%;
     height: 30vw;
     background-color: #08153C;
     border-radius: 50%;
     z-index: 0;
     box-shadow: 0 0 100vw 30vw #08153C;
-    border: 1px solid #08153C ;
+    border: 1px solid #08153C;
     filter: blur(30px);
 }
 @media (max-width:640px) {
     .test::after{
         width: 80%;
-        box-shadow: 0 0 400vw 140vw #08153C ;
+        box-shadow: 0 0 400vw 140vw #08153C;
     }
 }
