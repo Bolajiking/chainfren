@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import Nav4 from '../../../components/nav';
+import Nav4 from '../../../components/Nav';
 import Footer from '../../../components/Footer';
 import Background from '../../../components/Background';
 import { FaDollarSign, FaBroadcastTower, FaShareAlt, FaComments, FaQuoteLeft } from 'react-icons/fa';
