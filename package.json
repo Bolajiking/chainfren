@@ -11,6 +11,8 @@
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.18.0",
     "@contentful/rich-text-types": "^16.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "ai": "^2.2.14",
     "autoprefixer": "10.4.14",
     "contentful": "^10.6.1",
@@ -21,7 +23,7 @@
     "postcss": "8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.10.1",
+    "react-icons": "^4.12.0",
     "tailwindcss": "3.3.2"
   },
   "devDependencies": {
