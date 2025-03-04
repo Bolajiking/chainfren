@@ -7,6 +7,8 @@ import Darkmode from '@/app/components/Darkmode';
 const page = async (prop) => {
     const {params}=prop
     const {slug}=params
+
+    console.log(slug)
     
     const fetchBlogPost = async (x) => {
         const queryOptions = {
