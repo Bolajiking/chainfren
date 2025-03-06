@@ -8,6 +8,8 @@ import ContentfulImage from '@/app/components/utils/ContentfulImage';
 import Searchcomponent from '@/app/components/utils/Searchcomponent';
 import Search from '@/app/components/utils/Search';
 import Chatcomponent from '@/app/components/Chatcomponent';
+import Image from 'next/image';
+import pic from "../../../public/A4social.png";
 
 
 // Fetch course entries from Contentful
@@ -38,7 +40,7 @@ const Page =async () => {
               </div>
               <div className="flex flex-col flex-1">
                 <div className="font-semibold dark:text-white text-lg">{title}</div>
-                <div className="text-[0.9rem] dark:text-[#ffffffa3]">{excerpt}</div>
+                <div className="text-[0.9rem] dark:text-[#ffffffa3]">{`${excerpt} yh yh`}</div>
               </div>
             </div>
           </Link>
@@ -53,12 +55,29 @@ const Page =async () => {
  fixed h-[100vh]">
         <Sidebar />
       </div>
-      <div className="">
+      {/* <div className="">
       <Chatcomponent />
-      </div>
+      </div> */}
 
       <div className="md:w-[77.5%] w-full h-full ml-auto px-4 dark:bg-primary bg-[#FBFAFA]">
-        <div className="lg:text-7xl text-4xl dark:text-white text-black h-[70vh] flex justify-center items-center">Coming soon...</div>
+        <div className=" dark:text-white text-black min-h-[70vh] mx-auto prose lg:mb-20 mb-32 flex-col text-left flex justify-center items-end">
+
+          <h1 className='text-left self-start mt-2 dark:text-white text-black'>Introduction</h1>
+
+          <Image alt='Intro_img' src={pic} />
+
+        <p className='mb-3'>The internet began as a research project by the U.S. Department of Defense in the late 1960s. Originally called ARPANET, it was designed to create a decentralized communication network that could withstand partial destruction during wartime. By the 1980s, this network had evolved into a system connecting university and research institutions, before expanding to the general public in the 1990s.
+      </p>
+        <p className='lg:mb-5'>What made the early internet revolutionary was its open architecture and decentralized nature. Built on open protocols like TCP/IP, HTTP, and SMTP, the internet enabled anyone to build on top of its infrastructure without requiring permission from gatekeepers. This openness sparked unprecedented innovation and transformed how humanity communicates, learns, and conducts commerce.</p>
+
+
+        <div className='rounded-md p-3 lg:mt-8 mt-12 dark:text-white text-black no-underline'>
+          <Link href={"learn/introduction-to-web3"} className='no-underline dark:text-white text-black' >Next {`>>`}</Link>
+        </div>
+
+        </div>
+
+       
         {/* <div className="xl:p-16 lg:px-8 lg:pt-12 pt-8 md:pt-0 md2:px-4 md2:pt-10">
         <div className="md:hidden  border-[1px] dark:border-[#262036] border-[#F1F5FA]
  rounded-3xl px-4 py-[14px] flex justify-center items-center">

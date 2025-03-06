@@ -23,6 +23,7 @@ const Article =async () => {
             <div className="flex gap-4 md:gap:0 flex-col sm2:flex-row  sm2:flex-wrap w-full px-4  lg:justify-between">
             {
                 blogEntries.map((post,index)=>{
+                    // console.log(post)
                     const {title,slug,excerpt,coverImage,content,date}=post.fields
                     return(
                         <div className='w-full sm:w-[48%] lg:w-[32%] lg:h-full z-10'>
