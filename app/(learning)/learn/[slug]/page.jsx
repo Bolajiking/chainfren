@@ -1,6 +1,6 @@
 import React from 'react'
 import Footer2 from '@/app/components/Footer2'
-import Sidebar2 from '@/app/components/Sidebar2'
+import Sidebar3 from '@/app/components/Sidebar3'
 import { client } from '@/app/contentful/contentful'
 import Richtext from '@/app/components/utils/Richtext'
 import ContentfulImage from '@/app/components/utils/ContentfulImage'
@@ -24,13 +24,13 @@ const page = async (props) => {
 
   const {title,content,coverImage}=courses.fields
 
-
+  // console.log(coverImage.fields.file)
 
   return (
 <div className="h-full relative font-serif ">
 <div className="md:w-[22.5%] w-auto border-r-[1px] dark:border-[#40ACFF0F] border-[#F1F5FA]
  fixed h-[100vh]">
-<Sidebar2 title={title} slug={slug} />
+<Sidebar3/>
 </div>
 
 

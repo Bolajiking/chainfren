@@ -33,7 +33,7 @@ const Nav2 = () => {
 
         <div className=' flex  gap-1 items-center'>
          <Link href={'/'}> {dark?<Image src={logo} alt="chainfrens Logo" className='mt-2'  width={120} height={60} />:<Image src={logodark} className='mt-2'  alt="chainfrens Logo"  width={120} height={60} /> }</Link>
-         <button className='py-[4px] rounded-md px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'>Learn</button>
+         <button className='py-[4px] rounded-md px-6 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold'><Link href={"/learn"}>Learn</Link></button>
         </div>
 
   <Darkmode />
