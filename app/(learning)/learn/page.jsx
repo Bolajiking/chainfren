@@ -40,7 +40,7 @@ const Page =async () => {
               </div>
               <div className="flex flex-col flex-1">
                 <div className="font-semibold dark:text-white text-lg">{title}</div>
-                <div className="text-[0.9rem] dark:text-[#ffffffa3]">{`${excerpt} yh yh`}</div>
+                <div className="text-[0.9rem] dark:text-[#ffffffa3]">{`${excerpt}`}</div>
               </div>
             </div>
           </Link>
