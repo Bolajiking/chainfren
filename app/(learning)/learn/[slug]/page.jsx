@@ -20,7 +20,13 @@ const page = async (props) => {
     return queryResult.items[0];
   };
 
-  const courses=await fetchCourse(slug)
+  const fetchAllCourses = async () => {
+    const entries = await client.getEntries({ content_type: "courses" });
+    return entries;
+  };
+
+  const courses = await fetchCourse(slug)
+  const allCourses = await fetchAllCourses()
 
   const {title,content,coverImage}=courses.fields
 
@@ -30,7 +36,7 @@ const page = async (props) => {
 <div className="h-full relative font-serif ">
 <div className="md:w-[22.5%] w-auto border-r-[1px] dark:border-[#40ACFF0F] border-[#F1F5FA]
  fixed h-[100vh]">
-<Sidebar3/>
+<Sidebar3 data={allCourses.items} />
 </div>
 
 
