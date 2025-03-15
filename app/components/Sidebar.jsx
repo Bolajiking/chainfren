@@ -5,8 +5,7 @@ import Search from './utils/Search'
 import Ai from './Ai'
 import Link from 'next/link'
 
-
-const Sidebar = () => {
+const Sidebar = ({ data }) => {
   const {nav,setNav}=useGlobalContext()
 
   return (
@@ -14,7 +13,7 @@ const Sidebar = () => {
     <div className=" h-full flex-col  px-6 hidden md:flex   pt-8  top-0 left-0 w-full text-[#6B6776]  dark:text-[#F1F5FA] dark:bg-primary bg-white
  gap-4 font-medium">
         <div className="border-[1px] dark:bg-transparent bg-[#F1F5FA] dark:border-[#262036] border-[#F1F5FA]
- rounded-3xl px-4 py-[9px] flex justify-center items-center"><Search /></div>
+ rounded-3xl px-4 py-[9px] flex justify-center items-center"><Search data={data} /></div>
         <div className=""><Link href={"./learn/introduction-to-web3"}>Intro to Web3</Link></div>
         <div className=""><Link href={"./learn/Blockchain"}>Blockchain</Link></div>
         <div className=""><Link href={"./learn/fundamental-concepts"}>Fundamental Concepts</Link></div>
