@@ -8,6 +8,7 @@ import Search from '@/app/components/utils/Search';
 import Chatcomponent from '@/app/components/Chatcomponent';
 import Image from 'next/image';
 import pic from "../../../public/A4social.png";
+import Ai from '@/app/components/Ai';
 
 const getCourseEntries = async () => {
   const entries = await client.getEntries({ content_type: "courses" });
@@ -66,6 +67,8 @@ const Page = async () => {
                 </div>
                 <Footer2 />
             </div>
+            <Chatcomponent />
+            <Ai />
         </div>
     );
 };
