@@ -10,15 +10,15 @@ const Hero = () => {
         {/* Background component with animation prop */}
         <Background animation={true} />
 
-        {/* Updated main heading with larger text */}
+        {/* Updated main heading with animations */}
         <div className="md:text-2xlClamp text-xlClamp px-5 md:px-0 sm:leading-[5.5rem] text-center font-bold mx-auto font-sans">
-          <div className="flex md:w-[800px] lg:w-[850px] xl:w-[950px] flex-wrap justify-center gap-3">
-            <span className='sm:leading-[3.5rem] leading-[2.8rem]'>Unlocking</span>
+          <div className="flex md:w-[800px] lg:w-[850px] xl:w-[950px] flex-wrap justify-center gap-3 animate-fadeIn">
+            <span className='sm:leading-[3.5rem] leading-[2.8rem] animate-slideUp'>Unlocking</span>
           </div>
-          <div className="bg-gradient-to-r from-white to-[#40ACFF] bg-clip-text text-transparent">
+          <div className="bg-gradient-to-r from-white to-[#40ACFF] bg-clip-text text-transparent animate-fadeIn animation-delay-300">
             Digital Wealth
           </div>
-          <div className="flex md:w-[800px] lg:w-[850px] xl:w-[950px] flex-wrap justify-center gap-3 mt-2">
+          <div className="flex md:w-[800px] lg:w-[850px] xl:w-[950px] flex-wrap justify-center gap-3 mt-2 animate-fadeIn animation-delay-500">
             <span className='sm:leading-[3.5rem] leading-[2.8rem]'>for</span>
             <span className='sm:leading-[3.5rem] leading-[2.8rem]'>Creators</span>
             <span className='sm:leading-[3.5rem] leading-[2.8rem]'>and</span>
@@ -26,13 +26,13 @@ const Hero = () => {
           </div>
         </div>
     
-        {/* Updated subtitle with more top margin */}
-        <div className="text-[#ffffffc1] text-center text-lg px-4 md:px-0 sm:w-[750px] mt-4">
+        {/* Updated subtitle with animation */}
+        <div className="text-[#ffffffc1] text-center text-lg px-4 md:px-0 sm:w-[750px] mt-4 animate-fadeIn animation-delay-700">
           We are a web3 company enabling the power of crypto and digital assets to build products and experiences that drive valuable growth in the digital age
         </div>
 
-        {/* Get Started button */}
-        <div className='  z-10'>
+        {/* Get Started button with animation */}
+        <div className='z-10 animate-fadeIn animation-delay-1000'>
           <Link href={'/contact'}>
           <button className="py-[10px] mt-4 rounded-3xl px-8 bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold">
             Get Started
