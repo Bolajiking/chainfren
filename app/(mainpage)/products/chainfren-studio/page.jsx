@@ -1,116 +1,225 @@
-import React from 'react';
-import Image from 'next/image';
-import Nav4 from '../../../components/Nav';
-import Footer from '../../../components/Footer';
-import Background from '../../../components/Background';
-import { FaDollarSign, FaBroadcastTower, FaShareAlt, FaComments, FaQuoteLeft } from 'react-icons/fa';
+'use client';
 
-export default function ChainfrenStudioPage() {
+/*
+  LandingPage.tsx – Chainfren Studio marketing page
+  Place inside your Next.js /app directory (e.g. /app/(marketing)/page.tsx).
+  Uses shadcn/ui components and TailwindCSS utility classes.
+*/
+
+import Head from 'next/head'
+import Image from 'next/image'
+import { Button } from '@/app/components/ui/button'
+import { Card, CardContent } from '@/app/components/ui/card'
+import { Input } from '@/app/components/ui/input'
+import { useState } from 'react'
+import { Check, Play, DollarSign, Shield, Users, BarChart2 } from 'lucide-react'
+
+// --- Data ------------------------------------------------------------------
+
+const FEATURES = [
+  {
+    icon: Play,
+    title: 'Livestream & On‑Demand',
+    desc: 'Broadcast in HD, buffer‑free, on any device. You decide the rules—no surprise takedowns.'
+  },
+  {
+    icon: Shield,
+    title: 'Gate & Monetize Access',
+    desc: 'Subscriptions, pay‑per‑view, or VIP tiers. Total control over who watches and at what price.'
+  },
+  {
+    icon: DollarSign,
+    title: 'Built‑In Store',
+    desc: 'Sell merch, digital downloads, or bundles without sending fans off‑site.'
+  },
+  {
+    icon: Users,
+    title: 'Community Tools',
+    desc: 'Live chat, exclusive forums, and direct messaging keep fans engaged between streams.'
+  },
+  {
+    icon: Check,
+    title: 'Keep 95%+ Revenue',
+    desc: 'Ultra‑low fees mean you keep what you earn—finally, a platform that pays creators first.'
+  },
+  {
+    icon: BarChart2,
+    title: 'Actionable Analytics',
+    desc: 'Understand viewer behavior, optimize content, and grow faster with data‑driven insights.'
+  }
+]
+
+const TESTIMONIALS = [
+  {
+    quote:
+      '“Chainfren Studio let us launch our own pay‑per‑view sports streams in a weekend. Revenue tripled.”',
+    author: 'Mark R. – Event Organizer'
+  },
+  {
+    quote:
+      '“We moved from social media to our own platform, kept 95% of donations, and finally own our audience.”',
+    author: 'Pastor Samuel – Faith Community Leader'
+  },
+  {
+    quote:
+      '“As an indie creator, I love having full control and direct sales in one place. Chainfren just works.”',
+    author: 'Jane D. – Content Creator'
+  }
+]
+
+// --- Components ------------------------------------------------------------
+
+function Hero() {
   return (
-    <div className="bg-gradient-to-b from-primary to-[#0D1F2D] text-white min-h-screen relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 z-0 opacity-50">
-        <Background animation={true} />
+    <section className="relative flex flex-col items-center justify-center gap-6 py-24 text-center">
+      <Image
+        src="/CTV.png"
+        alt="Chainfren Studio logo"
+        width={200}
+        height={50}
+        className="mx-auto h-auto w-auto"
+        priority
+      />
+      <h1 className="max-w-4xl text-4xl font-bold sm:text-5xl md:text-6xl text-white">
+        Stream. Monetize. <span className="text-[#40ACFF]">Own&nbsp;It.</span>
+      </h1>
+      <p className="max-w-2xl text-lg text-gray-200 md:text-xl">
+        Chainfren Studio gives creators and brands everything they need to deliver video content on their own
+        terms—live or on‑demand—while keeping up to 95% of revenue.
+      </p>
+      <div className="flex flex-col gap-4 sm:flex-row">
+        <Button size="lg" className="bg-[#40ACFF] hover:bg-[#3090DD] text-white">Book a Free Demo</Button>
+        <Button variant="outline" size="lg" className="text-white border-white hover:bg-white/10">
+          Try It Free
+        </Button>
       </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        <Nav4 />
-
-        {/* Hero Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-screen">
-          <Image
-            src="/CTV.png"
-            alt="Chainfren Logo"
-            width={200}
-            height={50}
-            className="w-auto h-auto mb-8"
-          />
-          <h1 className="md:text-5xl text-4xl font-bold mb-6 text-center">
-            <span className="bg-gradient-to-r from-white to-[#40ACFF] bg-clip-text text-transparent">
-              Own your Stream
-            </span>
-          </h1>
-          <p className="text-xl mb-8 text-[#ffffffd9] max-w-2xl text-center">
-            Broadcast livestreams and deliver content reliably to your audience on your own terms.
-          </p>
-          <a href="https://tpy68wych80.typeform.com/to/YdKJZhfs" className="py-3 px-8 rounded-full bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold transition duration-300 ease-in-out hover:opacity-80 shadow-lg hover:shadow-xl">
-            Get started
-          </a>
-        </section>
-
-        {/* Features Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white bg-opacity-5 backdrop-blur-md">
-          <h2 className="text-4xl font-bold mb-12 text-center text-[#40ACFF]">Features</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <FeatureCard
-              icon={<FaDollarSign className="text-4xl text-[#40ACFF]" />}
-              title="Low Cost"
-              description="Affordable streaming solutions for creators of all sizes."
-            />
-            <FeatureCard
-              icon={<FaBroadcastTower className="text-4xl text-[#40ACFF]" />}
-              title="Live and On demand Video"
-              description="Stream live or upload pre recorded content for your audience."
-            />
-            <FeatureCard
-              icon={<FaShareAlt className="text-4xl text-[#40ACFF]" />}
-              title="Live ads and monetization"
-              description="Integrate ads and monetize your content seamlessly."
-            />
-            <FeatureCard
-              icon={<FaComments className="text-4xl text-[#40ACFF]" />}
-              title="Enhanced interactivity"
-              description="Engage with your audience through interactive features and chat rooms."
-            />
-          </div>
-        </section>
-
-        {/* Benefits Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0D1F2D] text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#40ACFF20] to-[#40FFCC20] opacity-30"></div>
-          <div className="max-w-4xl mx-auto text-center relative z-10">
-            <p className="text-xl md:text-2xl">
-              Our cutting edge media and web3 solution allows creators, media brands, events and show organizers to deliver reliable digital streaming content to their audience, 
-              <span className="font-bold text-[#40ACFF] text-2xl md:text-3xl"> no matter where they are.</span>
-            </p>
-          </div>
-        </section>
-
-        {/* Testimonial Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white bg-opacity-5 backdrop-blur-md">
-          <div className="max-w-4xl mx-auto text-center">
-            <FaQuoteLeft className="text-5xl text-[#40ACFF] mb-6 mx-auto" />
-            <blockquote className="text-2xl mb-6 text-[#ffffffd9] italic">
-              Chainfren Studio has revolutionized the way we deliver content to our audience. It is reliable, cheap, and incredibly easy to use.
-            </blockquote>
-            <p className="text-lg text-[#40ACFF] font-semibold"> Jane Doe, Content Creator</p>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 text-center bg-gradient-to-b from-[#0D1F2D] to-primary">
-          <h2 className="text-3xl font-bold mb-6 text-[#40ACFF]">Ready to take control of your streaming?</h2>
-          <p className="text-xl mb-8 text-[#ffffffd9]">Join our waitlist and explore innovative methods to monetize through live-ads and crypto.</p>
-          <a href="https://tpy68wych80.typeform.com/to/YdKJZhfs" className="py-3 px-8 rounded-full bg-gradient-to-r from-[#40CBFF] to-[#40FFCC] text-primary font-semibold transition duration-300 ease-in-out hover:opacity-80 shadow-lg hover:shadow-xl">
-            Join Waitlist
-          </a>
-        </section>
-
-        <Footer />
-      </div>
-    </div>
-  );
+    </section>
+  )
 }
 
-function FeatureCard({ icon, title, description }) {
+function FeatureGrid() {
   return (
-    <div 
-      className="bg-white bg-opacity-10 backdrop-blur-md rounded-lg p-6 flex flex-col items-center text-center transition-all duration-300 hover:shadow-xl hover:bg-opacity-20"
-    >
-      <div className="mb-4 bg-[#40ACFF] bg-opacity-20 p-4 rounded-full">{icon}</div>
-      <h3 className="text-xl font-semibold mb-2 text-[#40ACFF]">{title}</h3>
-      <p className="text-[#ffffffd9]">{description}</p>
-    </div>
-  );
+    <section id="features" className="mx-auto max-w-6xl py-20">
+      <h2 className="mb-12 text-center text-3xl font-semibold sm:text-4xl text-white">Everything You Need—Nothing You Don't</h2>
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {FEATURES.map(({ icon: Icon, title, desc }) => (
+          <Card key={title} className="h-full bg-white/10 backdrop-blur-sm border-white/20">
+            <CardContent className="flex flex-col gap-4 p-6">
+              <Icon className="h-10 w-10 text-[#40ACFF]" />
+              <h3 className="text-xl font-semibold text-white">{title}</h3>
+              <p className="text-gray-300">{desc}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function TestimonialSection() {
+  return (
+    <section className="bg-white/5 backdrop-blur-sm py-20">
+      <h2 className="mb-12 text-center text-3xl font-semibold sm:text-4xl text-white">Creators Love Chainfren</h2>
+      <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
+        {TESTIMONIALS.map(({ quote, author }) => (
+          <Card key={author} className="bg-white/10 backdrop-blur-sm border-white/20">
+            <CardContent className="flex h-full flex-col justify-between gap-6 p-6">
+              <p className="text-lg italic text-gray-200">{quote}</p>
+              <span className="font-medium text-[#40ACFF]">{author}</span>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function LeadForm() {
+  const [submitting, setSubmitting] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setSubmitting(true)
+    // TODO: connect to backend endpoint or CRM
+    await new Promise((r) => setTimeout(r, 1200))
+    setSubmitting(false)
+    setSubmitted(true)
+  }
+
+  return (
+    <section id="get-started" className="mx-auto max-w-xl py-20 text-center">
+      <h2 className="mb-6 text-3xl font-semibold sm:text-4xl text-white">Ready to Own Your Audience?</h2>
+      <p className="mb-8 text-gray-300">
+        Book a live demo or create a free account—no credit card required.
+      </p>
+      {submitted ? (
+        <div className="rounded-2xl bg-[#40ACFF]/20 backdrop-blur-sm border border-[#40ACFF]/30 p-8 text-center text-lg text-white">
+          ✅ Thank you! We'll reach out shortly.
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <Input required placeholder="Your Name" name="name" className="bg-white/10 border-white/20 text-white placeholder:text-gray-400" />
+          <Input required type="email" placeholder="Your Email" name="email" className="bg-white/10 border-white/20 text-white placeholder:text-gray-400" />
+          <Input placeholder="Organization (optional)" name="org" className="bg-white/10 border-white/20 text-white placeholder:text-gray-400" />
+          <Button type="submit" size="lg" disabled={submitting} className="bg-[#40ACFF] hover:bg-[#3090DD] text-white disabled:bg-[#40ACFF]/50">
+            {submitting ? 'Submitting…' : 'Request Demo'}
+          </Button>
+        </form>
+      )}
+    </section>
+  )
+}
+
+function FAQ() {
+  return (
+    <section className="mx-auto max-w-3xl space-y-8 py-20">
+      <h2 className="text-center text-3xl font-semibold sm:text-4xl text-white">Frequently Asked Questions</h2>
+      <details className="rounded-lg border border-white/20 p-4 open:bg-white/10 backdrop-blur-sm">
+        <summary className="cursor-pointer font-medium text-white">How much does Chainfren Studio cost?</summary>
+        <p className="mt-2 text-gray-300">We offer a free tier to get started and flexible plans as you grow. All plans let you keep up to 95% of revenue.</p>
+      </details>
+      <details className="rounded-lg border border-white/20 p-4 open:bg-white/10 backdrop-blur-sm">
+        <summary className="cursor-pointer font-medium text-white">Do I need coding skills?</summary>
+        <p className="mt-2 text-gray-300">No. Launch your branded streaming site in minutes with our no‑code setup.</p>
+      </details>
+      <details className="rounded-lg border border-white/20 p-4 open:bg-white/10 backdrop-blur-sm">
+        <summary className="cursor-pointer font-medium text-white">Can I import my existing videos?</summary>
+        <p className="mt-2 text-gray-300">Absolutely. Upload directly or migrate from YouTube, Vimeo, or other platforms.</p>
+      </details>
+    </section>
+  )
+}
+
+// --- Main Page -------------------------------------------------------------
+
+export default function LandingPage() {
+  return (
+    <>
+      <Head>
+        <title>Chainfren Studio | Video Streaming for Creators & Brands</title>
+        <meta
+          name="description"
+          content="Stream, monetize, and own your audience with Chainfren Studio—an all‑in‑one video platform for creators, media brands, and event organizers."
+        />
+        <meta property="og:title" content="Chainfren Studio | Video Streaming for Creators & Brands" />
+        <meta property="og:description" content="Stream, monetize, and own your audience with Chainfren Studio." />
+        <meta property="og:image" content="/images/og-cover.png" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+
+      <main className="min-h-screen w-full flex-col overflow-x-hidden">
+        <Hero />
+        <FeatureGrid />
+        <TestimonialSection />
+        <LeadForm />
+        <FAQ />
+      </main>
+
+      <footer className="border-t border-white/20 py-8 text-center text-sm text-gray-400">
+        © {new Date().getFullYear()} Chainfren Studio. All rights reserved.
+      </footer>
+    </>
+  )
 }
