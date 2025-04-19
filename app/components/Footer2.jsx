@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <div className='dark:bg-primary bg-[#FBFAFA] -mt-2 flex justify-center dark:text-[#FFFFFF99] text-black'>
         <div className="w-[1050px] border-t-[0.1px] border-[#0D1030] py-8 gap-4 lg:py-12 flex md:justify-between md:flex-row justify-center items-center flex-col-reverse">
-            <div className="dark:text-[#ffffff64] text-primary">2023 © Chainfren. All rights reserved.</div>
+            <div className="dark:text-[#ffffff64] text-primary">2025 © Chainfren. All rights reserved.</div>
             <div className="flex gap-7 items-center">
               <div className="">
                 <a href="http://x.com/chainfren">

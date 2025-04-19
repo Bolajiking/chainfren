@@ -88,7 +88,7 @@ function Hero() {
       </h1>
       <p className="max-w-2xl text-lg text-gray-200 md:text-xl">
         Chainfren Studio gives creators and brands everything they need to deliver video content on their own
-        terms—live or on‑demand—while keeping up to 95<span className='relative font-serif'>%</span> of revenue.
+        terms—live or on<span className='relative font-serif'>-</span>demand while keeping up to 95<span className='relative font-serif'>%</span> of revenue.
       </p>
       <div className="flex flex-col gap-4 sm:flex-row">
         <Button 
@@ -177,8 +177,8 @@ function TestimonialSection() {
         {/* Event Organizer Testimonial */}
         <Card className="bg-white/10 backdrop-blur-sm border-white/20">
           <CardContent className="flex h-full flex-col justify-between gap-6 p-6">
-            <p className="text-lg italic text-gray-200"><span className='relative font-serif'>"</span>Chainfren Studio let us launch our own pay‑per‑view sports streams in a weekend. Revenue tripled.<span className='relative font-serif'>"</span></p>
-            <span className="font-medium text-[#40ACFF]">Mark R. – Event Organizer</span>
+            <p className="text-lg italic text-gray-200"><span className='relative font-serif'>"</span>Chainfren Studio let us launch our own pay<span className='relative font-serif'>-</span>per<span className='relative font-serif'>-</span>view sports streams in a weekend. Revenue tripled.<span className='relative font-serif'>"</span></p>
+            <span className="font-medium text-[#40ACFF]">Mark R. <span className='relative font-serif'>-</span> Event Organizer</span>
           </CardContent>
         </Card>
 
@@ -186,7 +186,7 @@ function TestimonialSection() {
         <Card className="bg-white/10 backdrop-blur-sm border-white/20">
           <CardContent className="flex h-full flex-col justify-between gap-6 p-6">
             <p className="text-lg italic text-gray-200"><span className='relative font-serif'>"</span>We moved from social media to our own platform, kept 95<span className='relative font-serif'>%</span> of donations, and finally own our audience.<span className='relative font-serif'>"</span></p>
-            <span className="font-medium text-[#40ACFF]">Pastor Samuel – Faith Community Leader</span>
+            <span className="font-medium text-[#40ACFF]">Pastor Samuel <span className='relative font-serif'>-</span>  Faith Community Leader</span>
           </CardContent>
         </Card>
 
@@ -194,7 +194,7 @@ function TestimonialSection() {
         <Card className="bg-white/10 backdrop-blur-sm border-white/20">
           <CardContent className="flex h-full flex-col justify-between gap-6 p-6">
             <p className="text-lg italic text-gray-200"><span className='relative font-serif'>"</span>As an indie creator, I love having full control and direct sales in one place. Chainfren just works.<span className='relative font-serif'>"</span></p>
-            <span className="font-medium text-[#40ACFF]">Jane D. – Content Creator</span>
+            <span className="font-medium text-[#40ACFF]">Jane D. <span className='relative font-serif'>-</span>  Content Creator</span>
           </CardContent>
         </Card>
       </div>
