@@ -115,8 +115,8 @@ function FeatureGrid() {
         <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20">
           <CardContent className="flex flex-col gap-4 p-6">
             <Play className="h-10 w-10 text-[#40ACFF]" />
-            <h3 className="text-xl font-semibold text-white">Livestream <span className='relative font-serif'>&</span> On‑Demand</h3>
-            <p className="text-gray-300">Broadcast in HD, buffer‑free, on any device. You decide the rules—no surprise takedowns.</p>
+            <h3 className="text-xl font-semibold text-white">Livestream <span className='relative font-serif'>&</span> On<span className='relative font-serif'>-</span>Demand</h3>
+            <p className="text-gray-300">Broadcast in HD, buffer<span className='relative font-serif'>-</span>free, on any device. You decide the rules<span className='relative font-serif'>-</span>no surprise takedowns.</p>
           </CardContent>
         </Card>
 
@@ -125,7 +125,7 @@ function FeatureGrid() {
           <CardContent className="flex flex-col gap-4 p-6">
             <Shield className="h-10 w-10 text-[#40ACFF]" />
             <h3 className="text-xl font-semibold text-white">Gate <span className='relative font-serif'>&</span> Monetize Access</h3>
-            <p className="text-gray-300">Subscriptions, pay‑per‑view, or VIP tiers. Total control over who watches and at what price.</p>
+            <p className="text-gray-300">Subscriptions, pay<span className='relative font-serif'>-</span>per<span className='relative font-serif'>-</span>view, or VIP tiers. Total control over who watches and at what price.</p>
           </CardContent>
         </Card>
 
@@ -133,8 +133,8 @@ function FeatureGrid() {
         <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20">
           <CardContent className="flex flex-col gap-4 p-6">
             <DollarSign className="h-10 w-10 text-[#40ACFF]" />
-            <h3 className="text-xl font-semibold text-white">Built‑In Store</h3>
-            <p className="text-gray-300">Sell merch, digital downloads, or bundles without sending fans off‑site.</p>
+            <h3 className="text-xl font-semibold text-white">Built<span className='relative font-serif'>-</span>In Store</h3>
+            <p className="text-gray-300">Sell merch, digital downloads, or bundles without sending fans off<span className='relative font-serif'>-</span>site.</p>
           </CardContent>
         </Card>
 
@@ -152,7 +152,7 @@ function FeatureGrid() {
           <CardContent className="flex flex-col gap-4 p-6">
             <Check className="h-10 w-10 text-[#40ACFF]" />
             <h3 className="text-xl font-semibold text-white">Keep 95<span className='relative font-serif'>%+</span> Revenue</h3>
-            <p className="text-gray-300">Ultra‑low fees mean you keep what you earn—finally, a platform that pays creators first.</p>
+            <p className="text-gray-300">Ultra<span className='relative font-serif'>-</span>low fees mean you keep what you earn<span className='relative font-serif'>-</span>finally, a platform that pays creators first.</p>
           </CardContent>
         </Card>
 
@@ -161,7 +161,7 @@ function FeatureGrid() {
           <CardContent className="flex flex-col gap-4 p-6">
             <BarChart2 className="h-10 w-10 text-[#40ACFF]" />
             <h3 className="text-xl font-semibold text-white">Actionable Analytics</h3>
-            <p className="text-gray-300">Understand viewer behavior, optimize content, and grow faster with data‑driven insights.</p>
+            <p className="text-gray-300">Understand viewer behavior, optimize content, and grow faster with data<span className='relative font-serif'>-</span>driven insights.</p>
           </CardContent>
         </Card>
       </div>
@@ -226,7 +226,7 @@ function LeadForm() {
     }
     const data = await response.json()
     console.log("Form submitted successfully:", data) 
-    await new Promise((r) => setTimeout(r, 1200))
+    // await new Promise((r) => setTimeout(r, 1200))
     setSubmitting(false)
     setSubmitted(true)}
     catch(error){
