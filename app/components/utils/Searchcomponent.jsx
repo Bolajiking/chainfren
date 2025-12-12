@@ -39,7 +39,7 @@ const Searchcomponent = ({data}) => {
                 {data.map((item) => {
                     const { title, slug, excerpt, coverImage } = item?.fields;
                     return (
-                        <Link key={slug} href={`/learn/${slug}`}>
+                        <Link key={slug} href={`/blog/${slug}`}>
                             <div className="p-3 h-[19rem] flex flex-col gap-3 dark:bg-[#0D103099] bg-[#F0F0F0] rounded-md">
                                 <div className="rounded-md overflow-hidden flex-1">
                                     <ContentfulImage
@@ -76,7 +76,7 @@ const Searchcomponent = ({data}) => {
             {filteredData.map((item) => {
                 const { title, slug, excerpt, coverImage } = item.fields;
                 return (
-                    <Link key={slug} href={`/learn/${slug}`}>
+                    <Link key={slug} href={`/blog/${slug}`}>
                         <div className="p-3 h-[19rem] flex flex-col gap-3 dark:bg-[#0D103099] bg-[#F0F0F0] rounded-md">
                             <div className="rounded-md overflow-hidden flex-1">
                                 <ContentfulImage

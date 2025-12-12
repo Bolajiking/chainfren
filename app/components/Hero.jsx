@@ -1,33 +1,45 @@
 import Link from 'next/link';
-import Background from './Background';
+
 
 // Hero component
 const Hero = () => {
   return (
-    <div className="relative bg-primary flex text-white flex-col items-center justify-center gap-6 overflow-hidden xl:h-screen">
-
-      <div className="w-full h-full flex-col items-center justify-center -mt-10 py-[35%] sm:py-[15%] gap-8 flex z-[1]">
+    <div className="relative bg-slate-50 flex text-black flex-col items-center justify-center gap-6 overflow-hidden xl:h-screen">
+      {/* Background Image with Overlay */}
+      <div 
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat z-20"
+        style={{
+          backgroundImage: 'url(/img9.jpg)',
+          filter: '',
+        }}
+      />
+      {/* Dark Overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/10" />
+      
+      <div className="bg-slate-50/80   w-full h-full flex-col items-center justify-center  py-[35%] sm:py-[15%] gap-8 flex z-40 relative ">
         {/* Background component with animation prop */}
-        <Background animation={true} />
+     
 
         {/* Updated main heading with animations */}
-        <div className="md:text-2xlClamp text-xlClamp px-5 md:px-0 sm:leading-[5.5rem] text-center font-bold mx-auto font-sans">
+        <div className="md:text-2xlClamp text-xlClamp text-gray-900 px-5 md:px-0 sm:leading-[5.5rem] text-center font-bold mx-auto font-sans">
           <div className="flex md:w-[800px] lg:w-[850px] xl:w-[950px] flex-wrap justify-center gap-3 animate-fadeIn">
-            <span className='sm:leading-[3.5rem] leading-[2.8rem] animate-slideUp'>Unlocking</span>
+            <span className='sm:leading-[3.5rem] leading-[2.8rem] text-[#40ACFF]  animate-slideUp'>Unlocking</span>
           </div>
-          <div className="bg-gradient-to-r from-white to-[#40ACFF] bg-clip-text text-transparent animate-fadeIn animation-delay-300">
+          <div className=" text-[#40ACFF] animate-fadeIn animation-delay-300">
             Digital Wealth
           </div>
-          <div className="flex md:w-[800px] lg:w-[850px] xl:w-[950px] flex-wrap justify-center gap-3 mt-2 animate-fadeIn animation-delay-500">
-            <span className='sm:leading-[3.5rem] leading-[2.8rem]'>for</span>
-            <span className='sm:leading-[3.5rem] leading-[2.8rem]'>Creators</span>
-            <span className='sm:leading-[3.5rem] leading-[2.8rem]'>and</span>
-            <span className='sm:leading-[3.5rem] leading-[2.8rem]'>Brands</span>
+          <div className="flex md:w-[800px] lg:w-[850px] xl:w-[950px] flex-col sm:flex-row justify-center gap-0 sm:gap-3 mt-2 animate-fadeIn animation-delay-500">
+            <span className='sm:leading-[3.5rem] leading-[2.8rem] text-[#40ACFF] block'>for</span>
+            <div className="flex flex-nowrap justify-center gap-1 sm:gap-3">
+              <span className='sm:leading-[3.5rem] leading-[2.8rem] text-[#08153C]'>Creators</span>
+              <span className='sm:leading-[3.5rem] font-serif leading-[2.8rem] md:mt-2 mt-1 text-[#08153C]'>&</span>
+              <span className='sm:leading-[3.5rem] leading-[2.8rem] text-[#08153C]'>Brands</span>
+            </div>
           </div>
         </div>
     
         {/* Updated subtitle with animation */}
-        <div className="text-[#ffffffc1] text-center text-lg px-4 md:px-0 sm:w-[750px] mt-4 animate-fadeIn animation-delay-700">
+        <div className="text-gray-900 text-center text-lg px-4 md:px-0 sm:w-[750px] mt-4 animate-fadeIn animation-delay-700">
           We are a web3 company enabling the power of crypto and digital assets to build products and experiences that drive valuable growth in the digital age
         </div>
 

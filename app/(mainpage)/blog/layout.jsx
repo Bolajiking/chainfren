@@ -8,11 +8,11 @@ export default function RootLayout({ children }) {
   console.log(dark);
     return (
       <>
-                  <Nav />
+                  {/* <Nav /> */}
             <div className={`${dark?'dark':''}` }>
             {children}
-            <Subscribe2 />
-            <Footer3 />
+            {/* <Subscribe2 /> */}
+            {/* <Footer3 /> */}
       </div>
       </>
     )

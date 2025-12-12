@@ -15,6 +15,7 @@ import { useState } from 'react'
 import { Check, Play, DollarSign, Shield, Users, BarChart2 } from 'lucide-react'
 import Link from 'next/link'
 import CalendlyWidget from '@/app/components/CalendlyWidget'
+import Navbar from '@/app/components/Navbar'
 
 // --- Data ------------------------------------------------------------------
 
@@ -73,34 +74,37 @@ const TESTIMONIALS = [
 
 function Hero() {
   return (
-    <section className="relative flex flex-col items-center justify-center gap-6 py-24 text-center">
+    <section className="relative bg-[#fdfdfd] bg-gradient-to-b from-[#fdfdfd] to-[#f1dcea] min-h-screen text-gray-800 flex flex-col lg:flex-row items-center lg:justify-between justify-center gap-12 py-24 px-4 lg:px-8">
       <CalendlyWidget />
-      <Image
-        src="/CTV.png"
-        alt="Chainfren Studio logo"
-        width={200}
-        height={50}
-        className="mx-auto h-auto w-auto"
-        priority
-      />
-      <h1 className="max-w-4xl text-4xl font-bold sm:text-5xl md:text-6xl text-white">
-        Stream. Monetize. <span className="text-[#40ACFF]">Own&nbsp;It.</span>
-      </h1>
-      <p className="max-w-2xl text-lg text-gray-200 md:text-xl">
-        Chainfren Studio gives creators and brands everything they need to deliver video content on their own
-        terms—live or on<span className='relative font-serif'>-</span>demand while keeping up to 95<span className='relative font-serif'>%</span> of revenue.
-      </p>
-      <div className="flex flex-col gap-4 sm:flex-row">
-        <Button 
-          size="lg" 
-          className="bg-[#40ACFF] hover:bg-[#3090DD] text-white"
-          onClick={() => window.Calendly?.initPopupWidget({url: 'https://calendly.com/chainfren'})}
-        >
-          Book a Free Demo
-        </Button>
-        <Button variant="outline" size="lg" className="text-white border-white hover:bg-white/10">
-          <Link href="#get-started">Subscribe to join waitlist</Link>
-        </Button>
+      <div className="flex flex-col gap-6 text-center lg:text-left lg:flex-1">
+        <h1 className="max-w-4xl text-4xl font-bold sm:text-5xl md:text-6xl text-gray-800">
+          Stream. Monetize. <span className="text-[#4357F6] text-clip bg-gradient-to-r from-[#4357F6] to-[#665DE9] bg-clip-text text-transparent">Own&nbsp;It.</span>
+        </h1>
+        <p className="max-w-2xl text-lg text-gray-600 md:text-xl">
+          Chainfren Studio gives creators and brands everything they need to deliver video content on their own
+          terms—live or on<span className='relative font-serif'>-</span>demand while keeping up to 95<span className='relative font-serif'>%</span> of revenue.
+        </p>
+        <div className="flex flex-col gap-4 sm:flex-row">
+          <Button 
+            size="lg" 
+            className="bg-[#4357F6] bg-gradient-to-r from-[#4357F6] to-[#665DE9] hover:bg-[#3090DD] text-white"
+            onClick={() => window.Calendly?.initPopupWidget({url: 'https://calendly.com/chainfren'})}
+          >
+            Book a Free Demo
+          </Button>
+          <Button variant="outline" size="lg" className="text-gray-800 border-gray-800 hover:bg-white/10">
+            <Link href="#get-started">Subscribe to join waitlist</Link>
+          </Button>
+        </div>
+      </div>
+      <div className="flex justify-center xl:scale-125 lg:justify-center lg:flex-1">
+        <Image 
+          src="/img1.png" 
+          alt="Chainfren Studio hero image" 
+          width={600} 
+          height={600} 
+          className="h-auto object-contain w-auto max-w-full lg:max-w-none" 
+        />
       </div>
     </section>
   )
@@ -114,7 +118,7 @@ function FeatureGrid() {
         {/* Livestream & On-Demand Feature */}
         <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20">
           <CardContent className="flex flex-col gap-4 p-6">
-            <Play className="h-10 w-10 text-[#40ACFF]" />
+            <Play className="h-10 w-10 text-[#4357F6]" />
             <h3 className="text-xl font-semibold text-white">Livestream <span className='relative font-serif'>&</span> On<span className='relative font-serif'>-</span>Demand</h3>
             <p className="text-gray-300">Broadcast in HD, buffer<span className='relative font-serif'>-</span>free, on any device. You decide the rules<span className='relative font-serif'>-</span>no surprise takedowns.</p>
           </CardContent>
@@ -123,7 +127,7 @@ function FeatureGrid() {
         {/* Gate & Monetize Access Feature */}
         <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20">
           <CardContent className="flex flex-col gap-4 p-6">
-            <Shield className="h-10 w-10 text-[#40ACFF]" />
+            <Shield className="h-10 w-10 text-[#4357F6]" />
             <h3 className="text-xl font-semibold text-white">Gate <span className='relative font-serif'>&</span> Monetize Access</h3>
             <p className="text-gray-300">Subscriptions, pay<span className='relative font-serif'>-</span>per<span className='relative font-serif'>-</span>view, or VIP tiers. Total control over who watches and at what price.</p>
           </CardContent>
@@ -132,7 +136,7 @@ function FeatureGrid() {
         {/* Built-In Store Feature */}
         <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20">
           <CardContent className="flex flex-col gap-4 p-6">
-            <DollarSign className="h-10 w-10 text-[#40ACFF]" />
+            <DollarSign className="h-10 w-10 text-[#4357F6]" />
             <h3 className="text-xl font-semibold text-white">Built<span className='relative font-serif'>-</span>In Store</h3>
             <p className="text-gray-300">Sell merch, digital downloads, or bundles without sending fans off<span className='relative font-serif'>-</span>site.</p>
           </CardContent>
@@ -141,7 +145,7 @@ function FeatureGrid() {
         {/* Community Tools Feature */}
         <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20">
           <CardContent className="flex flex-col gap-4 p-6">
-            <Users className="h-10 w-10 text-[#40ACFF]" />
+            <Users className="h-10 w-10 text-[#4357F6]" />
             <h3 className="text-xl font-semibold text-white">Community Tools</h3>
             <p className="text-gray-300">Live chat, exclusive forums, and direct messaging keep fans engaged between streams.</p>
           </CardContent>
@@ -150,7 +154,7 @@ function FeatureGrid() {
         {/* Keep 95%+ Revenue Feature */}
         <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20">
           <CardContent className="flex flex-col gap-4 p-6">
-            <Check className="h-10 w-10 text-[#40ACFF]" />
+            <Check className="h-10 w-10 text-[#4357F6]" />
             <h3 className="text-xl font-semibold text-white">Keep 95<span className='relative font-serif'>%+</span> Revenue</h3>
             <p className="text-gray-300">Ultra<span className='relative font-serif'>-</span>low fees mean you keep what you earn<span className='relative font-serif'>-</span>finally, a platform that pays creators first.</p>
           </CardContent>
@@ -159,11 +163,218 @@ function FeatureGrid() {
         {/* Actionable Analytics Feature */}
         <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20">
           <CardContent className="flex flex-col gap-4 p-6">
-            <BarChart2 className="h-10 w-10 text-[#40ACFF]" />
+            <BarChart2 className="h-10 w-10 text-[#4357F6]" />
             <h3 className="text-xl font-semibold text-white">Actionable Analytics</h3>
             <p className="text-gray-300">Understand viewer behavior, optimize content, and grow faster with data<span className='relative font-serif'>-</span>driven insights.</p>
           </CardContent>
         </Card>
+      </div>
+    </section>
+  )
+}
+
+function ExampleSection() {
+  return (
+    <section className="bg-white text-gray-800 backdrop-blur-sm py-20">
+      <div className="mx-auto max-w-7xl px-4 lg:px-8">
+        <div className="flex flex-col items-center space-y-4 justify-center text-center mb-12">
+        <h2 className=" text-center font-bold text-5xl  sm:text-4xl text-gray-800">
+          Own A Streaming Platform built for your industry
+        </h2>
+        <p className="text-gray-600 text-lg">Get a niche specific solution with TIVI featuring advanced tools to strengthen your business and engage with your audience.</p>
+        </div>
+        <div className="grid gap-8 lg:grid-cols-3">
+                     {/* Column 1 */}
+           <div className="flex flex-col items-center gap-6 p-6 bg-white/10 backdrop-blur-sm border border-gray-800/20 rounded-lg">
+            
+             <div className="flex-1 text-center lg:text-left">
+               <h3 className="text-xl font-semibold text-[#4357F6] mb-3">
+                 Movies <span className='relative font-serif'>&</span> TV Shows
+               </h3>
+               <p className="text-gray-600">
+                 Launch your own Netflix<span className='relative font-serif'>-</span>style platform with premium content libraries, subscription tiers, and advanced DRM protection for your exclusive movies and series.
+               </p>
+             </div>
+             <div className="flex-shrink-0 relative group">
+               <Image
+                 src="/img3.jpg"
+                 alt="Setup your stream"
+                 width={500}
+                 height={500}
+                 className="h-auto w-auto object-cover rounded-lg"
+               />
+               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                 <Link href="/contact">
+                   <Button 
+                     variant="outline" 
+                     size="sm" 
+                     className="text-white border-white hover:bg-white hover:text-gray-800 transition-colors duration-200"
+                   >
+                     Learn More
+                   </Button>
+                 </Link>
+               </div>
+             </div>
+           </div>
+
+          {/* Column 2 */}
+          <div className="flex flex-col items-center gap-6 p-6 bg-white/10 backdrop-blur-sm border border-gray-800/20 rounded-lg">
+            <div className="flex-1 text-center lg:text-left">
+              <h3 className="text-xl font-semibold text-[#4357F6] mb-3">
+                Live Sports
+              </h3>
+              <p className="text-gray-600">
+                Broadcast live sporting events with pay<span className='relative font-serif'>-</span>per<span className='relative font-serif'>-</span>view options, real<span className='relative font-serif'>-</span>time statistics, and interactive fan engagement tools for the ultimate sports viewing experience.
+              </p>
+            </div>
+            <div className="relative group">
+              <Image
+                src="/img9.jpg"
+                alt="Monetize content"
+                width={500}
+                height={500}
+                className="h-auto w-auto object-cover rounded-lg"
+              />
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                <Link href="/contact">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="text-white border-white hover:bg-white hover:text-gray-800 transition-colors duration-200"
+                  >
+                    Learn More
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 3 */}
+          <div className="flex flex-col items-center gap-6 p-6 bg-white/10 backdrop-blur-sm border border-gray-800/20 rounded-lg">
+            
+            <div className="flex-1 text-center lg:text-left">
+              <h3 className="text-xl font-semibold text-[#4357F6] mb-3">
+               Shows <span className='relative font-serif'>&</span> Concerts
+              </h3>
+              <p className="text-gray-600">
+                Host virtual concerts, comedy shows, and live performances with ticketing integration, VIP backstage access, and interactive audience features.
+              </p>
+            </div>
+            <div className="flex-shrink-0 relative group">
+              <Image
+                src="/img7.jpg"
+                alt="Grow community"
+                width={500}
+                height={500}
+                className="h-auto w-auto object-cover rounded-lg"
+              />
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                <Link href="/contact">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="text-white border-white hover:bg-white hover:text-gray-800 transition-colors duration-200"
+                  >
+                    Learn More
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center gap-6 p-6 bg-white/10 backdrop-blur-sm border border-gray-800/20 rounded-lg">
+            
+            <div className="flex-1 text-center lg:text-left">
+              <h3 className="text-xl font-semibold text-[#4357F6] mb-3">
+              Religious Organizations
+               </h3>
+              <p className="text-gray-600">
+                Stream worship services, Bible studies, and community events with donation integration, member<span className='relative font-serif'>-</span>only content, and spiritual community building tools.
+              </p>
+            </div>
+            <div className="flex-shrink-0 relative group">
+              <Image
+                src="/img11.jpg"
+                alt="Grow community"
+                width={500}
+                height={500}
+                className="h-auto w-auto object-cover rounded-lg"
+              />
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                <Link href="/contact">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="text-white border-white hover:bg-white hover:text-gray-800 transition-colors duration-200"
+                  >
+                    Learn More
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center gap-6 p-6 bg-white/10 backdrop-blur-sm border border-gray-800/20 rounded-lg">
+            
+            <div className="flex-1 text-center lg:text-left">
+              <h3 className="text-xl font-semibold text-[#4357F6] mb-3">
+               Podcasts <span className='relative font-serif'>&</span> Talk Shows
+               </h3>
+              <p className="text-gray-600">
+                Create live podcast recordings, interactive talk shows, and on<span className='relative font-serif'>-</span>demand audio content with audience participation, call<span className='relative font-serif'>-</span>in features, and premium subscriber benefits.
+              </p>
+            </div>
+            <div className="flex-shrink-0 relative group">
+              <Image
+                src="/img5.jpg"
+                alt="Grow community"
+                width={500}
+                height={500}
+                className="h-auto w-auto object-cover rounded-lg"
+              />
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                <Link href="/contact">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="text-white border-white hover:bg-white hover:text-gray-800 transition-colors duration-200"
+                  >
+                    Learn More
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center gap-6 p-6 bg-white/10 backdrop-blur-sm border border-gray-800/20 rounded-lg">
+            
+            <div className="flex-1 text-center lg:text-left">
+              <h3 className="text-xl font-semibold text-[#4357F6] mb-3">
+              Content Creators
+               </h3>
+              <p className="text-gray-600">
+                Build your personal brand with live streaming, exclusive content tiers, merchandise sales, and direct fan monetization without platform restrictions.
+              </p>
+            </div>
+            <div className="flex-shrink-0 relative group">
+              <Image
+                src="/img8.jpg"
+                alt="Grow community"
+                width={500}
+                height={500}
+                className="h-auto w-auto object-cover rounded-lg"
+              />
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                <Link href="/contact">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="text-white border-white hover:bg-white hover:text-gray-800 transition-colors duration-200"
+                  >
+                    Learn More
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )
@@ -298,8 +509,10 @@ export default function LandingPage() {
       </Head>
 
       <main className="min-h-screen w-full flex-col overflow-x-hidden">
+        <Navbar />
         <Hero />
         <FeatureGrid />
+        <ExampleSection />
         <TestimonialSection />
         <LeadForm />
         <FAQ />

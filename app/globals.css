@@ -4,7 +4,7 @@
 
 
 body{
-    background-color: #09011B;
+    background-color: #FFFFFF;
 }
 .card::after {
     content: '';
@@ -192,4 +192,18 @@ body{
 
 .animation-delay-1000 {
   animation-delay: 1000ms;
+}
+
+/* Slow spin animation for 3D rings */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
 }
