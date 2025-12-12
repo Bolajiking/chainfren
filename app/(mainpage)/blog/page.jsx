@@ -1,90 +1,96 @@
 import React from 'react'
 import Link from 'next/link';
+import Nav from '../../components/Nav';
 import { client } from '@/app/contentful/contentful';
-import ContentfulImage from '../../components/utils/ContentfulImage';
-import Date from '../../components/utils/Date';
-import Darkmode from '@/app/components/Darkmode';
-import ShareButton from '../../components/utils/ShareButton';
-import Search from '@/app/components/utils/Search';
-import Searchcomponent from '@/app/components/utils/Searchcomponent';
-
-// Define your base URL (adjust this to your actual site URL)
-const BASE_URL = 'https://www.chainfren.com/'; // Replace with your actual website URL
+import WavyTop from './WavyTop';
 
 const getBlogEntries = async () => {
-    const entries = await client.getEntries({ content_type: "blog" });
-    return entries;
-  };
-const page = async  () => {
-    const blogEntries = await getBlogEntries();
-    
+  const entries = await client.getEntries({ content_type: "blog" });
+  return entries;
+};
+
+const page = async () => {
+  const blogEntries = await getBlogEntries();
+  
+  // Define the color scheme for the blocks
+  const blockColors = [
+    { bg: '#5ACDFF', text: 'black', button: 'black' }, // Light blue
+    { bg: '#08153C', text: 'white', button: 'white' }, // Dark blue
+    { bg: '#E6D9FF', text: 'black', button: 'black' }, // Light purple
+    { bg: '#000000', text: 'white', button: 'white' }, // Black
+    { bg: '#0091FF', text: 'black', button: 'black' }, // Bright blue
+    { bg: '#A6D234', text: 'black', button: 'black' }, // Lime green
+    { bg: '#CBF0B8', text: 'black', button: 'black' }, // Light green
+  ];
+
+  // Use blog entries if available, otherwise use placeholder
+  const articles = blogEntries.items.length > 0 
+    ? blogEntries.items.slice(0, 7).map(item => ({
+        title: item.fields.title || '1000 TRUE FANS - How Creators and Brands can use web3 for growth',
+        slug: item.fields.slug || 'article'
+      }))
+    : Array(7).fill(null).map((_, i) => ({
+        title: '1000 TRUE FANS - How Creators and Brands can use web3 for growth',
+        slug: `article-${i + 1}`
+      }));
+
   return (
-    <>
-    <div className=' flex justify-center items-center   flex-col relative dark:bg-primary bg-white'>
-        <div className="flex items-center justify-center relative md:w-[600px] lg:w-[1025px] ">
-        <div className="text-center text-3xl  md:text-5xl mt-8 text-black dark:text-white">Blog</div>
-        <div className="hidden md:block absolute right-0 top-12"><Darkmode /></div>
-        </div>
-        
-        {/* Search Section */}
-        <div className="w-full max-w-[600px] px-4 mt-8">
-            <div className="border-[1px] dark:bg-transparent bg-[#F1F5FA] dark:border-[#262036] border-[#F1F5FA] rounded-3xl px-4 py-[9px]">
-                <Search />
-            </div>
-        </div>
+    <div className="min-h-screen bg-white font-fontspring">
+     
+      
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
+        {/* Main Headline */}
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-black mb-12 max-w-7xl">
+          Get the latest insights and strategies from our team.
+        </h1>
 
-        <div className="max-w-[1120px] mt-12 pb-32 md:pb-0">
-            <Searchcomponent data={blogEntries.items} type="blog" />
+        {/* Articles Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {articles.map((article, index) => {
+            const colors = blockColors[index % blockColors.length];
+            const textColor = colors.text === 'white' ? 'text-white' : 'text-black';
+            const buttonBorderColor = colors.button === 'white' ? 'border-white' : 'border-black';
+            const buttonTextColor = colors.button === 'white' ? 'text-white' : 'text-black';
             
-            {!blogEntries.items.length && (
-                <div className="text-center text-2xl font-bold text-[#ffffff99] dark:text-[#00000099]">
-                    No blog posts found
+            return (
+              <div
+                key={index}
+                className="relative rounded-lg border-2 border-black"
+                style={{ backgroundColor: colors.bg, overflow: 'hidden' }}
+              >
+                {/* Wavy Top Edge */}
+                <WavyTop bgColor={colors.bg} />
+                
+                {/* Content */}
+                <div className={`p-6 pt-4 ${textColor} flex flex-col justify-between min-h-[200px]`}>
+                  <h2 className="text-lg md:text-xl font-bold mb-6 leading-tight">
+                    {article.title}
+                  </h2>
+                  
+                  <div className="mt-auto">
+                    <Link href={`/blog/${article.slug}`}>
+                      <button className={`px-4 py-2 border-2 ${buttonBorderColor} ${buttonTextColor} font-semibold rounded-full hover:opacity-80 transition-opacity uppercase text-sm`}>
+                        READ
+                      </button>
+                    </Link>
+                  </div>
                 </div>
-            )}
-            
-            {blogEntries.items.map((post, index) => {
-                const { title, slug, excerpt, coverImage, content, date } = post.fields;
-                const fullUrl = `${BASE_URL}/blog/${slug}`; // Construct the full URL for the blog entry
-                return (
-                    <div className='w-full h-full md:h-[80%]' key={index}> {/* Moved key to the parent div */}
-                        <Link href={`./blog/${slug}`}>
-                            <div className="overflow-hidden h-[15rem] items-center flex flex-col rounded-[10px] border-[1px] hover:border-[2px] hover:border-[#000] bg-[#F0F0F0] dark:bg-[#0A0623] z-[1] border:text-[#606060] dark:border-[#09011bce] hover:dark:border-[#40CBFF] relative"> {/* Added relative positioning */}
-                                {/* ShareButton positioned absolutely in the top right corner */}
-                                <div className="absolute top-2 right-2"> {/* Positioning for the ShareButton */}
-                                    <ShareButton url={fullUrl} /> {/* Pass the full URL to the ShareButton */}
-                                </div>
-                                {/* Removed any previous ShareButton from the bottom left */}
-                                <div className="p-4 h-[60%] text-black dark:text-white flex flex-col gap-2">
-                                    <div className="flex items-center font-serif justify-self-end mt-2 md:mt-10 justify-between">
-                                        <div className="dark:text-[#FFFFFF99] text-[#606060] text-sm"><Date datestring={date} /></div>
-                                    </div>
-                                    <div className="text-lg md:text-2xl lg:text-3xl md:mt-3 md:font-bold font-medium font-serif">{title}</div>
-                                    <div className="dark:text-[#FFFFFF99] text-[#606060] text-sm md:text-base lg:mt-3">{`${excerpt}..`}</div>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                );
-            })}
+              </div>
+            );
+          })}
         </div>
+
+        {/* GO HOME Button - Bottom Right */}
+        <div className="flex justify-end mb-8 border-t-2 border-black py-12 mt-32">
+          <Link href="/">
+            <button className="px-6 py-3 border-2 border-black text-black font-semibold rounded-lg hover:opacity-80 transition-opacity uppercase">
+              GO HOME
+            </button>
+          </Link>
+        </div>
+      </div>
     </div>
+  );
+};
 
-    </>
-  )
-}
-
-export default page
-
-        {/* {blogEntries.items.map((post)=>{
-           
-            const {title,slug,image,content} =post.fields
-            
-           return(
-            <div className=" h-24 rounded bg-blue-300" key={slug}>
-                <Link href={`/blog/${slug}`}>
-                <div className="text-2xl">{title}</div>
-                </Link>
-               
-            </div>
-           )
-        })} */}
+export default page;

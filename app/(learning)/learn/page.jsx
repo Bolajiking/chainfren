@@ -42,35 +42,35 @@ const Page = async () => {
                     <div className="flex flex-col sm2:flex-row sm2:flex-wrap mx-auto pt-8 md:pt-0 gap-6 pb-8 md:pb-0">
                         {courses.items.map((course) => {
                             const { title, slug, excerpt, coverImage } = course.fields;
-                            return (
-                                <div key={slug} className="w-full sm2:w-[47%] lg:w-[31%]">
-                                    <Link href={`/learn/${slug}`}>
-                                        <div className="p-3 h-[19rem] flex flex-col gap-3 dark:bg-[#0D103099] bg-[#F0F0F0] rounded-md">
-                                            <div className="rounded-md overflow-hidden flex-1">
-                                                <ContentfulImage
-                                                    alt={`cover image for ${title}`}
-                                                    src={coverImage.fields.file.url}
-                                                    width={coverImage.fields.file.details.image.width}
-                                                    height={200}
-                                                />
-                                            </div>
-                                            <div className="flex flex-col flex-1">
-                                                <div className="font-semibold dark:text-white text-lg">{title}</div>
-                                                <div className="text-[0.9rem] dark:text-[#ffffffa3]">{`${excerpt}`}</div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-                <Footer2 />
+      return (
+        <div key={slug} className="w-full sm2:w-[47%] lg:w-[31%]">
+          <Link href={`/learn/${slug}`}>
+            <div className="p-3 h-[19rem] flex flex-col gap-3 dark:bg-[#0D103099] bg-[#F0F0F0] rounded-md">
+              <div className="rounded-md overflow-hidden flex-1">
+                <ContentfulImage
+                  alt={`cover image for ${title}`}
+                  src={coverImage.fields.file.url}
+                  width={coverImage.fields.file.details.image.width}
+                  height={200}
+                />
+              </div>
+              <div className="flex flex-col flex-1">
+                <div className="font-semibold dark:text-white text-lg">{title}</div>
+                <div className="text-[0.9rem] dark:text-[#ffffffa3]">{`${excerpt}`}</div>
+              </div>
             </div>
+          </Link>
+        </div>
+      );
+                        })}
+          </div>
+          </div>
+        <Footer2 />
+      </div>
             <Chatcomponent />
             <Ai />
-        </div>
-    );
+    </div>
+  );
 };
 
 export default Page;

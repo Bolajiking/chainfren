@@ -10,6 +10,10 @@ module.exports = {
       colors:{
         'primary':'#09011B',
         'secondary':'#0091FF',
+        'dark-blue':'#08153C', // Main dark blue from design
+        'light-blue':'#E6F4FF', // Light blue background
+        'lime-green':'#CCFF00', // Lime green background
+        'white':'#FFFFFF',
       },
       fontFamily:{
         sans:['var(--Fontspring)'],
@@ -23,6 +27,9 @@ module.exports = {
      screens:{
       md2:'870px',
       sm2:'480px'
+     },
+     animation: {
+       'spin-slow': 'spin 20s linear infinite',
      }
     },
   },

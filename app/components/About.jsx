@@ -6,10 +6,10 @@ import pic3 from '../../public/Asset3.png'
 
 const About = () => {
   return (
-    <div id='about' className='py-4 relative flex flex-col text-white justify-center items-center test bg-primary w-full 2xl:max-w-[1170px] mx-auto'>
-      <div className="flex py-8 pb-0 flex-col items-center justify-center md:w-[700px] lg:w-[1100px] px-5 md:px-0 text-center gap-8 lg:gap-0 z-[1]">
+    <div id='about' className='py-4 relative flex flex-col text-white justify-center items-center test bg-black w-full z-20'>
+      <div className=" bg-black flex py-8 pb-0 flex-col items-center justify-center w-full px-5 md:px-0 text-center gap-8 lg:gap-0 z-40">
         {/* Removed the "About Us" button from all views */}
-        <div className="flex w-full gap-y-36 justify-center items-center">
+        <div className="flex lg:w-[1100px] mx-auto gap-y-36 justify-center items-center">
           <Image src={pic2} className='hidden lg:block' width={150} height={150} alt="Side image 1" />
           <div className="text-2xl text-left my-2 ">
             <div className="text-4xl font-bold mb-6">The current model of the internet is broken.</div>
