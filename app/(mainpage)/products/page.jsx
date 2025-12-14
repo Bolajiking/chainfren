@@ -5,21 +5,21 @@ export default function Products() {
   const products = [
     {
       name: "Chainfren studio",
-      description: "Lorem ipsum dolor sit amet consectetur. Vitae platea arcu habitant ut suspendisse adipiscing urna. Sem rhoncus adipiscing vitae leo montes. Gravida nec ultricies rutrum donec lacus proin eget. Rutrum a eu ultrices metus amet.",
+      description: "A comprehensive creator studio platform that empowers content creators to build, manage, and monetize their digital presence. Streamline your workflow with integrated tools for content creation, audience engagement, and revenue generation. Take full control of your creative business with analytics, scheduling, and direct fan connections all in one powerful workspace.",
       backgroundColor: "#8daaff", // light blue/periwinkle
       buttonText: "GO TO PRODUCT",
       buttonLink: "/products/chainfren-studio"
     },
     {
       name: "TVinBio",
-      description: "Lorem ipsum dolor sit amet consectetur. Vitae platea arcu habitant ut suspendisse adipiscing urna. Sem rhoncus adipiscing vitae leo montes. Gravida nec ultricies rutrum donec lacus proin eget. Rutrum a eu ultrices metus amet.",
+      description: "Transform your social media bio into a powerful video hub that drives traffic and conversions. Showcase your best content, products, and links in an engaging visual format that captures attention instantly. Connect your audience directly to what matters most with customizable video galleries, clickable links, and seamless integration across all major platforms.",
       backgroundColor: "#5acdff", // light teal/aqua blue
       buttonText: "GO TO PRODUCT",
       buttonLink: "/products/tvinbio"
     },
     {
       name: "Comeownity",
-      description: "Lorem ipsum dolor sit amet consectetur. Vitae platea arcu habitant ut suspendisse adipiscing urna. Sem rhoncus adipiscing vitae leo montes. Gravida nec ultricies rutrum donec lacus proin eget. Rutrum a eu ultrices metus amet.",
+      description: "Build and own your community platform with complete control over data, monetization, and member experience. Create exclusive spaces where your audience can connect, engage, and support your work directly. Break free from platform limitations and establish a sustainable community ecosystem that grows with your brand while keeping you in full ownership.",
       backgroundColor: "#CBF0B8", // light green
       buttonText: "COMING SOOOOON",
       buttonLink: "#"
@@ -30,7 +30,7 @@ export default function Products() {
     <div className="font-fontspring min-h-screen bg-white">
       <Nav />
       
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:pb-12">
         {/* Main Heading */}
         <h1 className="text-4xl md:text-5xl lg:text-6xl  text-black uppercase mb-6">
           PRODUCTS
@@ -50,7 +50,7 @@ export default function Products() {
         </div>
 
         {/* Product Sections */}
-        <div className="space-y-6 mb-12">
+        <div className="space-y-2 mb-12">
           {products.map((product, index) => (
             <div
               key={index}

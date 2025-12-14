@@ -5,19 +5,19 @@ export default function Media() {
   const services = [
     {
       title: "Premium video and audio content production",
-      description: "Lorem ipsum dolor sit amet consectetur. Vitae platea arcu habitant ut suspendisse adipiscing urna. Sem rhoncus adipiscing vitae leo montes. Gravida nec ultricies rutrum donec lacus proin eget. Rutrum a eu ultrices metus amet.",
+      description: "We create high quality video and audio content that is culturally resonant and built for decentralized distribution. Our production team leverages advanced technology and creative expertise to deliver content that resonates with audiences and drives engagement across web3 platforms.",
       backgroundColor: "#5ACDFF", // light blue
       isLarge: true
     },
     {
       title: "Onchain media distribution and strategy",
-      description: "Lorem ipsum dolor sit amet consectetur. Vitae platea arcu habitant ut suspendisse adipiscing urna. Sem rhoncus adipiscing vitae leo montes. Gravida nec ultricies rutrum donec lacus proin eget. Rutrum a eu ultrices metus amet.",
+      description: "We implement strategic media distribution plans that maximize reach and impact across web3 channels. Our distribution strategies include smart contract integrations, NFT minting, and direct distribution to decentralized platforms. We also develop content syndication networks to amplify your message and drive engagement across multiple channels.",
       backgroundColor: "#E6D9FF", // light purple
       isLarge: false
     },
     {
       title: "Audience engagement & syndication",
-      description: "Lorem ipsum dolor sit amet consectetur. Vitae platea arcu habitant ut suspendisse adipiscing urna. Sem rhoncus adipiscing vitae leo montes. Gravida nec ultricies rutrum donec lacus.",
+      description: "We develop audience engagement strategies that foster meaningful interactions and long term loyalty. Our approach includes creating interactive content, hosting live streams, and implementing feedback loops to keep your audience invested and invested in your brand.",
       backgroundColor: "#CBF0B8", // light green
       isLarge: false
     }
@@ -27,7 +27,7 @@ export default function Media() {
     <div className="font-fontspring min-h-screen bg-white">
       <Nav />
       
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:pb-12">
         {/* Main Heading */}
         <h1 className="text-4xl md:text-5xl lg:text-6xl  text-black uppercase mb-6">
           MEDIA
