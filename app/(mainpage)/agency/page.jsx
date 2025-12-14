@@ -5,38 +5,38 @@ export default function Agency() {
   const services = [
     {
       title: "Growth Strategy and Consultation",
-      description: "Lorem ipsum dolor sit amet consectetur. Vitae platea arcu habitant ut suspendisse adipiscing urna. Sem rhoncus adipiscing vitae leo montes. Gravida nec ultricies rutrum donec lacus proin eget. Rutrum a eu ultrices metus amet.",
+      description: "We develop comprehensive growth strategies tailored to your web3 objectives. Our expert consultants analyze market trends, identify opportunities, and create actionable roadmaps. Strategic planning sessions help align your vision with onchain realities, ensuring sustainable expansion and measurable results across all growth metrics.",
       backgroundColor: "#5ACDFF" ,// light blue
       grid:'col-span-3'
 
     },
     {
       title: "Community Management",
-      description: "Lorem ipsum dolor sit amet consectetur. Vitae platea arcu habitant ut suspendisse adipiscing urna. Sem rhoncus adipiscing vitae leo montes. Gravida nec ultricies rutrum donec lacus proin eget. Rutrum a eu ultrices metus amet.",
+      description: "Building and nurturing engaged communities across Discord, Twitter, and Telegram platforms. Our team creates meaningful connections, moderates discussions, and drives active participation. We develop community guidelines, organize events, and maintain consistent communication to foster loyalty and long-term engagement with your brand.",
       backgroundColor: "#8DAAFF" ,// light purple
       grid:'col-span-2'
     },
     {
       title: "Tokenomics and Digital Assets Design",
-      description: "Lorem ipsum dolor sit amet consectetur. Vitae platea arcu habitant ut suspendisse adipiscing urna. Sem rhoncus adipiscing vitae leo montes. Gravida nec ultricies rutrum donec lacus proin eget. Rutrum a eu ultrices metus amet.",
+      description: "Designing sustainable token economics models that balance utility, value, and long-term viability. We create comprehensive token distribution strategies, vesting schedules, and incentive mechanisms. Our digital asset designs integrate seamlessly with your project's goals, ensuring alignment between token functionality and community rewards.",
       backgroundColor: "#C8EB6D" ,// light blue
       grid:'col-span-2'
     },
     {
       title: "Branding",
-      description: "Lorem ipsum dolor sit amet consectetur. Vitae platea arcu habitant ut suspendisse adipiscing urna. Sem rhoncus adipiscing vitae leo montes. Gravida nec ultricies rutrum donec lacus proin eget.",
+      description: "Crafting distinctive brand identities that resonate with web3 audiences and traditional markets. We develop visual systems, messaging frameworks, and brand guidelines that communicate your unique value proposition. Our branding approach ensures consistency across all touchpoints while establishing memorable presence in the decentralized ecosystem.",
       backgroundColor: "#A6E1FA" ,// light green
       grid:'col-span-3'
     },
     {
       title: "BD and Partnerships",
-      description: "Lorem ipsum dolor sit amet consectetur. Vitae platea arcu habitant ut suspendisse adipiscing urna. Sem rhoncus adipiscing vitae leo montes. Gravida nec ultricies rutrum donec lacus proin eget.",
+      description: "Forging strategic partnerships with key players across DeFi, NFT platforms, and blockchain infrastructure. We identify collaboration opportunities, negotiate terms, and manage relationships that drive mutual growth. Our business development approach connects you with the right partners to expand reach and unlock new market opportunities.",
       backgroundColor: "#4D7AFF" ,// medium blue
       grid:'col-span-3'
     },
     {
       title: "Gtm & Execution",
-      description: "Lorem ipsum dolor sit amet consectetur. Vitae platea arcu habitant ut suspendisse adipiscing urna. Sem rhoncus adipiscing vitae leo montes. Gravida nec ultricies rutrum donec lacus proin eget.",
+      description: "Executing comprehensive go-to-market strategies that launch your project successfully into web3 markets. We coordinate launch timelines, manage cross-functional teams, and ensure seamless execution across marketing, technical, and community channels. Our execution framework delivers measurable results from launch day through sustained growth phases.",
       backgroundColor: "#CBF0B8" ,// light green
       grid:'col-span-2'
     }
@@ -46,7 +46,7 @@ export default function Agency() {
     <div className="font-fontspring min-h-screen bg-white">
       <Nav />
       
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:pb-12">
         {/* Main Heading */}
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-black uppercase mb-12">
           AGENCY

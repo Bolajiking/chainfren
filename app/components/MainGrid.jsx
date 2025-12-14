@@ -109,8 +109,8 @@ const MainGrid = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-4 md:p-6 lg:p-8 md:mb-16 md:mt-8">
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-min">
+    <div className="min-h-screen bg-white p-2 md:mb-16 md:mt-2">
+      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-2 md:gap-2 auto-rows-min">
         
         {/* 1. Hero Section - Top Left (spans 2 columns on large screens) */}
         <div className="md:col-span-2 lg:col-span-2 bg-white border-[2px] border-dark-blue rounded-3xl p-6 md:p-8 flex flex-col justify-center">
@@ -135,13 +135,13 @@ const MainGrid = () => {
         {/* 2. Abstract Icon - Top Middle */}
         <div className="bg-white border-[2px] border-dark-blue rounded-3xl p-6 row-span-2 md:p-8 flex items-center justify-center">
           <div className="w-full h-full flex items-center justify-center">
-           <Image src={'/cfnlog.png'} alt="chainfren logo" width={200} height={200} className="md:w-full md:h-[70%] " />
+           <Image src={'/cfnlogg.svg'} alt="chainfren logo" width={200} height={200} className=" " />
           </div>
         </div>
 
         {/* 3. Brand Logo & Social Links - Top Right */}
         <div className="bg-white border-[2px] border-dark-blue rounded-3xl p-6 md:p-8 flex items-center justify-center relative">
-          <Image src={'/chainlogo.png'} alt="Chainfren Logo" width={100} height={40} className="h-auto w-full" />
+          <Image src={'/chainn.svg'} alt="Chainfren Logo" width={100} height={40} className="h-auto w-full" />
           <div className="absolute bottom-4 right-4 flex gap-4">
             <a href="#" className="text-dark-blue hover:opacity-70 transition-opacity">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
