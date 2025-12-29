@@ -236,7 +236,7 @@ const MainGrid = () => {
       {/* Button - positioned absolutely with specific dimensions on mobile */}
       <Link 
         href={creatorTabs[currentCreatorTab].buttonLink} 
-        className="absolute z-20 left-[71px] top-[407px] md:bottom-6 md:top-auto md:left-1/2 md:-translate-x-1/2 md:w-[calc(100%-3rem)] md:max-w-[80%]"
+        className="absolute z-20 left-1/2 -translate-x-1/2 top-[407px] md:bottom-6 md:top-auto md:w-[calc(100%-3rem)] md:max-w-[80%]"
         style={{ width: '269px' }}
       >
         <button 
