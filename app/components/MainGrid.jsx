@@ -125,10 +125,13 @@ const MainGrid = () => {
           className={`services-desc-mobile text-[22px] md:text-base font-medium md:font-normal ${servicesTabs[currentServiceTab].textColor}/80 leading-relaxed transition-colors duration-300 md:mb-4 md:mb-6`}
           style={{
             position: 'absolute',
-            width: '370px',
-            height: '124px',
+            width: 'calc(100% - 40px)',
+            maxWidth: '370px',
+            minHeight: '124px',
             top: '112px',
-            left: '20px'
+            left: '20px',
+            wordWrap: 'break-word',
+            overflowWrap: 'break-word'
           }}
         >
           {servicesTabs[currentServiceTab].description}
@@ -208,10 +211,10 @@ const MainGrid = () => {
   );
 
   const WhatWeDoSection = () => (
-    <div className="bg-[#A6D234] border-[2px] border-dark-blue rounded-[26px] p-6 md:p-8 h-[518px]">
+    <div className="bg-[#A6D234] border-[2px] border-dark-blue rounded-[26px] p-6 md:p-8 h-[518px] overflow-hidden">
       <h3 className="text-[14px] font-bold text-dark-blue mb-4">WHAT WE DO</h3>
-      <ul className="space-y-2 text-dark-blue font-bold text-[32px] md:text-3xl">
-        <li>MEDIA PRODUCTION</li><li>DEVELOPMENT</li><li>MARKETING</li><li>TOKENS</li><li>COMMUNITIES</li><li>PARTNERSHIP</li><li>GROWTH</li><li>BD</li>
+      <ul className="space-y-1 md:space-y-2 text-dark-blue font-bold text-[32px] md:text-3xl" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>
+        <li className="break-words">MEDIA PRODUCTION</li><li className="break-words">DEVELOPMENT</li><li className="break-words">MARKETING</li><li className="break-words">TOKENS</li><li className="break-words">COMMUNITIES</li><li className="break-words">PARTNERSHIP</li><li className="break-words">GROWTH</li><li className="break-words">BD</li>
       </ul>
     </div>
   );

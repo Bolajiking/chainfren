@@ -9,6 +9,9 @@ The user wants to redesign the Chainfren website to match a new grid-based desig
 - Complex grid layout with 10+ distinct content blocks
 - Responsive design considerations
 
+### Copy and Marketing Messages Update (Current Phase)
+The user wants to fix the copy and marketing messages on the agency, product, and media pages. The goal is to use short, actionable, and relevant messaging aimed at driving engagements and conversion. The user will provide the corrected copy for each page and sub headlines.
+
 ### Visual Corrections Phase (Dec 26, 2025)
 The user has provided Figma design screenshots for final visual corrections to match the reference design exactly. Four specific issues have been identified:
 1. Header (Hero) section sizing not proportional to design
@@ -153,14 +156,44 @@ The user has requested further refinements to the Playbook section and other ele
 - [x] Update page.jsx to use new components
 - [x] Basic responsive layout implementation
 
-### Phase 6: Post-Visual Correction Refinements (Current)
+### Phase 6: Post-Visual Correction Refinements (Completed)
 - [x] **Task 5.6**: Refine Playbook section (line spacing, full-width division, curved wavy top)
 - [x] **Task 5.7**: Center Abstract Icon image
 
+### Phase 7: Copy and Marketing Messages Update (Completed)
+**Goal**: Update copy on agency, product, and media pages with short, actionable, and relevant messaging to drive engagement and conversion.
+
+**Pages Updated:**
+1. **Agency Page** (`app/(mainpage)/agency/page.jsx`) ✅
+   - Updated main description to focus on de-risking Web3 entry
+   - Updated all 6 service card descriptions with concise, action-oriented messaging:
+     - Growth Strategy and Consultation
+     - Community Management
+     - Tokenomics and Digital Assets Design
+     - Branding
+     - BD and Partnerships
+     - Gtm & Execution
+
+2. **Products Page** (`app/(mainpage)/products/page.jsx`) ✅
+   - Updated main description to emphasize "sovereign tools" and removing middlemen
+   - Updated all 3 product descriptions with focused, conversion-driven copy:
+     - Chainfren studio
+     - TVinBio
+     - Comeownity
+
+3. **Media Page** (`app/(mainpage)/media/page.jsx`) ✅
+   - Updated main description to focus on attention as currency
+   - Updated all 3 service card descriptions with compelling, action-oriented messaging:
+     - Premium video and audio content production
+     - Onchain media distribution and strategy
+     - Audience engagement & syndication
+
+**Status**: ✅ All copy updates completed successfully - No linter errors
+
 ## Current Status / Progress Tracking
 
-**Current Phase**: Phase 6 - Post-Visual Correction Refinements (COMPLETE)
-**Current Task**: All post-visual refinements implemented (including white box and line repositioning)
+**Current Phase**: Phase 7 - Copy and Marketing Messages Update (COMPLETE)
+**Current Task**: All copy updates implemented successfully
 
 **Progress**: 
 - ✅ Phase 1-4: Initial grid design and responsive layout complete
@@ -174,6 +207,9 @@ The user has requested further refinements to the Playbook section and other ele
 **Files Modified:**
 - `app/components/MainGrid.jsx` - All visual corrections applied
 - `app/components/WeatherWidget.jsx` - Border thickness corrected
+- `app/(mainpage)/agency/page.jsx` - Copy and marketing messages updated
+- `app/(mainpage)/products/page.jsx` - Copy and marketing messages updated
+- `app/(mainpage)/media/page.jsx` - Copy and marketing messages updated
 
 **Status**: ✅ No linter errors | All tasks complete | Ready for user testing
 

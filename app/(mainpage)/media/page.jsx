@@ -5,19 +5,19 @@ export default function Media() {
   const services = [
     {
       title: "Premium video and audio content production",
-      description: "We create high quality video and audio content that is culturally resonant and built for decentralized distribution. Our production team leverages advanced technology and creative expertise to deliver content that resonates with audiences and drives engagement across web3 platforms.",
+      description: "Cinematic storytelling for the new age. We produce high-fidelity video and audio content that captures cultural nuances and stands out on any platform",
       backgroundColor: "#5ACDFF", // light blue
       isLarge: true
     },
     {
       title: "Onchain media distribution and strategy",
-      description: "We implement strategic media distribution plans that maximize reach and impact across web3 channels. Our distribution strategies include smart contract integrations, NFT minting, and direct distribution to decentralized platforms. We also develop content syndication networks to amplify your message and drive engagement across multiple channels.",
+      description: "Future-proof your content. We leverage smart contracts and decentralized protocols to ensure your message is permanent, ownable, and reaches your audience without platform interference.",
       backgroundColor: "#E6D9FF", // light purple
       isLarge: false
     },
     {
       title: "Audience engagement & syndication",
-      description: "We develop audience engagement strategies that foster meaningful interactions and long term loyalty. Our approach includes creating interactive content, hosting live streams, and implementing feedback loops to keep your audience invested and invested in your brand.",
+      description: "We build interactive feedback loops and syndication networks that turn content into conversation, ensuring your message resonates far beyond the initial post.",
       backgroundColor: "#CBF0B8", // light green
       isLarge: false
     }
@@ -35,11 +35,8 @@ export default function Media() {
         
         {/* Descriptive Paragraphs */}
         <div className="mb-12 max-w-7xl">
-          <p className="text-lg md:text-3xl  text-black mb-4">
-            Chainfren Media arm is a production engine dedicated to empowering marginalized voices through high quality, professional, and culturally resonant content that is built for decentralized distribution.
-          </p>
           <p className="text-lg md:text-3xl  text-black">
-            This directly addresses the need for sophisticated media infrastructure and global visibility.
+            In the new digital age, attention is the most valuable currency. We produce premium, culturally resonant content that bridges the gap between complex technology and the people who use it.
           </p>
         </div>
 

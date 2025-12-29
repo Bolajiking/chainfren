@@ -5,24 +5,24 @@ export default function Products() {
   const products = [
     {
       name: "Chainfren studio",
-      description: "A comprehensive creator studio platform that empowers content creators to build, manage, and monetize their digital presence. Streamline your workflow with integrated tools for content creation, audience engagement, and revenue generation. Take full control of your creative business with analytics, scheduling, and direct fan connections all in one powerful workspace.",
+      description: "Reclaim your audience from the algorithms. Chainfren Studio gives creators & brands everything they need to deliver live or on-demand video content on their own terms while keeping 100% of revenue.",
       backgroundColor: "#8daaff", // light blue/periwinkle
       buttonText: "GO TO PRODUCT",
       buttonLink: "/products/chainfren-studio"
     },
     {
       name: "TVinBio",
-      description: "Transform your social media bio into a powerful video hub that drives traffic and conversions. Showcase your best content, products, and links in an engaging visual format that captures attention instantly. Connect your audience directly to what matters most with customizable video galleries, clickable links, and seamless integration across all major platforms.",
+      description: "Transform your social media bio into a powerful media distribution hub that captures attention instantly and converts social followers into your true fans.",
       backgroundColor: "#5acdff", // light teal/aqua blue
       buttonText: "GO TO PRODUCT",
-      buttonLink: "/products/tvinbio"
+      buttonLink: "https://tvin.bio/"
     },
     {
       name: "Comeownity",
-      description: "Build and own your community platform with complete control over data, monetization, and member experience. Create exclusive spaces where your audience can connect, engage, and support your work directly. Break free from platform limitations and establish a sustainable community ecosystem that grows with your brand while keeping you in full ownership.",
+      description: "Comeownity is a decentralized live entertainment platform building the future of digital culture and community on the blockchain.",
       backgroundColor: "#CBF0B8", // light green
-      buttonText: "COMING SOOOOON",
-      buttonLink: "#"
+      buttonText: "GO TO PRODUCT",
+      buttonLink: "https://comeownity.com/"
     }
   ];
 
@@ -38,14 +38,8 @@ export default function Products() {
         
         {/* Descriptive Text */}
         <div className="mb-12 max-w-7xl">
-          <p className="text-lg md:text-3xl  text-black mb-2">
-            We build digital products for the creator economy.
-          </p>
-          <p className="text-lg md:text-3xl  text-black mb-2">
-            products that enable creators <span className="font-serif">&</span> brands to own their audience and distribution.
-          </p>
           <p className="text-lg md:text-3xl  text-black">
-            our products allow you to break away from big tech and build new revenue streams
+            Stop building on rented land. Our suite of products gives creators and brands the sovereign tools to launch digital assets, manage community economies, and own their distribution. We build the infrastructure that removes the middlemen, putting power and profit back in your hands.
           </p>
         </div>
 
@@ -64,16 +58,29 @@ export default function Products() {
                 {product.description}
               </p>
               <div className="flex justify-end">
-                <Link href={product.buttonLink}>
-                  <button className="px-6 py-3 bg-white text-black font-semibold rounded-full border-2 border-black hover:opacity-80 transition-opacity uppercase overflow-hidden relative group">
-                    <span className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-full group-hover:opacity-0">
-                      {product.buttonText}
-                    </span>
-                    <span className="inline-block absolute left-1/2 -translate-x-1/2 w-full transition-transform duration-200 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 whitespace-nowrap">
-                      {product.buttonText}
-                    </span>
-                  </button>
-                </Link>
+                {product.buttonLink.startsWith('http') ? (
+                  <a href={product.buttonLink} target="_blank" rel="noopener noreferrer">
+                    <button className="px-6 py-3 bg-white text-black font-semibold rounded-full border-2 border-black hover:opacity-80 transition-opacity uppercase overflow-hidden relative group">
+                      <span className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-full group-hover:opacity-0">
+                        {product.buttonText}
+                      </span>
+                      <span className="inline-block absolute left-1/2 -translate-x-1/2 w-full transition-transform duration-200 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 whitespace-nowrap">
+                        {product.buttonText}
+                      </span>
+                    </button>
+                  </a>
+                ) : (
+                  <Link href={product.buttonLink}>
+                    <button className="px-6 py-3 bg-white text-black font-semibold rounded-full border-2 border-black hover:opacity-80 transition-opacity uppercase overflow-hidden relative group">
+                      <span className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-full group-hover:opacity-0">
+                        {product.buttonText}
+                      </span>
+                      <span className="inline-block absolute left-1/2 -translate-x-1/2 w-full transition-transform duration-200 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 whitespace-nowrap">
+                        {product.buttonText}
+                      </span>
+                    </button>
+                  </Link>
+                )}
               </div>
             </div>
           ))}

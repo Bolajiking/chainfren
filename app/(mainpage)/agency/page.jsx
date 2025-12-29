@@ -5,38 +5,38 @@ export default function Agency() {
   const services = [
     {
       title: "Growth Strategy and Consultation",
-      description: "We develop comprehensive growth strategies tailored to your web3 objectives. Our expert consultants analyze market trends, identify opportunities, and create actionable roadmaps. Strategic planning sessions help align your vision with onchain realities, ensuring sustainable expansion and measurable results across all growth metrics.",
+      description: "We build data-backed roadmaps that align your vision with onchain reality, ensuring your entry into Web3 is profitable, sustainable, and scalable.",
       backgroundColor: "#5ACDFF" ,// light blue
       grid:'col-span-3'
 
     },
     {
       title: "Community Management",
-      description: "Building and nurturing engaged communities across Discord, Twitter, and Telegram platforms. Our team creates meaningful connections, moderates discussions, and drives active participation. We develop community guidelines, organize events, and maintain consistent communication to foster loyalty and long-term engagement with your brand.",
+      description: "We manage your Discord and Telegram ecosystems to drive 24/7 engagement, foster deep brand loyalty, and convert passive members into active stakeholders.",
       backgroundColor: "#8DAAFF" ,// light purple
       grid:'col-span-2'
     },
     {
       title: "Tokenomics and Digital Assets Design",
-      description: "Designing sustainable token economics models that balance utility, value, and long-term viability. We create comprehensive token distribution strategies, vesting schedules, and incentive mechanisms. Our digital asset designs integrate seamlessly with your project's goals, ensuring alignment between token functionality and community rewards.",
+      description: "Build an economy, not just a token. We design sustainable incentive models and digital assets that drive long-term value, prevent inflation, and reward your community for their growth.",
       backgroundColor: "#C8EB6D" ,// light blue
       grid:'col-span-2'
     },
     {
       title: "Branding",
-      description: "Crafting distinctive brand identities that resonate with web3 audiences and traditional markets. We develop visual systems, messaging frameworks, and brand guidelines that communicate your unique value proposition. Our branding approach ensures consistency across all touchpoints while establishing memorable presence in the decentralized ecosystem.",
+      description: "Stand out in the noise. We craft high-impact visual identities and messaging that bridge the gap between Web2 familiarity and Web3 innovation, making your brand unforgettable.",
       backgroundColor: "#A6E1FA" ,// light green
       grid:'col-span-3'
     },
     {
       title: "BD and Partnerships",
-      description: "Forging strategic partnerships with key players across DeFi, NFT platforms, and blockchain infrastructure. We identify collaboration opportunities, negotiate terms, and manage relationships that drive mutual growth. Our business development approach connects you with the right partners to expand reach and unlock new market opportunities.",
+      description: "We open doors to high-value partnerships across DeFi and NFT ecosystems, unlocking new distribution channels and collaborative growth opportunities.",
       backgroundColor: "#4D7AFF" ,// medium blue
       grid:'col-span-3'
     },
     {
       title: "Gtm & Execution",
-      description: "Executing comprehensive go-to-market strategies that launch your project successfully into web3 markets. We coordinate launch timelines, manage cross-functional teams, and ensure seamless execution across marketing, technical, and community channels. Our execution framework delivers measurable results from launch day through sustained growth phases.",
+      description: "Launch with precision. From day one to sustained growth, we handle the heavy lifting of your launch—coordinating marketing, tech, and community to ensure a flawless market entry.",
       backgroundColor: "#CBF0B8" ,// light green
       grid:'col-span-2'
     }
@@ -54,7 +54,7 @@ export default function Agency() {
         
         {/* Descriptive Paragraph */}
         <p className="text-lg md:text-3xl  text-black mb-12 md:max-w-7xl">
-          Chainfren is your onchain strategy and growth partner we provide the expert knowledge and execution for creators and brands entering web3.
+          Transitioning to Web3 shouldn't be a gamble. We provide the strategic roadmap and technical execution brands and creators need to navigate the onchain economy. From tokenomics to full-scale go-to-market execution, we de-risk your entry into the space and build the infrastructure for your long-term digital growth.
         </p>
 
         {/* Services Grid */}

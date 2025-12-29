@@ -26,9 +26,9 @@ const Nav = () => {
             <Image 
               src={logo} 
               alt="Chainfren Logo" 
-              width={120} 
-              height={40} 
-              className="h-auto md:w-[111px] md:h-[24px]"
+              width={111} 
+              height={24} 
+              className="h-auto w-auto md:w-[111px] md:h-[24px] object-contain"
             />
           </Link>
         </div>
