@@ -132,7 +132,7 @@ const WeatherWidget = () => {
   };
 
   return (
-    <div className="bg-[#8DAAFF] border-[1px] border-dark-blue rounded-3xl p-6 md:p-8">
+    <div className="bg-[#8DAAFF] border-[2px] border-dark-blue rounded-[26px] p-6 md:p-8 h-auto md:h-[461px]">
       <div className="flex flex-col items-center gap-2 justify-center text-center">
         {loading ? (
           <div className="mb-4">

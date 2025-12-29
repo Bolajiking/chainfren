@@ -17,32 +17,72 @@ const Nav = () => {
 
   return (
     <>
-      <nav className="bg-white w-full md:w-[60%] px-4 md:px-6 py-4 flex items-center justify-between z-50 border-0 md:border border-black rounded-none md:rounded-full mx-auto mt-0 md:mt-4 relative">
+      <nav 
+        className="bg-white w-full md:w-[600px] h-auto md:h-[50px] px-4 md:px-6 py-4 md:py-0 flex items-center justify-between z-50 border-0 md:border md:border-black rounded-none md:rounded-[47.42px] mx-auto mt-0 md:mt-[28px] relative"
+      >
         {/* Logo on the left */}
-        <div className="flex items-center">
+        <div className="flex items-center md:absolute md:top-[50%] md:left-[16px] md:transform md:-translate-y-1/2">
           <Link href={'/'} onClick={closeMobileMenu}>
-            <Image src={logo} alt="Chainfren Logo" width={120} height={40} className="h-auto" />
+            <Image 
+              src={logo} 
+              alt="Chainfren Logo" 
+              width={120} 
+              height={40} 
+              className="h-auto md:w-[111px] md:h-[24px]"
+            />
           </Link>
         </div>
 
-        {/* Navigation Links in the center - Desktop */}
-        <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-          <Link href='/agency' className="text-black font-medium hover:opacity-80 transition-opacity uppercase">
+        {/* Navigation Links - Desktop */}
+        <div 
+          className="hidden md:flex items-center md:absolute"
+          style={{ 
+            gap: '23.71px',
+            top: '50%',
+            left: '193px',
+            transform: 'translateY(-50%)'
+          }}
+        >
+          <Link href='/agency' className="text-[14px] text-black font-medium hover:opacity-80 transition-opacity uppercase">
             AGENCY
           </Link>
-          <Link href='/products' className="text-black font-medium hover:opacity-80 transition-opacity uppercase">
+          <Link href='/products' className="text-[14px] text-black font-medium hover:opacity-80 transition-opacity uppercase">
             PRODUCT
           </Link>
-          <Link href='/media' className="text-black font-medium hover:opacity-80 transition-opacity uppercase">
+          <Link href='/media' className="text-[14px] text-black font-medium hover:opacity-80 transition-opacity uppercase">
             MEDIA
           </Link>
         </div>
 
         {/* JOIN CHAINFREN button on the right - Desktop */}
-        <div className="hidden md:flex items-center ml-auto">
+        <div 
+          className="hidden md:flex items-center"
+          style={{
+            position: 'absolute',
+            top: '8px',
+            left: '448px'
+          }}
+        >
           <Link href='/contact'>
-            <button className="px-6 py-2 border border-black text-black font-semibold rounded-full hover:opacity-80 transition-opacity uppercase bg-white">
-              JOIN CHAINFREN
+            <button 
+              className="text-[14px] text-black font-semibold hover:opacity-80 transition-opacity uppercase bg-white border border-black whitespace-nowrap"
+              style={{
+                width: '142px',
+                height: '34px',
+                paddingTop: '8.5px',
+                paddingRight: '14px',
+                paddingBottom: '8.5px',
+                paddingLeft: '14px',
+                borderRadius: '47.42px',
+                borderWidth: '1px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <span style={{ width: '114px', height: '17px', display: 'flex', alignItems: 'center', justifyContent: 'center', whiteSpace: 'nowrap' }}>
+                JOIN CHAINFREN
+              </span>
             </button>
           </Link>
         </div>

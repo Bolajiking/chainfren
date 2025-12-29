@@ -16,7 +16,8 @@ module.exports = {
         'white':'#FFFFFF',
       },
       fontFamily:{
-        sans:['var(--Fontspring)'],
+        sans:['"Inter Display"', 'Inter', 'sans-serif'],
+        fontspring:['"Inter Display"', 'Inter', 'sans-serif'],
         serif:['var(--HKGrotesk)']
       },
       fontSize:{
