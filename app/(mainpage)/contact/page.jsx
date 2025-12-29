@@ -145,7 +145,7 @@ export default function Contact() {
             <div className="flex justify-start pt-4">
               <button
                 type="submit"
-                className="px-8 py-3 bg-white text-black font-semibold rounded-lg uppercase hover:opacity-90 transition-opacity"
+                className="px-8 py-3 bg-white text-black font-semibold rounded-full uppercase hover:opacity-90 transition-opacity"
               >
                 SUBMIT
               </button>
