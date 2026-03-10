@@ -4,11 +4,11 @@ import Link from "next/link"
 export default function Products() {
   const products = [
     {
-      name: "Chainfren studio",
-      description: "Reclaim your audience from the algorithms. Chainfren Studio gives creators & brands everything they need to deliver live or on-demand video content on their own terms while keeping 100% of revenue.",
+      name: "TiVi",
+      description: "Reclaim your audience from the algorithms. TiVi gives creators & brands everything they need to deliver live or on-demand video content on their own terms while keeping 100% of revenue.",
       backgroundColor: "#8daaff", // light blue/periwinkle
       buttonText: "GO TO PRODUCT",
-      buttonLink: "/products/chainfren-studio"
+      buttonLink: "/products/TiVi"
     },
     {
       name: "TVinBio",
