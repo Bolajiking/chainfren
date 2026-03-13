@@ -36,19 +36,13 @@ export default function Navbar() {
                 Features
               </Link>
               <Link
-                href="#pricing"
-                className="text-gray-800 hover:text-[#4357F6] px-3 py-2 text-sm font-medium transition-colors duration-200"
-              >
-                Pricing
-              </Link>
-              <Link
                 href="#contact"
                 className="text-gray-800 hover:text-[#4357F6] px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
                 Contact
               </Link>
-              <Button 
-            size="lg" 
+              <Button
+            size="lg"
             className="bg-[#4357F6] bg-gradient-to-r from-[#4357F6] to-[#665DE9] hover:bg-[#3090DD] text-white"
             onClick={() => window.Calendly?.initPopupWidget({url: 'https://calendly.com/chainfren'})}
           >
@@ -84,13 +78,6 @@ export default function Navbar() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Features
-              </Link>
-              <Link
-                href="#pricing"
-                className="text-gray-800 hover:text-[#4357F6] block px-3 py-2 text-base font-medium transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Pricing
               </Link>
               <Link
                 href="#contact"

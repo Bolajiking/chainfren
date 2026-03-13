@@ -6,6 +6,7 @@
 body{
     background-color: #FFFFFF;
 }
+
 .card::after {
     content: '';
     position: absolute;
@@ -206,4 +207,18 @@ body{
 
 .animate-spin-slow {
   animation: spin-slow 20s linear infinite;
+}
+
+/* Infinite vertical scroll for What We Do */
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-scroll-up {
+  animation: scroll-up 20s linear infinite;
 }

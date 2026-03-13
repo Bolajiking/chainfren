@@ -52,7 +52,7 @@ const MainGrid = () => {
           marginTop: '20px'
         }}
       >
-        We are a web3 company enabling the power of crypto and digital assets to build products and experiences that drive valuable growth in the digital age.
+        We enable the power of crypto & digital assets to build products and experiences that drive growth for the creator economy
       </p>
       <Link href="/contact" className="md:absolute md:top-[206px] md:left-[20px]">
         <button className="mt-4 md:mt-0 px-6 py-3 md:px-[14px] md:py-[10px] border-2 md:border border-dark-blue text-dark-blue text-base md:text-[14px] font-semibold rounded-full hover:bg-dark-blue hover:text-white transition-colors overflow-hidden relative group">
@@ -186,10 +186,9 @@ const MainGrid = () => {
   const MissionSection = () => (
     <div className="bg-[#CBF0B8] border-[2px] border-dark-blue rounded-[26px] px-4 py-5 md:p-8 md:pt-12 pb-24 md:pb-8 relative overflow-hidden h-[671px]">
       <div className="relative z-10 w-[370px] h-[433px] md:w-auto md:h-auto" style={{ letterSpacing: '0%' }}>
-        <p className="text-dark-blue text-[22px] md:text-base lg:text-xl leading-snug mb-2 md:mb-4" style={{ letterSpacing: '0%' }}>Creators and brands drive the value, but big tech exploits it.</p>
-        <p className="text-dark-blue text-[22px] md:text-base lg:text-xl leading-snug mb-2 md:mb-4" style={{ letterSpacing: '0%' }}><span className="font-bold text-[30px] md:text-lg lg:text-2xl" style={{ letterSpacing: '0%' }}>Web3 is the chance to build a fair, open internet</span> where economic value is shared, not centralized.</p>
-        <p className="text-dark-blue text-[22px] md:text-base lg:text-xl leading-snug mb-2 md:mb-4" style={{ letterSpacing: '0%' }}>At Chainfren, <span className="font-bold text-[30px] md:text-lg lg:text-2xl" style={{ letterSpacing: '0%' }}>our mission is to onboard the next wave of stakeholders.</span></p>
-        <p className="text-dark-blue text-[22px] md:text-base lg:text-xl leading-snug mb-4 md:mb-6" style={{ letterSpacing: '0%' }}>We equip forward<span className='relative font-serif'>-</span>thinking creators and brands with the tools and resources to thrive in the onchain economy.</p>
+        <p className="text-dark-blue text-[22px] md:text-base lg:text-xl leading-snug mb-2 md:mb-4" style={{ letterSpacing: '0%' }}>Creators and Brands generate all the attention that drives the value on the internet, but big tech exploits them.</p>
+        <p className="text-dark-blue text-[22px] md:text-base lg:text-xl leading-snug mb-2 md:mb-4" style={{ letterSpacing: '0%' }}><span className="font-bold text-[30px] md:text-lg lg:text-2xl" style={{ letterSpacing: '0%' }}>Web3 is the chance to build a fair, open internet,</span> where those who create the value get a fair share of the economic rewards.</p>
+        <p className="text-dark-blue text-[22px] md:text-base lg:text-xl leading-snug mb-4 md:mb-6" style={{ letterSpacing: '0%' }}>At Chainfren, <span className="font-bold text-[30px] md:text-lg lg:text-2xl" style={{ letterSpacing: '0%' }}>we equip forward-thinking creators and brands</span> with the tools and resources to thrive in the global onchain economy that web3 provides.</p>
       </div>
       <div className="absolute bottom-0 left-0 right-0 h-32 md:h-48 overflow-hidden"><div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/3d2.png)' }}></div></div>
       <Link href="/contact" className="absolute bottom-6 md:bottom-6 left-1/2 -translate-x-1/2 z-20 w-[calc(100%-2rem)] md:w-[80%] max-w-md">
@@ -210,14 +209,37 @@ const MainGrid = () => {
     </div>
   );
 
-  const WhatWeDoSection = () => (
-    <div className="bg-[#A6D234] border-[2px] border-dark-blue rounded-[26px] p-6 md:p-8 h-[518px] overflow-hidden">
-      <h3 className="text-[14px] font-bold text-dark-blue mb-4">WHAT WE DO</h3>
-      <ul className="space-y-1 md:space-y-2 text-dark-blue font-bold text-[32px] md:text-3xl" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>
-        <li className="break-words">MEDIA PRODUCTION</li><li className="break-words">DEVELOPMENT</li><li className="break-words">MARKETING</li><li className="break-words">TOKENS</li><li className="break-words">COMMUNITIES</li><li className="break-words">PARTNERSHIP</li><li className="break-words">GROWTH</li><li className="break-words">BD</li>
-      </ul>
-    </div>
-  );
+  const WhatWeDoSection = () => {
+    const items = [
+      'SOFTWARE DEVELOPMENT', 'MEDIA DISTRIBUTION', 'AI AGENTS',
+      'COMMUNITIES', 'PARTNERSHIPS', 'GROWTH', 'TOKENS', 'MARKETING',
+      'NFTS', 'LOYALTY PROGRAMS', 'SMART CONTRACTS', 'CREATOR COMMERCE',
+      'BRAND IDENTITY', 'CREATIVE DIRECTION', 'STORYTELLING',
+    ];
+    return (
+      <div className="bg-[#A6D234] border-[2px] border-dark-blue rounded-[26px] px-4 py-6 md:px-6 md:py-8 h-[518px] flex flex-col overflow-hidden">
+        <h3 className="text-[14px] font-bold text-dark-blue mb-4">WHAT WE DO</h3>
+        <div
+          className="flex-1 overflow-hidden relative"
+          style={{
+            maskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)',
+          }}
+        >
+          <div className="animate-scroll-up flex flex-col">
+            {[...items, ...items].map((item, i) => (
+              <span
+                key={i}
+                className="block py-[6px] md:py-[5px] text-dark-blue font-bold leading-tight text-[5vw] md:text-[20px]"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const ForCreatorsSection = () => (
     <div className="border-[2px] border-dark-blue rounded-[26px] px-4 py-5 md:px-7 md:py-7 relative overflow-hidden transition-colors duration-500 h-[529px]" style={{ backgroundColor: creatorTabs[currentCreatorTab].backgroundColor }}>
