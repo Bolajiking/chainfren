@@ -2,14 +2,13 @@
 
 import React, { useState, useRef } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Check, Mail, Send, Calendar, Briefcase, Box, Newspaper, ArrowUpRight } from 'lucide-react'
+import { ArrowRight, Check, Mail, Send, Calendar, ArrowUpRight, ArrowLeft } from 'lucide-react'
+import Navbar from '@/app/components/Navbar'
 import CalendlyWidget from '@/app/components/CalendlyWidget'
 
 const C = {
   dark:       '#08153C',
-  blue:       '#4357F6',
   periwinkle: '#8DAAFF',
   cyan:       '#5ACDFF',
   mint:       '#CBF0B8',
@@ -51,24 +50,28 @@ function StaggerItem({ children, index }) {
   )
 }
 
-const services = [
-  { icon: Briefcase, label: 'Agency', desc: 'Web3 strategy & execution', href: '/agency', color: C.cyan },
-  { icon: Box, label: 'Products', desc: 'Tools for the creator economy', href: '/products', color: C.periwinkle },
-  { icon: Newspaper, label: 'Media', desc: 'Insights & growth strategies', href: '/media', color: C.mint },
+const verticals = [
+  { label: 'Creators', href: '/products/TiVi/creators', color: '#A6E1FA' },
+  { label: 'Film', href: '/products/TiVi/film', color: C.lime },
+  { label: 'Sports', href: '/products/TiVi/sports', color: C.cyan },
+  { label: 'Churches', href: '/products/TiVi/churches', color: C.mint },
+  { label: 'Events', href: '/products/TiVi/events', color: C.lavender },
+  { label: 'Music', href: '/products/TiVi/music', color: C.periwinkle },
 ]
 
 const interests = [
-  'Agency — Web3 Strategy & Consulting',
-  'Products — TiVi Streaming Platform',
-  'Products — Creator Tools',
-  'Media — Content & Insights',
-  'Partnership / Collaboration',
-  'Investment / Business Development',
-  'Press / Media Inquiry',
+  'TiVi for Creators',
+  'TiVi for Film',
+  'TiVi for Sports',
+  'TiVi for Churches',
+  'TiVi for Events',
+  'TiVi for Music',
+  'Partnership / Integration',
+  'Press / Media',
   'Other',
 ]
 
-export default function Contact() {
+export default function TiViContact() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -93,7 +96,7 @@ export default function Contact() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, source: 'chainfren' }),
+        body: JSON.stringify({ ...formData, source: 'tivi' }),
       })
       if (!response.ok) throw new Error('Failed to submit')
       setSubmitted(true)
@@ -106,110 +109,84 @@ export default function Contact() {
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Inline nav matching homepage style */}
-      <nav className="bg-white w-full md:w-[600px] h-auto md:h-[50px] px-4 md:px-6 py-4 md:py-0 flex items-center justify-between z-50 border-0 md:border md:border-black rounded-none md:rounded-[47.42px] mx-auto mt-0 md:mt-[28px] relative">
-        <div className="flex items-center md:absolute md:top-[50%] md:left-[16px] md:transform md:-translate-y-1/2">
-          <Link href="/">
-            <Image
-              src="/chainlogo.png"
-              alt="Chainfren Logo"
-              width={111}
-              height={24}
-              className="h-auto w-auto md:w-[111px] md:h-[24px] object-contain"
-            />
-          </Link>
-        </div>
-        <div
-          className="hidden md:flex items-center md:absolute"
-          style={{ gap: '23.71px', top: '50%', left: '193px', transform: 'translateY(-50%)' }}
-        >
-          <Link href="/agency" className="text-[14px] text-black font-medium hover:opacity-80 transition-opacity uppercase">Agency</Link>
-          <Link href="/products" className="text-[14px] text-black font-medium hover:opacity-80 transition-opacity uppercase">Product</Link>
-          <Link href="/media" className="text-[14px] text-black font-medium hover:opacity-80 transition-opacity uppercase">Media</Link>
-        </div>
-        <div className="hidden md:flex items-center" style={{ position: 'absolute', top: '8px', left: '448px' }}>
-          <span
-            className="text-[14px] text-black font-semibold uppercase bg-white border border-black whitespace-nowrap flex items-center justify-center"
-            style={{ width: '142px', height: '34px', borderRadius: '47.42px', opacity: 0.5, cursor: 'default' }}
-          >
-            Contact
-          </span>
-        </div>
-      </nav>
-
+      <Navbar contactHref="/products/TiVi/contact" />
       <CalendlyWidget />
 
-      {/* HERO */}
       <section className="relative overflow-hidden" style={{ background: C.dark }}>
         <div className="absolute inset-0 opacity-[0.06]" style={{
-          backgroundImage: `radial-gradient(${C.cyan} 1px, transparent 1px)`,
+          backgroundImage: `radial-gradient(${C.periwinkle} 1px, transparent 1px)`,
           backgroundSize: '32px 32px',
         }} />
         <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full" style={{
-          background: `radial-gradient(circle at 30% 30%, ${C.cyan}25, ${C.mint}10, transparent 70%)`,
+          background: `radial-gradient(circle at 30% 30%, ${C.periwinkle}25, ${C.cyan}10, transparent 70%)`,
         }} />
         <motion.div
           className="absolute bottom-12 right-16 w-20 h-20 rounded-2xl hidden lg:block"
-          style={{ background: C.lime, opacity: 0.12 }}
+          style={{ background: C.mint, opacity: 0.12 }}
           animate={{ rotate: [0, 8, -4, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           className="absolute top-28 right-1/3 w-3 h-3 rounded-full hidden lg:block"
-          style={{ background: C.cyan }}
+          style={{ background: C.periwinkle }}
           animate={{ y: [0, -10, 0], opacity: [0.4, 0.8, 0.4] }}
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 sm:pt-32 sm:pb-28 relative">
           <FadeUp>
+            <Link
+              href="/products/TiVi"
+              className="inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.2em] uppercase mb-8 hover:opacity-70 transition-opacity"
+              style={{ color: C.periwinkle }}
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              Back to TiVi
+            </Link>
+          </FadeUp>
+          <FadeUp delay={0.04}>
             <span
               className="inline-block text-[10px] font-bold tracking-[0.3em] uppercase px-4 py-1.5 rounded-full border mb-8"
-              style={{ color: C.cyan, borderColor: C.cyan + '40' }}
+              style={{ color: C.periwinkle, borderColor: C.periwinkle + '40' }}
             >
-              Get in Touch
+              TiVi Contact
             </span>
           </FadeUp>
           <FadeUp delay={0.08}>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.95] tracking-tight text-white uppercase">
-              Join<br />
+              Launch Your<br />
               <span className="relative inline-block">
-                <span style={{ color: C.cyan }}>Chainfren</span>
+                <span style={{ color: C.periwinkle }}>Channel</span>
                 <motion.span
                   className="absolute -bottom-1 left-0 h-[3px] rounded-full"
-                  style={{ background: C.cyan }}
+                  style={{ background: C.periwinkle }}
                   initial={{ width: 0 }}
                   animate={{ width: '100%' }}
                   transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 />
               </span>
-              <span style={{ color: C.cyan }}>.</span>
+              <span style={{ color: C.periwinkle }}>.</span>
             </h1>
           </FadeUp>
           <FadeUp delay={0.16}>
-            <p className="mt-6 text-base sm:text-lg max-w-lg leading-relaxed" style={{ color: C.dim }}>
-              Unlocking digital wealth for creators and brands. Whether you need Web3 strategy, creator tools, or media distribution — let&apos;s build together.
+            <p className="mt-6 text-base sm:text-lg max-w-md leading-relaxed" style={{ color: C.dim }}>
+              Ready to own your streaming platform? Tell us about your vision and we&apos;ll show you how TiVi can make it real.
             </p>
           </FadeUp>
 
-          {/* Services pills */}
           <FadeUp delay={0.24}>
-            <div className="mt-10 flex flex-wrap gap-3">
-              {services.map((s) => {
-                const Icon = s.icon
-                return (
-                  <Link
-                    key={s.href}
-                    href={s.href}
-                    className="group inline-flex items-center gap-2 text-[11px] font-bold tracking-wider uppercase px-5 py-2.5 rounded-full border transition-all duration-300 hover:scale-105"
-                    style={{ borderColor: s.color + '50', color: s.color }}
-                  >
-                    <Icon className="w-3.5 h-3.5" />
-                    {s.label}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 translate-x-0.5 transition-all group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0" />
-                  </Link>
-                )
-              })}
+            <div className="mt-10 flex flex-wrap gap-2">
+              {verticals.map((v) => (
+                <Link
+                  key={v.href}
+                  href={v.href}
+                  className="group inline-flex items-center gap-1.5 text-[11px] font-bold tracking-wider uppercase px-4 py-2 rounded-full border transition-all duration-300 hover:scale-105"
+                  style={{ borderColor: v.color + '50', color: v.color }}
+                >
+                  {v.label}
+                  <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 translate-x-0.5 transition-all group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0" />
+                </Link>
+              ))}
             </div>
           </FadeUp>
         </div>
@@ -221,11 +198,9 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* FORM + SIDEBAR */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
 
-          {/* LEFT: Contact methods */}
           <div className="lg:col-span-4 order-2 lg:order-1">
             <FadeUp>
               <p className="text-xs font-bold tracking-[0.2em] uppercase mb-8" style={{ color: C.dim }}>
@@ -244,8 +219,8 @@ export default function Contact() {
                 },
                 {
                   icon: Calendar,
-                  title: 'Book a Call',
-                  detail: 'Free 15-min strategy session',
+                  title: 'Book a TiVi Demo',
+                  detail: 'Free 15-min strategy call',
                   onClick: () => window.Calendly?.initPopupWidget({ url: 'https://calendly.com/chainfren' }),
                   accent: C.lavender,
                 },
@@ -264,27 +239,8 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* TiVi callout */}
-            <FadeUp delay={0.15}>
-              <Link href="/products/TiVi/contact" className="group block mt-6">
-                <div className="p-5 rounded-2xl border-2 transition-all duration-300 group-hover:shadow-lg" style={{ borderColor: C.periwinkle + '30', background: C.periwinkle + '08' }}>
-                  <p className="text-xs font-bold tracking-wider uppercase mb-1" style={{ color: C.periwinkle }}>
-                    Looking for TiVi?
-                  </p>
-                  <p className="text-sm" style={{ color: C.muted }}>
-                    Contact the TiVi streaming team directly
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 mt-3 text-[11px] font-bold uppercase tracking-wider transition-all group-hover:gap-2.5" style={{ color: C.periwinkle }}>
-                    Go to TiVi Contact
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </Link>
-            </FadeUp>
-
-            {/* Response time badge */}
             <FadeUp delay={0.2}>
-              <div className="mt-6 p-5 rounded-2xl" style={{ background: C.dark + '06' }}>
+              <div className="mt-8 p-5 rounded-2xl" style={{ background: C.dark + '06' }}>
                 <div className="flex items-center gap-3">
                   <div className="relative flex-shrink-0">
                     <span className="block w-2.5 h-2.5 rounded-full" style={{ background: C.lime }} />
@@ -299,19 +255,18 @@ export default function Contact() {
             </FadeUp>
           </div>
 
-          {/* RIGHT: Form */}
           <div className="lg:col-span-8 order-1 lg:order-2">
             <FadeUp delay={0.05}>
               <div
                 className="rounded-[28px] border-2 overflow-hidden"
                 style={{ borderColor: C.dark }}
               >
-                <div className="px-8 sm:px-10 pt-8 sm:pt-10 pb-6" style={{ background: C.cyan + '12' }}>
+                <div className="px-8 sm:px-10 pt-8 sm:pt-10 pb-6" style={{ background: C.periwinkle + '12' }}>
                   <h2 className="text-2xl sm:text-3xl font-bold tracking-tight" style={{ color: C.dark }}>
-                    Send us a message
+                    Tell us about your streaming vision
                   </h2>
                   <p className="mt-1 text-sm" style={{ color: C.muted }}>
-                    Tell us what you&apos;re building and how we can help you grow.
+                    Whether you&apos;re a creator, league, church, or studio — we&apos;ll help you launch your own channel.
                   </p>
                 </div>
 
@@ -336,10 +291,10 @@ export default function Contact() {
                         </motion.div>
                         <h3 className="text-3xl font-black uppercase tracking-tight" style={{ color: C.dark }}>
                           Message Sent
-                          <span style={{ color: C.cyan }}>.</span>
+                          <span style={{ color: C.periwinkle }}>.</span>
                         </h3>
                         <p className="mt-3 text-sm max-w-xs mx-auto leading-relaxed" style={{ color: C.muted }}>
-                          Our team will review your message and get back to you within 24 hours.
+                          Our team will get back to you within 24 hours. Check your inbox.
                         </p>
                         <button
                           onClick={() => {
@@ -381,9 +336,9 @@ export default function Contact() {
                             placeholder="jane@company.com"
                           />
                           <FormField
-                            label="Company / Brand" id="company"
+                            label="Organization" id="company"
                             value={formData.company} onChange={handleChange}
-                            placeholder="Optional"
+                            placeholder="Your league, church, studio..."
                           />
                         </div>
 
@@ -426,7 +381,7 @@ export default function Contact() {
                             rows={5}
                             className="w-full px-4 py-3.5 rounded-xl border-2 text-sm focus:outline-none transition-all resize-none"
                             style={{ borderColor: C.dark + '15', color: C.dark }}
-                            placeholder="Tell us about your project, goals, or how we can help..."
+                            placeholder="Tell us about your streaming vision..."
                           />
                         </div>
 

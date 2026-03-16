@@ -109,7 +109,7 @@ const FEATURES = [
   {
     icon: Wallet,
     title: 'Keep 100% of Revenue',
-    desc: 'YouTube takes 45%. Twitch takes 50%. TiVi takes zero. Direct payments mean every dollar your audience spends goes to you.',
+    desc: 'YouTube takes 45-55%. Twitch takes 50%. TiVi takes zero. Direct payments mean every dollar your audience spends goes to you.',
     bg: C.lime,
   },
   {
@@ -122,22 +122,14 @@ const FEATURES = [
 
 const VERTICALS = [
   {
-    icon: Music,
-    title: 'Music & Artists',
-    tagline: 'Your own MTV. Your music. Your fans.',
-    desc: 'Album release listening parties, live sessions, music video libraries, and merch — all in one channel. Artists leaving Spotify over $0.003/stream payouts now have a home where fans pay them directly.',
-    img: '/img7.jpg',
-    stats: '$39B digital music market',
-    bg: C.periwinkle,
-  },
-  {
     icon: Trophy,
     title: 'Sports & Leagues',
     tagline: 'Every game. Every fan. Your league\'s streaming home.',
     desc: 'Minor leagues, niche sports, and combat promotions locked out of broadcast deals can now stream every event with PPV ticketing and fan engagement tools.',
     img: '/img9.jpg',
-    stats: '$37.7B sports streaming market',
+    stats: '$37.7B global sports OTT market',
     bg: C.cyan,
+    slug: 'sports',
   },
   {
     icon: Church,
@@ -147,6 +139,7 @@ const VERTICALS = [
     img: '/img11.jpg',
     stats: '87% of churches streaming',
     bg: C.mint,
+    slug: 'churches',
   },
   {
     icon: Ticket,
@@ -154,8 +147,9 @@ const VERTICALS = [
     tagline: 'Your venue never closes.',
     desc: 'Stream every show, sell virtual tickets, and build a content library that generates revenue long after the lights go off.',
     img: '/img7.jpg',
-    stats: '$60.2B event promotion industry',
+    stats: '$1.5T global events industry',
     bg: C.lavender,
+    slug: 'events',
   },
   {
     icon: Film,
@@ -165,6 +159,17 @@ const VERTICALS = [
     img: '/moviiii.png',
     stats: '$381B VOD market by 2032',
     bg: C.lime,
+    slug: 'film',
+  },
+  {
+    icon: Music,
+    title: 'Music & Artists',
+    tagline: 'Your own MTV. Your music. Your fans.',
+    desc: 'Album release listening parties, live sessions, music video libraries, and merch — all in one channel. Artists leaving Spotify over $0.003/stream payouts now have a home where fans pay them directly.',
+    img: '/img7.jpg',
+    stats: '$39B global digital music market',
+    bg: C.periwinkle,
+    slug: 'music',
   },
   {
     icon: Tv,
@@ -172,8 +177,9 @@ const VERTICALS = [
     tagline: 'You are the network. Your page is the channel.',
     desc: '96% of creators earn under $100K/year because platforms optimize for the top 1%. TiVi is built for the other 96% — direct monetization, no algorithm gatekeeping.',
     img: '/img8.jpg',
-    stats: '$214B creator economy',
+    stats: '$214B global creator economy',
     bg: '#A6E1FA',
+    slug: 'creators',
   },
 ]
 
@@ -227,7 +233,7 @@ const FAQS = [
   },
   {
     q: 'How is TiVi different from YouTube or Twitch?',
-    a: 'YouTube takes up to 45% of your revenue and owns your audience data. Twitch takes 50%. TiVi takes zero — you keep 100% of revenue through direct payments, own your subscriber data, and control your channel without algorithm interference.',
+    a: 'YouTube takes 45-55% of your revenue and owns your audience data. Twitch takes 50%. TiVi takes zero — you keep 100% of revenue through direct payments, own your subscriber data, and control your channel without algorithm interference.',
   },
   {
     q: 'What about discoverability?',
@@ -343,7 +349,7 @@ function Hero() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.6 }}
             >
-              Joining the <strong style={{ color: C.dark }}>$214B creator economy</strong> — built for the 96% of creators platforms ignore.
+              Joining the <strong style={{ color: C.dark }}>$214B global creator economy</strong> — built for the 96% of creators platforms ignore.
             </motion.p>
           </div>
 
@@ -437,7 +443,7 @@ function StatsBar() {
 function ProblemSection() {
   const problems = [
     {
-      stat: '45-50%',
+      stat: '45-55%',
       label: 'Revenue taken by YouTube & Twitch',
       detail: 'Major platforms pocket nearly half of what your audience pays to support you.',
       icon: DollarSign,
@@ -740,7 +746,7 @@ function Verticals() {
                     </span>
                     <p className="text-sm font-bold mb-2" style={{ color: C.dark }}>{VERTICALS[activeIdx].tagline}</p>
                     <p className="text-sm leading-relaxed" style={{ color: C.muted }}>{VERTICALS[activeIdx].desc}</p>
-                    <Link href="/contact" className="group/link inline-flex items-center gap-1.5 mt-4 text-sm font-bold uppercase tracking-wider transition-opacity hover:opacity-70" style={{ color: C.dark }}>
+                    <Link href={`/products/TiVi/${VERTICALS[activeIdx].slug}`} className="group/link inline-flex items-center gap-1.5 mt-4 text-sm font-bold uppercase tracking-wider transition-opacity hover:opacity-70" style={{ color: C.dark }}>
                       Learn more <ArrowUpRight className="w-3.5 h-3.5" />
                     </Link>
                   </motion.div>
@@ -756,7 +762,7 @@ function Verticals() {
             const Icon = v.icon
             return (
               <ScaleIn key={v.title} delay={i * 0.06}>
-                <div className="group relative rounded-3xl overflow-hidden border-2 border-dark-blue aspect-[3/2]">
+                <Link href={`/products/TiVi/${v.slug}`} className="group relative rounded-3xl overflow-hidden border-2 border-dark-blue aspect-[3/2] block">
                   <Image src={v.img} alt={v.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-5">
@@ -766,8 +772,11 @@ function Verticals() {
                     </div>
                     <h3 className="text-white font-bold text-lg">{v.title}</h3>
                     <p className="text-white/60 text-sm mt-1">{v.tagline}</p>
+                    <span className="inline-flex items-center gap-1 mt-2 text-xs font-bold text-white/80 uppercase tracking-wider group-hover:text-white transition-colors">
+                      Learn more <ArrowUpRight className="w-3 h-3" />
+                    </span>
                   </div>
-                </div>
+                </Link>
               </ScaleIn>
             )
           })}
@@ -1022,7 +1031,7 @@ export default function LandingPage() {
   return (
     <>
       <main className="min-h-screen w-full overflow-x-hidden bg-white">
-        <Navbar />
+        <Navbar contactHref="/products/TiVi/contact" />
         <Hero />
         <StatsBar />
         <ProblemSection />
@@ -1040,7 +1049,7 @@ export default function LandingPage() {
             &copy; {new Date().getFullYear()} TiVi by Chainfren. All rights reserved.
           </span>
           <div className="flex items-center gap-6 text-sm font-semibold" style={{ color: C.dark }}>
-            <Link href="/contact" className="hover:opacity-70 transition-opacity">Contact</Link>
+            <Link href="/products/TiVi/contact" className="hover:opacity-70 transition-opacity">Contact</Link>
             <Link href="/" className="hover:opacity-70 transition-opacity">Home</Link>
           </div>
         </div>

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { Button } from './ui/button';
 
-export default function Navbar() {
+export default function Navbar({ contactHref = '/contact' }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -36,7 +36,7 @@ export default function Navbar() {
                 Features
               </Link>
               <Link
-                href="#contact"
+                href={contactHref}
                 className="text-gray-800 hover:text-[#4357F6] px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
                 Contact
@@ -80,7 +80,7 @@ export default function Navbar() {
                 Features
               </Link>
               <Link
-                href="#contact"
+                href={contactHref}
                 className="text-gray-800 hover:text-[#4357F6] block px-3 py-2 text-base font-medium transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
