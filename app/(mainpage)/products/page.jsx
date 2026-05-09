@@ -1,25 +1,30 @@
 import Nav from "../../components/Nav"
 import Link from "next/link"
 
+export const metadata = {
+  title: 'Creator Tools & Streaming Products — TiVi, TVinBio, Comeownity',
+  description: 'Stop building on rented land. Streaming platform, owned media hub, and tokenized entertainment for African creators. Keep up to 95% of revenue.',
+}
+
 export default function Products() {
   const products = [
     {
       name: "TiVi",
-      description: "Reclaim your audience from the algorithms. TiVi gives creators & brands everything they need to deliver live or on-demand video content on their own terms while keeping 100% of revenue.",
+      description: "Your own Netflix. Your own Twitch. Your own YouTube — without the algorithm, the platform tax, or the deplatforming risk. Live, on-demand, paid, gated, owned. Keep up to 95% of revenue. Built for creators ready to graduate from rented platforms.",
       backgroundColor: "#8daaff", // light blue/periwinkle
       buttonText: "GO TO PRODUCT",
       buttonLink: "/products/TiVi"
     },
     {
       name: "TVinBio",
-      description: "Transform your social media bio into a powerful media distribution hub that captures attention instantly and converts social followers into your true fans.",
+      description: "Replace your link-in-bio with a media hub you actually own. Capture fans, sell directly, run your storefront, ship newsletters, post videos — all from one page. The first step out of rented attention. Free to start.",
       backgroundColor: "#5acdff", // light teal/aqua blue
       buttonText: "GO TO PRODUCT",
       buttonLink: "https://tvin.bio/"
     },
     {
       name: "Comeownity",
-      description: "Comeownity is a decentralized live entertainment platform building the future of digital culture and community on the blockchain.",
+      description: "The cultural infrastructure layer. Tokenized shows, interactive formats, fan-driven communities. Where Star Factor lives — and where the next generation of African live entertainment will be built.",
       backgroundColor: "#CBF0B8", // light green
       buttonText: "GO TO PRODUCT",
       buttonLink: "https://comeownity.com/"
@@ -39,7 +44,7 @@ export default function Products() {
         {/* Descriptive Text */}
         <div className="mb-12 max-w-7xl">
           <p className="text-lg md:text-3xl  text-black">
-            Stop building on rented land. Our suite of products gives creators and brands the sovereign tools to launch digital assets, manage community economies, and own their distribution. We build the infrastructure that removes the middlemen, putting power and profit back in your hands.
+            Stop building on rented land. Chainfren's product stack gives creators the infrastructure to own audience, distribute on their terms, monetize directly, and build durable internet businesses on a continent that's been overdue its own.
           </p>
         </div>
 

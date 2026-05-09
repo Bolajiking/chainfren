@@ -1,23 +1,28 @@
 import Nav from "../../components/Nav"
 import Link from "next/link"
 
+export const metadata = {
+  title: 'Sabi — Africa\'s Onchain Broadcasting Network',
+  description: 'Music, fashion, sports, entertainment, and culture — curated daily, published weekly, broadcast live from Lagos, Nigeria. Original programs, live events, and editorial curation by Chainfren.',
+}
+
 export default function Media() {
   const services = [
     {
-      title: "Premium video and audio content production",
-      description: "Cinematic storytelling for the new age. We produce high-fidelity video and audio content that captures cultural nuances and stands out on any platform",
+      title: "Daily Curation",
+      description: "Sabi Daily, Sabi Selects, Friday Sabi, and Sabi Reads. The most important African creators across music, fashion, sports, and entertainment — surfaced, contextualized, and shared every day. The editorial filter for African culture on the open internet.",
       backgroundColor: "#5ACDFF", // light blue
       isLarge: true
     },
     {
-      title: "Onchain media distribution and strategy",
-      description: "Future-proof your content. We leverage smart contracts and decentralized protocols to ensure your message is permanent, ownable, and reaches your audience without platform interference.",
+      title: "Original Programs",
+      description: "Sabi Sessions, Sabi Sound, Sabi Pitch, Sabi Style — and Sabi presents Star Factor, the flagship onchain reality format. Streamed live on Chainfren-owned infrastructure. The shows the African creator economy has been waiting for.",
       backgroundColor: "#E6D9FF", // light purple
       isLarge: false
     },
     {
-      title: "Audience engagement & syndication",
-      description: "We build interactive feedback loops and syndication networks that turn content into conversation, ensuring your message resonates far beyond the initial post.",
+      title: "Sabi Live",
+      description: "The IRL layer. Recurring events in Lagos — concerts, runway shows, live tapings, summits — where the network's audience meets in person and culture happens in the room. By invitation, by ticket, by the people who show up.",
       backgroundColor: "#CBF0B8", // light green
       isLarge: false
     }
@@ -30,13 +35,13 @@ export default function Media() {
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:pb-12">
         {/* Main Heading */}
         <h1 className="text-4xl md:text-5xl lg:text-6xl  text-black uppercase mb-6">
-          MEDIA
+          SABI
         </h1>
         
         {/* Descriptive Paragraphs */}
         <div className="mb-12 max-w-7xl">
           <p className="text-lg md:text-3xl  text-black">
-            In the new digital age, attention is the most valuable currency. We produce premium, culturally resonant content that bridges the gap between complex technology and the people who use it.
+            Sabi is Africa's onchain broadcasting network. Music, fashion, sports, entertainment, culture — curated daily, published weekly, broadcast live from Lagos. Built on infrastructure owned by African creators. Powered by Chainfren. <em>Sabi — Pidgin English: to know, but the kind of knowing that comes from doing.</em>
           </p>
         </div>
 
@@ -74,7 +79,7 @@ export default function Media() {
             style={{ backgroundColor: services[2].backgroundColor }}
           >
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-6">
-              Audience engagement <span className="font-serif">&</span> syndication
+              {services[2].title}
             </h2>
             <p className="text-black text-base md:text-lg leading-relaxed">
               {services[2].description}
@@ -87,10 +92,10 @@ export default function Media() {
           <Link href="/contact">
             <button className="px-8 py-4 border-2 border-black text-black font-semibold rounded-full hover:opacity-80 transition-opacity uppercase overflow-hidden relative group">
               <span className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-full group-hover:opacity-0">
-                GET IN TOUCH
+                SUBSCRIBE TO SABI
               </span>
               <span className="inline-block absolute left-1/2 -translate-x-1/2 w-full transition-transform duration-200 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 whitespace-nowrap">
-                GET IN TOUCH
+                SUBSCRIBE TO SABI
               </span>
             </button>
           </Link>

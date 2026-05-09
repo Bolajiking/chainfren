@@ -58,13 +58,13 @@ const services = [
 ]
 
 const interests = [
-  'Agency — Web3 Strategy & Consulting',
+  'Agency — Strategy & Done-for-You Growth Work',
   'Products — TiVi Streaming Platform',
-  'Products — Creator Tools',
-  'Media — Content & Insights',
+  'Products — TVinBio (Owned Audience Hub)',
+  'Products — Comeownity / Star Factor',
+  'Sabi — Editorial / Press / Network Inquiry',
   'Partnership / Collaboration',
   'Investment / Business Development',
-  'Press / Media Inquiry',
   'Other',
 ]
 
@@ -188,7 +188,7 @@ export default function Contact() {
           </FadeUp>
           <FadeUp delay={0.16}>
             <p className="mt-6 text-base sm:text-lg max-w-lg leading-relaxed" style={{ color: C.dim }}>
-              Unlocking digital wealth for creators and brands. Whether you need Web3 strategy, creator tools, or media distribution — let&apos;s build together.
+              Africa&apos;s growth engine for creators and brands. Whether you&apos;re launching, scaling, or rebuilding — agency, products, or the Sabi network — start here.
             </p>
           </FadeUp>
 
@@ -245,7 +245,7 @@ export default function Contact() {
                 {
                   icon: Calendar,
                   title: 'Book a Call',
-                  detail: 'Free 15-min strategy session',
+                  detail: 'Free 15-minute strategy call with the Chainfren team',
                   onClick: () => window.Calendly?.initPopupWidget({ url: 'https://calendly.com/chainfren' }),
                   accent: C.lavender,
                 },
@@ -272,7 +272,7 @@ export default function Contact() {
                     Looking for TiVi?
                   </p>
                   <p className="text-sm" style={{ color: C.muted }}>
-                    Contact the TiVi streaming team directly
+                    Talk directly to the streaming product team
                   </p>
                   <span className="inline-flex items-center gap-1.5 mt-3 text-[11px] font-bold uppercase tracking-wider transition-all group-hover:gap-2.5" style={{ color: C.periwinkle }}>
                     Go to TiVi Contact
@@ -308,10 +308,10 @@ export default function Contact() {
               >
                 <div className="px-8 sm:px-10 pt-8 sm:pt-10 pb-6" style={{ background: C.cyan + '12' }}>
                   <h2 className="text-2xl sm:text-3xl font-bold tracking-tight" style={{ color: C.dark }}>
-                    Send us a message
+                    Tell us what you&apos;re building.
                   </h2>
                   <p className="mt-1 text-sm" style={{ color: C.muted }}>
-                    Tell us what you&apos;re building and how we can help you grow.
+                    The more specific, the better we can help. Brand-new project, ongoing campaign, working idea — all welcome. We respond to everything.
                   </p>
                 </div>
 
