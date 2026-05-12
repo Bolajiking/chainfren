@@ -1,5 +1,5 @@
 'use client'
-import Nav from "./components/Nav"
+import SiteHeader, { DEFAULT_CTA } from "./components/SiteHeader"
  import Link from "next/link"
  import Image from "next/image"
  import errorimage from '../public/error.png'
@@ -9,7 +9,7 @@ export default function Error({
 }) {
   return (
     <>
-    <Nav />
+    <SiteHeader cta={DEFAULT_CTA} />
     <div className="h-screen flex flex-col justify-center items-center relative text-white font-serif">
         <div className="md:-mt-48 -mt-32 lg::-mt-64 flex flex-col justify-start items-center gap-8">
         <div className="text-[11rem] sm:text-[13rem] md:text-[15rem] lg:text-[18rem] font-bold leading-0">404</div>

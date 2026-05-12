@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
-import Nav from '../../../components/Nav';
+import SiteHeader, { DEFAULT_CTA } from '../../../components/SiteHeader';
 import { client } from '@/app/contentful/contentful';
 import ContentfulImage from '@/app/components/utils/ContentfulImage';
 import Richtext from '@/app/components/utils/Richtext';
@@ -37,7 +37,7 @@ const page = async (prop) => {
 
   return (
     <div className="min-h-screen bg-white font-fontspring">
-      <Nav />
+      <SiteHeader badgeLabel="Sabi" accent="#CBF0B8" cta={DEFAULT_CTA} />
       
       <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
         {/* Blog Post Title */}

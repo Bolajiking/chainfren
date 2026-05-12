@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
-import Nav from '../../components/Nav';
+import SiteHeader, { DEFAULT_CTA } from '../../components/SiteHeader';
 import { client } from '@/app/contentful/contentful';
 import WavyTop from './WavyTop';
 
@@ -36,8 +36,7 @@ const page = async () => {
 
   return (
     <div className="min-h-screen bg-white font-fontspring">
-     
-      
+      <SiteHeader badgeLabel="Sabi" accent="#CBF0B8" cta={DEFAULT_CTA} />
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
         {/* Main Headline */}
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-black mb-12 max-w-7xl">

@@ -17,25 +17,57 @@ async function ensureDataFile() {
 export async function POST(request) {
   try {
     const body = await request.json()
-    const { firstName, lastName, email, message } = body
+    const formType = body.formType || 'general'
+    const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8)
+    const submittedAt = new Date().toISOString()
 
-    if (!firstName || !lastName || !email || !message) {
-      return NextResponse.json(
-        { error: 'First name, last name, email, and message are required.' },
-        { status: 400 }
-      )
-    }
+    let submission
 
-    const submission = {
-      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
-      firstName: body.firstName,
-      lastName: body.lastName,
-      email: body.email,
-      company: body.company || '',
-      interest: body.interest || '',
-      message: body.message,
-      source: body.source || 'unknown',
-      submittedAt: new Date().toISOString(),
+    if (formType === 'agency-intake') {
+      const required = ['name', 'email', 'who', 'project', 'size', 'budget']
+      const missing = required.filter((k) => !body[k] || !String(body[k]).trim())
+      if (missing.length) {
+        return NextResponse.json(
+          { error: `Missing required fields: ${missing.join(', ')}.` },
+          { status: 400 }
+        )
+      }
+      submission = {
+        id,
+        formType,
+        name: body.name,
+        email: body.email,
+        phone: body.phone || '',
+        who: body.who,
+        project: body.project,
+        size: body.size,
+        budget: body.budget,
+        url: body.url || '',
+        telegram: body.telegram || '',
+        timeline: body.timeline || '',
+        source: body.source || '',
+        submittedAt,
+      }
+    } else {
+      const { firstName, lastName, email, message } = body
+      if (!firstName || !lastName || !email || !message) {
+        return NextResponse.json(
+          { error: 'First name, last name, email, and message are required.' },
+          { status: 400 }
+        )
+      }
+      submission = {
+        id,
+        formType,
+        firstName: body.firstName,
+        lastName: body.lastName,
+        email: body.email,
+        company: body.company || '',
+        interest: body.interest || '',
+        message: body.message,
+        source: body.source || 'unknown',
+        submittedAt,
+      }
     }
 
     await ensureDataFile()

@@ -2,10 +2,10 @@
 
 import React, { useState, useRef } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Check, Mail, Send, Calendar, Briefcase, Box, Newspaper, ArrowUpRight } from 'lucide-react'
+import { ArrowRight, Check, Mail, Send, Calendar, Briefcase, Box, Radio, ArrowUpRight } from 'lucide-react'
 import CalendlyWidget from '@/app/components/CalendlyWidget'
+import SiteHeader, { DEFAULT_LINKS, DEFAULT_CTA } from '@/app/components/SiteHeader'
 
 const C = {
   dark:       '#08153C',
@@ -52,20 +52,36 @@ function StaggerItem({ children, index }) {
 }
 
 const services = [
-  { icon: Briefcase, label: 'Agency', desc: 'Web3 strategy & execution', href: '/agency', color: C.cyan },
-  { icon: Box, label: 'Products', desc: 'Tools for the creator economy', href: '/products', color: C.periwinkle },
-  { icon: Newspaper, label: 'Media', desc: 'Insights & growth strategies', href: '/media', color: C.mint },
+  { icon: Briefcase, label: 'Agency', desc: 'Done-for-you growth systems', href: '/agency', color: C.cyan },
+  { icon: Box, label: 'Products', desc: 'TiVi · TVinBio · Comeownity', href: '/products', color: C.periwinkle },
+  { icon: Radio, label: 'Sabi', desc: 'Onchain broadcasting network', href: '/media', color: C.mint },
 ]
 
-const interests = [
-  'Agency — Strategy & Done-for-You Growth Work',
-  'Products — TiVi Streaming Platform',
-  'Products — TVinBio (Owned Audience Hub)',
-  'Products — Comeownity / Star Factor',
-  'Sabi — Editorial / Press / Network Inquiry',
-  'Partnership / Collaboration',
-  'Investment / Business Development',
-  'Other',
+const interestGroups = [
+  {
+    label: 'Agency',
+    options: ['Agency — Strategy & Done-for-You Growth Work'],
+  },
+  {
+    label: 'Products',
+    options: [
+      'Products — TiVi Streaming Platform',
+      'Products — TVinBio (Owned Audience Hub)',
+      'Products — Comeownity / Star Factor',
+    ],
+  },
+  {
+    label: 'Sabi',
+    options: ['Sabi — Editorial / Press / Network Inquiry'],
+  },
+  {
+    label: 'Other',
+    options: [
+      'Partnership / Collaboration',
+      'Investment / Business Development',
+      'Other',
+    ],
+  },
 ]
 
 export default function Contact() {
@@ -106,36 +122,7 @@ export default function Contact() {
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Inline nav matching homepage style */}
-      <nav className="bg-white w-full md:w-[600px] h-auto md:h-[50px] px-4 md:px-6 py-4 md:py-0 flex items-center justify-between z-50 border-0 md:border md:border-black rounded-none md:rounded-[47.42px] mx-auto mt-0 md:mt-[28px] relative">
-        <div className="flex items-center md:absolute md:top-[50%] md:left-[16px] md:transform md:-translate-y-1/2">
-          <Link href="/">
-            <Image
-              src="/chainlogo.png"
-              alt="Chainfren Logo"
-              width={111}
-              height={24}
-              className="h-auto w-auto md:w-[111px] md:h-[24px] object-contain"
-            />
-          </Link>
-        </div>
-        <div
-          className="hidden md:flex items-center md:absolute"
-          style={{ gap: '23.71px', top: '50%', left: '193px', transform: 'translateY(-50%)' }}
-        >
-          <Link href="/agency" className="text-[14px] text-black font-medium hover:opacity-80 transition-opacity uppercase">Agency</Link>
-          <Link href="/products" className="text-[14px] text-black font-medium hover:opacity-80 transition-opacity uppercase">Product</Link>
-          <Link href="/media" className="text-[14px] text-black font-medium hover:opacity-80 transition-opacity uppercase">Media</Link>
-        </div>
-        <div className="hidden md:flex items-center" style={{ position: 'absolute', top: '8px', left: '448px' }}>
-          <span
-            className="text-[14px] text-black font-semibold uppercase bg-white border border-black whitespace-nowrap flex items-center justify-center"
-            style={{ width: '142px', height: '34px', borderRadius: '47.42px', opacity: 0.5, cursor: 'default' }}
-          >
-            Contact
-          </span>
-        </div>
-      </nav>
+      <SiteHeader links={DEFAULT_LINKS} cta={DEFAULT_CTA} />
 
       <CalendlyWidget />
 
@@ -401,8 +388,12 @@ export default function Contact() {
                               style={{ borderColor: C.dark + '15', color: formData.interest ? C.dark : C.dim }}
                             >
                               <option value="">Select a topic</option>
-                              {interests.map((item) => (
-                                <option key={item} value={item}>{item}</option>
+                              {interestGroups.map((group) => (
+                                <optgroup key={group.label} label={group.label}>
+                                  {group.options.map((item) => (
+                                    <option key={item} value={item}>{item}</option>
+                                  ))}
+                                </optgroup>
                               ))}
                             </select>
                             <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">

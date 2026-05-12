@@ -185,7 +185,7 @@ const MainGrid = () => {
 
   const MissionSection = () => (
     <div className="bg-[#CBF0B8] border-[2px] border-dark-blue rounded-[26px] px-4 py-5 md:p-6 md:pt-8 pb-24 md:pb-8 relative overflow-hidden h-[671px]">
-      <div className="relative z-10 w-[370px] md:w-auto" style={{ letterSpacing: '0%' }}>
+      <div className="relative z-10 w-full max-w-[370px] md:max-w-none md:w-auto" style={{ letterSpacing: '0%' }}>
         <p className="text-dark-blue text-[18px] md:text-[15px] lg:text-[17px] leading-snug mb-2 md:mb-2" style={{ letterSpacing: '0%' }}>African creators have already won the attention war.</p>
         <p className="text-dark-blue text-[18px] md:text-[15px] lg:text-[17px] leading-snug mb-2 md:mb-2" style={{ letterSpacing: '0%' }}><span className="font-bold text-[24px] md:text-[17px] lg:text-[19px]" style={{ letterSpacing: '0%' }}>But attention without ownership is fragile.</span></p>
         <p className="text-dark-blue text-[18px] md:text-[15px] lg:text-[17px] leading-snug mb-2 md:mb-2" style={{ letterSpacing: '0%' }}>The platforms still control the audience, the data, the reach, and the revenue. They change the rules whenever they want, while creators and brands are left building on rented land.</p>
