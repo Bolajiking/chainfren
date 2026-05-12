@@ -912,13 +912,14 @@ export default function AgencyPage() {
       background: '#F5F4EE', color: CF.dark, minHeight: '100vh',
       fontFamily: '"Inter Display", "Inter", sans-serif',
     }}>
-      <style jsx global>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @keyframes cf-pulse {
           0%, 100% { opacity: 1; transform: scale(1); }
           50% { opacity: 0.6; transform: scale(0.92); }
         }
         /* Stack multi-col grids to a single column on tablet/phone */
         @media (max-width: 820px) {
+          .cf-faq-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
           section[data-screen-label] > div[style*="grid-template-columns:repeat(12"] {
             grid-template-columns: 1fr !important;
           }
@@ -962,7 +963,7 @@ export default function AgencyPage() {
             padding: 22px 20px !important;
           }
         }
-      `}</style>
+      ` }} />
       <SiteHeader
         accent={accent}
         badgeLabel="Agency"
