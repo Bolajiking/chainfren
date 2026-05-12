@@ -745,7 +745,7 @@ function FAQ() {
   const [open, setOpen] = React.useState(0)
   return (
     <section data-screen-label="09 FAQ" style={{ maxWidth: 1480, margin: '0 auto', padding: '64px 16px 0' }}>
-      <div style={{
+      <div className="cf-faq-grid" style={{
         display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 2fr)', gap: 32,
       }}>
         <div style={{ padding: '8px 8px 0' }}>
@@ -754,49 +754,64 @@ function FAQ() {
             fontSize: 'clamp(2rem, 3.5vw, 3rem)', fontWeight: 700,
             letterSpacing: '-0.025em', lineHeight: 1.05, color: CF.dark, marginTop: 12,
           }}>Common questions.</h2>
-          <p style={{ fontSize: 15, color: CF.muted, lineHeight: 1.6, marginTop: 16, maxWidth: 320 }}>
+          <p style={{ fontSize: 15, color: CF.muted, lineHeight: 1.6, marginTop: 16, maxWidth: 360 }}>
             Quick answers to what we get asked most. Anything missing? Bring it to the discovery call.
           </p>
         </div>
-        <div style={{ ...CARD_BASE, background: CF.white, padding: '0 32px' }}>
-          {qs.map((it, i) => (
-            <div key={i} style={{
-              borderBottom: i < qs.length - 1 ? '1.5px solid rgba(8,21,60,0.12)' : 'none',
-            }}>
-              <button onClick={() => setOpen(open === i ? -1 : i)} style={{
-                width: '100%', textAlign: 'left',
-                background: 'none', border: 'none', cursor: 'pointer',
-                padding: '24px 0', display: 'flex',
-                alignItems: 'center', justifyContent: 'space-between', gap: 16,
-                fontFamily: 'inherit',
+        <div className="cf-faq-card" style={{ ...CARD_BASE, background: CF.white, padding: '0 clamp(18px, 4vw, 32px)' }}>
+          {qs.map((it, i) => {
+            const isOpen = open === i
+            return (
+              <div key={i} style={{
+                borderBottom: i < qs.length - 1 ? '1.5px solid rgba(8,21,60,0.12)' : 'none',
               }}>
-                <span style={{
-                  fontSize: 'clamp(1rem, 1.4vw, 1.25rem)', fontWeight: 700,
-                  color: CF.dark, lineHeight: 1.3, letterSpacing: '-0.005em',
-                }}>{it.q}</span>
-                <span style={{
-                  width: 32, height: 32, borderRadius: '50%',
-                  border: `2px solid ${CF.dark}`,
-                  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                  flexShrink: 0,
-                  transform: open === i ? 'rotate(45deg)' : 'rotate(0deg)',
-                  transition: 'transform 300ms cubic-bezier(0.22,1,0.36,1)',
-                  background: open === i ? CF.dark : CF.white,
-                  color: open === i ? CF.white : CF.dark,
+                <button onClick={() => setOpen(isOpen ? -1 : i)} style={{
+                  width: '100%', textAlign: 'left',
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  padding: 'clamp(18px, 3vw, 24px) 0', display: 'flex',
+                  alignItems: 'center', justifyContent: 'space-between', gap: 14,
+                  fontFamily: 'inherit',
                 }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
-                </span>
-              </button>
-              <div style={{
-                maxHeight: open === i ? 600 : 0, overflow: 'hidden',
-                transition: 'max-height 400ms cubic-bezier(0.22,1,0.36,1)',
-              }}>
-                <p style={{ fontSize: 15, color: CF.muted, lineHeight: 1.65, paddingBottom: 24, paddingRight: 48 }}>
-                  {it.a}
-                </p>
+                  <span style={{
+                    fontSize: 'clamp(0.95rem, 1.4vw, 1.25rem)', fontWeight: 700,
+                    color: CF.dark, lineHeight: 1.3, letterSpacing: '-0.005em',
+                    flex: 1, minWidth: 0, overflowWrap: 'anywhere',
+                  }}>{it.q}</span>
+                  <span style={{
+                    width: 30, height: 30, borderRadius: '50%',
+                    border: `2px solid ${CF.dark}`,
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0,
+                    transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
+                    transition: 'transform 300ms cubic-bezier(0.22,1,0.36,1), background 200ms, color 200ms',
+                    background: isOpen ? CF.dark : CF.white,
+                    color: isOpen ? CF.white : CF.dark,
+                  }}>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                  </span>
+                </button>
+                <div
+                  className={isOpen ? 'cf-faq-answer cf-faq-answer-open' : 'cf-faq-answer'}
+                  style={{
+                    display: 'grid',
+                    gridTemplateRows: isOpen ? '1fr' : '0fr',
+                    transition: 'grid-template-rows 400ms cubic-bezier(0.22,1,0.36,1)',
+                  }}
+                >
+                  <div style={{ overflow: 'hidden' }}>
+                    <p style={{
+                      fontSize: 'clamp(14px, 1.4vw, 15px)', color: CF.muted, lineHeight: 1.65,
+                      paddingBottom: 'clamp(18px, 3vw, 24px)',
+                      paddingRight: 'clamp(0px, 4vw, 48px)',
+                      overflowWrap: 'anywhere',
+                    }}>
+                      {it.a}
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
@@ -902,23 +917,49 @@ export default function AgencyPage() {
           0%, 100% { opacity: 1; transform: scale(1); }
           50% { opacity: 0.6; transform: scale(0.92); }
         }
+        /* Stack multi-col grids to a single column on tablet/phone */
         @media (max-width: 820px) {
-          section[data-screen-label] > div[style*="grid-template-columns: repeat(12"] {
+          section[data-screen-label] > div[style*="grid-template-columns:repeat(12"] {
             grid-template-columns: 1fr !important;
           }
-          section[data-screen-label] > div[style*="grid-template-columns: repeat(12"] > div {
+          section[data-screen-label] > div[style*="grid-template-columns:repeat(12"] > div {
             grid-column: 1 / -1 !important;
           }
-          section[data-screen-label] div[style*="grid-template-columns: minmax(0, 1fr) minmax(0, 2fr)"] {
+          section[data-screen-label] div[style*="grid-template-columns:minmax(0, 1fr) minmax(0, 2fr)"] {
             grid-template-columns: 1fr !important;
             gap: 20px !important;
           }
+          section[data-screen-label] div[style*="grid-template-columns:1fr 1.4fr"] {
+            grid-template-columns: 1fr !important;
+            gap: 14px !important;
+          }
         }
-        @media (max-width: 600px) {
-          section[data-screen-label] > div > div[style*="min-height: 520"],
-          section[data-screen-label] > div > div[style*="minHeight: 520"] {
+        /* Phone: relax oversized minHeights and tame heavy paddings */
+        @media (max-width: 640px) {
+          section[data-screen-label] [style*="min-height:520px"],
+          section[data-screen-label] [style*="min-height:460px"],
+          section[data-screen-label] [style*="min-height:720px"] {
             min-height: auto !important;
+          }
+          section[data-screen-label] [style*="min-height:380px"] {
+            min-height: 300px !important;
+          }
+          section[data-screen-label] [style*="padding:40px 44px 36px"] {
             padding: 28px 22px !important;
+          }
+          section[data-screen-label] [style*="padding:32px 40px"] {
+            padding: 22px 20px !important;
+          }
+          section[data-screen-label] [style*="padding:32px 32px 28px"] {
+            padding: 24px 22px 22px !important;
+          }
+          section[data-screen-label] [style*="padding:40px 24px 28px"] {
+            padding: 26px 20px 22px !important;
+          }
+          section[data-screen-label] [style*="padding:28px 26px 24px"],
+          section[data-screen-label] [style*="padding:28px 26px"],
+          section[data-screen-label] [style*="padding:24px 26px"] {
+            padding: 22px 20px !important;
           }
         }
       `}</style>
