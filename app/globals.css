@@ -203,6 +203,38 @@ body {
   animation-delay: 1000ms;
 }
 
+/* Agency page (cf-agency-root) — responsive layout */
+@keyframes cf-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.92); }
+}
+
+@media (max-width: 820px) {
+  .cf-faq-grid,
+  .cf-bento-grid,
+  .cf-proof-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .cf-bento-main,
+  .cf-bento-side,
+  .cf-proof-main,
+  .cf-proof-side {
+    grid-column: 1 / -1 !important;
+  }
+  .cf-claim-row {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .cf-agency-root [style*="min-height"] { min-height: 0 !important; }
+  .cf-agency-root .cf-card-pad { padding: 22px 20px !important; }
+  .cf-agency-root .cf-hero-pad { padding: 28px 22px !important; }
+  .cf-agency-root .cf-footer-pad { padding: 26px 20px 22px !important; }
+}
+
 /* Slow spin animation for 3D rings */
 @keyframes spin-slow {
   from {

@@ -177,7 +177,7 @@ function HeroCard() {
           marginTop: 16,
         }}
       >
-        Three products. One stack. Infrastructure to leave rented platforms, monetize directly, and build durable internet businesses.
+        Tools and software to leave rented platforms, monetize directly, and build durable internet businesses.
       </p>
       <div style={{ display: 'flex', gap: 8, marginTop: 22, flexWrap: 'wrap' }}>
         <PillBtn dark href="/contact">

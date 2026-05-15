@@ -108,9 +108,9 @@ function HeroBento({ accent }) {
     document.getElementById('programs')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   return (
     <section data-screen-label="01 Hero" style={{ maxWidth: 1480, margin: '0 auto', padding: '20px 16px 0' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 8, alignItems: 'stretch' }}>
-        <div style={{ gridColumn: 'span 8' }}>
-          <div style={{
+      <div className="cf-bento-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 8, alignItems: 'stretch' }}>
+        <div className="cf-bento-main" style={{ gridColumn: 'span 8' }}>
+          <div className="cf-hero-pad" style={{
             ...CARD_BASE, background: CF.white, padding: '40px 44px 36px',
             display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 520,
           }}>
@@ -136,44 +136,89 @@ function HeroBento({ accent }) {
           </div>
         </div>
 
-        <div style={{ gridColumn: 'span 4', display: 'grid', gap: 8, gridTemplateRows: '1fr 1fr' }}>
-          <div style={{
-            ...CARD_BASE, background: accent, padding: '28px 26px',
-            display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-          }}>
-            <Eyebrow>Star Factor · In production</Eyebrow>
-            <div>
-              <div style={{
-                fontSize: 'clamp(2.5rem, 4.5vw, 4rem)', fontWeight: 700,
-                color: CF.dark, lineHeight: 0.95, letterSpacing: '-0.03em',
-              }}>24/7</div>
-              <p style={{ fontSize: 14, color: CF.dark, marginTop: 8, lineHeight: 1.45, maxWidth: 240 }}>
-                Onchain reality format streamed live from Lagos. Most ambitious project of its kind on the continent.
-              </p>
-            </div>
+        <div className="cf-bento-side" style={{ gridColumn: 'span 4', display: 'grid', gap: 8, gridTemplateRows: '1fr 1fr' }}>
+          <a
+            href="https://starfactor.xyz"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cf-card-pad cf-starfactor"
+            style={{
+              ...CARD_BASE, background: CF.dark, color: CF.white,
+              padding: 0, display: 'flex', flexDirection: 'column',
+              textDecoration: 'none',
+              backgroundImage: `radial-gradient(60% 50% at 88% 0%, ${CF.coral}77 0%, transparent 60%), radial-gradient(55% 45% at 10% 0%, ${CF.lime}66 0%, transparent 60%), radial-gradient(70% 60% at 95% 100%, ${CF.cyan}55 0%, transparent 60%), radial-gradient(80% 60% at 0% 100%, ${CF.periwinkle}66 0%, transparent 60%)`,
+            }}
+          >
+            {/* top chrome — live status */}
             <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              fontSize: 12, fontWeight: 700, color: CF.dark, textTransform: 'uppercase', letterSpacing: '0.08em',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,0.12)',
             }}>
-              <span style={{ width: 8, height: 8, background: CF.coral, borderRadius: '50%', boxShadow: `0 0 0 4px ${CF.coral}33` }} />
-              Build in public
+              <span style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                fontSize: 10.5, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase',
+              }}>
+                <span style={{
+                  width: 7, height: 7, borderRadius: '50%', background: CF.coral,
+                  boxShadow: `0 0 0 4px ${CF.coral}33`, animation: 'cf-pulse 2s infinite',
+                }} />
+                Live · Lagos
+              </span>
+              <span style={{
+                fontSize: 10, fontWeight: 700, letterSpacing: '0.1em',
+                color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase',
+              }}>24/7</span>
             </div>
-          </div>
 
-          <div style={{
-            ...CARD_BASE, background: CF.dark, color: CF.white, padding: '24px 26px',
-            display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-          }}>
-            <Eyebrow color="rgba(255,255,255,0.6)">The agency arm of Chainfren</Eyebrow>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '12px 0' }}>
-              <img src="/cfnlogg.svg" alt="" style={{ width: '70%', maxHeight: 130, objectFit: 'contain', filter: 'invert(1) brightness(2)' }} />
-            </div>
+            {/* main poster */}
             <div style={{
-              display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6,
-              fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.08em',
+              flex: 1, padding: '18px 18px 14px',
+              display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 14,
             }}>
-              <span>TiVi</span><span>TVinBio</span><span>Comeownity</span>
+              <Eyebrow color={CF.lime}>Star Factor</Eyebrow>
+              <div>
+                <div style={{
+                  fontFamily: SERIF, fontStyle: 'italic', fontWeight: 700,
+                  fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', lineHeight: 0.95, letterSpacing: '-0.02em',
+                  background: `linear-gradient(110deg, ${CF.lime} 0%, ${CF.coral} 35%, ${CF.cyan} 70%, ${CF.periwinkle} 100%)`,
+                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                }}>Star Factor.</div>
+                <p style={{
+                  fontSize: 12.5, lineHeight: 1.45, color: 'rgba(255,255,255,0.75)',
+                  marginTop: 8, maxWidth: 260,
+                }}>
+                  Africa&apos;s first onchain reality entertainment platform.
+                </p>
+              </div>
             </div>
+
+            {/* bottom chrome — scrubber + cta */}
+            <div style={{
+              padding: '12px 18px 14px', borderTop: '1px solid rgba(255,255,255,0.12)',
+              display: 'flex', flexDirection: 'column', gap: 10,
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ flex: 1, height: 3, borderRadius: 2, background: 'rgba(255,255,255,0.18)', position: 'relative' }}>
+                  <span style={{ position: 'absolute', inset: '0 35% 0 0', background: `linear-gradient(90deg, ${CF.lime}, ${CF.coral}, ${CF.cyan})`, borderRadius: 2 }} />
+                  <span style={{ position: 'absolute', top: -4, left: '65%', width: 11, height: 11, borderRadius: '50%', background: CF.coral, boxShadow: `0 0 0 3px ${CF.coral}44` }} />
+                </span>
+                <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', color: 'rgba(255,255,255,0.6)' }}>LIVE</span>
+              </div>
+              <span style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                fontSize: 11.5, fontWeight: 700, letterSpacing: '0.08em',
+                textTransform: 'uppercase', color: CF.white,
+              }}>
+                Watch on starfactor.xyz <Arrow size={11} />
+              </span>
+            </div>
+          </a>
+
+          <div className="cf-card-pad" style={{
+            ...CARD_BASE, background: CF.dark, color: CF.white, padding: '24px 26px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            <img src="/cfnlogg.svg" alt="" style={{ width: '70%', maxHeight: 130, objectFit: 'contain', filter: 'invert(1) brightness(2)' }} />
           </div>
         </div>
       </div>
@@ -261,6 +306,7 @@ function WhoWeServe() {
       }}>
         {cards.map((c) => (
           <div key={c.num}
+            className="cf-card-pad"
             onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
             onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             style={{
@@ -300,33 +346,30 @@ function ProgramsSection({ accent }) {
       n: '01', title: 'Creator Growth OS',
       tagline: 'Turn your audience into your business.',
       bg: CF.periwinkle, img: '/3d.png',
-      pitch: 'The full owned-audience operating system, built and launched in twelve weeks. By the end, you have direct fan relationships, your own revenue rails, and a business platforms can never take away.',
+      pitch: 'We build your owned-audience operating system end to end — direct fan relationships, your own revenue rails, and a business no platform can take away.',
       rows: [
         { k: 'For', v: 'Musicians, podcasters, athletes, public figures, digital creators, creator-founders' },
-        { k: 'Timeline', v: '12 weeks build + 8 weeks growth runway' },
-        { k: 'Engagement', v: 'Scoped on discovery call' },
+        { k: 'Timeline & Delivery', v: 'Scoped on discovery call' },
       ],
     },
     {
       n: '02', title: 'Owned Media Launchpad',
       tagline: 'Launch your platform. Own your audience. Keep your revenue.',
       bg: CF.cyan, img: '/3d3.png',
-      pitch: 'We build, launch, and operate your owned media platform — streaming, community, commerce, and ownership in one stack. Sixteen weeks from kickoff to first paid event.',
+      pitch: 'We build, launch, and operate your owned media platform — streaming, community, commerce, and ownership in one stack you fully control.',
       rows: [
         { k: 'For', v: 'Churches, event companies, sports leagues, music labels, media houses, podcast networks' },
-        { k: 'Timeline', v: '16 weeks build + 12 weeks operational support' },
-        { k: 'Engagement', v: 'Scoped on discovery call' },
+        { k: 'Timeline & Delivery', v: 'Scoped on discovery call' },
       ],
     },
     {
       n: '03', title: 'Onchain Brand & Community Launch',
       tagline: 'Build culture people can join, own, and participate in.',
       bg: CF.lime, img: '/3d5.png',
-      pitch: 'For brands and communities ready to use Web3 in ways that feel useful, culturally relevant, and connected to the audience you actually have. Not an NFT stunt. A real community growth system.',
+      pitch: 'We build a real community growth system for your brand — Web3 used only where it serves your audience. No NFT stunts, no hype drops.',
       rows: [
         { k: 'For', v: 'Creator-led brands, fan communities, cultural brands, fashion and lifestyle brands, music projects, consumer brands entering Web3' },
-        { k: 'Timeline', v: '4–6 months depending on scope' },
-        { k: 'Engagement', v: 'Scoped on discovery call' },
+        { k: 'Timeline & Delivery', v: 'Scoped on discovery call' },
       ],
     },
   ]
@@ -638,7 +681,7 @@ function WhyChainfren({ accent }) {
                 fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)', color: accent,
                 letterSpacing: '-0.02em',
               }}>0{i + 1}</div>
-              <div style={{
+              <div className="cf-claim-row" style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1.4fr',
                 gap: 'clamp(20px, 4vw, 60px)', alignItems: 'baseline',
@@ -660,8 +703,8 @@ function WhyChainfren({ accent }) {
 function ProofInProgress({ accent }) {
   return (
     <section data-screen-label="08 Proof" style={{ maxWidth: 1480, margin: '0 auto', padding: '64px 16px 0' }}>
-      <div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(12, 1fr)' }}>
-        <div style={{ gridColumn: 'span 7' }}>
+      <div className="cf-proof-grid" style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(12, 1fr)' }}>
+        <div className="cf-proof-main" style={{ gridColumn: 'span 7' }}>
           <div style={{
             ...CARD_BASE, background: CF.dark,
             backgroundImage: `radial-gradient(circle at 80% 20%, ${accent}55, transparent 50%), radial-gradient(circle at 20% 80%, #3D1F73aa, transparent 50%)`,
@@ -682,7 +725,7 @@ function ProofInProgress({ accent }) {
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
               }}>Star Factor.</div>
               <p style={{ fontSize: 18, lineHeight: 1.55, color: 'rgba(255,255,255,0.85)', marginTop: 20, maxWidth: 600 }}>
-                Chainfren is building Star Factor — a 24/7 onchain reality format streamed live from Lagos, with onchain voting, prediction markets, and contestant-owned identity. The most ambitious project of its kind ever attempted on the continent.
+                Chainfren is building Star Factor — an onchain reality entertainment platform, with transparent voting, prediction markets, and contestant-owned identity. The most ambitious project of its kind ever attempted from the continent.
               </p>
             </div>
             <div style={{
@@ -699,8 +742,8 @@ function ProofInProgress({ accent }) {
           </div>
         </div>
 
-        <div style={{ gridColumn: 'span 5' }}>
-          <div style={{
+        <div className="cf-proof-side" style={{ gridColumn: 'span 5' }}>
+          <div className="cf-card-pad" style={{
             ...CARD_BASE, background: CF.lime, padding: '32px 32px 28px',
             display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
             minHeight: 460,
@@ -878,7 +921,7 @@ function ClosingCTA({ accent }) {
 
 function PageFooter() {
   return (
-    <footer style={{
+    <footer className="cf-footer-pad" style={{
       maxWidth: 1480, margin: '64px auto 0', padding: '40px 24px 28px',
       borderTop: `1px solid rgba(8,21,60,0.12)`,
       display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -908,61 +951,23 @@ export default function AgencyPage() {
   }, [])
 
   return (
-    <div style={{
+    <div className="cf-agency-root" style={{
       background: '#F5F4EE', color: CF.dark, minHeight: '100vh',
       fontFamily: '"Inter Display", "Inter", sans-serif',
     }}>
       <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes cf-pulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.6; transform: scale(0.92); }
-        }
-        /* Stack multi-col grids to a single column on tablet/phone */
-        @media (max-width: 820px) {
-          .cf-faq-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
-          section[data-screen-label] > div[style*="grid-template-columns:repeat(12"] {
-            grid-template-columns: 1fr !important;
-          }
-          section[data-screen-label] > div[style*="grid-template-columns:repeat(12"] > div {
-            grid-column: 1 / -1 !important;
-          }
-          section[data-screen-label] div[style*="grid-template-columns:minmax(0, 1fr) minmax(0, 2fr)"] {
-            grid-template-columns: 1fr !important;
-            gap: 20px !important;
-          }
-          section[data-screen-label] div[style*="grid-template-columns:1fr 1.4fr"] {
-            grid-template-columns: 1fr !important;
-            gap: 14px !important;
-          }
-        }
-        /* Phone: relax oversized minHeights and tame heavy paddings */
-        @media (max-width: 640px) {
-          section[data-screen-label] [style*="min-height:520px"],
-          section[data-screen-label] [style*="min-height:460px"],
-          section[data-screen-label] [style*="min-height:720px"] {
-            min-height: auto !important;
-          }
-          section[data-screen-label] [style*="min-height:380px"] {
-            min-height: 300px !important;
-          }
-          section[data-screen-label] [style*="padding:40px 44px 36px"] {
-            padding: 28px 22px !important;
-          }
-          section[data-screen-label] [style*="padding:32px 40px"] {
-            padding: 22px 20px !important;
-          }
-          section[data-screen-label] [style*="padding:32px 32px 28px"] {
-            padding: 24px 22px 22px !important;
-          }
-          section[data-screen-label] [style*="padding:40px 24px 28px"] {
-            padding: 26px 20px 22px !important;
-          }
-          section[data-screen-label] [style*="padding:28px 26px 24px"],
-          section[data-screen-label] [style*="padding:28px 26px"],
-          section[data-screen-label] [style*="padding:24px 26px"] {
-            padding: 22px 20px !important;
-          }
-        }
+@keyframes cf-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.92)}}
+@media (max-width:820px){
+  .cf-faq-grid,.cf-bento-grid,.cf-proof-grid{grid-template-columns:1fr !important;gap:20px !important}
+  .cf-bento-main,.cf-bento-side,.cf-proof-main,.cf-proof-side{grid-column:1 / -1 !important}
+  .cf-claim-row{grid-template-columns:1fr !important;gap:14px !important}
+}
+@media (max-width:640px){
+  .cf-agency-root [style*="min-height"]{min-height:0 !important}
+  .cf-agency-root .cf-card-pad{padding:22px 20px !important}
+  .cf-agency-root .cf-hero-pad{padding:28px 22px !important}
+  .cf-agency-root .cf-footer-pad{padding:26px 20px 22px !important}
+}
       ` }} />
       <SiteHeader
         accent={accent}

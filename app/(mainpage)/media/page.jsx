@@ -185,24 +185,54 @@ function HeroPlayer() {
     <div
       style={{
         ...CARD_BASE,
-        background: CF.tint,
-        padding: 'clamp(28px, 4vw, 44px)',
+        background: CF.dark,
+        color: '#fff',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
-        minHeight: 'clamp(280px, 48vw, 440px)',
-        gap: 24,
       }}
     >
-      <Eyebrow color={CF.muted}>Chainfren Media</Eyebrow>
-      <div>
+      {/* player top chrome */}
+      <div
+        style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '14px 20px', borderBottom: '1px solid rgba(255,255,255,0.12)',
+          fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, color: 'rgba(255,255,255,0.6)' }}>
+          <span style={{ display: 'inline-flex', gap: 5 }}>
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#FF5F57' }} />
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#FEBC2E' }} />
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#28C840' }} />
+          </span>
+          <span>Chainfren Media</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.55)' }}>
+          <span style={{
+            padding: '3px 8px', border: '1.5px solid rgba(255,255,255,0.4)', borderRadius: 4, fontSize: 9.5,
+          }}>HD</span>
+          <span>Sabi · Live soon</span>
+        </div>
+      </div>
+
+      {/* poster / placeholder graphic with copy */}
+      <div
+        style={{
+          position: 'relative',
+          padding: 'clamp(28px, 4vw, 52px) clamp(24px, 4vw, 44px)',
+          minHeight: 'clamp(280px, 44vw, 440px)',
+          display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 18,
+          backgroundImage: `radial-gradient(120% 100% at 80% 10%, ${CF.accent}44 0%, transparent 55%), radial-gradient(100% 100% at 10% 110%, #3D1F73aa 0%, transparent 60%)`,
+        }}
+      >
+        <Eyebrow color={CF.accent}>Now showing</Eyebrow>
         <h1
           style={{
             fontSize: 'clamp(2rem, 5vw, 4rem)',
             fontWeight: 700,
             lineHeight: 1.02,
             letterSpacing: '-0.025em',
-            color: CF.dark,
+            color: '#fff',
             margin: 0,
             maxWidth: 900,
           }}
@@ -210,7 +240,7 @@ function HeroPlayer() {
           Stories and broadcasts from&nbsp;
           <span
             style={{
-              background: `linear-gradient(110deg, ${CF.dark} 40%, ${CF.accent} 60%, ${CF.dark} 80%)`,
+              background: `linear-gradient(110deg, #fff 30%, ${CF.accent} 50%, #fff 70%)`,
               WebkitBackgroundClip: 'text',
               backgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -224,31 +254,75 @@ function HeroPlayer() {
         <p
           style={{
             fontSize: 'clamp(15px, 1.6vw, 18px)',
-            color: CF.muted,
-            lineHeight: 1.55,
-            maxWidth: 640,
-            marginTop: 18,
+            color: 'rgba(255,255,255,0.7)',
+            lineHeight: 1.55, maxWidth: 640, margin: 0,
           }}
         >
           Live broadcasts when they happen. Articles from the team building the infrastructure underneath.
         </p>
+
+        {/* decorative play badge */}
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute', right: 'clamp(24px, 4vw, 44px)', bottom: 'clamp(24px, 4vw, 44px)',
+            width: 64, height: 64, borderRadius: 999,
+            border: '1.5px solid rgba(255,255,255,0.25)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            backdropFilter: 'blur(4px)', background: 'rgba(255,255,255,0.05)',
+          }}
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,0.85)">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </div>
       </div>
-      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+
+      {/* bottom chrome — scrubber */}
+      <div
+        style={{
+          padding: '14px 20px',
+          borderTop: '1px solid rgba(255,255,255,0.12)',
+          display: 'flex', alignItems: 'center', gap: 14,
+        }}
+      >
+        <span style={{
+          display: 'inline-flex', alignItems: 'center', gap: 6,
+          fontSize: 10.5, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#fff',
+        }}>
+          <span style={{
+            width: 8, height: 8, borderRadius: '50%', background: CF.coral,
+            boxShadow: `0 0 0 4px ${CF.coral}33`, animation: 'cf-pulse 2s infinite',
+          }} />
+          On air
+        </span>
+        <span style={{ flex: 1, height: 3, borderRadius: 2, background: 'rgba(255,255,255,0.18)', position: 'relative' }}>
+          <span style={{ position: 'absolute', inset: '0 65% 0 0', background: CF.accent, borderRadius: 2 }} />
+          <span style={{
+            position: 'absolute', top: -4, left: '35%',
+            width: 11, height: 11, borderRadius: '50%', background: CF.accent,
+            boxShadow: `0 0 0 3px ${CF.accent}33`,
+          }} />
+        </span>
+        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', color: 'rgba(255,255,255,0.55)' }}>
+          00:00 / ∞
+        </span>
+      </div>
+
+      {/* actions */}
+      <div style={{
+        padding: '16px 20px 18px',
+        borderTop: '1px solid rgba(255,255,255,0.08)',
+        display: 'flex', gap: 10, flexWrap: 'wrap',
+        background: 'rgba(0,0,0,0.2)',
+      }}>
         <Link
           href="#schedule"
           style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 8,
-            padding: '12px 20px',
-            borderRadius: 9999,
-            border: `2px solid ${CF.dark}`,
-            background: CF.dark,
-            color: '#fff',
-            fontSize: 12.5,
-            fontWeight: 700,
-            letterSpacing: '0.06em',
-            textTransform: 'uppercase',
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            padding: '11px 20px', borderRadius: 9999,
+            border: `2px solid ${CF.white}`, background: CF.white, color: CF.dark,
+            fontSize: 12.5, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase',
             textDecoration: 'none',
           }}
         >
@@ -257,18 +331,10 @@ function HeroPlayer() {
         <Link
           href="#read"
           style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 8,
-            padding: '12px 20px',
-            borderRadius: 9999,
-            border: `2px solid ${CF.dark}`,
-            background: CF.white,
-            color: CF.dark,
-            fontSize: 12.5,
-            fontWeight: 700,
-            letterSpacing: '0.06em',
-            textTransform: 'uppercase',
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            padding: '11px 20px', borderRadius: 9999,
+            border: `2px solid rgba(255,255,255,0.4)`, background: 'transparent', color: '#fff',
+            fontSize: 12.5, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase',
             textDecoration: 'none',
           }}
         >
