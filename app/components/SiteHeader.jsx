@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import ChainfrenWordmark from './ChainfrenWordmark'
 
 const DARK = '#08153C'
 const WHITE = '#FFFFFF'
@@ -51,7 +52,7 @@ function MiniPill({ item, isCurrent, onNavigate }) {
       style={{
         display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
         height, padding: pad,
-        fontSize, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase',
+        fontSize, fontWeight: 450, letterSpacing: '0.12em', textTransform: 'uppercase',
         color: DARK, background: bg,
         border: `${borderWidth}px solid ${DARK}`, borderRadius: 9999,
         textDecoration: 'none', fontFamily: 'inherit',
@@ -90,7 +91,7 @@ function BadgeDropdown({ label, accent }) {
         onClick={() => setOpen((v) => !v)}
         style={{
           display: 'inline-flex', alignItems: 'center', gap: 2,
-          fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase',
+          fontSize: 11, fontWeight: 450, letterSpacing: '0.12em', textTransform: 'uppercase',
           color: DARK, padding: '4px 12px', border: `1.5px solid ${DARK}`, borderRadius: 9999,
           background: accent, cursor: 'pointer', fontFamily: 'inherit',
           lineHeight: 1, height: 26,
@@ -146,7 +147,7 @@ export default function SiteHeader({
 
   const linkStyle = {
     background: 'none', border: 'none', cursor: 'pointer',
-    fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase',
+    fontSize: 12, fontWeight: 420, letterSpacing: '0.06em', textTransform: 'uppercase',
     color: DARK, fontFamily: 'inherit', textDecoration: 'none',
     padding: 0,
   }
@@ -154,7 +155,7 @@ export default function SiteHeader({
   const ctaStyle = {
     height: 40, padding: '0 18px', borderRadius: 9999,
     border: `1.5px solid ${DARK}`, background: DARK, color: WHITE,
-    fontFamily: 'inherit', fontSize: 11.5, fontWeight: 700,
+    fontFamily: 'inherit', fontSize: 11.5, fontWeight: 450,
     letterSpacing: '0.06em', textTransform: 'uppercase', cursor: 'pointer',
     display: 'inline-flex', alignItems: 'center', textDecoration: 'none',
     whiteSpace: 'nowrap',
@@ -189,7 +190,7 @@ export default function SiteHeader({
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-              <img src="/chainlogo.png" alt="Chainfren" style={{ height: 22 }} />
+              <ChainfrenWordmark color={DARK} fontSize={22} />
             </Link>
             {badgeLabel && <BadgeDropdown label={badgeLabel} accent={accent} />}
           </div>

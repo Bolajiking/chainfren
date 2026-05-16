@@ -25,6 +25,19 @@ module.exports = {
         lgClamp:"clamp(1.5rem,10vw,3.5rem)",
         mdClamp:"clamp(1rem, 10vw, 3rem)"
       },
+      // Capped weight scale: 500 (wordmark + hero headlines) is the ceiling.
+      // Everything below cascades down for clean hierarchy.
+      fontWeight: {
+        thin:        '200',
+        extralight:  '240',
+        light:       '280',
+        normal:      '320',
+        medium:      '380',
+        semibold:    '420',
+        bold:        '450',
+        extrabold:   '480',
+        black:       '500',
+      },
      screens:{
       md2:'870px',
       sm2:'480px'

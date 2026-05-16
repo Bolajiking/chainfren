@@ -39,7 +39,7 @@ const page = async () => {
       <SiteHeader badgeLabel="Sabi" accent="#CBF0B8" cta={DEFAULT_CTA} />
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
         {/* Main Headline */}
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-black mb-12 max-w-7xl">
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-black mb-12 max-w-7xl">
           Africa's onchain broadcasting network. The best of African culture, curated and published from Lagos.
         </h1>
 

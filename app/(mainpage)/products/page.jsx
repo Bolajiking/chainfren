@@ -33,7 +33,7 @@ function Eyebrow({ children, color = CF.dark }) {
     <span
       style={{
         fontSize: 11,
-        fontWeight: 700,
+        fontWeight: 450,
         letterSpacing: '0.12em',
         textTransform: 'uppercase',
         color,
@@ -73,7 +73,7 @@ function PillBtn({ children, dark, href, external, style = {} }) {
     border: `2px solid ${CF.dark}`,
     fontFamily: 'inherit',
     fontSize: 12.5,
-    fontWeight: 700,
+    fontWeight: 450,
     letterSpacing: '0.06em',
     textTransform: 'uppercase',
     cursor: 'pointer',
@@ -147,7 +147,7 @@ function HeroCard() {
       <h1
         style={{
           fontSize: 'clamp(2rem, 3.6vw, 3.25rem)',
-          fontWeight: 700,
+          fontWeight: 500,
           lineHeight: 1.02,
           letterSpacing: '-0.025em',
           color: CF.dark,
@@ -199,7 +199,7 @@ function ProductCard({ p }) {
     alignItems: 'center',
     gap: 6,
     fontSize: 11,
-    fontWeight: 700,
+    fontWeight: 450,
     letterSpacing: '0.1em',
     textTransform: 'uppercase',
     color: CF.dark,
@@ -234,7 +234,7 @@ function ProductCard({ p }) {
         <span
           style={{
             fontFamily: SERIF,
-            fontWeight: 700,
+            fontWeight: 450,
             fontSize: 38,
             lineHeight: 0.8,
             color: CF.dark,
@@ -248,7 +248,7 @@ function ProductCard({ p }) {
       <h2
         style={{
           fontSize: 'clamp(1.5rem, 2.2vw, 2rem)',
-          fontWeight: 700,
+          fontWeight: 450,
           color: CF.dark,
           lineHeight: 1,
           letterSpacing: '-0.02em',

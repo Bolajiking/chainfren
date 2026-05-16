@@ -41,7 +41,7 @@ const page = async (prop) => {
       
       <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
         {/* Blog Post Title */}
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black dark:text-black mb-8">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-black dark:text-black mb-8">
           {title}
         </h1>
 

@@ -190,11 +190,11 @@ export default function AgencyContactModal({ open, onClose, accent = DEFAULT_ACC
         ) : (
           <form onSubmit={onSubmit} noValidate>
             <div style={{ marginBottom: 28 }}>
-              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: accent }}>
+              <span style={{ fontSize: 11, fontWeight: 450, letterSpacing: '0.14em', textTransform: 'uppercase', color: accent }}>
                 Tell us what you&apos;re building
               </span>
               <h2 style={{
-                fontSize: 'clamp(1.75rem, 3.6vw, 2.5rem)', fontWeight: 700,
+                fontSize: 'clamp(1.75rem, 3.6vw, 2.5rem)', fontWeight: 450,
                 lineHeight: 1.05, letterSpacing: '-0.02em', margin: '14px 0 10px',
               }}>
                 Tell us what you&apos;re building.
@@ -266,7 +266,7 @@ export default function AgencyContactModal({ open, onClose, accent = DEFAULT_ACC
               <button type="submit" disabled={submitting} style={{
                 width: '100%', padding: '18px 24px', borderRadius: 9999,
                 background: accent, color: '#08153C', border: 'none',
-                fontFamily: 'inherit', fontSize: 14, fontWeight: 700,
+                fontFamily: 'inherit', fontSize: 14, fontWeight: 450,
                 letterSpacing: '0.06em', textTransform: 'uppercase',
                 cursor: submitting ? 'wait' : 'pointer',
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 10,
@@ -296,7 +296,7 @@ function FormField({ id, label, helper, error, children }) {
   return (
     <div id={`field-${id}`} style={{ marginBottom: 22 }}>
       <label htmlFor={id} style={{
-        display: 'block', fontSize: 13.5, fontWeight: 600, color: '#fff',
+        display: 'block', fontSize: 13.5, fontWeight: 420, color: '#fff',
         marginBottom: 8, letterSpacing: '-0.005em', lineHeight: 1.4,
       }}>{label}</label>
       {helper && (
@@ -390,7 +390,7 @@ function ThankYou({ accent, email, onClose }) {
       }}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
       </div>
-      <h2 style={{ fontSize: 'clamp(1.75rem, 3.6vw, 2.5rem)', fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: 18 }}>
+      <h2 style={{ fontSize: 'clamp(1.75rem, 3.6vw, 2.5rem)', fontWeight: 450, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: 18 }}>
         Thanks. We&apos;ve got it.
       </h2>
       <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.78)', lineHeight: 1.65, marginBottom: 16 }}>
@@ -409,7 +409,7 @@ function ThankYou({ accent, email, onClose }) {
           Want updates from the Chainfren team while you wait?
         </p>
         {subbed ? (
-          <p style={{ fontSize: 14, color: accent, fontWeight: 600 }}>
+          <p style={{ fontSize: 14, color: accent, fontWeight: 420 }}>
             Subscribed. Welcome to Sabi.
           </p>
         ) : (
@@ -419,7 +419,7 @@ function ThankYou({ accent, email, onClose }) {
             <button onClick={() => setSubbed(true)} style={{
               padding: '14px 22px', borderRadius: 14,
               background: accent, color: '#08153C', border: 'none',
-              fontFamily: 'inherit', fontSize: 13, fontWeight: 700,
+              fontFamily: 'inherit', fontSize: 13, fontWeight: 450,
               letterSpacing: '0.06em', textTransform: 'uppercase', cursor: 'pointer',
               whiteSpace: 'nowrap',
             }}>Subscribe to Sabi</button>
@@ -432,7 +432,7 @@ function ThankYou({ accent, email, onClose }) {
           padding: '14px 28px', borderRadius: 9999,
           background: 'transparent', color: '#fff',
           border: '1.5px solid rgba(255,255,255,0.3)',
-          fontFamily: 'inherit', fontSize: 13, fontWeight: 700,
+          fontFamily: 'inherit', fontSize: 13, fontWeight: 450,
           letterSpacing: '0.06em', textTransform: 'uppercase', cursor: 'pointer',
         }}>Close</button>
       </div>

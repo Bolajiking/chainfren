@@ -51,7 +51,7 @@ function Eyebrow({ children, color = CF.dark }) {
     <span
       style={{
         fontSize: 11,
-        fontWeight: 700,
+        fontWeight: 450,
         letterSpacing: '0.12em',
         textTransform: 'uppercase',
         color,
@@ -88,7 +88,7 @@ function LiveDot() {
         alignItems: 'center',
         gap: 8,
         fontSize: 11,
-        fontWeight: 800,
+        fontWeight: 480,
         letterSpacing: '0.14em',
         textTransform: 'uppercase',
         color: '#fff',
@@ -168,7 +168,7 @@ function HeroPlayer() {
           <h2
             style={{
               fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
-              fontWeight: 700,
+              fontWeight: 450,
               lineHeight: 1.05,
               letterSpacing: '-0.02em',
               margin: 0,
@@ -196,7 +196,7 @@ function HeroPlayer() {
         style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           padding: '14px 20px', borderBottom: '1px solid rgba(255,255,255,0.12)',
-          fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase',
+          fontSize: 11, fontWeight: 450, letterSpacing: '0.12em', textTransform: 'uppercase',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, color: 'rgba(255,255,255,0.6)' }}>
@@ -229,7 +229,7 @@ function HeroPlayer() {
         <h1
           style={{
             fontSize: 'clamp(2rem, 5vw, 4rem)',
-            fontWeight: 700,
+            fontWeight: 500,
             lineHeight: 1.02,
             letterSpacing: '-0.025em',
             color: '#fff',
@@ -288,7 +288,7 @@ function HeroPlayer() {
       >
         <span style={{
           display: 'inline-flex', alignItems: 'center', gap: 6,
-          fontSize: 10.5, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#fff',
+          fontSize: 10.5, fontWeight: 480, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#fff',
         }}>
           <span style={{
             width: 8, height: 8, borderRadius: '50%', background: CF.coral,
@@ -304,7 +304,7 @@ function HeroPlayer() {
             boxShadow: `0 0 0 3px ${CF.accent}33`,
           }} />
         </span>
-        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', color: 'rgba(255,255,255,0.55)' }}>
+        <span style={{ fontSize: 11, fontWeight: 450, letterSpacing: '0.08em', color: 'rgba(255,255,255,0.55)' }}>
           00:00 / ∞
         </span>
       </div>
@@ -322,7 +322,7 @@ function HeroPlayer() {
             display: 'inline-flex', alignItems: 'center', gap: 8,
             padding: '11px 20px', borderRadius: 9999,
             border: `2px solid ${CF.white}`, background: CF.white, color: CF.dark,
-            fontSize: 12.5, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase',
+            fontSize: 12.5, fontWeight: 450, letterSpacing: '0.06em', textTransform: 'uppercase',
             textDecoration: 'none',
           }}
         >
@@ -334,7 +334,7 @@ function HeroPlayer() {
             display: 'inline-flex', alignItems: 'center', gap: 8,
             padding: '11px 20px', borderRadius: 9999,
             border: `2px solid rgba(255,255,255,0.4)`, background: 'transparent', color: '#fff',
-            fontSize: 12.5, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase',
+            fontSize: 12.5, fontWeight: 450, letterSpacing: '0.06em', textTransform: 'uppercase',
             textDecoration: 'none',
           }}
         >
@@ -364,7 +364,7 @@ function NextUpCard() {
         <h3
           style={{
             fontSize: 'clamp(1.5rem, 2.4vw, 2rem)',
-            fontWeight: 700,
+            fontWeight: 450,
             lineHeight: 1.05,
             letterSpacing: '-0.02em',
             margin: 0,
@@ -375,7 +375,7 @@ function NextUpCard() {
         <div
           style={{
             fontSize: 13,
-            fontWeight: 700,
+            fontWeight: 450,
             color: CF.coral,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
@@ -401,7 +401,7 @@ function NextUpCard() {
           background: CF.coral,
           color: '#fff',
           border: 'none',
-          fontWeight: 700,
+          fontWeight: 450,
           fontSize: 12,
           letterSpacing: '0.1em',
           textTransform: 'uppercase',
@@ -470,7 +470,7 @@ function WatchSection() {
               style={{
                 fontFamily: SERIF,
                 fontSize: 'clamp(18px, 1.8vw, 22px)',
-                fontWeight: 700,
+                fontWeight: 450,
                 color: CF.dark,
                 letterSpacing: '-0.01em',
                 fontStyle: 'italic',
@@ -482,7 +482,7 @@ function WatchSection() {
               <div
                 style={{
                   fontSize: 11,
-                  fontWeight: 700,
+                  fontWeight: 450,
                   letterSpacing: '0.14em',
                   textTransform: 'uppercase',
                   color: CF.muted,
@@ -494,7 +494,7 @@ function WatchSection() {
               <div
                 style={{
                   fontSize: 'clamp(16px, 1.7vw, 19px)',
-                  fontWeight: 600,
+                  fontWeight: 420,
                   color: CF.dark,
                   lineHeight: 1.25,
                   letterSpacing: '-0.01em',
@@ -511,7 +511,7 @@ function WatchSection() {
                 alignItems: 'center',
                 gap: 6,
                 fontSize: 11,
-                fontWeight: 700,
+                fontWeight: 450,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
                 color: CF.dark,
@@ -555,7 +555,7 @@ function ArticleCard({ article, idx }) {
         <span
           style={{
             fontFamily: SERIF,
-            fontWeight: 700,
+            fontWeight: 450,
             fontSize: 28,
             lineHeight: 0.8,
             color: CF.dark,
@@ -568,7 +568,7 @@ function ArticleCard({ article, idx }) {
       <h3
         style={{
           fontSize: 'clamp(1.05rem, 1.5vw, 1.25rem)',
-          fontWeight: 700,
+          fontWeight: 450,
           lineHeight: 1.2,
           color: CF.dark,
           margin: 0,
@@ -583,7 +583,7 @@ function ArticleCard({ article, idx }) {
           alignItems: 'center',
           gap: 6,
           fontSize: 11,
-          fontWeight: 700,
+          fontWeight: 450,
           letterSpacing: '0.1em',
           textTransform: 'uppercase',
           color: CF.dark,
@@ -635,7 +635,7 @@ async function ReadSection() {
           <h2
             style={{
               fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-              fontWeight: 700,
+              fontWeight: 450,
               lineHeight: 1.05,
               letterSpacing: '-0.02em',
               color: CF.dark,
@@ -652,7 +652,7 @@ async function ReadSection() {
             alignItems: 'center',
             gap: 6,
             fontSize: 12,
-            fontWeight: 700,
+            fontWeight: 450,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
             color: CF.dark,
@@ -693,7 +693,7 @@ async function ReadSection() {
           <h3
             style={{
               fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)',
-              fontWeight: 700,
+              fontWeight: 450,
               lineHeight: 1.05,
               letterSpacing: '-0.02em',
               maxWidth: 720,
@@ -713,7 +713,7 @@ async function ReadSection() {
               background: CF.dark,
               color: '#fff',
               fontSize: 12.5,
-              fontWeight: 700,
+              fontWeight: 450,
               letterSpacing: '0.06em',
               textTransform: 'uppercase',
             }}
