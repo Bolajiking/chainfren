@@ -1,87 +1,139 @@
 import React from 'react'
-import Link from 'next/link';
-import SiteHeader, { DEFAULT_CTA } from '../../../components/SiteHeader';
-import { client } from '@/app/contentful/contentful';
-import ContentfulImage from '@/app/components/utils/ContentfulImage';
-import Richtext from '@/app/components/utils/Richtext';
-import WavyTop from '../WavyTop';
-import ReadMoreSection from './ReadMoreSection';
+import Link from 'next/link'
+import SiteHeader, { DEFAULT_CTA } from '../../../components/SiteHeader'
+import { client } from '@/app/contentful/contentful'
+import ContentfulImage from '@/app/components/utils/ContentfulImage'
+import Richtext from '@/app/components/utils/Richtext'
+import ReadMoreSection from './ReadMoreSection'
 
-const page = async (prop) => {
-  const { params } = prop;
-  const { slug } = params;
+const NAVY = '#08153C'
+const MINT = '#CBF0B8'
 
-  const fetchBlogPost = async (x) => {
-    const queryOptions = {
-      content_type: "blog",
-      "fields.slug[match]": x,
-    };
-    const queryResult = await client.getEntries(queryOptions);
-    return queryResult.items[0];
-  };
+function countWords(node) {
+  if (!node) return 0
+  if (typeof node === 'string') return node.split(/\s+/).filter(Boolean).length
+  if (Array.isArray(node)) return node.reduce((s, n) => s + countWords(n), 0)
+  if (typeof node === 'object') {
+    if (node.value) return countWords(node.value)
+    if (node.content) return countWords(node.content)
+  }
+  return 0
+}
 
-  const fetchAllBlogPosts = async () => {
-    const entries = await client.getEntries({ content_type: "blog" });
-    return entries;
-  };
+function formatDate(iso) {
+  if (!iso) return null
+  try {
+    return new Date(iso).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+  } catch {
+    return null
+  }
+}
 
-  const blogPost = await fetchBlogPost(slug);
-  const allPosts = await fetchAllBlogPosts();
-  
-  // Get other posts (exclude current one)
-  const otherPosts = allPosts.items
-    .filter(post => post.fields.slug !== slug)
-    .slice(0, 3);
+const Page = async ({ params }) => {
+  const { slug } = params
 
-  const { title, content, coverImage } = blogPost.fields;
+  const blogPost = await client
+    .getEntries({ content_type: 'blog', 'fields.slug[match]': slug })
+    .then((res) => res.items[0])
+    .catch(() => null)
+
+  if (!blogPost) {
+    return (
+      <div className="cf-article-root min-h-screen bg-white">
+        <SiteHeader badgeLabel="Sabi" accent={MINT} cta={DEFAULT_CTA} />
+        <div className="cf-article">
+          <span className="cf-article__chip">Sabi · The Playbook</span>
+          <h1 className="cf-article__title" style={{ marginTop: 18 }}>Article not found.</h1>
+          <p style={{ color: '#4A5568', marginTop: 18 }}>
+            We couldn&apos;t find this story. It may have moved — try the index for the latest pieces.
+          </p>
+          <div style={{ marginTop: 28 }}>
+            <Link href="/blog" className="cf-article__back-link cf-article__back-link--solid">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
+              <span>Back to all articles</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const allPosts = await client.getEntries({ content_type: 'blog' }).catch(() => ({ items: [] }))
+  const otherPosts = allPosts.items.filter((p) => p.fields.slug !== slug).slice(0, 3)
+
+  const { title, content, coverImage } = blogPost.fields
+  const words = countWords(content)
+  const readMin = Math.max(1, Math.round(words / 220))
+  const publishedAt = formatDate(blogPost.sys?.createdAt)
 
   return (
-    <div className="min-h-screen bg-white font-fontspring">
-      <SiteHeader badgeLabel="Sabi" accent="#CBF0B8" cta={DEFAULT_CTA} />
-      
-      <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
-        {/* Blog Post Title */}
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-black dark:text-black mb-8">
-          {title}
-        </h1>
+    <div className="cf-article-root min-h-screen bg-white">
+      <SiteHeader badgeLabel="Sabi" accent={MINT} cta={DEFAULT_CTA} />
 
-        {/* Cover Image */}
+      <article className="cf-article">
+        {/* Back link */}
+        <div className="cf-article__back">
+          <Link href="/blog" className="cf-article__back-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <line x1="19" y1="12" x2="5" y2="12" />
+              <polyline points="12 19 5 12 12 5" />
+            </svg>
+            <span>All Articles</span>
+          </Link>
+        </div>
+
+        {/* Header */}
+        <header className="cf-article__header">
+          <span className="cf-article__chip">Sabi · The Playbook</span>
+          <h1 className="cf-article__title">{title}</h1>
+          <div className="cf-article__meta">
+            {publishedAt && <span>{publishedAt}</span>}
+            {publishedAt && <span className="cf-article__dot" aria-hidden="true">·</span>}
+            <span>{readMin} min read</span>
+          </div>
+        </header>
+
+        {/* Cover */}
         {coverImage && (
-          <div className="w-full h-full object-cover mb-8">
+          <figure className="cf-article__cover">
             <ContentfulImage
-              alt={`cover image for ${title}`}
+              alt={`Cover image for ${title}`}
               src={coverImage.fields.file.url}
               width={coverImage.fields.file.details.image.width}
               height={coverImage.fields.file.details.image.height}
             />
-          </div>
+          </figure>
         )}
 
-        {/* Blog Content - Force black text on white background, override dark mode */}
-        <div className="text-black dark:text-black prose prose-lg max-w-none mt-8 w-full">
-          <div className="[&_*]:!text-black [&_*]:dark:!text-black [&_h1]:!text-black [&_h1]:dark:!text-black [&_h2]:!text-black [&_h2]:dark:!text-black [&_h3]:!text-black [&_h3]:dark:!text-black [&_h4]:!text-black [&_h4]:dark:!text-black [&_h5]:!text-black [&_h5]:dark:!text-black [&_h6]:!text-black [&_h6]:dark:!text-black [&_p]:!text-black [&_p]:dark:!text-black [&_li]:!text-black [&_li]:dark:!text-black [&_span]:!text-black [&_span]:dark:!text-black [&_strong]:!text-black [&_strong]:dark:!text-black [&_em]:!text-black [&_em]:dark:!text-black [&_a]:!text-blue-600 [&_a]:dark:!text-blue-600">
-            <Richtext content={content} />
-          </div>
+        {/* Body */}
+        <div className="cf-article__body">
+          <Richtext content={content} />
         </div>
 
-        {/* READ MORE Section */}
-        {otherPosts.length > 0 && (
-          <ReadMoreSection posts={otherPosts} />
-        )}
-      </div>
-    </div>
-  );
-};
+        {/* Footer */}
+        <footer className="cf-article__footer">
+          <Link href="/blog" className="cf-article__back-link cf-article__back-link--solid">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <line x1="19" y1="12" x2="5" y2="12" />
+              <polyline points="12 19 5 12 12 5" />
+            </svg>
+            <span>Back to all articles</span>
+          </Link>
+        </footer>
 
-export default page;
+        {otherPosts.length > 0 && <ReadMoreSection posts={otherPosts} />}
+      </article>
+    </div>
+  )
+}
+
+export default Page
 
 export async function generateStaticParams() {
-  const queryOptions = {
-    content_type: "blog",
-    select: "fields.slug",
-  };
-  const articles = await client.getEntries(queryOptions);
-  return articles.items.map((article) => ({
-    slug: article.fields.slug,
-  }));
+  const queryOptions = { content_type: 'blog', select: 'fields.slug' }
+  const articles = await client.getEntries(queryOptions)
+  return articles.items.map((article) => ({ slug: article.fields.slug }))
 }

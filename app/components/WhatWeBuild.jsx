@@ -222,8 +222,8 @@ function SliderHeader({ index, total, onPrev, onNext }) {
 function EngineCardBody({ card, animKey }) {
   const { label, body, cta, href, Art } = card;
   return (
-    <div className="flex flex-col gap-3.5 h-full text-dark-blue">
-      <div className="flex-1 min-h-[36px]" aria-hidden="true" />
+    <div className="flex flex-col gap-3 md:gap-3.5 h-full text-dark-blue">
+      <div className="wwb-stage-spacer flex-1 min-h-[12px] md:min-h-[20px]" aria-hidden="true" />
       <h2 className="m-0 text-[44px] md:text-[56px] leading-[0.95] tracking-[-0.04em] font-bold text-dark-blue">
         {label}
       </h2>
@@ -297,7 +297,7 @@ export default function WhatWeBuild({
     <article
       className={
         'wwb-card relative w-full border-[2px] border-dark-blue rounded-[26px] ' +
-        'px-6 py-6 md:px-7 md:py-7 flex flex-col gap-4 text-dark-blue overflow-hidden h-[600px] ' +
+        'px-6 py-6 md:px-7 md:py-7 flex flex-col gap-4 text-dark-blue overflow-hidden md:h-[600px] ' +
         className
       }
       style={{ background: current.bg, ['--wwb-dur']: `${duration}ms` }}
