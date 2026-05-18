@@ -207,7 +207,7 @@ export default function SiteHeader({
           WebkitBackdropFilter: 'blur(12px)',
           border: `1.5px solid ${DARK}`, borderRadius: 9999,
           boxShadow: '0 8px 30px rgba(8,21,60,0.08)',
-          fontFamily: '"Inter Display", "Inter", sans-serif',
+          fontFamily: 'var(--font-inter), "Inter Display", "Inter", sans-serif',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
@@ -330,7 +330,7 @@ export default function SiteHeader({
           left: 8px; right: 8px; bottom: 8px;
           z-index: 70;
           padding: 0;
-          font-family: 'Inter Display', 'Inter', sans-serif;
+          font-family: var(--font-inter), 'Inter Display', 'Inter', sans-serif;
         }
         :global(.site-header-mobile-bar__inner) {
           flex: 1;
@@ -424,7 +424,7 @@ export default function SiteHeader({
           flex-direction: column;
           align-items: center;
           gap: 22px;
-          font-family: 'Inter Display', 'Inter', sans-serif;
+          font-family: var(--font-inter), 'Inter Display', 'Inter', sans-serif;
         }
         :global(.site-header-sheet__link) {
           color: ${DARK};

@@ -1,16 +1,44 @@
 import { NextResponse } from 'next/server';
 
-export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const lat = searchParams.get('lat');
-  const lon = searchParams.get('lon');
+// Derive a {lat, lon} for the request without prompting the user.
+// Priority:
+//   1. Explicit ?lat&lon query (e.g. user clicked "use my precise location")
+//   2. Vercel edge geo headers (x-vercel-ip-latitude / -longitude)
+//   3. Cloudflare geo headers (cf-iplatitude / -longitude)
+//   4. ipapi.co lookup against the client IP
+//   5. Lagos fallback (matches the brand HQ)
+async function resolveLatLon(request) {
+  const { searchParams } = new URL(request.url)
+  const qLat = searchParams.get('lat')
+  const qLon = searchParams.get('lon')
+  if (qLat && qLon) return { lat: qLat, lon: qLon, source: 'query' }
 
-  if (!lat || !lon) {
-    return NextResponse.json(
-      { error: 'Latitude and longitude are required' },
-      { status: 400 }
-    );
+  const h = request.headers
+  const vLat = h.get('x-vercel-ip-latitude')
+  const vLon = h.get('x-vercel-ip-longitude')
+  if (vLat && vLon) return { lat: vLat, lon: vLon, source: 'vercel' }
+
+  const cfLat = h.get('cf-iplatitude')
+  const cfLon = h.get('cf-iplongitude')
+  if (cfLat && cfLon) return { lat: cfLat, lon: cfLon, source: 'cloudflare' }
+
+  const fwd = h.get('x-forwarded-for') || ''
+  const ip = fwd.split(',')[0].trim() || h.get('x-real-ip')
+  if (ip && ip !== '127.0.0.1' && ip !== '::1') {
+    try {
+      const r = await fetch(`https://ipapi.co/${ip}/json/`, { headers: { 'User-Agent': 'chainfren-weather/1.0' }, cache: 'no-store' })
+      if (r.ok) {
+        const j = await r.json()
+        if (j.latitude && j.longitude) return { lat: String(j.latitude), lon: String(j.longitude), source: 'ipapi' }
+      }
+    } catch {}
   }
+
+  return { lat: '6.5244', lon: '3.3792', source: 'fallback' }
+}
+
+export async function GET(request) {
+  const { lat, lon } = await resolveLatLon(request)
 
   try {
     // Using OpenWeatherMap API (free tier available)

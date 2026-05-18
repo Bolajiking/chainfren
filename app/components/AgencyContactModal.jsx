@@ -156,7 +156,7 @@ export default function AgencyContactModal({ open, onClose, accent = DEFAULT_ACC
         padding: 'clamp(0px, 4vw, 56px) clamp(0px, 4vw, 32px)',
         overflowY: 'auto',
         animation: 'cf-fade-in 240ms cubic-bezier(0.22,1,0.36,1)',
-        fontFamily: '"Inter Display", "Inter", sans-serif',
+        fontFamily: 'var(--font-inter), "Inter Display", "Inter", sans-serif',
       }}
     >
       <style jsx global>{`

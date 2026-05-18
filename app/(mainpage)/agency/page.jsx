@@ -669,7 +669,7 @@ export default function AgencyPage() {
   return (
     <div className="cf-agency-root" style={{
       background: '#F5F4EE', color: CF.dark, minHeight: '100vh',
-      fontFamily: '"Inter Display", "Inter", sans-serif',
+      fontFamily: 'var(--font-inter), "Inter Display", "Inter", sans-serif',
     }}>
       <style dangerouslySetInnerHTML={{ __html: `
 @keyframes cf-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.92)}}

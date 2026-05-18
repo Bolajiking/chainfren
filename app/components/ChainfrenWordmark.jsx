@@ -77,7 +77,7 @@ export default function ChainfrenWordmark({
       aria-label={ariaLabel}
       role="img"
       style={{
-        fontFamily: '"Inter Display", Inter, system-ui, sans-serif',
+        fontFamily: 'var(--font-inter), "Inter Display", Inter, system-ui, sans-serif',
         fontWeight: 500,
         fontSize,
         letterSpacing: '-0.02em',

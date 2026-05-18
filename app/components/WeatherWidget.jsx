@@ -13,83 +13,28 @@ const WeatherWidget = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Server resolves coords from edge geo headers / IP — no permission
+    // prompt, but still local to the visitor when those are available.
     const fetchWeather = async () => {
       try {
-        // Get user's location
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            async (position) => {
-              const { latitude, longitude } = position.coords;
-              
-              try {
-                const response = await fetch(
-                  `/api/weather?lat=${latitude}&lon=${longitude}`
-                );
-                
-                if (!response.ok) {
-                  const errorData = await response.json().catch(() => ({}));
-                  throw new Error(errorData.error || 'Failed to fetch weather');
-                }
-                
-                const data = await response.json();
-                
-                // Check if we got an error in the response
-                if (data.error) {
-                  throw new Error(data.error);
-                }
-                
-                setWeatherData({
-                  temperature: data.temperature,
-                  condition: data.condition.toUpperCase(),
-                  location: data.location.toUpperCase(),
-                  time: data.time,
-                  day: data.day.toUpperCase()
-                });
-                setLoading(false);
-                setError(null);
-              } catch (err) {
-                console.error('Weather fetch error:', err);
-                // Don't set error state, just use default data
-                setLoading(false);
-              }
-            },
-            (error) => {
-              // Handle different geolocation error codes
-              let errorMessage = 'Location access denied';
-              switch(error.code) {
-                case error.PERMISSION_DENIED:
-                  errorMessage = 'Location permission denied';
-                  break;
-                case error.POSITION_UNAVAILABLE:
-                  errorMessage = 'Location information unavailable';
-                  break;
-                case error.TIMEOUT:
-                  errorMessage = 'Location request timeout';
-                  break;
-                default:
-                  errorMessage = 'Location error occurred';
-                  break;
-              }
-              console.error('Geolocation error:', errorMessage, error);
-              // Use default data if geolocation fails - don't show error to user
-              setLoading(false);
-            },
-            {
-              enableHighAccuracy: false,
-              timeout: 10000,
-              maximumAge: 300000 // Cache for 5 minutes
-            }
-          );
-        } else {
-          // Geolocation not supported, use default data
-          console.log('Geolocation not supported by browser');
-          setLoading(false);
-        }
+        const response = await fetch('/api/weather')
+        if (!response.ok) throw new Error('Failed to fetch weather')
+        const data = await response.json()
+        if (data.error) throw new Error(data.error)
+        setWeatherData({
+          temperature: data.temperature,
+          condition: data.condition.toUpperCase(),
+          location: data.location.toUpperCase(),
+          time: data.time,
+          day: data.day.toUpperCase(),
+        })
+        setError(null)
       } catch (err) {
-        console.error('Error:', err);
-        setLoading(false);
+        // Keep the default mock data on failure — no error UI.
+      } finally {
+        setLoading(false)
       }
-    };
+    }
 
     fetchWeather();
 

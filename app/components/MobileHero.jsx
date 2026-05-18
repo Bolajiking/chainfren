@@ -1,102 +1,11 @@
 'use client'
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import ChainfrenWordmark from './ChainfrenWordmark'
 
 const NAVY = '#08153C'
 const MUTED = '#3A4868'
-const FONT = "'Inter Display', 'Inter', system-ui, -apple-system, sans-serif"
-
-const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
-
-function useFit(deps) {
-  const wrapRef = useRef(null)
-  const inkRef = useRef(null)
-  const [state, setState] = useState({ scale: 1, height: 0, ready: false })
-
-  useIsoLayoutEffect(() => {
-    if (!wrapRef.current || !inkRef.current) return
-    const measure = () => {
-      const target = wrapRef.current?.clientWidth || 0
-      const natW = inkRef.current?.offsetWidth || 0
-      const natH = inkRef.current?.offsetHeight || 0
-      if (!target || !natW) return
-      const next = target / natW
-      setState((prev) => {
-        const nextH = natH * next
-        if (prev.ready && Math.abs(prev.scale - next) < 0.001 && Math.abs(prev.height - nextH) < 0.5) return prev
-        return { scale: next, height: nextH, ready: true }
-      })
-    }
-    measure()
-    const ro = new ResizeObserver(measure)
-    ro.observe(wrapRef.current)
-    window.addEventListener('resize', measure)
-    return () => {
-      ro.disconnect()
-      window.removeEventListener('resize', measure)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps)
-
-  return { wrapRef, inkRef, scale: state.scale, height: state.height, ready: state.ready }
-}
-
-function FitText({
-  children,
-  baseFontSize = 48,
-  fontWeight = 600,
-  letterSpacing = '-0.035em',
-  lineHeight = 1,
-  color = NAVY,
-  italic = false,
-}) {
-  const { wrapRef, inkRef, scale, height, ready } = useFit([baseFontSize, fontWeight, letterSpacing, lineHeight, italic, children])
-  return (
-    <div ref={wrapRef} style={{ width: '100%', height: height || baseFontSize * lineHeight, position: 'relative', overflow: 'visible' }}>
-      <div
-        ref={inkRef}
-        style={{
-          position: 'absolute', left: 0, top: 0,
-          transform: `scale(${scale})`,
-          transformOrigin: 'top left',
-          whiteSpace: 'nowrap',
-          fontFamily: FONT,
-          fontSize: baseFontSize,
-          fontWeight,
-          fontStyle: italic ? 'italic' : 'normal',
-          letterSpacing,
-          lineHeight,
-          color,
-          visibility: ready ? 'visible' : 'hidden',
-        }}
-      >
-        {children}
-      </div>
-    </div>
-  )
-}
-
-function FitWordmark({ baseFontSize = 92, color = NAVY }) {
-  const { wrapRef, inkRef, scale, height, ready } = useFit([baseFontSize, color])
-  return (
-    <div ref={wrapRef} style={{ width: '100%', height: height || baseFontSize * 1.05, position: 'relative', overflow: 'visible' }}>
-      <div
-        ref={inkRef}
-        style={{
-          position: 'absolute', left: 0, top: 0,
-          transform: `scale(${scale})`,
-          transformOrigin: 'top left',
-          whiteSpace: 'nowrap',
-          lineHeight: 1,
-          visibility: ready ? 'visible' : 'hidden',
-        }}
-      >
-        <ChainfrenWordmark color={color} fontSize={baseFontSize} />
-      </div>
-    </div>
-  )
-}
+const FONT = "var(--font-inter), 'Inter Display', 'Inter', system-ui, -apple-system, sans-serif"
 
 function XIcon({ size = 16, color = NAVY }) {
   return (
@@ -123,36 +32,23 @@ function ArrowGlyph({ size = 11, color = 'currentColor' }) {
 }
 
 export default function MobileHero() {
-  const headlineLines = ['The growth engine', "powering Africa's", 'creative force']
-  const subheadLines = [
-    'The platforms took your audience, your',
-    'data, and most of your money. Chainfren',
-    'is the infrastructure for creators and',
-    'brands ambitious enough to take it back.',
-  ]
-  const lastIdx = headlineLines.length - 1
-  const [mounted, setMounted] = useState(false)
-  useIsoLayoutEffect(() => {
-    const id = requestAnimationFrame(() => setMounted(true))
-    return () => cancelAnimationFrame(id)
-  }, [])
-
   return (
     <section
       id="cf-mobile-masthead"
       style={{
         position: 'relative',
+        boxSizing: 'border-box',
+        width: '100%',
+        maxWidth: '100%',
+        marginInline: 'auto',
         padding: '32px 30px 40px',
         fontFamily: FONT,
         color: NAVY,
-        minHeight: '120vw',
-        opacity: mounted ? 1 : 0,
-        transition: mounted ? 'opacity 240ms ease-out' : 'none',
       }}
     >
-      {/* Wordmark — auto-fits column width */}
-      <div style={{ marginBottom: 14 }}>
-        <FitWordmark baseFontSize={92} color={NAVY} />
+      {/* Wordmark — fluid via clamp(), no JS measurement */}
+      <div className="cf-mh-wordmark" aria-label="Chainfren">
+        <ChainfrenWordmark color={NAVY} />
       </div>
 
       {/* Meta row: socials + solid CTA */}
@@ -163,27 +59,28 @@ export default function MobileHero() {
           justifyContent: 'space-between',
           gap: 14,
           width: '100%',
-          marginBottom: 26,
+          marginTop: 14,
+          marginBottom: 24,
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, paddingLeft: 2 }}>
           <a
             href="https://x.com/chainfren"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Chainfren on X"
-            style={{ display: 'inline-flex', color: NAVY, opacity: 0.92, transition: 'opacity 200ms' }}
+            style={{ display: 'inline-flex', color: NAVY, opacity: 0.92 }}
           >
-            <XIcon size={15} color={NAVY} />
+            <XIcon size={13} color={NAVY} />
           </a>
           <a
             href="https://linkedin.com/company/chainfren"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Chainfren on LinkedIn"
-            style={{ display: 'inline-flex', color: NAVY, opacity: 0.92, transition: 'opacity 200ms' }}
+            style={{ display: 'inline-flex', color: NAVY, opacity: 0.92 }}
           >
-            <InIcon size={15} color={NAVY} />
+            <InIcon size={13} color={NAVY} />
           </a>
         </div>
 
@@ -192,58 +89,43 @@ export default function MobileHero() {
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: 8,
-            padding: '11px 18px',
+            gap: 7,
+            padding: '9px 15px',
+            marginRight: 2,
             borderRadius: 9999,
             background: NAVY,
             border: `1.4px solid ${NAVY}`,
             color: '#FFFFFF',
             fontFamily: FONT,
-            fontSize: 11,
+            fontSize: 10.5,
             fontWeight: 600,
             letterSpacing: '0.16em',
             textTransform: 'uppercase',
             whiteSpace: 'nowrap',
             textDecoration: 'none',
-            transition: 'transform 220ms cubic-bezier(.22,1,.36,1), background 220ms, opacity 220ms',
           }}
         >
           <span>GET STARTED</span>
-          <ArrowGlyph color="#FFFFFF" size={10} />
+          <ArrowGlyph color="#FFFFFF" size={9} />
         </Link>
       </div>
 
-      {/* Headline — three lines, last is italic (italic-tail accent) */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginBottom: 20 }}>
-        {headlineLines.map((line, i) => (
-          <FitText
-            key={i}
-            baseFontSize={37}
-            fontWeight={600}
-            letterSpacing="-0.035em"
-            lineHeight={1}
-            color={NAVY}
-            italic={i === lastIdx}
-          >
-            {line}
-          </FitText>
-        ))}
-      </div>
+      {/* Headline — each line individually sized so it lands flush
+          against the same column edges as the wordmark. Italic tail on
+          the last line per the hero-section design spec. */}
+      <h1 className="cf-mh-headline">
+        <span className="cf-mh-headline__line cf-mh-headline__line--a">The growth engine</span>
+        <span className="cf-mh-headline__line cf-mh-headline__line--b">powering Africa&apos;s</span>
+        <span className="cf-mh-headline__line cf-mh-headline__line--c">creative force</span>
+      </h1>
 
-      {/* Subhead — fit per line for a tight rectangular block */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-        {subheadLines.map((line, i) => (
-          <FitText
-            key={i}
-            baseFontSize={14}
-            fontWeight={400}
-            letterSpacing="0"
-            lineHeight={1.18}
-            color={MUTED}
-          >
-            {line}
-          </FitText>
-        ))}
+      {/* Subhead — per-line fit-to-column, matching the design spec
+          line breaks for a clean rectangular text block. */}
+      <div className="cf-mh-subhead">
+        <span className="cf-mh-subhead__line cf-mh-subhead__line--a">The platforms took your audience, your</span>
+        <span className="cf-mh-subhead__line cf-mh-subhead__line--b">data, and most of your money. Chainfren</span>
+        <span className="cf-mh-subhead__line cf-mh-subhead__line--c">is the infrastructure for creators and</span>
+        <span className="cf-mh-subhead__line cf-mh-subhead__line--d">brands ambitious enough to take it back.</span>
       </div>
     </section>
   )

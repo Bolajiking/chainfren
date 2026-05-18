@@ -46,7 +46,7 @@ export default function AnimatedWordmarkCard({ className, style, fontSize = 64, 
         role="img"
         aria-label="Chainfren"
         style={{
-          fontFamily: '"Inter Display", Inter, system-ui, sans-serif',
+          fontFamily: 'var(--font-inter), "Inter Display", Inter, system-ui, sans-serif',
           fontWeight: 500,
           fontSize,
           letterSpacing: '-0.02em',

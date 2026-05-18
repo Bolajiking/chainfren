@@ -32,7 +32,24 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+        {/* Self-hosted Inter Display variable + italic — preloaded so the
+            font ships in the same critical request as the HTML, and
+            the @font-face uses font-display: block to suppress FOUT
+            entirely. No external font CDN, no metric swap on first load. */}
+        <link
+          rel="preload"
+          href="/fonts/InterVariable.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/InterVariable-Italic.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="antialiased" style={{ fontFamily: '"Inter Display", "Inter", sans-serif' }}>
         <ContextProvider>
