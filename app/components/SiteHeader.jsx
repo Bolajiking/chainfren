@@ -340,10 +340,10 @@ export default function SiteHeader({
           gap: 10px;
           height: 60px;
           padding: 0 10px 0 18px;
-          background: rgba(255, 255, 255, 0.94);
-          backdrop-filter: blur(14px);
-          -webkit-backdrop-filter: blur(14px);
-          border: 1.5px solid ${DARK};
+          background: rgba(255, 255, 255, 0.42);
+          backdrop-filter: blur(30px) saturate(140%);
+          -webkit-backdrop-filter: blur(30px) saturate(140%);
+          border: 1px solid rgba(8, 21, 60, 0.10);
           border-radius: 9999px;
           box-shadow: 0 10px 30px rgba(8, 21, 60, 0.12);
         }
