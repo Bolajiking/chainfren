@@ -12,7 +12,7 @@ const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : use
 function useFit(deps) {
   const wrapRef = useRef(null)
   const inkRef = useRef(null)
-  const [state, setState] = useState({ scale: 1, height: 0 })
+  const [state, setState] = useState({ scale: 1, height: 0, ready: false })
 
   useIsoLayoutEffect(() => {
     if (!wrapRef.current || !inkRef.current) return
@@ -24,8 +24,8 @@ function useFit(deps) {
       const next = target / natW
       setState((prev) => {
         const nextH = natH * next
-        if (Math.abs(prev.scale - next) < 0.001 && Math.abs(prev.height - nextH) < 0.5) return prev
-        return { scale: next, height: nextH }
+        if (prev.ready && Math.abs(prev.scale - next) < 0.001 && Math.abs(prev.height - nextH) < 0.5) return prev
+        return { scale: next, height: nextH, ready: true }
       })
     }
     measure()
@@ -39,7 +39,7 @@ function useFit(deps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 
-  return { wrapRef, inkRef, scale: state.scale, height: state.height }
+  return { wrapRef, inkRef, scale: state.scale, height: state.height, ready: state.ready }
 }
 
 function FitText({
@@ -51,7 +51,7 @@ function FitText({
   color = NAVY,
   italic = false,
 }) {
-  const { wrapRef, inkRef, scale, height } = useFit([baseFontSize, fontWeight, letterSpacing, lineHeight, italic, children])
+  const { wrapRef, inkRef, scale, height, ready } = useFit([baseFontSize, fontWeight, letterSpacing, lineHeight, italic, children])
   return (
     <div ref={wrapRef} style={{ width: '100%', height: height || baseFontSize * lineHeight, position: 'relative', overflow: 'visible' }}>
       <div
@@ -68,6 +68,7 @@ function FitText({
           letterSpacing,
           lineHeight,
           color,
+          visibility: ready ? 'visible' : 'hidden',
         }}
       >
         {children}
@@ -77,7 +78,7 @@ function FitText({
 }
 
 function FitWordmark({ baseFontSize = 92, color = NAVY }) {
-  const { wrapRef, inkRef, scale, height } = useFit([baseFontSize, color])
+  const { wrapRef, inkRef, scale, height, ready } = useFit([baseFontSize, color])
   return (
     <div ref={wrapRef} style={{ width: '100%', height: height || baseFontSize * 1.05, position: 'relative', overflow: 'visible' }}>
       <div
@@ -88,6 +89,7 @@ function FitWordmark({ baseFontSize = 92, color = NAVY }) {
           transformOrigin: 'top left',
           whiteSpace: 'nowrap',
           lineHeight: 1,
+          visibility: ready ? 'visible' : 'hidden',
         }}
       >
         <ChainfrenWordmark color={color} fontSize={baseFontSize} />
@@ -129,6 +131,11 @@ export default function MobileHero() {
     'brands ambitious enough to take it back.',
   ]
   const lastIdx = headlineLines.length - 1
+  const [mounted, setMounted] = useState(false)
+  useIsoLayoutEffect(() => {
+    const id = requestAnimationFrame(() => setMounted(true))
+    return () => cancelAnimationFrame(id)
+  }, [])
 
   return (
     <section
@@ -138,6 +145,9 @@ export default function MobileHero() {
         padding: '32px 30px 40px',
         fontFamily: FONT,
         color: NAVY,
+        minHeight: '120vw',
+        opacity: mounted ? 1 : 0,
+        transition: mounted ? 'opacity 240ms ease-out' : 'none',
       }}
     >
       {/* Wordmark — auto-fits column width */}

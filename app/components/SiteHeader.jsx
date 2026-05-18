@@ -423,18 +423,18 @@ export default function SiteHeader({
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 32px;
+          gap: 22px;
           font-family: 'Inter Display', 'Inter', sans-serif;
         }
         :global(.site-header-sheet__link) {
           color: ${DARK};
-          font-size: 26px;
-          font-weight: 420;
-          letter-spacing: 0.06em;
+          font-size: 15px;
+          font-weight: 450;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
           text-decoration: none;
           opacity: 0;
-          transform: translateY(14px);
+          transform: translateY(10px);
           transition: opacity 380ms cubic-bezier(0.22,1,0.36,1), transform 380ms cubic-bezier(0.22,1,0.36,1);
         }
         :global(.site-header-sheet.is-open .site-header-sheet__link) {
