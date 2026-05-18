@@ -6,6 +6,15 @@
 html, body {
     overflow-x: hidden;
     max-width: 100vw;
+    -webkit-tap-highlight-color: transparent;
+}
+a, button, [role="button"], input, select, textarea, label {
+    -webkit-tap-highlight-color: transparent;
+}
+button:focus, a:focus, [role="button"]:focus { outline: none; }
+button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
+    outline: 2px solid #08153C;
+    outline-offset: 2px;
 }
 body {
     background-color: #FFFFFF;
@@ -261,4 +270,67 @@ body {
 
 .animate-scroll-up {
   animation: scroll-up 20s linear infinite;
+}
+
+/* ───────── What We Build · engine slider ───────── */
+.wwb-card {
+  --wwb-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --wwb-dur: 760ms;
+  transition: background var(--wwb-dur) var(--wwb-ease);
+}
+.wwb-stage-wrap { position: relative; flex: 1 1 auto; min-height: 0; }
+.wwb-stage { position: absolute; inset: 0; display: flex; flex-direction: column; }
+.wwb-stage--locked { position: relative; }
+.wwb-stage.is-in  { animation: wwb-stage-in  var(--wwb-dur) var(--wwb-ease) both; }
+.wwb-stage.is-out { animation: wwb-stage-out var(--wwb-dur) var(--wwb-ease) both; pointer-events: none; }
+
+@keyframes wwb-stage-in {
+  0%   { opacity: 0; transform: translateY(28px); }
+  40%  { opacity: 0; transform: translateY(28px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes wwb-stage-out {
+  0%   { opacity: 1; transform: translateY(0); }
+  60%  { opacity: 0; transform: translateY(-22px); }
+  100% { opacity: 0; transform: translateY(-22px); }
+}
+
+.wwb-illust[data-animate="true"] {
+  animation: wwb-illust-rise 720ms var(--wwb-ease) both;
+}
+.wwb-illust[data-animate="true"] path[stroke],
+.wwb-illust[data-animate="true"] line[stroke],
+.wwb-illust[data-animate="true"] polyline[stroke] {
+  animation: wwb-stroke-draw 900ms var(--wwb-ease) both;
+  animation-delay: 160ms;
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+}
+.wwb-illust[data-animate="true"] circle[fill]:not([fill="none"]) {
+  animation: wwb-dot-pop 520ms var(--wwb-ease) both;
+  animation-delay: 340ms;
+  transform-origin: center;
+}
+@keyframes wwb-illust-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes wwb-stroke-draw { to { stroke-dashoffset: 0; } }
+@keyframes wwb-dot-pop {
+  from { opacity: 0; transform: scale(0.4); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wwb-card { transition: none; }
+  .wwb-stage.is-in, .wwb-stage.is-out { animation: none; }
+  .wwb-illust[data-animate="true"] { animation: none; }
+  .wwb-illust[data-animate="true"] path[stroke],
+  .wwb-illust[data-animate="true"] line[stroke],
+  .wwb-illust[data-animate="true"] polyline[stroke],
+  .wwb-illust[data-animate="true"] circle[fill]:not([fill="none"]) {
+    animation: none;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
 }

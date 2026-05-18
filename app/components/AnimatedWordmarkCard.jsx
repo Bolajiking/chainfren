@@ -5,7 +5,7 @@ import { usePaletteCycle, EASE, FIG_MS, BG_MS } from './logoColorCycle'
 // Wordmark variant where the H glyph cycles through the palette pair while
 // the surrounding "c…ainfren" text follows the surface mode (navy on light,
 // white on dark). Card bg + border animate in lockstep with the surface.
-export default function AnimatedWordmarkCard({ className, style, fontSize = 64, socialHref, children }) {
+export default function AnimatedWordmarkCard({ className, style, fontSize = 64, socialHref, children, bare = false }) {
   const p = usePaletteCycle()
   const figTransition = `${FIG_MS}ms ${EASE}`
   const bgTransition = `${BG_MS}ms ${EASE}`
@@ -31,7 +31,11 @@ export default function AnimatedWordmarkCard({ className, style, fontSize = 64, 
   return (
     <div
       className={className}
-      style={{
+      style={bare ? {
+        background: 'transparent',
+        border: 'none',
+        ...style,
+      } : {
         background: p.bg,
         border: `2px solid ${p.border}`,
         transition: `background-color ${bgTransition}, border-color ${bgTransition}`,

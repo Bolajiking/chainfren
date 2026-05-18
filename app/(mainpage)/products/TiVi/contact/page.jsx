@@ -199,7 +199,7 @@ export default function TiViContact() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
 
           <div className="lg:col-span-4 order-2 lg:order-1">
             <FadeUp>

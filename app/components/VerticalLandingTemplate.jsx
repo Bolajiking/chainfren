@@ -251,7 +251,7 @@ function ProblemSection({ data }) {
           )}
         </FadeUp>
 
-        <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
           {data.painPoints.map((point, i) => {
             const Icon = point.icon
             return (
@@ -340,7 +340,7 @@ function UseCasesSection({ data }) {
           </h2>
         </FadeUp>
 
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {data.useCases.map((uc, i) => (
             <ScaleIn key={uc.title} delay={i * 0.06}>
               <div className="h-full rounded-3xl border-2 overflow-hidden" style={{ background: uc.bg || data.accentColor, borderColor: C.dark }}>
@@ -489,7 +489,7 @@ function LeadForm({ data }) {
     <section id="get-started" className="bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 pb-20 sm:pb-28">
         <div className="rounded-3xl border-2 overflow-hidden" style={{ background: data.accentColor, borderColor: C.dark }}>
-          <div className="grid lg:grid-cols-2 gap-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Left */}
             <div className="p-8 sm:p-12 lg:p-14">
               <FadeUp>

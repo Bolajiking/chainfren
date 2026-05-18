@@ -7,6 +7,8 @@ import ChainfrenWordmark from './ChainfrenWordmark';
 import ChainfrenIcon from './ChainfrenIcon';
 import AnimatedLogoCard from './AnimatedLogoCard';
 import AnimatedWordmarkCard from './AnimatedWordmarkCard';
+import WhatWeBuild from './WhatWeBuild';
+import MobileHero from './MobileHero';
 
 const MainGrid = () => {
   // Tab data for sections
@@ -14,24 +16,16 @@ const MainGrid = () => {
     { title: 'For Creators', heading: 'Own your audience. Keep your money. Build the business the platforms wouldn\'t let you build.', buttonText: 'TALK TO CHAINFREN', buttonLink: '/contact', backgroundImage: '/3d.png', backgroundColor: '#08153C', textColor: 'text-white' },
     { title: 'For Brands', heading: 'Engage your community. Unlock new revenue.', buttonText: 'TALK TO CHAINFREN', buttonLink: '/contact', backgroundImage: '/3d4.png', backgroundColor: '#1DA6E2', textColor: 'text-black' },
   ];
-  const servicesTabs = [
-    { title: 'Agency', description: 'Done-for-you growth work for creators and brands ready to take ownership seriously. Strategy, infrastructure, and execution from the team that lives the work.', buttonText: 'LEARN MORE', buttonLink: '/agency', backgroundImage: '/3d3.png', backgroundColor: '#5ACDFF', textColor: 'text-black' },
-    { title: 'Product', description: 'Tools, platforms, and bootcamps built for the creator economy. Own your audience and build your wealth.', buttonText: 'LEARN MORE', buttonLink: '/products', backgroundImage: '/3d5.png', backgroundColor: '#8DAAFF', textColor: 'text-black' },
-    { title: 'Media', description: 'The playbook for what is next. Get essential Web3 insights, market analysis, and growth strategies.', buttonText: 'LEARN MORE', buttonLink: '/contact', backgroundImage: '/3d6.png', backgroundColor: '#CBF0B8', textColor: 'text-black' }
-  ];
   const playbookTabs = [
     { title: '1000 TRUE FANS - How Creators and Brands can use web3 for growth', buttonText: 'READ', buttonLink: '/blog/1000-true-fans-how-creators-and-brands-can-use-web3-for-growth', backgroundImage: '/bgChain.png' },
     { title: '', buttonText: 'VIEW ALL ARTICLES', buttonLink: '/blog', backgroundImage: '' },
   ];
 
   const [currentCreatorTab, setCurrentCreatorTab] = useState(0);
-  const [currentServiceTab, setCurrentServiceTab] = useState(0);
   const [currentPlaybookTab, setCurrentPlaybookTab] = useState(0);
 
   const nextCreatorTab = () => setCurrentCreatorTab((prev) => (prev + 1) % creatorTabs.length);
   const prevCreatorTab = () => setCurrentCreatorTab((prev) => (prev - 1 + creatorTabs.length) % creatorTabs.length);
-  const nextServiceTab = () => setCurrentServiceTab((prev) => (prev + 1) % servicesTabs.length);
-  const prevServiceTab = () => setCurrentServiceTab((prev) => (prev - 1 + servicesTabs.length) % servicesTabs.length);
   const nextPlaybookTab = () => setCurrentPlaybookTab((prev) => (prev + 1) % playbookTabs.length);
   const prevPlaybookTab = () => setCurrentPlaybookTab((prev) => (prev - 1 + playbookTabs.length) % playbookTabs.length);
 
@@ -65,104 +59,6 @@ const MainGrid = () => {
         </button>
       </Link>
     </div>
-  );
-
-  const ServicesSection = () => (
-    <>
-      <style dangerouslySetInnerHTML={{__html: `
-        @media (min-width: 768px) {
-          .services-title-mobile {
-            position: relative !important;
-            width: auto !important;
-            height: auto !important;
-            top: auto !important;
-            left: auto !important;
-          }
-          .services-desc-mobile {
-            position: relative !important;
-            width: auto !important;
-            height: auto !important;
-            top: auto !important;
-            left: auto !important;
-          }
-          .services-button-mobile {
-            position: static !important;
-            top: auto !important;
-            left: auto !important;
-          }
-          .services-button-mobile-inner {
-            width: auto !important;
-            height: auto !important;
-            padding: 0.5rem 1.5rem !important;
-            border-radius: 9999px !important;
-            border-width: 2px !important;
-          }
-          .services-button-text-mobile {
-            width: auto !important;
-            height: auto !important;
-          }
-        }
-      `}} />
-      <div className="border-[2px] border-dark-blue rounded-[26px] px-4 py-5 md:px-7 md:py-7 relative overflow-hidden transition-colors duration-500 h-[600px] flex flex-col" style={{ backgroundColor: servicesTabs[currentServiceTab].backgroundColor }}>
-        <div className="flex items-center justify-between mb-4 md:mb-4 relative z-10">
-          <span className={`text-xs md:text-sm font-semibold ${servicesTabs[currentServiceTab].textColor} transition-colors duration-300`}>SERVICES</span>
-          <div className="flex gap-2">
-            <button onClick={prevServiceTab} className={`${servicesTabs[currentServiceTab].textColor} hover:opacity-70 transition-opacity p-1`}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="15" y2="12"/><path d="M9 6l-6 6 6 6"/></svg></button>
-            <button onClick={nextServiceTab} className={`${servicesTabs[currentServiceTab].textColor} hover:opacity-70 transition-opacity p-1`}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="9" y1="12" x2="21" y2="12"/><path d="M15 6l6 6-6 6"/></svg></button>
-          </div>
-        </div>
-        {/* Title — flows naturally on both viewports */}
-        <h2
-          className={`services-title-mobile text-[32px] md:text-2xl lg:text-3xl font-semibold md:font-bold ${servicesTabs[currentServiceTab].textColor} transition-all duration-300 leading-tight mb-3 md:mb-3 relative z-10`}
-          style={{ maxWidth: '370px' }}
-        >
-          {servicesTabs[currentServiceTab].title}
-        </h2>
-        {/* Description — flows naturally; tighter line-height on mobile so it
-            never collides with the CTA below. */}
-        <p
-          className={`services-desc-mobile text-[18px] md:text-base font-medium md:font-normal ${servicesTabs[currentServiceTab].textColor}/80 leading-snug md:leading-relaxed transition-colors duration-300 mb-6 md:mb-6 relative z-10`}
-          style={{ maxWidth: '370px' }}
-        >
-          {servicesTabs[currentServiceTab].description}
-        </p>
-        {/* CTA — pinned to the bottom of the content area via mt-auto, sitting
-            above the decorative background image. */}
-        <Link
-          href={servicesTabs[currentServiceTab].buttonLink}
-          className="services-button-mobile mt-auto self-start relative z-10"
-        >
-          <button
-            className={`services-button-mobile-inner border ${servicesTabs[currentServiceTab].textColor} font-semibold rounded-full transition-colors overflow-hidden relative group md:px-6 md:py-3 md:text-sm md:text-base md:border-2 flex items-center justify-center ${servicesTabs[currentServiceTab].backgroundColor === '#5ACDFF' || servicesTabs[currentServiceTab].backgroundColor === '#8DAAFF' || servicesTabs[currentServiceTab].backgroundColor === '#CBF0B8' ? 'border-dark-blue hover:bg-dark-blue hover:text-white' : 'border-white hover:bg-white hover:text-dark-blue'}`}
-            style={{
-              padding: '12px 22px',
-              borderRadius: '50px',
-              borderWidth: '1px'
-            }}
-          >
-            <span 
-              className="services-button-text-mobile inline-block transition-transform duration-200 ease-out group-hover:-translate-y-full group-hover:opacity-0 whitespace-nowrap text-[16px] font-semibold md:text-sm md:font-semibold"
-              style={{
-                width: '101px',
-                height: '19px'
-              }}
-            >
-              {servicesTabs[currentServiceTab].buttonText}
-            </span>
-            <span 
-              className="services-button-text-mobile inline-block absolute left-1/2 -translate-x-1/2 transition-transform duration-200 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 whitespace-nowrap text-[16px] font-semibold md:text-sm md:font-semibold"
-              style={{
-                width: '101px',
-                height: '19px'
-              }}
-            >
-              {servicesTabs[currentServiceTab].buttonText}
-            </span>
-          </button>
-        </Link>
-        <div className="absolute bottom-0 -right-3 opacity-80 md:opacity-100"><img src={servicesTabs[currentServiceTab].backgroundImage} alt="" className="transition-opacity duration-300 w-[330px] h-[330px] md:w-auto md:h-auto object-contain" /></div>
-      </div>
-    </>
   );
 
   const MissionSection = () => (
@@ -202,12 +98,7 @@ const MainGrid = () => {
   const LogoSocialsSection = () => (
     <>
       {/* Mobile: animated wordmark card (the colour transition lives here on phones) */}
-      <AnimatedWordmarkCard
-        className="md:hidden rounded-[26px] p-6 h-auto min-h-[200px] flex items-center justify-center relative"
-        fontSize={64}
-        socialHref="https://x.com/chainfren"
-      />
-      {/* Desktop: static wordmark card */}
+      {/* Desktop: static wordmark card. Mobile masthead lives at top of page. */}
       <div className="hidden md:flex bg-white border-[2px] border-dark-blue rounded-[26px] p-8 h-[263px] items-center justify-center relative">
         <ChainfrenWordmark fontSize={64} />
         <SocialLink isDark={false} />
@@ -297,14 +188,7 @@ const MainGrid = () => {
   );
 
   const AbstractIconSection = () => (
-    <>
-      {/* Desktop: animated standalone logo card */}
-      <AnimatedLogoCard className="hidden md:flex rounded-[26px] h-[509px] relative overflow-hidden items-center justify-center" />
-      {/* Mobile: static standalone logo card (animation lives on the wordmark there) */}
-      <div className="md:hidden bg-white border-[2px] border-dark-blue rounded-[26px] h-[509px] relative overflow-hidden flex items-center justify-center">
-        <ChainfrenIcon style={{ width: 'auto', height: '60%', maxHeight: 360 }} />
-      </div>
-    </>
+    <AnimatedLogoCard className="rounded-[26px] h-[509px] relative overflow-hidden flex items-center justify-center" />
   );
 
   const PlaybookSection = () => (
@@ -426,14 +310,14 @@ const MainGrid = () => {
   );
 
   return (
-    <div id="top" className="min-h-screen bg-white p-2 md:mb-16 md:mt-2">
-      
+    <div id="top" className="min-h-screen bg-white p-2 md:mb-16 md:mt-2 pb-24 md:pb-0">
+
       {/* --- MOBILE LAYOUT (HIDDEN ON MD) --- */}
       {/* Order optimised for mobile engagement: CTA before argument,
           argument before proof, proof before decoration. */}
       <div className="flex md:hidden flex-col gap-2">
-        <HeroSection />
-        <ServicesSection />
+        <MobileHero />
+        <WhatWeBuild />
         <WhatWeDoSection />
         <MissionSection />
         <ForCreatorsSection />
@@ -441,7 +325,6 @@ const MainGrid = () => {
         <AbstractIconSection />
         <WeatherSection />
         <ThreeDIconSection />
-        <LogoSocialsSection />
         <NewsletterSection />
         <div className="flex justify-center py-8">
           <button 
@@ -463,7 +346,7 @@ const MainGrid = () => {
           <HeroSection />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div className="flex flex-col gap-2">
-              <ServicesSection />
+              <WhatWeBuild />
               <WeatherSection />
             </div>
             <div className="flex flex-col gap-2">

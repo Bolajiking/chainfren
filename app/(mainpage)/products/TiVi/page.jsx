@@ -481,7 +481,7 @@ function ProblemSection() {
           </p>
         </FadeUp>
 
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {problems.map((item, i) => (
             <FadeUp key={item.label} delay={i * 0.1}>
               <div
@@ -530,7 +530,7 @@ function FeatureGrid() {
           </p>
         </FadeUp>
 
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f, i) => {
             const Icon = f.icon
             return (
@@ -922,7 +922,7 @@ function LeadForm() {
           className="rounded-3xl border-2 border-dark-blue overflow-hidden"
           style={{ background: C.periwinkle }}
         >
-          <div className="grid lg:grid-cols-2 gap-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Left copy */}
             <div className="p-8 sm:p-12 lg:p-14">
               <FadeUp>
