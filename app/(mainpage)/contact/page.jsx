@@ -231,8 +231,8 @@ export default function Contact() {
                 },
                 {
                   icon: Calendar,
-                  title: 'Book a Call',
-                  detail: 'Free 15-minute strategy call with the Chainfren team',
+                  title: 'Schedule a Call',
+                  detail: '30-minute intro — we listen before we pitch',
                   onClick: () => window.Calendly?.initPopupWidget({ url: 'https://calendly.com/chainfren' }),
                   accent: C.lavender,
                 },

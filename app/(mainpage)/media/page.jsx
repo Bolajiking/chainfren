@@ -35,15 +35,15 @@ const ARTICLE_BG = [CF.cyan, CF.periwinkle, CF.mint, CF.tint]
 const LIVE = false
 
 const NEXT_BROADCAST = {
-  title: 'Sabi Sessions · Ep. 24',
-  guest: 'Burna Boy',
-  when: 'Tue · 7:00 PM WAT',
+  title: 'Africa’s onchain broadcasting network',
+  guest: 'Sabi Sessions',
+  when: 'Launching 2026 — be first to know',
 }
 
 const SCHEDULE = [
-  { date: 'Tue · 7 PM WAT', show: 'Sabi Sessions', topic: 'Burna Boy on owning the room' },
-  { date: 'Fri · 9 AM WAT', show: 'Friday Sabi', topic: 'The week, sized for your commute' },
-  { date: 'Sat May 31', show: 'Sabi Live · Lagos', topic: 'In person. By invitation.' },
+  { date: '2026', show: 'Sabi Sessions', topic: 'Conversations with the artists owning their audiences' },
+  { date: '2026', show: 'Friday Sabi', topic: 'The week in African culture, sized for your commute' },
+  { date: 'Soon', show: 'Sabi Live · Lagos', topic: 'In person. By invitation.' },
 ]
 
 function Eyebrow({ children, color = CF.dark }) {
@@ -225,7 +225,7 @@ function HeroPlayer() {
           backgroundImage: `radial-gradient(120% 100% at 80% 10%, ${CF.accent}44 0%, transparent 55%), radial-gradient(100% 100% at 10% 110%, #3D1F73aa 0%, transparent 60%)`,
         }}
       >
-        <Eyebrow color={CF.accent}>Now showing</Eyebrow>
+        <Eyebrow color={CF.accent}>Coming soon</Eyebrow>
         <h1
           style={{
             fontSize: 'clamp(2rem, 5vw, 4rem)',
@@ -294,7 +294,7 @@ function HeroPlayer() {
             width: 8, height: 8, borderRadius: '50%', background: CF.coral,
             boxShadow: `0 0 0 4px ${CF.coral}33`, animation: 'cf-pulse 2s infinite',
           }} />
-          On air
+          Live soon
         </span>
         <span style={{ flex: 1, height: 3, borderRadius: 2, background: 'rgba(255,255,255,0.18)', position: 'relative' }}>
           <span style={{ position: 'absolute', inset: '0 65% 0 0', background: CF.accent, borderRadius: 2 }} />
@@ -359,7 +359,7 @@ function NextUpCard() {
         minHeight: 'clamp(220px, 30vw, 280px)',
       }}
     >
-      <Eyebrow color={CF.coral}>Next broadcast</Eyebrow>
+      <Eyebrow color={CF.coral}>First broadcast</Eyebrow>
       <div>
         <h3
           style={{
@@ -439,9 +439,9 @@ function WatchSection() {
           padding: '0 8px 14px',
         }}
       >
-        <Eyebrow color={CF.muted}>Broadcast schedule</Eyebrow>
+        <Eyebrow color={CF.muted}>Programming</Eyebrow>
         <span style={{ fontSize: 12, color: CF.muted, letterSpacing: '0.04em' }}>
-          All times West Africa Time
+          Launching 2026
         </span>
       </div>
 

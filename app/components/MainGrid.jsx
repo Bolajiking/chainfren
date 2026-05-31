@@ -14,7 +14,7 @@ const MainGrid = () => {
   // Tab data for sections
   const creatorTabs = [
     { title: 'For Creators', heading: 'Own your audience. Keep your money. Build the business the platforms wouldn\'t let you build.', buttonText: 'TALK TO CHAINFREN', buttonLink: '/contact', backgroundImage: '/3d.png', backgroundColor: '#08153C', textColor: 'text-white' },
-    { title: 'For Brands', heading: 'Engage your community. Unlock new revenue.', buttonText: 'TALK TO CHAINFREN', buttonLink: '/contact', backgroundImage: '/3d4.png', backgroundColor: '#1DA6E2', textColor: 'text-black' },
+    { title: 'For Brands', heading: 'Build culture people own. Distribute on infrastructure you control. Turn cultural influence into digital business.', buttonText: 'TALK TO CHAINFREN', buttonLink: '/contact', backgroundImage: '/3d4.png', backgroundColor: '#1DA6E2', textColor: 'text-black' },
   ];
   const playbookTabs = [
     { title: '1000 TRUE FANS - How Creators and Brands can use web3 for growth', buttonText: 'READ', buttonLink: '/blog/1000-true-fans-how-creators-and-brands-can-use-web3-for-growth', backgroundImage: '/bgChain.png' },
@@ -108,12 +108,10 @@ const MainGrid = () => {
 
   const WhatWeDoSection = () => {
     const items = [
-      'OWNED AUDIENCES', 'LIVESTREAMING', 'CREATOR COMMERCE', 'COMMUNITY',
-      'TOKENOMICS', 'STRATEGY', 'BRAND IDENTITY', 'LIVE EVENTS',
-      'MEMBERSHIP', 'DIRECT PAYMENTS', 'LOYALTY', 'FAN DATA',
-      'SMART CONTRACTS', 'DISTRIBUTION', 'STORYTELLING',
-      'CREATIVE DIRECTION', 'CULTURAL STRATEGY', 'ONCHAIN MEDIA',
-      'CREATOR IP', 'GROWTH',
+      'OWNED AUDIENCE', 'DIRECT PAYMENTS', 'ONCHAIN IDENTITY',
+      'LIVE BROADCASTING', 'SMART CONTRACTS', 'CULTURAL DISTRIBUTION',
+      'CREATOR COMMERCE', 'FAN ECONOMICS', 'BRAND OWNERSHIP',
+      'MEDIA INFRASTRUCTURE',
     ];
     return (
       <div className="bg-[#A6D234] border-[2px] border-dark-blue rounded-[26px] px-4 py-6 md:px-6 md:py-8 h-[518px] flex flex-col overflow-hidden">
@@ -208,7 +206,7 @@ const MainGrid = () => {
           className="text-black text-[32px] md:text-2xl font-semibold pb-4 leading-none text-left"
           style={{ width: '100%' }}
         >
-          Get the latest insights and strategies from our team.
+          The work, documented in public.
         </p>
       </div>
       
@@ -298,7 +296,7 @@ const MainGrid = () => {
   const NewsletterSection = () => (
     <div className="border-[2px] border-dark-blue border-solid rounded-[26px] p-6 md:p-8 h-auto md:h-[297px] relative overflow-hidden">
       <h3 className="text-sm font-semibold text-dark-blue mb-2">JOIN SABI</h3>
-      <p className="text-black text-base md:text-[24px] md:leading-[1.12] font-bold mb-8 md:mb-0">Africa's onchain broadcasting network. The best of African culture, every week. Free.</p>
+      <p className="text-black text-base md:text-[24px] md:leading-[1.12] font-bold mb-8 md:mb-0">Africa's onchain broadcasting network. Music, fashion, sports, and culture — on infrastructure owned by Africans. Launching 2026.</p>
       <div className="relative mt-8 md:mt-0 md:absolute md:left-8 md:right-8 md:bottom-6">
         <input type="email" placeholder="john@email.com" className="w-full px-4 py-3 font-mono pr-24 border border-dark-blue/30 rounded-full text-dark-blue placeholder-dark-blue/50 focus:outline-none focus:border-dark-blue" />
         <button className="absolute right-1 top-1 bottom-1 px-4 bg-dark-blue text-white rounded-full hover:opacity-90 transition-opacity overflow-hidden group flex items-center justify-center">
