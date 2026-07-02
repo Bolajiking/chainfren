@@ -252,7 +252,11 @@ export default function SiteHeader({
       </div>
 
       {/* ───────── Mobile bottom bar — fixed, hy.pe-style ───────── */}
-      <div className="site-header-mobile-bar" aria-hidden={false}>
+      {/* Inline display:none is the pre-CSS-load safe default (hidden on
+          every viewport) so this never flashes as unstyled stacked text
+          before the max-width:640px stylesheet rule has been parsed. The
+          media query's `!important` still wins on mobile once it loads. */}
+      <div className="site-header-mobile-bar" aria-hidden={false} style={{ display: 'none' }}>
         <div className="site-header-mobile-bar__inner">
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
             <Link href="/" aria-label="Chainfren" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
@@ -284,21 +288,42 @@ export default function SiteHeader({
       </div>
 
       {/* ───────── Mobile slide-up sheet ───────── */}
+      {/* Positioning/visibility (position, transform, opacity, pointer-events)
+          is computed inline from `open` state rather than left to the
+          styled-jsx stylesheet. Inline styles are part of the very first
+          HTML paint, so the sheet is guaranteed off-screen/invisible before
+          any CSS has loaded — no flash of unstyled, in-flow menu text at the
+          top of the page. Cosmetic-only properties (blur, border, shadow,
+          transition timing) stay in the stylesheet below since a brief delay
+          on those is invisible, not a layout break. */}
       <div
         className={'site-header-sheet' + (open ? ' is-open' : '')}
         role="dialog"
         aria-hidden={!open}
         aria-modal={open ? true : undefined}
         onClick={(e) => { if (e.target === e.currentTarget) setOpen(false) }}
+        style={{ position: 'fixed', inset: 0, zIndex: 65, pointerEvents: open ? 'auto' : 'none' }}
       >
-        <div className="site-header-sheet__panel">
+        <div
+          className="site-header-sheet__panel"
+          style={{
+            position: 'absolute', left: 8, right: 8, bottom: 76,
+            top: 'clamp(260px, 42vh, 480px)',
+            transform: open ? 'translateY(0)' : 'translateY(calc(100% + 24px))',
+            opacity: open ? 1 : 0,
+          }}
+        >
           <nav className="site-header-sheet__links">
             {links.map((l, i) => (
               <Link
                 key={l.label}
                 href={l.href || '#'}
                 onClick={handleLinkClick(l)}
-                style={{ '--cf-stagger': `${80 + i * 60}ms` }}
+                style={{
+                  opacity: open ? 1 : 0,
+                  transform: open ? 'translateY(0)' : 'translateY(10px)',
+                  transitionDelay: open ? `${80 + i * 60}ms` : '0ms',
+                }}
                 className="site-header-sheet__link"
               >
                 {l.label}
@@ -308,7 +333,11 @@ export default function SiteHeader({
               <Link
                 href={cta.href || '#'}
                 onClick={() => setOpen(false)}
-                style={{ '--cf-stagger': `${80 + links.length * 60}ms` }}
+                style={{
+                  opacity: open ? 1 : 0,
+                  transform: open ? 'translateY(0)' : 'translateY(10px)',
+                  transitionDelay: open ? `${80 + links.length * 60}ms` : '0ms',
+                }}
                 className="site-header-sheet__link"
               >
                 {cta.label}
@@ -384,22 +413,18 @@ export default function SiteHeader({
         :global(.site-header-mobile-toggle:active) { transform: scale(0.94); }
 
         :global(.site-header-sheet) {
-          position: fixed;
-          inset: 0;
-          z-index: 65;
-          pointer-events: none;
+          /* position/inset/z-index/pointer-events are set inline from React
+             state — see render — so they're correct at first paint. */
           background: rgba(8, 21, 60, 0);
           transition: background 360ms cubic-bezier(0.22,1,0.36,1);
         }
         :global(.site-header-sheet.is-open) {
-          pointer-events: auto;
           background: rgba(8, 21, 60, 0.04);
         }
         :global(.site-header-sheet__panel) {
-          position: absolute;
-          left: 8px; right: 8px;
-          bottom: 76px;
-          top: clamp(260px, 42vh, 480px);
+          /* position/left/right/bottom/top/transform/opacity are set inline
+             from React state — see render — so the panel is guaranteed
+             off-screen before this stylesheet has loaded. */
           background: rgba(255, 255, 255, 0.42);
           backdrop-filter: blur(30px) saturate(140%);
           -webkit-backdrop-filter: blur(30px) saturate(140%);
@@ -411,13 +436,7 @@ export default function SiteHeader({
           align-items: center;
           justify-content: center;
           padding: 32px 24px;
-          transform: translateY(calc(100% + 24px));
-          opacity: 0;
           transition: transform 460ms cubic-bezier(0.22,1,0.36,1), opacity 360ms cubic-bezier(0.22,1,0.36,1);
-        }
-        :global(.site-header-sheet.is-open .site-header-sheet__panel) {
-          transform: translateY(0);
-          opacity: 1;
         }
         :global(.site-header-sheet__links) {
           display: flex;
@@ -427,20 +446,15 @@ export default function SiteHeader({
           font-family: var(--font-inter), 'Inter Display', 'Inter', sans-serif;
         }
         :global(.site-header-sheet__link) {
+          /* opacity/transform/transition-delay are set inline from React
+             state — see render. */
           color: ${DARK};
           font-size: 15px;
           font-weight: 450;
           letter-spacing: 0.12em;
           text-transform: uppercase;
           text-decoration: none;
-          opacity: 0;
-          transform: translateY(10px);
           transition: opacity 380ms cubic-bezier(0.22,1,0.36,1), transform 380ms cubic-bezier(0.22,1,0.36,1);
-        }
-        :global(.site-header-sheet.is-open .site-header-sheet__link) {
-          opacity: 1;
-          transform: translateY(0);
-          transition-delay: var(--cf-stagger, 0ms);
         }
       `}</style>
     </>

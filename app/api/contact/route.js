@@ -48,6 +48,59 @@ export async function POST(request) {
         source: body.source || '',
         submittedAt,
       }
+    } else if (formType === 'creator-network-brand') {
+      const required = ['name', 'company', 'email', 'goal', 'budget', 'timeline']
+      const missing = required.filter((k) => !body[k] || !String(body[k]).trim())
+      if (missing.length) {
+        return NextResponse.json(
+          { error: `Missing required fields: ${missing.join(', ')}.` },
+          { status: 400 }
+        )
+      }
+      submission = {
+        id,
+        formType,
+        lead: 'brand',
+        name: body.name,
+        company: body.company,
+        role: body.role || '',
+        email: body.email,
+        goal: body.goal,
+        budget: body.budget,
+        timeline: body.timeline,
+        markets: body.markets || '',
+        submittedAt,
+      }
+    } else if (formType === 'creator-network-creator') {
+      const required = ['name', 'creatorName', 'primaryPlatform', 'category', 'location', 'email']
+      const missing = required.filter((k) => !body[k] || !String(body[k]).trim())
+      if (missing.length) {
+        return NextResponse.json(
+          { error: `Missing required fields: ${missing.join(', ')}.` },
+          { status: 400 }
+        )
+      }
+      submission = {
+        id,
+        formType,
+        lead: 'creator',
+        status: 'Onboarding',
+        source: 'Application',
+        name: body.name,
+        creatorName: body.creatorName,
+        primaryPlatform: body.primaryPlatform,
+        allPlatforms: body.allPlatforms || '',
+        category: body.category,
+        location: body.location,
+        audience: body.audience || '',
+        pastDeals: body.pastDeals || '',
+        rate: body.rate || '',
+        openness: body.openness || '',
+        email: body.email,
+        contactMethod: body.contactMethod || '',
+        links: body.links || '',
+        submittedAt,
+      }
     } else {
       const { firstName, lastName, email, message } = body
       if (!firstName || !lastName || !email || !message) {

@@ -13,8 +13,8 @@ import MobileHero from './MobileHero';
 const MainGrid = () => {
   // Tab data for sections
   const creatorTabs = [
-    { title: 'For Creators', heading: 'Own your audience. Keep your money. Build the business the platforms wouldn\'t let you build.', buttonText: 'TALK TO CHAINFREN', buttonLink: '/contact', backgroundImage: '/3d.png', backgroundColor: '#08153C', textColor: 'text-white' },
-    { title: 'For Brands', heading: 'Build culture people own. Distribute on infrastructure you control. Turn cultural influence into digital business.', buttonText: 'TALK TO CHAINFREN', buttonLink: '/contact', backgroundImage: '/3d4.png', backgroundColor: '#1DA6E2', textColor: 'text-black' },
+    { title: 'For Creators', heading: 'Own your audience. Keep your money. Build the business the platforms wouldn\'t let you build.', buttonText: 'EXPLORE FOR CREATORS', buttonLink: '/for-creators', backgroundImage: '/3d.png', backgroundColor: '#08153C', textColor: 'text-white' },
+    { title: 'For Brands', heading: 'Build culture people own. Distribute on infrastructure you control. Turn cultural influence into digital business.', buttonText: 'EXPLORE FOR BRANDS', buttonLink: '/for-brands', backgroundImage: '/3d4.png', backgroundColor: '#1DA6E2', textColor: 'text-black' },
   ];
   const playbookTabs = [
     { title: '1000 TRUE FANS - How Creators and Brands can use web3 for growth', buttonText: 'READ', buttonLink: '/blog/1000-true-fans-how-creators-and-brands-can-use-web3-for-growth', backgroundImage: '/bgChain.png' },
@@ -286,9 +286,27 @@ const MainGrid = () => {
   );
 
   const ThreeDIconSection = () => (
-    <div className="bg-dark-blue border-[2px] border-dark-blue rounded-[26px] p-6 md:p-8 flex items-center justify-center h-[300px] md:h-[390px] relative overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-center"><img src="/randz1.png" alt="3d image" className="w-[80%] h-[80%] -rotate-12" /></div>
-    </div>
+    <Link
+      href="/agency/creator-network"
+      className="group bg-dark-blue border-[2px] border-dark-blue rounded-[26px] p-6 md:p-8 flex items-center justify-center h-[300px] md:h-[390px] relative overflow-hidden"
+    >
+      <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
+        <img src="/randz1.png" alt="" className="w-[80%] h-[80%] -rotate-12" />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-dark-blue/80 via-transparent to-transparent" />
+      <div className="absolute inset-0 p-5 md:p-6 flex flex-col justify-between">
+        <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/90">Creator Network</span>
+        <div>
+          <p className="text-white text-[19px] md:text-[20px] font-semibold leading-tight max-w-[220px]">
+            Where crypto brands meet the creators who move culture.
+          </p>
+          <span className="inline-flex items-center gap-1.5 mt-3 text-[13px] font-semibold text-white/90 group-hover:text-white transition-colors">
+            Explore the network
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-[3px]"><path d="M5 12 L19 12 M13 6 L19 12 L13 18" /></svg>
+          </span>
+        </div>
+      </div>
+    </Link>
   );
 
   const WeatherSection = () => <WeatherWidget />;

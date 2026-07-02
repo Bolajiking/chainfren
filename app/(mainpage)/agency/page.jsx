@@ -5,10 +5,11 @@ import SiteHeader from '../../components/SiteHeader'
 import AgencyContactModal from '../../components/AgencyContactModal'
 import ChainfrenWordmark from '../../components/ChainfrenWordmark'
 import ChainfrenIcon from '../../components/ChainfrenIcon'
+import { HandshakeFrens } from '../../components/Frens'
 
 const AGENCY_LINKS = [
+  { label: 'Creator Network', href: '/agency/creator-network' },
   { label: 'Programs', anchor: '#programs' },
-  { label: 'Process',  anchor: '#process' },
   { label: 'FAQ',      anchor: '#faq' },
 ]
 
@@ -220,6 +221,44 @@ function HeroBento({ accent }) {
           </div>
         </div>
       </div>
+    </section>
+  )
+}
+
+function FeaturedCreatorNetwork() {
+  return (
+    <section style={{ maxWidth: 1480, margin: '0 auto', padding: '40px 16px 0' }}>
+      <Link href="/agency/creator-network" style={{ textDecoration: 'none', display: 'block' }}>
+        <div
+          onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.008)' }}
+          onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)' }}
+          style={{
+            ...CARD_BASE, background: CF.dark, color: CF.white,
+            padding: 'clamp(28px, 5vw, 56px)',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            gap: 32, flexWrap: 'wrap',
+            transition: 'transform 400ms cubic-bezier(0.22,1,0.36,1)',
+            backgroundImage: `radial-gradient(60% 70% at 90% 10%, ${CF.cyan}33, transparent 60%)`,
+          }}
+        >
+          <div style={{ flex: '1 1 380px', minWidth: 0 }}>
+            <Eyebrow color={CF.cyan}>Featured division</Eyebrow>
+            <h2 style={{
+              fontSize: 'clamp(1.75rem, 3.6vw, 2.75rem)', fontWeight: 450,
+              letterSpacing: '-0.02em', lineHeight: 1.08, margin: '14px 0 14px',
+            }}>The Chainfren Creator Network</h2>
+            <p style={{ fontSize: 15.5, color: 'rgba(255,255,255,0.78)', lineHeight: 1.6, maxWidth: 520, marginBottom: 22 }}>
+              Our curated creator-sourcing division — connecting onchain brands to Africa&apos;s biggest creators and the world&apos;s crypto-native KOLs. Vetted rosters, campaigns built to convert, and creators paid in stablecoins.
+            </p>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '12px 24px', borderRadius: 9999, background: CF.white, color: CF.dark,
+              fontSize: 13, fontWeight: 450, letterSpacing: '0.04em', textTransform: 'uppercase',
+            }}>Explore the Creator Network <Arrow /></span>
+          </div>
+          <HandshakeFrens style={{ width: 'min(320px, 40vw)', height: 'auto', flexShrink: 0 }} />
+        </div>
+      </Link>
     </section>
   )
 }
@@ -637,20 +676,36 @@ function ClosingCTA({ accent }) {
 
 function PageFooter() {
   return (
-    <footer className="cf-footer-pad" style={{
-      maxWidth: 1480, margin: '64px auto 0', padding: '40px 24px 28px',
-      borderTop: `1px solid rgba(8,21,60,0.12)`,
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-      flexWrap: 'wrap', gap: 16,
-    }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-        <ChainfrenWordmark fontSize={22} />
-        <span style={{ fontSize: 12, color: CF.subtle }}>2025 © Chainfren. All rights reserved.</span>
+    <footer className="cf-footer-pad" style={{ maxWidth: 1480, margin: '64px auto 0', padding: '0 24px 28px' }}>
+      <div className="cf-footer-cols" style={{ display: 'flex', flexWrap: 'wrap', gap: 32, paddingBottom: 36, borderBottom: '1px solid rgba(8,21,60,0.12)' }}>
+        {[
+          ['Explore', [['Agency', '/agency'], ['Creator Network', '/agency/creator-network'], ['Products', '/products'], ['Media', '/media']]],
+          ['For you', [['For Creators', '/for-creators'], ['For Brands', '/for-brands']]],
+          ['Company', [['Playbook', '/blog'], ['Contact', '/contact'], ['Join Chainfren', '/contact']]],
+        ].map(([heading, links]) => (
+          <div key={heading}>
+            <div style={{ fontSize: 11, fontWeight: 450, letterSpacing: '0.14em', textTransform: 'uppercase', color: CF.subtle, marginBottom: 12 }}>{heading}</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {links.map(([l, h]) => (
+                <Link key={l} href={h} style={{ fontSize: 13.5, color: CF.dark, textDecoration: 'none' }}>{l}</Link>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
-      <div style={{ display: 'flex', gap: 22, fontSize: 12, color: CF.subtle, fontWeight: 420, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-        <a href="https://x.com/chainfren" style={{ color: 'inherit', textDecoration: 'none' }}>X</a>
-        <a href="https://chainfren.com" style={{ color: 'inherit', textDecoration: 'none' }}>chainfren.com</a>
-        <a href="mailto:hello@chainfren.com" style={{ color: 'inherit', textDecoration: 'none' }}>hello@chainfren.com</a>
+      <div style={{
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        flexWrap: 'wrap', gap: 16, paddingTop: 24,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <ChainfrenWordmark fontSize={22} />
+          <span style={{ fontSize: 12, color: CF.subtle }}>2025 © Chainfren. All rights reserved.</span>
+        </div>
+        <div style={{ display: 'flex', gap: 22, fontSize: 12, color: CF.subtle, fontWeight: 420, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+          <a href="https://x.com/chainfren" style={{ color: 'inherit', textDecoration: 'none' }}>X</a>
+          <a href="https://chainfren.com" style={{ color: 'inherit', textDecoration: 'none' }}>chainfren.com</a>
+          <a href="mailto:hello@chainfren.com" style={{ color: 'inherit', textDecoration: 'none' }}>hello@chainfren.com</a>
+        </div>
       </div>
     </footer>
   )
@@ -696,13 +751,14 @@ export default function AgencyPage() {
           source order wins above the md breakpoint. */}
       <main className="flex flex-col" style={{ paddingBottom: 24 }}>
         <div className="order-1 md:order-none"><HeroBento accent={accent} /></div>
-        <div className="order-3 md:order-none"><ArgumentSection accent={accent} /></div>
-        <div className="order-2 md:order-none"><ProgramsSection accent={accent} /></div>
-        <div className="order-4 md:order-none"><Process /></div>
-        <div className="order-5 md:order-none"><ProofInProgress accent={accent} /></div>
-        <div className="order-6 md:order-none"><FAQ /></div>
-        <div className="order-7 md:order-none"><ClosingCTA accent={accent} /></div>
-        <div className="order-8 md:order-none"><PageFooter /></div>
+        <div className="order-2 md:order-none"><FeaturedCreatorNetwork /></div>
+        <div className="order-4 md:order-none"><ArgumentSection accent={accent} /></div>
+        <div className="order-3 md:order-none"><ProgramsSection accent={accent} /></div>
+        <div className="order-5 md:order-none"><Process /></div>
+        <div className="order-6 md:order-none"><ProofInProgress accent={accent} /></div>
+        <div className="order-7 md:order-none"><FAQ /></div>
+        <div className="order-8 md:order-none"><ClosingCTA accent={accent} /></div>
+        <div className="order-9 md:order-none"><PageFooter /></div>
       </main>
       <AgencyContactModal open={contactOpen} onClose={() => setContactOpen(false)} accent={accent} />
     </div>
