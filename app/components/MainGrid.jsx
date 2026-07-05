@@ -14,7 +14,7 @@ const MainGrid = () => {
   // Tab data for sections
   const creatorTabs = [
     { title: 'For Creators', heading: 'Own your audience. Keep your money. Build the business the platforms wouldn\'t let you build.', buttonText: 'EXPLORE FOR CREATORS', buttonLink: '/for-creators', backgroundImage: '/3d.png', backgroundColor: '#08153C', textColor: 'text-white' },
-    { title: 'For Brands', heading: 'Build culture people own. Distribute on infrastructure you control. Turn cultural influence into digital business.', buttonText: 'EXPLORE FOR BRANDS', buttonLink: '/for-brands', backgroundImage: '/3d4.png', backgroundColor: '#1DA6E2', textColor: 'text-black' },
+    { title: 'For Brands', heading: 'Build culture people own. Distribute on infrastructure you control. Turn influence into a business you keep.', buttonText: 'EXPLORE FOR BRANDS', buttonLink: '/for-brands', backgroundImage: '/3d4.png', backgroundColor: '#1DA6E2', textColor: 'text-black' },
   ];
   const playbookTabs = [
     { title: '1000 TRUE FANS - How Creators and Brands can use web3 for growth', buttonText: 'READ', buttonLink: '/blog/1000-true-fans-how-creators-and-brands-can-use-web3-for-growth', backgroundImage: '/bgChain.png' },
@@ -40,7 +40,7 @@ const MainGrid = () => {
           maxWidth: '100%'
         }}
       >
-        The growth engine powering<br />Africa's creative force
+        <em className="italic">Ownership</em> infrastructure<br />for the African creator economy.
       </h1>
       <p
         className="text-[18px] font-medium text-dark-blue/80 leading-[1.2]"
@@ -50,7 +50,7 @@ const MainGrid = () => {
           marginTop: '20px'
         }}
       >
-        The platforms took your audience, your data, and most of your money. Chainfren is the infrastructure for the creators and brands ambitious enough to take it back
+        The platforms control your audience, your data, and your revenue. Chainfren is the infrastructure for the ones ambitious enough to take it back.
       </p>
       <Link href="/contact" className="md:absolute md:top-[210px] md:left-[20px]">
         <button className="mt-4 md:mt-0 px-5 py-2.5 md:px-[12px] md:py-[8px] border-2 md:border border-dark-blue text-dark-blue text-[15px] md:text-[13px] font-semibold rounded-full hover:bg-dark-blue hover:text-white transition-colors overflow-hidden relative group">
@@ -69,7 +69,7 @@ const MainGrid = () => {
         <p className="text-dark-blue text-[18px] md:text-[15px] lg:text-[17px] leading-snug mb-2 md:mb-2" style={{ letterSpacing: '0%' }}>The platforms still control the audience, the data, the reach, and the revenue. They change the rules whenever they want, while creators and brands are left building on rented land.</p>
         <p className="text-dark-blue text-[18px] md:text-[15px] lg:text-[17px] leading-snug mb-2 md:mb-2" style={{ letterSpacing: '0%' }}>Chainfren builds the infrastructure that gives the power back.</p>
         <p className="text-dark-blue font-bold text-[24px] md:text-[17px] lg:text-[19px] leading-snug mb-2 md:mb-2" style={{ letterSpacing: '0%' }}>Owned audience. Direct payments. Real ownership.</p>
-        <p className="text-dark-blue text-[18px] md:text-[15px] lg:text-[17px] leading-snug" style={{ letterSpacing: '0%' }}>We help the most ambitious African creators and brands own their audience, monetize directly, build communities, and turn cultural influence into lasting digital businesses.</p>
+        <p className="text-dark-blue text-[18px] md:text-[15px] lg:text-[17px] leading-snug" style={{ letterSpacing: '0%' }}>We help Africa's most ambitious creators and brands own their audience, monetize directly, and turn cultural influence into businesses they keep.</p>
       </div>
       <div className="absolute bottom-0 left-0 right-0 h-32 md:h-48 overflow-hidden"><div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/3d2.png)' }}></div></div>
       <Link href="/contact" className="absolute bottom-6 md:bottom-6 left-1/2 -translate-x-1/2 z-20 w-[calc(100%-2rem)] md:w-[80%] max-w-md">
@@ -291,10 +291,21 @@ const MainGrid = () => {
       className="group bg-dark-blue border-[2px] border-dark-blue rounded-[26px] p-6 md:p-8 flex items-center justify-center h-[300px] md:h-[390px] relative overflow-hidden"
     >
       <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
-        <img src="/randz1.png" alt="" className="w-[80%] h-[80%] -rotate-12" />
+        <img
+          src="/randz1.png"
+          alt=""
+          className="w-[80%] h-[80%] -rotate-12 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-35"
+        />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-dark-blue/80 via-transparent to-transparent" />
-      <div className="absolute inset-0 p-5 md:p-6 flex flex-col justify-between">
+      {/* Base state (touch devices, no real hover) keeps the copy visible.
+          The [@media(hover:hover)] arbitrary variant only hides it by default
+          on devices with a real pointer, revealing on :hover — so mobile
+          visitors never lose the CTA, matching the design capture's reveal
+          treatment on desktop. Plain Tailwind group-hover (not styled-jsx)
+          because styled-jsx doesn't scope the hash class onto next/link's
+          <Link> root, so a scoped :hover selector here never matches. */}
+      <div className="absolute inset-0 bg-gradient-to-t from-dark-blue/80 via-transparent to-transparent transition-opacity duration-300 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100" />
+      <div className="absolute inset-0 p-5 md:p-6 flex flex-col justify-between transition-opacity duration-300 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100">
         <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/90">Creator Network</span>
         <div>
           <p className="text-white text-[19px] md:text-[20px] font-semibold leading-tight max-w-[220px]">

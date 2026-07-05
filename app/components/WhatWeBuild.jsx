@@ -143,7 +143,7 @@ const CARDS = [
   {
     id: 'agency',
     label: 'Agency',
-    body: 'Done-for-you growth work for creators and brands ready to take ownership seriously. Strategy, infrastructure, and execution from the team that lives the work.',
+    body: 'Done-with-you growth for creators and brands serious about ownership. Strategy, infrastructure, and execution — from the team that lives the work.',
     cta: 'LEARN MORE',
     href: '/agency',
     bg: '#5ACDFF',
@@ -152,7 +152,7 @@ const CARDS = [
   {
     id: 'product',
     label: 'Product',
-    body: "Owned infrastructure for the African creator economy. TiVi for streaming. TVinBio for creator hubs. Star Factor for the next generation of African entertainment. The tools we build so creators don’t have to keep renting.",
+    body: "Owned infrastructure for the African creator economy. The tools we build so creators don’t have to keep renting.",
     cta: 'SEE PRODUCTS',
     href: '/products',
     bg: '#8DAAFF',
@@ -161,7 +161,7 @@ const CARDS = [
   {
     id: 'media',
     label: 'Media',
-    body: "Sabi — Africa’s onchain broadcasting network. Music, fashion, sports, entertainment — curated, published, and broadcast on infrastructure owned by Africans.",
+    body: "Music, fashion, sports, entertainment — curated, published, and broadcast on infrastructure owned by Africans.",
     cta: 'VISIT SABI',
     href: '/contact',
     bg: '#CBF0B8',

@@ -5,7 +5,7 @@ import SiteHeader from '../../components/SiteHeader'
 import AgencyContactModal from '../../components/AgencyContactModal'
 import ChainfrenWordmark from '../../components/ChainfrenWordmark'
 import ChainfrenIcon from '../../components/ChainfrenIcon'
-import { HandshakeFrens } from '../../components/Frens'
+import { Fren } from '../../components/Frens'
 
 const AGENCY_LINKS = [
   { label: 'Creator Network', href: '/agency/creator-network' },
@@ -256,7 +256,7 @@ function FeaturedCreatorNetwork() {
               fontSize: 13, fontWeight: 450, letterSpacing: '0.04em', textTransform: 'uppercase',
             }}>Explore the Creator Network <Arrow /></span>
           </div>
-          <HandshakeFrens style={{ width: 'min(320px, 40vw)', height: 'auto', flexShrink: 0 }} />
+          <Fren pose="handshake" colorA={CF.cyan} colorB={CF.mint} sw={20} size={320} style={{ width: 'min(320px, 40vw)', height: 'auto', flexShrink: 0 }} />
         </div>
       </Link>
     </section>

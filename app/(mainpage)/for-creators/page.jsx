@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import SiteHeader, { DEFAULT_LINKS, DEFAULT_CTA } from '../../components/SiteHeader'
-import { SquadFrens } from '../../components/Frens'
+import { Fren } from '../../components/Frens'
 
 export const metadata = {
   title: 'For Creators — Own Your Audience, Keep Your Money',
@@ -70,7 +70,7 @@ export default function ForCreatorsPage() {
               Everything Chainfren offers creators — the tools, the deals, and the infrastructure to turn cultural influence into a business you own.
             </p>
           </div>
-          <SquadFrens style={{ width: 'min(280px, 36vw)', height: 'auto', flexShrink: 0 }} />
+          <Fren pose="squad" colorA={CF.cyan} colorB={CF.periwinkle} sw={18} size={280} style={{ width: 'min(280px, 36vw)', height: 'auto', flexShrink: 0 }} />
         </div>
       </section>
 

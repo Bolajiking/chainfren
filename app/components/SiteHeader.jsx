@@ -9,13 +9,13 @@ const DEFAULT_ACCENT = '#40ACFF'
 
 export const DEFAULT_LINKS = [
   { label: 'Agency', href: '/agency' },
-  { label: 'Product', href: '/products' },
+  { label: 'Products', href: '/products' },
   { label: 'Media', href: '/media' },
 ]
 export const DEFAULT_CTA = { label: 'Join Chainfren', href: '/contact' }
 
 const SECTION_NAV = [
-  { label: 'Agency',   sub: 'Done-for-you growth systems',  href: '/agency',   color: '#40ACFF' },
+  { label: 'Agency',   sub: 'Done-with-you growth systems',  href: '/agency',   color: '#40ACFF' },
   { label: 'Products', sub: 'TiVi · TVinBio · Comeownity',  href: '/products', color: '#8DAAFF' },
   { label: 'Media',    sub: 'Watch and read from Chainfren', href: '/media',    color: '#CBF0B8' },
 ]

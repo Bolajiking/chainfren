@@ -1,132 +1,223 @@
 'use client'
 import React from 'react'
 
-// Shared stick-figure primitive — same construction as the WhatWeBuild engine
-// icons (torso line/curve, two limbs per side via quadratic joints, round head).
-// Kept local (not imported) so each consumer can scale/stroke independently.
-export function Figure({
-  cx, headY = 30, r = 11, bodyTop = 42, shoulder = 64, hip = 110,
-  lHand, rHand, lFoot, rFoot,
-  lElbow, rElbow, lKnee, rKnee,
-  spineSway = 0, color = '#08153C', sw = 15,
+// Faithful port of the Chainfren design system's frens/Frens.jsx pose library
+// (from the "Chainfren Creator Network" design capture). Two-figure stick-man
+// compositions, 400x400 viewBox. Humanity comes from quadratic-bezier limbs
+// that bow toward an elbow/knee control point instead of snapping at sharp
+// angles, plus spineSway for weight shift — real human movement mechanics,
+// not rigid geometric figures.
+
+const NAVY = '#08153C'
+
+function Stickman({
+  head, r = 24, bodyTop, shoulder, hip, spineSway = 0,
+  lHand = null, rHand = null, lFoot = null, rFoot = null,
+  lElbow = null, rElbow = null, lKnee = null, rKnee = null,
+  color = NAVY, sw = 18, rotate = 0, hideHead = false,
 }) {
-  const S = { stroke: color, strokeWidth: sw, fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' }
+  const stroke = { stroke: color, strokeWidth: sw, fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' }
+
   let torsoD
   if (spineSway) {
-    const my = (bodyTop + hip) / 2
-    torsoD = `M${cx} ${bodyTop} Q${cx + spineSway} ${my} ${cx} ${hip}`
+    const mx = (bodyTop[0] + hip[0]) / 2 + spineSway
+    const my = (bodyTop[1] + hip[1]) / 2
+    torsoD = `M${bodyTop[0]} ${bodyTop[1]} Q${mx} ${my} ${hip[0]} ${hip[1]}`
   } else {
-    torsoD = `M${cx} ${bodyTop} L${cx} ${hip}`
+    torsoD = `M${bodyTop[0]} ${bodyTop[1]} L${hip[0]} ${hip[1]}`
   }
-  const limb = (ax, ay, jx, jy, bx, by) =>
-    jx != null ? `M${ax} ${ay} Q${jx} ${jy} ${bx} ${by}` : `M${ax} ${ay} L${bx} ${by}`
+
+  const limbD = (a, j, b) => (j ? `M${a[0]} ${a[1]} Q${j[0]} ${j[1]} ${b[0]} ${b[1]}` : `M${a[0]} ${a[1]} L${b[0]} ${b[1]}`)
+
+  const content = (
+    <g>
+      <path d={torsoD} {...stroke} />
+      {lHand && <path d={limbD(shoulder, lElbow, lHand)} {...stroke} />}
+      {rHand && <path d={limbD(shoulder, rElbow, rHand)} {...stroke} />}
+      {lFoot && <path d={limbD(hip, lKnee, lFoot)} {...stroke} />}
+      {rFoot && <path d={limbD(hip, rKnee, rFoot)} {...stroke} />}
+      {!hideHead && <circle cx={head[0]} cy={head[1]} r={r} fill={color} />}
+    </g>
+  )
+  if (rotate) return <g transform={`rotate(${rotate} ${head[0]} ${head[1]})`}>{content}</g>
+  return content
+}
+
+function upright(cx, color, opts = {}) {
+  return {
+    head: [cx, 50], r: 24, bodyTop: [cx, 78], shoulder: [cx, 140], hip: [cx, 268],
+    lFoot: [cx - 34, 380], rFoot: [cx + 34, 380], color, sw: 18, ...opts,
+  }
+}
+
+const BAR_Y = 140
+
+function PoseMark(a, b, sw = 18) {
+  const lx = 138, rx = 262
   return (
     <g>
-      <path d={torsoD} {...S} />
-      {lHand && <path d={limb(cx, shoulder, lElbow?.[0], lElbow?.[1], lHand[0], lHand[1])} {...S} />}
-      {rHand && <path d={limb(cx, shoulder, rElbow?.[0], rElbow?.[1], rHand[0], rHand[1])} {...S} />}
-      {lFoot && <path d={limb(cx, hip, lKnee?.[0], lKnee?.[1], lFoot[0], lFoot[1])} {...S} />}
-      {rFoot && <path d={limb(cx, hip, rKnee?.[0], rKnee?.[1], rFoot[0], rFoot[1])} {...S} />}
-      <circle cx={cx} cy={headY} r={r} fill={color} />
+      <Stickman {...upright(lx, a, { sw, rHand: [200, BAR_Y] })} />
+      <Stickman {...upright(rx, b, { sw, lHand: [200, BAR_Y] })} />
     </g>
   )
 }
 
-// Two figures walking in and meeting — hero pose.
-export function HandshakeFrens({ colorA = '#5ACDFF', colorB = '#CBF0B8', sw = 15, className, style }) {
-  const HOLD = [200, 176]
+function PoseStride(a, b, sw = 18) {
+  const lx = 138, rx = 262
   return (
-    <svg viewBox="0 0 400 320" className={className} style={style} xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
-      <Figure cx={140} headY={110} r={13} bodyTop={124} shoulder={148} hip={210} sw={sw} color={colorA}
-        spineSway={-4}
-        rHand={HOLD} rElbow={[172, 150]}
-        lHand={[100, 158]} lElbow={[118, 152]}
-        lFoot={[112, 288]} lKnee={[118, 250]}
-        rFoot={[148, 288]} rKnee={[142, 250]} />
-      <Figure cx={260} headY={110} r={13} bodyTop={124} shoulder={148} hip={210} sw={sw} color={colorB}
-        spineSway={4}
-        lHand={HOLD} lElbow={[228, 150]}
-        rHand={[300, 158]} rElbow={[282, 152]}
-        rFoot={[288, 288]} rKnee={[282, 250]}
-        lFoot={[252, 288]} lKnee={[258, 250]} />
-      <circle cx={HOLD[0]} cy={HOLD[1]} r={7} fill="#08153C" />
-    </svg>
+    <g>
+      <Stickman {...upright(lx, a, { sw, rHand: [200, BAR_Y], lFoot: [lx - 56, 378], lKnee: [lx - 36, 326], rFoot: [lx + 14, 380], rKnee: [lx + 2, 330] })} />
+      <Stickman {...upright(rx, b, { sw, lHand: [200, BAR_Y], lFoot: [rx - 56, 378], lKnee: [rx - 36, 326], rFoot: [rx + 14, 380], rKnee: [rx + 2, 330] })} />
+    </g>
   )
 }
 
-// Two figures standing together, at ease — "the network."
-export function SquadFrens({ colorA = '#5ACDFF', colorB = '#8DAAFF', sw = 14, className, style }) {
+function PoseHandshake(a, b, sw = 18) {
+  const lx = 120, rx = 280
+  const meet = [200, 218]
   return (
-    <svg viewBox="0 0 400 320" className={className} style={style} xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
-      <Figure cx={160} headY={110} r={13} bodyTop={124} shoulder={148} hip={210} sw={sw} color={colorA}
-        rHand={[196, 232]} rElbow={[186, 190]}
-        lHand={[122, 250]} lElbow={[130, 190]}
-        lFoot={[132, 288]} lKnee={[138, 250]}
-        rFoot={[168, 288]} rKnee={[162, 250]} />
-      <Figure cx={240} headY={110} r={13} bodyTop={124} shoulder={148} hip={210} sw={sw} color={colorB}
-        lHand={[204, 232]} lElbow={[214, 190]}
-        rHand={[278, 250]} rElbow={[270, 190]}
-        rFoot={[268, 288]} rKnee={[262, 250]}
-        lFoot={[232, 288]} lKnee={[238, 250]} />
-    </svg>
+    <g>
+      <Stickman {...upright(lx, a, { sw, rHand: meet, rElbow: [165, 175], lHand: [lx - 22, 244], lElbow: [lx - 14, 200] })} />
+      <Stickman {...upright(rx, b, { sw, lHand: meet, lElbow: [235, 175], rHand: [rx + 22, 244], rElbow: [rx + 14, 200] })} />
+      <circle cx={meet[0]} cy={meet[1]} r={sw * 0.5} fill={a} />
+    </g>
   )
 }
 
-// Arms-up celebration — final CTA callback.
-export function CheerFrens({ colorA = '#CCFF00', colorB = '#5ACDFF', sw = 15, className, style }) {
+function PoseHighFive(a, b, sw = 18) {
+  const lx = 124, rx = 276
+  const apex = [200, 22]
   return (
-    <svg viewBox="0 0 400 320" className={className} style={style} xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
-      <Figure cx={160} headY={116} r={13} bodyTop={130} shoulder={154} hip={210} sw={sw} color={colorA}
-        spineSway={-3}
-        rHand={[96, 84]} rElbow={[110, 118]}
-        lHand={[196, 90]} lElbow={[176, 120]}
-        lFoot={[130, 288]} lKnee={[136, 250]}
-        rFoot={[172, 288]} rKnee={[164, 250]} />
-      <Figure cx={240} headY={116} r={13} bodyTop={130} shoulder={154} hip={210} sw={sw} color={colorB}
-        spineSway={3}
-        lHand={[304, 84]} lElbow={[290, 118]}
-        rHand={[204, 90]} rElbow={[224, 120]}
-        rFoot={[270, 288]} rKnee={[264, 250]}
-        lFoot={[228, 288]} lKnee={[236, 250]} />
-    </svg>
+    <g>
+      <Stickman {...upright(lx, a, { sw, rHand: apex, rElbow: [170, 70], lHand: [lx - 28, 248], lElbow: [lx - 18, 200] })} head={[lx - 14, 60]} />
+      <Stickman {...upright(rx, b, { sw, lHand: apex, lElbow: [230, 70], rHand: [rx + 28, 248], rElbow: [rx + 18, 200] })} head={[rx + 14, 60]} />
+    </g>
   )
 }
 
-// Single figure reaching toward one edge — used in the fork's two halves.
-// facing: 'right' reaches with its right arm toward the seam, 'left' mirrors.
-export function FrenSolo({ facing = 'right', color = '#08153C', sw = 15, className, style }) {
-  const mirrored = facing === 'left'
+function PoseReach(a, b, sw = 18) {
+  const lx = 138, rx = 262
   return (
-    <svg viewBox="0 0 260 320" className={className} style={style} xmlns="http://www.w3.org/2000/svg" preserveAspectRatio={mirrored ? 'xMaxYMax meet' : 'xMinYMax meet'}>
-      <g transform={mirrored ? 'translate(260,0) scale(-1,1)' : undefined}>
-        <Figure cx={90} headY={110} r={14} bodyTop={126} shoulder={150} hip={214} sw={sw} color={color}
-          spineSway={-3}
-          rHand={[210, 168]} rElbow={[160, 150]}
-          lHand={[46, 210]} lElbow={[62, 190]}
-          lFoot={[66, 292]} lKnee={[74, 254]}
-          rFoot={[112, 292]} rKnee={[104, 254]} />
+    <g>
+      <Stickman {...upright(lx, a, { sw, rHand: [lx + 46, 22], rElbow: [lx + 36, 80], lHand: [lx - 46, 22], lElbow: [lx - 36, 80] })} />
+      <Stickman {...upright(rx, b, { sw, lHand: [rx - 46, 22], lElbow: [rx - 36, 80], rHand: [rx + 46, 22], rElbow: [rx + 36, 80] })} />
+    </g>
+  )
+}
+
+function PoseRun(a, b, sw = 18) {
+  const f = (cx, color) => ({
+    head: [cx + 28, 50], r: 22, bodyTop: [cx + 18, 80], shoulder: [cx + 2, 150], hip: [cx - 16, 252], spineSway: 8,
+    lHand: [cx - 60, 192], lElbow: [cx - 38, 170], rHand: [cx + 82, 108], rElbow: [cx + 48, 110],
+    lFoot: [cx - 70, 378], lKnee: [cx - 52, 320], rFoot: [cx + 50, 360], rKnee: [cx + 28, 308], color, sw,
+  })
+  return <g><Stickman {...f(126, a)} /><Stickman {...f(278, b)} /></g>
+}
+
+function PoseLeap(a, b, sw = 18) {
+  const f = (cx, color, flip = 1) => ({
+    head: [cx, 64], r: 22, bodyTop: [cx, 92], shoulder: [cx, 148], hip: [cx, 236], spineSway: -6 * flip,
+    lHand: [cx - 66 * flip, 58], lElbow: [cx - 36 * flip, 100], rHand: [cx + 58 * flip, 112], rElbow: [cx + 38 * flip, 120],
+    lFoot: [cx - 46, 320], lKnee: [cx - 24, 280], rFoot: [cx + 38, 304], rKnee: [cx + 20, 268], color, sw,
+  })
+  return <g><Stickman {...f(132, a, 1)} /><Stickman {...f(268, b, -1)} /></g>
+}
+
+function PoseDance(a, b, sw = 18) {
+  const left = { head: [120, 86], r: 22, bodyTop: [128, 114], shoulder: [140, 172], hip: [152, 258], spineSway: 14, lHand: [70, 222], lElbow: [88, 196], rHand: [202, 198], rElbow: [178, 178], lFoot: [110, 380], lKnee: [128, 326], rFoot: [188, 368], rKnee: [172, 322], color: a, sw }
+  const right = { head: [286, 40], r: 22, bodyTop: [276, 70], shoulder: [262, 128], hip: [252, 234], spineSway: -14, lHand: [206, 196], lElbow: [232, 168], rHand: [354, 30], rElbow: [318, 70], lFoot: [238, 380], lKnee: [254, 322], rFoot: [294, 360], rKnee: [276, 312], color: b, sw }
+  return <g><Stickman {...left} /><Stickman {...right} /></g>
+}
+
+function PoseSquad(a, b, sw = 18) {
+  const lx = 138, rx = 262
+  return (
+    <g>
+      <Stickman {...upright(lx, a, { sw, rHand: [rx, 96], rElbow: [200, 88], lHand: [lx - 30, 246], lElbow: [lx - 20, 200] })} />
+      <Stickman {...upright(rx, b, { sw, lHand: [lx, 96], lElbow: [200, 88], rHand: [rx + 30, 246], rElbow: [rx + 20, 200] })} />
+    </g>
+  )
+}
+
+function PoseLift(a, b, sw = 18) {
+  const cx = 200
+  const bottom = { head: [cx, 200], r: 22, bodyTop: [cx, 226], shoulder: [cx, 256], hip: [cx, 318], lHand: [cx - 56, 192], lElbow: [cx - 38, 222], rHand: [cx + 56, 192], rElbow: [cx + 38, 222], lFoot: [cx - 48, 380], lKnee: [cx - 38, 350], rFoot: [cx + 48, 380], rKnee: [cx + 38, 350], color: a, sw }
+  const top = { head: [cx, 34], r: 20, bodyTop: [cx, 56], shoulder: [cx, 96], hip: [cx, 154], lHand: [cx - 56, 50], lElbow: [cx - 36, 64], rHand: [cx + 56, 50], rElbow: [cx + 36, 64], lFoot: [cx - 48, 184], lKnee: [cx - 28, 174], rFoot: [cx + 48, 184], rKnee: [cx + 28, 174], color: b, sw: sw * 0.9 }
+  return <g><Stickman {...bottom} /><Stickman {...top} /></g>
+}
+
+function PoseBridge(a, b, sw = 18) {
+  const lx = 88, rx = 312
+  return (
+    <g>
+      <Stickman head={[lx + 8, 98]} r={22} bodyTop={[lx + 22, 126]} shoulder={[lx + 46, 190]} hip={[lx + 70, 268]} spineSway={28} rHand={[200, 134]} rElbow={[140, 158]} lFoot={[lx + 30, 380]} lKnee={[lx + 42, 326]} rFoot={[lx + 100, 380]} rKnee={[lx + 92, 326]} color={a} sw={sw} />
+      <Stickman head={[rx - 8, 98]} r={22} bodyTop={[rx - 22, 126]} shoulder={[rx - 46, 190]} hip={[rx - 70, 268]} spineSway={-28} lHand={[200, 134]} lElbow={[260, 158]} lFoot={[rx - 100, 380]} lKnee={[rx - 92, 326]} rFoot={[rx - 30, 380]} rKnee={[rx - 42, 326]} color={b} sw={sw} />
+    </g>
+  )
+}
+
+function PoseEcho(a, b, sw = 18) {
+  return (
+    <g>
+      <Stickman {...upright(138, a, { sw, rHand: [200, BAR_Y] })} />
+      <g transform="rotate(180 262 200)">
+        <Stickman {...upright(262, b, { sw, lHand: [200, BAR_Y] })} />
       </g>
+    </g>
+  )
+}
+
+function PoseArrow(a, b, sw = 18) {
+  const f = (cx, color) => ({
+    head: [cx + 34, 58], r: 22, bodyTop: [cx + 22, 86], shoulder: [cx + 4, 150], hip: [cx - 18, 256], spineSway: 6,
+    lHand: [cx - 46, 196], lElbow: [cx - 30, 174], rHand: [cx + 96, 92], rElbow: [cx + 56, 110],
+    lFoot: [cx - 56, 380], lKnee: [cx - 40, 322], rFoot: [cx + 26, 380], rKnee: [cx + 8, 324], color, sw,
+  })
+  return <g><Stickman {...f(108, a)} /><Stickman {...f(253, b)} /></g>
+}
+
+function PoseSit(a, b, sw = 18) {
+  const f = (cx, color, faceIn = 1) => ({
+    head: [cx, 114], r: 22, bodyTop: [cx, 142], shoulder: [cx, 188], hip: [cx, 256], spineSway: 4 * faceIn,
+    lHand: [cx - 36 * faceIn, 232], lElbow: [cx - 26 * faceIn, 210], rHand: [cx + 36 * faceIn, 232], rElbow: [cx + 26 * faceIn, 210],
+    lFoot: [cx - 56 * faceIn, 308], lKnee: [cx - 18 * faceIn, 264], rFoot: [cx + 56 * faceIn, 308], rKnee: [cx + 18 * faceIn, 264], color, sw,
+  })
+  return (
+    <g>
+      <Stickman {...f(138, a, 1)} />
+      <Stickman {...f(262, b, -1)} />
+      <line x1={174} y1={232} x2={226} y2={232} stroke={a} strokeWidth={sw} strokeLinecap="round" />
+    </g>
+  )
+}
+
+export const POSES = {
+  mark: PoseMark, stride: PoseStride, handshake: PoseHandshake, highfive: PoseHighFive,
+  reach: PoseReach, run: PoseRun, leap: PoseLeap, dance: PoseDance, squad: PoseSquad,
+  lift: PoseLift, bridge: PoseBridge, echo: PoseEcho, arrow: PoseArrow, sit: PoseSit,
+}
+
+// Generic renderer — <Fren pose="handshake" colorA={..} colorB={..} sw={20} size={320} />
+export function Fren({ pose, colorA = NAVY, colorB = NAVY, sw = 18, size = 200, className, style, label = 'Chainfren figures' }) {
+  const fn = POSES[pose]
+  if (!fn) return null
+  return (
+    <svg
+      viewBox="0 0 400 400"
+      width={size}
+      height={size}
+      className={className}
+      style={{ display: 'block', overflow: 'visible', flexShrink: 0, ...style }}
+      role="img"
+      aria-label={label}
+    >
+      {fn(colorA, colorB, sw)}
     </svg>
   )
 }
 
-// Compact four-step progression — "how it works" mini icons.
-// Returns just a Figure at a given micro-pose index (0..3): meet, match, activate, lift.
-export function StepFren({ step = 0, color = '#08153C', sw = 13, className, style }) {
-  const poses = [
-    // 0 · meet — walking, arms swinging
-    { rHand: [148, 150], rElbow: [168, 140], lHand: [92, 168], lElbow: [108, 150], lFoot: [88, 240], lKnee: [96, 210], rFoot: [140, 240], rKnee: [132, 210], spineSway: -2 },
-    // 1 · match — arm extended offering
-    { rHand: [186, 128], rElbow: [168, 138], lHand: [88, 176], lElbow: [104, 156], lFoot: [96, 240], lKnee: [102, 210], rFoot: [140, 240], rKnee: [132, 210], spineSway: 0 },
-    // 2 · activate — dynamic, both arms out
-    { rHand: [196, 118], rElbow: [172, 132], lHand: [64, 118], lElbow: [88, 132], lFoot: [92, 240], lKnee: [102, 208], rFoot: [148, 240], rKnee: [138, 208], spineSway: 3 },
-    // 3 · lift — arm raised, celebratory
-    { rHand: [176, 66], rElbow: [162, 108], lHand: [90, 168], lElbow: [104, 150], lFoot: [96, 240], lKnee: [102, 210], rFoot: [140, 240], rKnee: [132, 210], spineSway: -2 },
-  ]
-  const p = poses[step % poses.length]
-  return (
-    <svg viewBox="0 0 260 280" className={className} style={style} xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
-      <Figure cx={120} headY={92} r={12} bodyTop={106} shoulder={128} hip={190} sw={sw} color={color} {...p} />
-    </svg>
-  )
+export {
+  Stickman, upright,
+  PoseMark, PoseStride, PoseHandshake, PoseHighFive, PoseReach, PoseRun,
+  PoseLeap, PoseDance, PoseSquad, PoseLift, PoseBridge, PoseEcho, PoseArrow, PoseSit,
 }

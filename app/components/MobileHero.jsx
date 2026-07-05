@@ -114,18 +114,18 @@ export default function MobileHero() {
           against the same column edges as the wordmark. Italic tail on
           the last line per the hero-section design spec. */}
       <h1 className="cf-mh-headline">
-        <span className="cf-mh-headline__line cf-mh-headline__line--a">The growth engine</span>
-        <span className="cf-mh-headline__line cf-mh-headline__line--b">powering Africa&apos;s</span>
-        <span className="cf-mh-headline__line cf-mh-headline__line--c">creative force</span>
+        <span className="cf-mh-headline__line cf-mh-headline__line--a">Ownership</span>
+        <span className="cf-mh-headline__line cf-mh-headline__line--b">infrastructure for the</span>
+        <span className="cf-mh-headline__line cf-mh-headline__line--c">African creator economy.</span>
       </h1>
 
       {/* Subhead — per-line fit-to-column, matching the design spec
           line breaks for a clean rectangular text block. */}
       <div className="cf-mh-subhead">
-        <span className="cf-mh-subhead__line cf-mh-subhead__line--a">The platforms took your audience, your</span>
-        <span className="cf-mh-subhead__line cf-mh-subhead__line--b">data, and most of your money. Chainfren</span>
-        <span className="cf-mh-subhead__line cf-mh-subhead__line--c">is the infrastructure for creators and</span>
-        <span className="cf-mh-subhead__line cf-mh-subhead__line--d">brands ambitious enough to take it back.</span>
+        <span className="cf-mh-subhead__line cf-mh-subhead__line--a">The platforms control your audience,</span>
+        <span className="cf-mh-subhead__line cf-mh-subhead__line--b">your data, and your revenue. Chainfren</span>
+        <span className="cf-mh-subhead__line cf-mh-subhead__line--c">is the infrastructure for the ones</span>
+        <span className="cf-mh-subhead__line cf-mh-subhead__line--d">ambitious enough to take it back.</span>
       </div>
     </section>
   )

@@ -52,7 +52,7 @@ function StaggerItem({ children, index }) {
 }
 
 const services = [
-  { icon: Briefcase, label: 'Agency', desc: 'Done-for-you growth systems', href: '/agency', color: C.cyan },
+  { icon: Briefcase, label: 'Agency', desc: 'Done-with-you growth systems', href: '/agency', color: C.cyan },
   { icon: Box, label: 'Products', desc: 'TiVi · TVinBio · Comeownity', href: '/products', color: C.periwinkle },
   { icon: Radio, label: 'Sabi', desc: 'Onchain broadcasting network', href: '/media', color: C.mint },
 ]
@@ -60,7 +60,7 @@ const services = [
 const interestGroups = [
   {
     label: 'Agency',
-    options: ['Agency — Strategy & Done-for-You Growth Work'],
+    options: ['Agency — Strategy & Done-With-You Growth Work'],
   },
   {
     label: 'Products',
@@ -175,7 +175,7 @@ export default function Contact() {
           </FadeUp>
           <FadeUp delay={0.16}>
             <p className="mt-6 text-base sm:text-lg max-w-lg leading-relaxed" style={{ color: C.dim }}>
-              Africa&apos;s growth engine for creators and brands. Whether you&apos;re launching, scaling, or rebuilding — agency, products, or the Sabi network — start here.
+              The ownership infrastructure for Africa&apos;s creator economy. Whether you&apos;re launching, scaling, or rebuilding — agency, products, or the Sabi network — start here.
             </p>
           </FadeUp>
 

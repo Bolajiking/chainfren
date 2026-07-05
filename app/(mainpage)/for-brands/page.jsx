@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import SiteHeader, { DEFAULT_LINKS, DEFAULT_CTA } from '../../components/SiteHeader'
-import { HandshakeFrens } from '../../components/Frens'
+import { Fren } from '../../components/Frens'
 
 export const metadata = {
   title: 'For Brands — Reach African & Crypto Audiences That Convert',
-  description: "Connect your onchain brand to Africa's creators and global crypto KOLs. De-risk your Web3 go-to-market with curated creator campaigns and full-stack agency execution.",
+  description: "Build culture people own. Chainfren connects your brand to Africa's creators and the world's crypto KOLs — curated campaigns, full agency execution, onchain.",
 }
 
 const CF = {
@@ -65,7 +65,7 @@ export default function ForBrandsPage() {
               Everything Chainfren offers brands — from creator campaigns to full go-to-market execution in the onchain economy.
             </p>
           </div>
-          <HandshakeFrens style={{ width: 'min(300px, 38vw)', height: 'auto', flexShrink: 0 }} />
+          <Fren pose="handshake" colorA={CF.cyan} colorB={CF.mint} sw={20} size={300} style={{ width: 'min(300px, 38vw)', height: 'auto', flexShrink: 0 }} />
         </div>
       </section>
 

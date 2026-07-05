@@ -424,18 +424,19 @@ body {
    glyph extents stay strictly inside the wordmark column (the implied
    inset box). Italic line uses its own divisor, accounting for slant
    overhang on the final letter. */
-.cf-mh-headline__line--a { /* "The growth engine" */
-  font-size: clamp(26px, calc((100vw - 78px) / 8.9), 48px);
-}
-.cf-mh-headline__line--b { /* "powering Africa's" */
-  font-size: clamp(28px, calc((100vw - 78px) / 8.4), 52px);
-}
-.cf-mh-headline__line--c { /* "creative force" — italic tail accent.
-   Inherits Inter Display (rsms.me) from <body>, so real italic glyphs
-   with the curling-descender 'f' render naturally. Divisor tuned so the
-   slant overhang lands inside the wordmark right edge. */
+.cf-mh-headline__line--a { /* "Ownership" — italic lead accent, the brand's
+   core word crowned at the top of the headline. Inherits Inter Display
+   (rsms.me) from <body>, so real italic glyphs with the curling-descender
+   'f' render naturally. Divisor tuned so the slant overhang lands inside
+   the wordmark right edge. */
   font-style: italic;
-  font-size: clamp(32px, calc((100vw - 78px) / 6.7), 62px);
+  font-size: clamp(40px, calc((100vw - 78px) / 5.51), 76px);
+}
+.cf-mh-headline__line--b { /* "infrastructure for the" */
+  font-size: clamp(22px, calc((100vw - 78px) / 10.03), 42px);
+}
+.cf-mh-headline__line--c { /* "African creator economy." */
+  font-size: clamp(19px, calc((100vw - 78px) / 11.98), 35px);
 }
 .cf-mh-subhead {
   margin: 0;
@@ -449,10 +450,10 @@ body {
   line-height: 1.18;
 }
 .cf-mh-subhead__line { display: block; white-space: nowrap; }
-.cf-mh-subhead__line--a { font-size: clamp(12px, calc((100vw - 78px) / 19.10), 22px); }
-.cf-mh-subhead__line--b { font-size: clamp(12px, calc((100vw - 78px) / 19.80), 22px); }
-.cf-mh-subhead__line--c { font-size: clamp(13px, calc((100vw - 78px) / 17.55), 24px); }
-.cf-mh-subhead__line--d { font-size: clamp(12px, calc((100vw - 78px) / 19.72), 22px); }
+.cf-mh-subhead__line--a { font-size: clamp(12px, calc((100vw - 78px) / 17.98), 23px); }
+.cf-mh-subhead__line--b { font-size: clamp(12px, calc((100vw - 78px) / 18.98), 22px); }
+.cf-mh-subhead__line--c { font-size: clamp(14px, calc((100vw - 78px) / 15.42), 27px); }
+.cf-mh-subhead__line--d { font-size: clamp(14px, calc((100vw - 78px) / 16.06), 26px); }
 
 /* ───────── Article reader ───────── */
 .cf-article-root {
