@@ -1,5 +1,6 @@
 import './globals.css'
 import ContextProvider from './components/utils/Provider'
+import StyledJsxRegistry from './components/utils/StyledJsxRegistry'
 
 export const metadata = {
   title: {
@@ -52,9 +53,11 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="antialiased" style={{ fontFamily: '"Inter Display", "Inter", sans-serif' }}>
-        <ContextProvider>
-          {children}
-        </ContextProvider>
+        <StyledJsxRegistry>
+          <ContextProvider>
+            {children}
+          </ContextProvider>
+        </StyledJsxRegistry>
       </body>
     </html>
   )

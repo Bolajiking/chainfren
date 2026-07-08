@@ -6,7 +6,7 @@ import {
   BarChart2, Play, Globe, Shield, Calendar, Video
 } from 'lucide-react'
 
-const data = {
+export const data = {
   icon: Ticket,
   badge: 'TiVi for Events',
   headline: 'YOUR VENUE',

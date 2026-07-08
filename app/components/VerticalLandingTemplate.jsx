@@ -8,7 +8,7 @@ import {
   Check, ArrowRight, ChevronDown, Star, Zap, ArrowUpRight, X
 } from 'lucide-react'
 import CalendlyWidget from '@/app/components/CalendlyWidget'
-import Navbar from '@/app/components/Navbar'
+import SiteHeader from '@/app/components/SiteHeader'
 
 // --- Brand Color Tokens (matching TiVi main page) ---
 const C = {
@@ -559,13 +559,16 @@ function LeadForm({ data }) {
 // =============================================================================
 // BACK TO TIVI LINK
 // =============================================================================
-function BackLink() {
+function BackLink({ title }) {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-      <Link href="/products/TiVi" className="inline-flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-70" style={{ color: C.muted }}>
-        <ArrowRight className="w-4 h-4 rotate-180" />
-        Back to TiVi
-      </Link>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs uppercase tracking-wider" style={{ color: C.muted }}>
+        <Link href="/solutions" className="hover:opacity-70 transition-opacity" style={{ color: C.muted }}>Solutions</Link>
+        <span aria-hidden="true">›</span>
+        <Link href="/solutions/media-launchpad" className="hover:opacity-70 transition-opacity" style={{ color: C.muted }}>Media Launchpad</Link>
+        <span aria-hidden="true">›</span>
+        <span style={{ color: C.dark }}>{title}</span>
+      </nav>
     </div>
   )
 }
@@ -574,10 +577,11 @@ function BackLink() {
 // MAIN TEMPLATE EXPORT
 // =============================================================================
 export default function VerticalLandingTemplate({ data }) {
+  const vTitle = (data.badge || '').replace(/^TiVi for\s*/i, '') || data.verticalName
   return (
     <div className="bg-white min-h-screen">
-      <Navbar contactHref="/products/TiVi/contact" />
-      <BackLink />
+      <SiteHeader badgeLabel="Solutions" accent={data.accentColor} cta={{ label: 'Book a demo', href: '/solutions/media-launchpad/demo' }} />
+      <BackLink title={vTitle} />
       <HeroSection data={data} />
       <StatsBar stats={data.stats} accentColor={data.accentColor} />
       <ProblemSection data={data} />

@@ -181,7 +181,7 @@ function Hero({ onHire, heroRef, bucket, reducedMotion }) {
           <Reveal delay={0.24}>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 34 }}>
               <PillBtn dark onClick={onHire}>Hire the network</PillBtn>
-              <PillBtn light href="/agency/creator-network/apply">Apply to join</PillBtn>
+              <PillBtn light href="/creator-network/apply">Apply to join</PillBtn>
             </div>
           </Reveal>
           <Reveal delay={0.3}>
@@ -307,7 +307,7 @@ function Fork({ onHire, bucket }) {
                   </div>
                 ))}
               </div>
-              <Link href="/agency/creator-network/apply" style={{ width: '100%', height: 52, borderRadius: 9999, background: CF.mint, color: CF.navy, border: 'none', fontFamily: 'inherit', fontSize: 13, fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Apply to join</Link>
+              <Link href="/creator-network/apply" style={{ width: '100%', height: 52, borderRadius: 9999, background: CF.mint, color: CF.navy, border: 'none', fontFamily: 'inherit', fontSize: 13, fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Apply to join</Link>
             </div>
           )}
         </div>
@@ -351,7 +351,7 @@ function Fork({ onHire, bucket }) {
           <h3 style={{ fontSize: 'clamp(1.7rem,2.6vw,2.5rem)', fontWeight: 500, color: CF.navy, lineHeight: 1.1, letterSpacing: '-0.015em', margin: '16px 0 16px', maxWidth: 420 }}>Get paid to work with crypto&rsquo;s biggest brands.</h3>
           <p style={{ fontSize: 15.5, color: 'rgba(8,21,60,0.78)', lineHeight: 1.6, margin: '0 0 22px', maxWidth: 420 }}>Real campaigns with real budgets from the biggest names in crypto. Vetted deals, no scams, and payment in stablecoins the moment you deliver.</p>
           <ForkPoints points={CREATOR_POINTS} dot={CF.navy} />
-          <PillBtn dark href="/agency/creator-network/apply" style={{ alignSelf: 'flex-start', background: CF.navy, color: CF.white, border: `2px solid ${CF.navy}` }}>Apply to join</PillBtn>
+          <PillBtn dark href="/creator-network/apply" style={{ alignSelf: 'flex-start', background: CF.navy, color: CF.white, border: `2px solid ${CF.navy}` }}>Apply to join</PillBtn>
         </div>
 
         <div style={{ position: 'absolute', left: '50%', top: 36, transform: 'translate(-50%,0)', width: 104, height: 104, pointerEvents: 'none', filter: 'drop-shadow(0 8px 20px rgba(0,0,0,0.25))', zIndex: 3 }}>
@@ -544,7 +544,7 @@ function FinalCTA({ finalRef, onHire, bucket }) {
           <Reveal delay={0.1}>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
               <PillBtn dark onClick={onHire}>Hire the network</PillBtn>
-              <PillBtn light href="/agency/creator-network/apply">Apply to join</PillBtn>
+              <PillBtn light href="/creator-network/apply">Apply to join</PillBtn>
             </div>
           </Reveal>
           <Reveal delay={0.18}>
@@ -577,7 +577,7 @@ function StickyBar({ visible, onHire }) {
     >
       <div style={{ background: 'rgba(8,21,60,0.94)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderRadius: 9999, padding: 8, display: 'flex', gap: 8, alignItems: 'center', boxShadow: '0 12px 32px rgba(8,21,60,0.25)' }}>
         <button type="button" onClick={onHire} style={{ height: 42, padding: '0 20px', borderRadius: 9999, background: CF.white, color: CF.navy, border: 'none', fontFamily: 'inherit', fontSize: 12, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', cursor: 'pointer' }}>Hire the network</button>
-        <Link href="/agency/creator-network/apply" style={{ height: 42, padding: '0 20px', borderRadius: 9999, background: 'transparent', color: CF.white, border: '1.5px solid rgba(255,255,255,0.4)', fontFamily: 'inherit', fontSize: 12, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>Apply to join</Link>
+        <Link href="/creator-network/apply" style={{ height: 42, padding: '0 20px', borderRadius: 9999, background: 'transparent', color: CF.white, border: '1.5px solid rgba(255,255,255,0.4)', fontFamily: 'inherit', fontSize: 12, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>Apply to join</Link>
       </div>
     </div>
   )
@@ -591,7 +591,7 @@ function PageFooter() {
       <div>
         <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', color: CF.subtle, marginBottom: 12 }}>Explore</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          {[['Agency', '/agency'], ['Creator Network', '/agency/creator-network'], ['Products', '/products'], ['Media', '/media']].map(([l, h]) => (
+          {[['Solutions', '/solutions'], ['Creator Network', '/creator-network'], ['Products', '/products'], ['Media', '/media']].map(([l, h]) => (
             <Link key={l} href={h} style={{ fontSize: 13.5, color: CF.navy, textDecoration: 'none' }}>{l}</Link>
           ))}
         </div>
@@ -679,14 +679,14 @@ export default function CreatorNetworkPage() {
       `}</style>
 
       <SiteHeader
-        badgeLabel="Agency"
+        badgeLabel="Solutions"
         accent={CF.cyan}
-        links={[{ label: 'Agency', href: '/agency' }, { label: 'Apply to join', href: '/agency/creator-network/apply' }]}
+        links={[{ label: 'Solutions', href: '/solutions' }, { label: 'Apply to join', href: '/creator-network/apply' }]}
         cta={{ label: 'Join Chainfren', href: '/contact' }}
       />
 
       <nav aria-label="Breadcrumb" style={{ maxWidth: 1220, margin: '0 auto', padding: '2px 24px 18px', display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-        <Link href="/agency" style={{ fontSize: 11.5, fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(8,21,60,0.48)', textDecoration: 'none' }}>Agency</Link>
+        <Link href="/solutions" style={{ fontSize: 11.5, fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(8,21,60,0.48)', textDecoration: 'none' }}>Solutions</Link>
         <span style={{ color: 'rgba(8,21,60,0.3)', fontSize: 12 }}>&rsaquo;</span>
         <span style={{ fontSize: 11.5, fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: CF.navy }}>Creator Network</span>
       </nav>

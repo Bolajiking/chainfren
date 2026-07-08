@@ -3,7 +3,7 @@
 import VerticalLandingTemplate from '@/app/components/VerticalLandingTemplate'
 import { Trophy, DollarSign, Users, Eye, Lock, Wallet, BarChart2, Play, Globe, Shield, Zap, Tv } from 'lucide-react'
 
-const data = {
+export const data = {
   icon: Trophy,
   badge: 'TiVi for Sports',
   headline: 'EVERY GAME.',

@@ -2,7 +2,7 @@
 import VerticalLandingTemplate from '@/app/components/VerticalLandingTemplate'
 import { Film, DollarSign, Users, Eye, Lock, Wallet, BarChart2, Play, Globe, Shield, Camera, ShoppingBag } from 'lucide-react'
 
-const data = {
+export const data = {
   icon: Film,
   badge: 'TiVi for Film',
   headline: 'OWN YOUR OWN CINEMA.',

@@ -2,9 +2,9 @@ import Link from 'next/link'
 import SiteHeader, { DEFAULT_CTA } from '../../components/SiteHeader'
 
 export const metadata = {
-  title: 'Creator Tools & Streaming Products — TiVi, TVinBio, Comeownity',
+  title: 'Creator Tools — TVinBio & Star Factor',
   description:
-    "Stop building on rented land. Chainfren's product stack — streaming, owned media, and tokenized entertainment for African creators. Keep up to 95% of revenue.",
+    "Stop building on rented land. Chainfren's product portfolio — an owned media hub and an onchain entertainment platform for African creators.",
 }
 
 const CF = {
@@ -15,6 +15,8 @@ const CF = {
   periwinkle: '#8DAAFF',
   cyan: '#5ACDFF',
   mint: '#CBF0B8',
+  lime: '#C8EB6D',
+  coral: '#FF6B6B',
   tint: '#EEF2FF', // light periwinkle tint
 }
 
@@ -100,32 +102,12 @@ function PillBtn({ children, dark, href, external, style = {} }) {
 const PRODUCTS = [
   {
     n: '01',
-    name: 'TiVi',
-    tag: 'Streaming Platform',
-    bg: CF.periwinkle,
-    desc:
-      'Your Netflix. Your Twitch. Your YouTube — without the algorithm, the platform tax, or the deplatforming risk. Live, on-demand, paid, gated, owned.',
-    href: '/products/TiVi',
-    external: false,
-  },
-  {
-    n: '02',
     name: 'TVinBio',
     tag: 'Owned Media Hub',
     bg: CF.cyan,
     desc:
       'Replace your link-in-bio with a media hub you actually own. Capture fans, sell directly, run your storefront — all from one page.',
     href: 'https://tvin.bio/',
-    external: true,
-  },
-  {
-    n: '03',
-    name: 'Comeownity',
-    tag: 'Cultural Infrastructure',
-    bg: CF.mint,
-    desc:
-      'Tokenized shows, interactive formats, fan-driven communities. Where Star Factor lives and the next generation of African live entertainment is built.',
-    href: 'https://comeownity.com/',
     external: true,
   },
 ]
@@ -177,7 +159,7 @@ function HeroCard() {
           marginTop: 16,
         }}
       >
-        Tools and software to leave rented platforms, monetize directly, and build durable internet businesses you keep.
+        Tools to leave rented platforms and build owned economies.
       </p>
       <div style={{ display: 'flex', gap: 8, marginTop: 22, flexWrap: 'wrap' }}>
         <PillBtn dark href="/contact">
@@ -282,6 +264,62 @@ function ProductCard({ p }) {
   )
 }
 
+// Star Factor's bento treatment — the same premium dark/gradient language used
+// for its live-in-public tile elsewhere on the site (radial color wash,
+// serif-italic gradient wordmark, a pulsing "Live · Lagos" indicator, and a
+// looping progress bar), so the portfolio's second product feels as elevated
+// as its first.
+function StarFactorCard() {
+  return (
+    <a
+      href="https://starfactor.xyz"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="cf-starfactor-card"
+      style={{
+        ...CARD_BASE,
+        background: CF.dark,
+        color: CF.white,
+        padding: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        textDecoration: 'none',
+        backgroundImage: `radial-gradient(60% 50% at 88% 0%, ${CF.coral}77 0%, transparent 60%), radial-gradient(55% 45% at 10% 0%, ${CF.lime}66 0%, transparent 60%), radial-gradient(70% 60% at 95% 100%, ${CF.cyan}55 0%, transparent 60%), radial-gradient(80% 60% at 0% 100%, ${CF.periwinkle}66 0%, transparent 60%)`,
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,0.12)' }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 10.5, fontWeight: 480, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+          <span style={{ width: 7, height: 7, borderRadius: '50%', background: CF.lime, boxShadow: `0 0 0 4px ${CF.lime}33`, animation: 'cf-pulse 2s infinite' }} />
+          Coming Soon
+        </span>
+        <span style={{ fontSize: 10, fontWeight: 450, letterSpacing: '0.1em', color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase' }}>Lagos</span>
+      </div>
+
+      <div style={{ flex: 1, padding: '18px 18px 14px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 14, minHeight: 108 }}>
+        <Eyebrow color={CF.lime}>Onchain Entertainment</Eyebrow>
+        <div>
+          <div style={{ fontFamily: SERIF, fontStyle: 'italic', fontWeight: 450, fontSize: 'clamp(1.5rem, 2.6vw, 2.1rem)', lineHeight: 0.95, letterSpacing: '-0.02em', background: `linear-gradient(110deg, ${CF.lime} 0%, ${CF.coral} 35%, ${CF.cyan} 70%, ${CF.periwinkle} 100%)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Star Factor.</div>
+          <p style={{ fontSize: 12.5, lineHeight: 1.45, color: 'rgba(255,255,255,0.75)', marginTop: 8, maxWidth: 320 }}>
+            Africa&apos;s first onchain reality entertainment platform. Launching soon — be first to know.
+          </p>
+        </div>
+      </div>
+
+      <div style={{ padding: '12px 18px 14px', borderTop: '1px solid rgba(255,255,255,0.12)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ flex: 1, height: 3, borderRadius: 2, background: 'rgba(255,255,255,0.18)', position: 'relative', overflow: 'hidden' }}>
+            <span className="cf-starfactor-scrub" style={{ position: 'absolute', inset: 0, width: '38%', borderRadius: 2, background: `linear-gradient(90deg, ${CF.lime}, ${CF.coral}, ${CF.cyan})` }} />
+          </span>
+          <span style={{ fontSize: 10, fontWeight: 450, letterSpacing: '0.08em', color: 'rgba(255,255,255,0.6)' }}>SOON</span>
+        </div>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 11.5, fontWeight: 450, letterSpacing: '0.08em', textTransform: 'uppercase', color: CF.white }}>
+          Get notified <Arrow size={11} />
+        </span>
+      </div>
+    </a>
+  )
+}
+
 function Portfolio() {
   return (
     <section
@@ -297,9 +335,9 @@ function Portfolio() {
           gap: 12,
         }}
       >
-        <Eyebrow color={CF.muted}>The Portfolio · 03</Eyebrow>
+        <Eyebrow color={CF.muted}>The Portfolio · 02</Eyebrow>
         <span style={{ fontSize: 12, color: CF.muted, letterSpacing: '0.04em' }}>
-          Streaming · Media · Community
+          Owned Media · Onchain Entertainment
         </span>
       </div>
 
@@ -311,10 +349,7 @@ function Portfolio() {
           <ProductCard p={PRODUCTS[0]} />
         </div>
         <div className="cf-bento-b">
-          <ProductCard p={PRODUCTS[1]} />
-        </div>
-        <div className="cf-bento-c">
-          <ProductCard p={PRODUCTS[2]} />
+          <StarFactorCard />
         </div>
       </div>
     </section>
@@ -338,15 +373,22 @@ export default function Products() {
             }
             .cf-bento-hero { grid-column: span 6; grid-row: span 2; }
             .cf-bento-a    { grid-column: span 6; grid-row: span 1; }
-            .cf-bento-b    { grid-column: span 3; grid-row: span 1; }
-            .cf-bento-c    { grid-column: span 3; grid-row: span 1; }
+            .cf-bento-b    { grid-column: span 6; grid-row: span 1; }
             .cf-product-card:hover { transform: translateY(-4px); }
+            .cf-starfactor-card { transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1); }
+            .cf-starfactor-card:hover { transform: translateY(-4px); }
+            @keyframes cf-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.92); } }
+            .cf-starfactor-scrub { animation: cf-starfactor-scrub 6s linear infinite; }
+            @keyframes cf-starfactor-scrub { 0% { transform: translateX(-100%); } 100% { transform: translateX(280%); } }
+            @media (prefers-reduced-motion: reduce) {
+              [style*="cf-pulse"] { animation: none !important; }
+              .cf-starfactor-scrub { animation: none !important; }
+            }
             @media (max-width: 900px) {
               .cf-bento { grid-template-columns: 1fr; }
               .cf-bento-hero,
               .cf-bento-a,
-              .cf-bento-b,
-              .cf-bento-c { grid-column: span 1; }
+              .cf-bento-b { grid-column: span 1; }
             }
           `,
         }}

@@ -52,8 +52,8 @@ function StaggerItem({ children, index }) {
 }
 
 const services = [
-  { icon: Briefcase, label: 'Agency', desc: 'Done-with-you growth systems', href: '/agency', color: C.cyan },
-  { icon: Box, label: 'Products', desc: 'TiVi · TVinBio · Comeownity', href: '/products', color: C.periwinkle },
+  { icon: Briefcase, label: 'Solutions', desc: 'Done-with-you growth systems', href: '/solutions', color: C.cyan },
+  { icon: Box, label: 'Products', desc: 'TVinBio · Star Factor', href: '/products', color: C.periwinkle },
   { icon: Radio, label: 'Sabi', desc: 'Onchain broadcasting network', href: '/media', color: C.mint },
 ]
 
@@ -253,7 +253,7 @@ export default function Contact() {
 
             {/* TiVi callout */}
             <FadeUp delay={0.15}>
-              <Link href="/products/TiVi/contact" className="group block mt-6">
+              <Link href="/solutions/media-launchpad/demo" className="group block mt-6">
                 <div className="p-5 rounded-2xl border-2 transition-all duration-300 group-hover:shadow-lg" style={{ borderColor: C.periwinkle + '30', background: C.periwinkle + '08' }}>
                   <p className="text-xs font-bold tracking-wider uppercase mb-1" style={{ color: C.periwinkle }}>
                     Looking for TiVi?

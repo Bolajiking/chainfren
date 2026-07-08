@@ -6,7 +6,7 @@ import {
   BarChart2, Play, Globe, Shield, Zap, ShoppingBag,
 } from 'lucide-react'
 
-const data = {
+export const data = {
   icon: Tv,
   badge: 'TiVi for Creators',
   headline: 'YOU ARE THE NETWORK.',

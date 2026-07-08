@@ -11,6 +11,9 @@ export default function ChainfrenWordmark({
   className,
   style,
   ariaLabel = 'Chainfren',
+  // Optional class on the inner H-mark SVG (the two "frens"). SiteHeader
+  // toggles this to run the fren-delight reaction when a mega-menu opens.
+  markClassName,
 }) {
   const sw = 8
 
@@ -47,6 +50,7 @@ export default function ChainfrenWordmark({
     >
       <svg
         viewBox={`0 0 ${HM.vbW} ${HM.vbH}`}
+        className={markClassName}
         style={{
           position: 'absolute',
           left: 0,

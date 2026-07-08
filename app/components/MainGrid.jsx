@@ -287,7 +287,7 @@ const MainGrid = () => {
 
   const ThreeDIconSection = () => (
     <Link
-      href="/agency/creator-network"
+      href="/creator-network"
       className="group bg-dark-blue border-[2px] border-dark-blue rounded-[26px] p-6 md:p-8 flex items-center justify-center h-[300px] md:h-[390px] relative overflow-hidden"
     >
       <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
@@ -323,12 +323,23 @@ const MainGrid = () => {
   const WeatherSection = () => <WeatherWidget />;
 
   const NewsletterSection = () => (
-    <div className="border-[2px] border-dark-blue border-solid rounded-[26px] p-6 md:p-8 h-auto md:h-[297px] relative overflow-hidden">
-      <h3 className="text-sm font-semibold text-dark-blue mb-2">JOIN SABI</h3>
-      <p className="text-black text-base md:text-[24px] md:leading-[1.12] font-bold mb-8 md:mb-0">Africa's onchain broadcasting network. Music, fashion, sports, and culture — on infrastructure owned by Africans. Launching 2026.</p>
-      <div className="relative mt-8 md:mt-0 md:absolute md:left-8 md:right-8 md:bottom-6">
-        <input type="email" placeholder="john@email.com" className="w-full px-4 py-3 font-mono pr-24 border border-dark-blue/30 rounded-full text-dark-blue placeholder-dark-blue/50 focus:outline-none focus:border-dark-blue" />
-        <button className="absolute right-1 top-1 bottom-1 px-4 bg-dark-blue text-white rounded-full hover:opacity-90 transition-opacity overflow-hidden group flex items-center justify-center">
+    <div className="border-[2px] border-dark-blue border-solid rounded-[26px] p-6 md:p-8 h-auto md:h-[297px] relative overflow-hidden flex flex-col md:justify-between">
+      <div>
+        <h3 className="text-[11px] font-bold tracking-[0.18em] uppercase text-dark-blue/55 mb-3">Sabi</h3>
+        <p className="text-dark-blue text-[24px] md:text-[26px] leading-[1.1] tracking-tight font-bold mb-3">
+          Africa&apos;s onchain broadcast signal.
+        </p>
+        <p className="text-dark-blue/65 text-[14px] md:text-[15px] leading-[1.5] max-w-[34ch]">
+          Writings and broadcasts on blockchains, AI, and the technologies unlocking the African creator economy.
+        </p>
+      </div>
+      <div className="relative mt-8 md:mt-0">
+        <input
+          type="email"
+          aria-label="Email address"
+          className="w-full h-12 pl-5 pr-28 font-mono text-sm border border-dark-blue/25 rounded-full text-dark-blue focus:outline-none focus:border-dark-blue transition-colors"
+        />
+        <button className="absolute right-1 top-1 bottom-1 px-5 bg-dark-blue text-white text-sm font-semibold rounded-full hover:opacity-90 transition-opacity overflow-hidden group flex items-center justify-center">
           <span className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-full group-hover:opacity-0">Subscribe</span>
           <span className="inline-block absolute transition-transform duration-200 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 whitespace-nowrap">Subscribe</span>
         </button>

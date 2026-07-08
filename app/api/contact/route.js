@@ -101,6 +101,30 @@ export async function POST(request) {
         links: body.links || '',
         submittedAt,
       }
+    } else if (formType.startsWith('solution-')) {
+      // solution-sales | solution-demo | solution-early-access — every lead
+      // arrives pre-routed via the `solution` / `vertical` tags.
+      if (!body.email || !String(body.email).trim()) {
+        return NextResponse.json({ error: 'Email is required.' }, { status: 400 })
+      }
+      const track = formType.replace('solution-', '') // sales | demo | early-access
+      submission = {
+        id,
+        formType,
+        track,
+        solution: body.solution || '',
+        solutionName: body.solutionName || '',
+        vertical: body.vertical || '',
+        name: body.name || '',
+        company: body.company || '',
+        channel: body.channel || '',
+        email: body.email,
+        project: body.project || '',
+        audience: body.audience || '',
+        budget: body.budget || '',
+        timeline: body.timeline || '',
+        submittedAt,
+      }
     } else {
       const { firstName, lastName, email, message } = body
       if (!firstName || !lastName || !email || !message) {

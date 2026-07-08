@@ -153,7 +153,7 @@ export default function CreatorApplyForm() {
         <p style={{ fontSize: 17, color: CF.muted, lineHeight: 1.6, marginBottom: 32 }}>
           We review every application personally. If it&apos;s a fit, we&apos;ll reach out.
         </p>
-        <Link href="/agency/creator-network" style={{
+        <Link href="/creator-network" style={{
           display: 'inline-flex', alignItems: 'center', gap: 8,
           padding: '14px 28px', borderRadius: 9999, border: `2px solid ${CF.dark}`,
           color: CF.dark, textDecoration: 'none', fontSize: 13, fontWeight: 500,

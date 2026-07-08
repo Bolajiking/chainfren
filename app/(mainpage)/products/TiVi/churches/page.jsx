@@ -3,7 +3,7 @@
 import VerticalLandingTemplate from '@/app/components/VerticalLandingTemplate'
 import { Church, Heart, Users, Eye, Lock, Wallet, BarChart2, Play, Globe, Shield, BookOpen, Video } from 'lucide-react'
 
-const data = {
+export const data = {
   icon: Church,
   badge: 'TiVi for Churches',
   headline: 'YOUR MINISTRY.',

@@ -1,173 +1,90 @@
 'use client'
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
+import { POSES } from './Frens';
 
 const NAVY = '#08153C';
 
-function Figure({
-  cx, headY = 30, r = 9, bodyTop = 42, shoulder = 64, hip = 110,
-  lHand, rHand, lFoot, rFoot,
-  lElbow, rElbow, lKnee, rKnee,
-  spineSway = 0, color = NAVY, sw = 8.5,
-}) {
-  const S = { stroke: color, strokeWidth: sw, fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' };
-  let torsoD;
-  if (spineSway) {
-    const my = (bodyTop + hip) / 2;
-    torsoD = `M${cx} ${bodyTop} Q${cx + spineSway} ${my} ${cx} ${hip}`;
-  } else {
-    torsoD = `M${cx} ${bodyTop} L${cx} ${hip}`;
-  }
-  const limb = (ax, ay, jx, jy, bx, by) =>
-    jx != null ? `M${ax} ${ay} Q${jx} ${jy} ${bx} ${by}` : `M${ax} ${ay} L${bx} ${by}`;
-  return (
-    <g>
-      <path d={torsoD} {...S} />
-      {lHand && <path d={limb(cx, shoulder, lElbow?.[0], lElbow?.[1], lHand[0], lHand[1])} {...S} />}
-      {rHand && <path d={limb(cx, shoulder, rElbow?.[0], rElbow?.[1], rHand[0], rHand[1])} {...S} />}
-      {lFoot && <path d={limb(cx, hip, lKnee?.[0], lKnee?.[1], lFoot[0], lFoot[1])} {...S} />}
-      {rFoot && <path d={limb(cx, hip, rKnee?.[0], rKnee?.[1], rFoot[0], rFoot[1])} {...S} />}
-      <circle cx={cx} cy={headY} r={r} fill={color} />
-    </g>
-  );
-}
-
-function AgencyArt() {
-  const HOLD = [248, 116];
-  return (
-    <svg viewBox="0 0 360 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
-      <path
-        d="M 40 232 L 110 232 L 110 200 L 180 200 L 180 168 L 250 168 L 250 136 L 320 136 L 320 232"
-        fill="#FFFFFF" stroke={NAVY} strokeWidth={3.5} strokeLinejoin="round" strokeLinecap="round"
-      />
-      <line x1="40" y1="232" x2="110" y2="232" stroke={NAVY} strokeWidth={3.5} strokeLinecap="round" />
-      <line x1="110" y1="200" x2="180" y2="200" stroke={NAVY} strokeWidth={3.5} strokeLinecap="round" />
-      <line x1="180" y1="168" x2="250" y2="168" stroke={NAVY} strokeWidth={3.5} strokeLinecap="round" />
-      <line x1="250" y1="136" x2="320" y2="136" stroke={NAVY} strokeWidth={3.5} strokeLinecap="round" />
-      <g opacity="0.6">
-        <polyline
-          points="40,232 110,200 180,168 250,136 326,98"
-          fill="none" stroke={NAVY} strokeWidth={2.25}
-          strokeLinecap="round" strokeLinejoin="round" strokeDasharray="2,6"
-        />
-        <circle cx="110" cy="200" r="2.6" fill={NAVY} />
-        <circle cx="180" cy="168" r="2.6" fill={NAVY} />
-        <circle cx="250" cy="136" r="2.6" fill={NAVY} />
-        <path d="M 314 102 L 328 96 L 322 110" fill="none" stroke={NAVY} strokeWidth={2.75}
-              strokeLinecap="round" strokeLinejoin="round" />
-      </g>
-      <Figure
-        cx={285} headY={70} r={8}
-        bodyTop={80} shoulder={98} hip={122}
-        sw={7.5} spineSway={-2} color="#08153C"
-        rHand={HOLD} rElbow={[270, 108]}
-        lHand={[306, 100]} lElbow={[300, 102]}
-        lFoot={[276, 135]} lKnee={[280, 130]}
-        rFoot={[294, 135]} rKnee={[290, 130]}
-      />
-      <Figure
-        cx={215} headY={102} r={8}
-        bodyTop={112} shoulder={130} hip={152}
-        sw={7.5} spineSway={2} color="#2A6FA8"
-        lHand={HOLD} lElbow={[232, 118]}
-        rHand={[200, 162]} rElbow={[208, 158]}
-        lFoot={[206, 167]} lKnee={[208, 162]}
-        rFoot={[224, 167]} rKnee={[222, 162]}
-      />
-      <circle cx={HOLD[0]} cy={HOLD[1]} r={4.5} fill={NAVY} />
-    </svg>
-  );
-}
-
-function ProductArt() {
-  return (
-    <svg viewBox="0 0 360 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
-      <rect x="38" y="158" width="78" height="92" rx="14" ry="14" fill="#FFFFFF" stroke={NAVY} strokeWidth={3.5} />
-      <rect x="138" y="118" width="84" height="132" rx="14" ry="14" fill="#FFFFFF" stroke={NAVY} strokeWidth={3.5} />
-      <rect x="244" y="158" width="78" height="92" rx="14" ry="14" fill="#FFFFFF" stroke={NAVY} strokeWidth={3.5} />
-      <circle cx="77" cy="172" r="2.5" fill={NAVY} />
-      <circle cx="180" cy="132" r="2.5" fill={NAVY} />
-      <circle cx="283" cy="172" r="2.5" fill={NAVY} />
-      <Figure
-        cx={180} headY={58} r={9}
-        bodyTop={70} shoulder={90} hip={112}
-        sw={7.5}
-        lHand={[148, 56]} lElbow={[158, 70]}
-        rHand={[212, 56]} rElbow={[202, 70]}
-        lFoot={[164, 118]} lKnee={[168, 116]}
-        rFoot={[196, 118]} rKnee={[192, 116]}
-      />
-      <g opacity="0.45">
-        <line x1="116" y1="172" x2="138" y2="132" stroke={NAVY} strokeWidth={2.5} strokeLinecap="round" strokeDasharray="0,7" />
-        <line x1="222" y1="132" x2="244" y2="172" stroke={NAVY} strokeWidth={2.5} strokeLinecap="round" strokeDasharray="0,7" />
-      </g>
-      <line x1="20" y1="252" x2="340" y2="252" stroke={NAVY} strokeWidth={3} strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function MediaArt() {
-  const cx = 180, waveCy = 150;
-  const waves = [
-    { rx: 56, ry: 44, opacity: 0.85 },
-    { rx: 96, ry: 76, opacity: 0.55 },
-    { rx: 138, ry: 108, opacity: 0.28 },
-  ];
-  return (
-    <svg viewBox="0 0 360 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
-      <line x1="30" y1="248" x2="330" y2="248" stroke={NAVY} strokeWidth={3} strokeLinecap="round" />
-      <circle cx="60" cy="248" r="3.5" fill={NAVY} />
-      <circle cx="100" cy="248" r="3.5" fill={NAVY} />
-      <circle cx="260" cy="248" r="3.5" fill={NAVY} />
-      <circle cx="300" cy="248" r="3.5" fill={NAVY} />
-      {waves.map((w, i) => (
-        <path key={i}
-          d={`M ${cx - w.rx} ${waveCy} A ${w.rx} ${w.ry} 0 0 1 ${cx + w.rx} ${waveCy}`}
-          fill="none" stroke={NAVY} strokeWidth={4} strokeLinecap="round" opacity={w.opacity}
-        />
-      ))}
-      <Figure
-        cx={cx} headY={106} r={10}
-        bodyTop={120} shoulder={142} hip={196}
-        sw={8.5}
-        lHand={[148, 130]} lElbow={[160, 128]}
-        rHand={[212, 130]} rElbow={[200, 128]}
-        lFoot={[164, 246]} lKnee={[168, 226]}
-        rFoot={[196, 246]} rKnee={[192, 226]}
-      />
-    </svg>
-  );
-}
-
-const CARDS = [
+// ── The four Solution slides (replaces the retired three engines). Source of
+//    truth for accents/outcomes mirrors app/config/stack.js; kept inline here
+//    so this client tile stays self-contained. Each slide performs its
+//    solution's core idea as motion — the fren animates once when its slide
+//    becomes active (strokes draw in + dots pop via the shared .wwb-illust
+//    rules), then rests with a subtle ambient beat.
+const SLIDES = [
   {
-    id: 'agency',
-    label: 'Agency',
-    body: 'Done-with-you growth for creators and brands serious about ownership. Strategy, infrastructure, and execution — from the team that lives the work.',
-    cta: 'LEARN MORE',
-    href: '/agency',
-    bg: '#5ACDFF',
-    Art: AgencyArt,
+    key: 'media-launchpad', label: 'Media Launchpad', accent: '#5ACDFF', accentB: '#8DAAFF',
+    pre: 'Launch the media presence you ', em: 'own', post: '.', pose: 'reach',
+    href: '/solutions/media-launchpad', cta: 'Explore Media Launchpad',
   },
   {
-    id: 'product',
-    label: 'Product',
-    body: "Owned infrastructure for the African creator economy. The tools we build so creators don’t have to keep renting.",
-    cta: 'SEE PRODUCTS',
-    href: '/products',
-    bg: '#8DAAFF',
-    Art: ProductArt,
+    key: 'creator-growth-os', label: 'Creator Growth OS', accent: '#8DAAFF', accentB: '#5ACDFF',
+    pre: 'Turn influence into a business you ', em: 'keep', post: '.', pose: 'stride',
+    href: '/solutions/creator-growth-os', cta: 'Explore Creator Growth OS',
   },
   {
-    id: 'media',
-    label: 'Media',
-    body: "Music, fashion, sports, entertainment — curated, published, and broadcast on infrastructure owned by Africans.",
-    cta: 'VISIT SABI',
-    href: '/contact',
-    bg: '#CBF0B8',
-    Art: MediaArt,
+    key: 'community-loyalty', label: 'Community Engine', accent: '#CBF0B8', accentB: '#C8EB6D',
+    pre: 'Turn your audience into ', em: 'owners', post: '.', pose: 'squad',
+    href: '/solutions/community-loyalty', cta: 'Explore Community Engine',
+  },
+  {
+    key: 'ai-agents', label: 'AI Agent Studio', accent: '#A6E1FA', accentB: '#40ACFF',
+    pre: 'Scale your presence, not your ', em: 'overhead', post: '.', pose: 'echo',
+    href: '/solutions/ai-agents', cta: 'Explore AI Agent Studio',
   },
 ];
+
+// Per-slide accent motif drawn in the pose's 400×400 space. Uses only
+// stroke paths / fill circles so the shared slider rules draw them in.
+function Motif({ slide }) {
+  const a = slide.accent;
+  switch (slide.key) {
+    case 'media-launchpad': // "going live" — broadcast rings above the head
+      return (
+        <g className="wwb-live">
+          {[46, 78, 112].map((r, i) => (
+            <path key={r} d={`M${200 - r} 44 A ${r} ${r * 0.72} 0 0 1 ${200 + r} 44`} fill="none" stroke={a} strokeWidth={7} strokeLinecap="round" opacity={0.9 - i * 0.26} />
+          ))}
+          <circle cx={200} cy={44} r={6} fill={a} />
+        </g>
+      );
+    case 'creator-growth-os': // "the climb" — steps + rising trace + gathered dots
+      return (
+        <g>
+          <polyline points="56,344 128,344 128,304 200,304 200,264 272,264 272,224 344,224" fill="none" stroke={a} strokeWidth={7} strokeLinecap="round" strokeLinejoin="round" />
+          <polyline points="56,344 128,304 200,264 272,224 344,184" fill="none" stroke={NAVY} strokeWidth={3} strokeLinecap="round" strokeDasharray="2,8" opacity={0.5} />
+          {[[344, 172], [360, 180], [352, 160]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={5} fill={a} />)}
+        </g>
+      );
+    case 'community-loyalty': // "the chain forms" — a token passes along linked arms
+      return (
+        <g>
+          <circle className="wwb-token" cx={0} cy={0} r={9} fill={NAVY} />
+          {[138, 200, 262].map((x) => <circle key={x} cx={x} cy={96} r={4} fill={a} />)}
+        </g>
+      );
+    case 'ai-agents': // "the echo" — faint mirrored ghosts of the wave
+      return (
+        <g className="wwb-echoes" opacity={0.34}>
+          <g transform="translate(26 6) scale(0.94)">{POSES.mark(a, a, 12)}</g>
+          <g transform="translate(52 12) scale(0.88)" opacity={0.6}>{POSES.mark(a, a, 10)}</g>
+        </g>
+      );
+    default:
+      return null;
+  }
+}
+
+function SolutionArt({ slide }) {
+  const poseFn = POSES[slide.pose];
+  return (
+    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet" className={`wwb-sol wwb-sol--${slide.key}`}>
+      {slide.key === 'ai-agents' && <Motif slide={slide} />}
+      {poseFn(NAVY, slide.accentB, 18)}
+      {slide.key !== 'ai-agents' && <Motif slide={slide} />}
+    </svg>
+  );
+}
 
 function ArrowIcon({ dir = 'next' }) {
   const d = dir === 'next' ? 'M9 5 L16 12 L9 19' : 'M15 5 L8 12 L15 19';
@@ -182,9 +99,7 @@ function SliderHeader({ index, total, onPrev, onNext }) {
   return (
     <header className="flex flex-col gap-3 flex-none text-dark-blue">
       <div className="flex items-center justify-between gap-3">
-        <span
-          className="inline-block text-[11px] font-bold uppercase tracking-[0.18em] px-3.5 py-1.5 rounded-full border-[1.5px] border-current"
-        >
+        <span className="inline-block text-[11px] font-bold uppercase tracking-[0.18em] px-3.5 py-1.5 rounded-full border-[1.5px] border-current">
           WHAT WE BUILD
         </span>
         <div className="flex items-center gap-2.5">
@@ -192,57 +107,39 @@ function SliderHeader({ index, total, onPrev, onNext }) {
             <strong className="font-bold">{String(index + 1).padStart(2, '0')}</strong>
             <em className="not-italic font-medium opacity-50">&thinsp;/&thinsp;{String(total).padStart(2, '0')}</em>
           </span>
-          <nav className="flex gap-0.5" aria-label="Engine navigation">
-            <button
-              type="button"
-              onClick={onPrev}
-              aria-label="Previous engine"
-              className="w-[34px] h-[34px] rounded-full grid place-items-center hover:bg-dark-blue/10 active:scale-90 transition"
-            >
+          <nav className="flex gap-0.5" aria-label="Solution navigation">
+            <button type="button" onClick={onPrev} aria-label="Previous solution" className="w-[34px] h-[34px] rounded-full grid place-items-center hover:bg-dark-blue/10 active:scale-90 transition">
               <ArrowIcon dir="prev" />
             </button>
-            <button
-              type="button"
-              onClick={onNext}
-              aria-label="Next engine"
-              className="w-[34px] h-[34px] rounded-full grid place-items-center hover:bg-dark-blue/10 active:scale-90 transition"
-            >
+            <button type="button" onClick={onNext} aria-label="Next solution" className="w-[34px] h-[34px] rounded-full grid place-items-center hover:bg-dark-blue/10 active:scale-90 transition">
               <ArrowIcon dir="next" />
             </button>
           </nav>
         </div>
       </div>
       <p className="m-0 text-[20px] md:text-[22px] leading-[1.05] tracking-[-0.025em] font-medium text-dark-blue">
-        <em className="italic font-medium">Three engines, one mission.</em>
+        <em className="italic font-medium">Four solutions. One outcome: ownership.</em>
       </p>
     </header>
   );
 }
 
-function EngineCardBody({ card, animKey }) {
-  const { label, body, cta, href, Art } = card;
+function SlideBody({ slide, animKey }) {
   return (
     <div className="flex flex-col gap-3 md:gap-3.5 h-full text-dark-blue">
       <div className="wwb-stage-spacer flex-1 min-h-[12px] md:min-h-[20px]" aria-hidden="true" />
-      <h2 className="m-0 text-[44px] md:text-[56px] leading-[0.95] tracking-[-0.04em] font-bold text-dark-blue">
-        {label}
+      <h2 className="m-0 text-[30px] md:text-[40px] leading-[0.98] tracking-[-0.03em] font-bold text-dark-blue">
+        {slide.label}
       </h2>
-      <p className="m-0 text-[15px] md:text-[16px] leading-[1.45] tracking-[-0.005em] font-normal text-dark-blue/90 max-w-[30em]">
-        {body}
+      <p className="m-0 text-[19px] md:text-[22px] leading-[1.15] tracking-[-0.015em] font-medium text-dark-blue max-w-[16em]">
+        {slide.pre}<em className="italic font-semibold">{slide.em}</em>{slide.post}
       </p>
-      <div
-        className="wwb-illust relative w-full flex justify-center pointer-events-none flex-none"
-        key={`${card.id}-${animKey}`}
-        data-animate="true"
-      >
-        <Art />
+      <div className="wwb-illust relative w-full flex justify-center pointer-events-none flex-none" key={`${slide.key}-${animKey}`} data-animate="true">
+        <SolutionArt slide={slide} />
       </div>
-      <Link href={href} className="self-start mt-1">
-        <button
-          type="button"
-          className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-transparent border-2 border-dark-blue text-dark-blue text-[12px] font-bold uppercase tracking-[0.14em] whitespace-nowrap cursor-pointer transition-colors duration-200 hover:bg-dark-blue hover:text-white active:scale-[0.97] group"
-        >
-          <span>{cta}</span>
+      <Link href={slide.href} className="self-start mt-1">
+        <button type="button" className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-transparent border-2 border-dark-blue text-dark-blue text-[11px] md:text-[12px] font-bold uppercase tracking-[0.12em] whitespace-nowrap cursor-pointer transition-colors duration-200 hover:bg-dark-blue hover:text-white active:scale-[0.97] group">
+          <span>{slide.cta}</span>
           <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-[3px]">
             <path d="M5 12 L19 12 M13 6 L19 12 L13 18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -252,23 +149,15 @@ function EngineCardBody({ card, animKey }) {
   );
 }
 
-export default function WhatWeBuild({
-  className = '',
-  duration = 760,
-  autoplay = true,
-  autoplayMs = 5400,
-}) {
-  const total = CARDS.length;
+export default function WhatWeBuild({ className = '', duration = 760, autoplay = true, autoplayMs = 6000 }) {
+  const total = SLIDES.length;
   const [active, setActive] = useState(0);
   const [outgoing, setOutgoing] = useState(null);
   const [pause, setPause] = useState(false);
   const touchX = useRef(null);
 
   const go = useCallback((dir) => {
-    setActive((a) => {
-      setOutgoing(a);
-      return (a + dir + total) % total;
-    });
+    setActive((a) => { setOutgoing(a); return (a + dir + total) % total; });
   }, [total]);
 
   useEffect(() => {
@@ -291,50 +180,60 @@ export default function WhatWeBuild({
     if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
   };
 
-  const current = CARDS[active];
+  const current = SLIDES[active];
 
   return (
     <article
-      className={
-        'wwb-card relative w-full border-[2px] border-dark-blue rounded-[26px] ' +
-        'px-6 py-6 md:px-7 md:py-7 flex flex-col gap-4 text-dark-blue overflow-hidden md:h-[600px] ' +
-        className
-      }
-      style={{ background: current.bg, ['--wwb-dur']: `${duration}ms` }}
+      className={'wwb-card relative w-full border-[2px] border-dark-blue rounded-[26px] px-6 py-6 md:px-7 md:py-7 flex flex-col gap-4 text-dark-blue overflow-hidden md:h-[600px] ' + className}
+      style={{ background: current.accent, ['--wwb-dur']: `${duration}ms` }}
       onMouseEnter={() => setPause(true)}
       onMouseLeave={() => setPause(false)}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      <SliderHeader
-        index={active}
-        total={total}
-        onPrev={() => go(-1)}
-        onNext={() => go(1)}
-      />
+      <SliderHeader index={active} total={total} onPrev={() => go(-1)} onNext={() => go(1)} />
 
       <div className="wwb-stage-wrap">
         {outgoing !== null && outgoing !== active && (
           <div className="wwb-stage is-out" key={`out-${outgoing}-${active}`} aria-hidden="true">
-            <EngineCardBody card={CARDS[outgoing]} animKey={outgoing} />
+            <SlideBody slide={SLIDES[outgoing]} animKey={outgoing} />
           </div>
         )}
         <div className="wwb-stage is-in" key={`in-${active}`}>
-          <EngineCardBody card={current} animKey={active} />
+          <SlideBody slide={current} animKey={active} />
         </div>
       </div>
 
       <div className="relative flex gap-1.5 flex-none pointer-events-none" aria-hidden="true">
-        {CARDS.map((c, i) => (
-          <span
-            key={c.id}
-            className={
-              'flex-1 h-[3px] rounded-[2px] bg-dark-blue transition-opacity duration-700 ' +
-              (i === active ? 'opacity-90' : 'opacity-20')
-            }
-          />
+        {SLIDES.map((s, i) => (
+          <span key={s.key} className={'flex-1 h-[3px] rounded-[2px] bg-dark-blue transition-opacity duration-700 ' + (i === active ? 'opacity-90' : 'opacity-20')} />
         ))}
       </div>
+
+      <style jsx global>{`
+        /* Ambient beat: a soft broadcast ring pulses while the launchpad slide rests. */
+        .wwb-live { transform-origin: 200px 44px; }
+        .wwb-live::after { content: ''; }
+        .wwb-illust[data-animate="true"] .wwb-live > path:first-of-type {
+          animation: wwb-stroke-draw 900ms var(--wwb-ease) both, wwb-live-pulse 5s ease-in-out 1.4s infinite;
+        }
+        @keyframes wwb-live-pulse { 0%, 82%, 100% { opacity: 0.9; } 90% { opacity: 0.35; } }
+        /* Token travels hand-to-hand along the linked arms of the community slide. */
+        .wwb-token { animation: wwb-token-move 3.6s var(--wwb-ease) 0.6s infinite; }
+        @keyframes wwb-token-move {
+          0%   { transform: translate(138px, 140px); opacity: 0; }
+          12%  { opacity: 1; }
+          50%  { transform: translate(200px, 96px); opacity: 1; }
+          88%  { opacity: 1; }
+          100% { transform: translate(262px, 140px); opacity: 0; }
+        }
+        /* Echoes fade up a beat after the solid fren draws in. */
+        .wwb-illust[data-animate="true"] .wwb-echoes { animation: wwb-echo-in 900ms var(--wwb-ease) 0.5s both; }
+        @keyframes wwb-echo-in { from { opacity: 0; } to { opacity: 0.34; } }
+        @media (prefers-reduced-motion: reduce) {
+          .wwb-token, .wwb-illust[data-animate="true"] .wwb-live > path:first-of-type, .wwb-illust[data-animate="true"] .wwb-echoes { animation: none !important; }
+        }
+      `}</style>
     </article>
   );
 }

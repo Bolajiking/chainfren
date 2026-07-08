@@ -9,8 +9,9 @@ import { Fren } from '../../components/Frens'
 
 const AGENCY_LINKS = [
   { label: 'Creator Network', href: '/agency/creator-network' },
-  { label: 'Programs', anchor: '#programs' },
-  { label: 'FAQ',      anchor: '#faq' },
+  { label: 'Solutions',   anchor: '#solutions' },
+  { label: 'How we work', anchor: '#process' },
+  { label: 'FAQ',         anchor: '#faq' },
 ]
 
 const openContact = () => {
@@ -106,8 +107,8 @@ function PillBtn({ children, dark, gradient, onClick, full, href, style = {} }) 
 }
 
 function HeroBento({ accent }) {
-  const scrollPrograms = () =>
-    document.getElementById('programs')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  const scrollSolutions = () =>
+    document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   return (
     <section id="top" style={{ maxWidth: 1480, margin: '0 auto', padding: '20px 16px 0' }}>
       <div className="cf-bento-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 8, alignItems: 'stretch' }}>
@@ -133,7 +134,7 @@ function HeroBento({ accent }) {
             </p>
             <div style={{ display: 'flex', gap: 10, marginTop: 32, flexWrap: 'wrap' }}>
               <PillBtn dark onClick={openContact}>Tell us what you&apos;re building <Arrow /></PillBtn>
-              <PillBtn onClick={scrollPrograms}>See programs</PillBtn>
+              <PillBtn onClick={scrollSolutions}>See solutions</PillBtn>
             </div>
           </div>
         </div>
@@ -333,65 +334,75 @@ function ArgumentSection({ accent }) {
   )
 }
 
-function ProgramsSection({ accent }) {
-  // Programs absorb the old "Who We Serve" — each card leads with the audience
-  // it's built for, then the promise, then the pitch.
-  const programs = [
+function SolutionsSection({ accent }) {
+  // Four productized Solutions, organized by outcome (what the client gets).
+  // Each absorbs the old audience-based Programs into its "For:" line and holds
+  // the capabilities that produce its result. Each card carries its own anchor
+  // so the Solutions mega-menu can deep-link straight to it.
+  const solutions = [
     {
-      n: '01', title: 'Creator Growth OS',
-      tagline: 'Turn your audience into your business.',
-      bg: CF.periwinkle, img: '/3d.png',
-      forWhom: 'Musicians · podcasters · athletes · public figures · creator-founders',
-      pitch: 'Your owned-audience operating system, end to end. Direct fan relationships. Your own revenue rails. A business no platform can take away.',
-    },
-    {
-      n: '02', title: 'Owned Media Launchpad',
-      tagline: 'Launch your platform. Keep your revenue.',
+      n: '01', id: 'media-launchpad', title: 'Media Launchpad',
+      tagline: 'Launch & own your media presence — end to end.',
       bg: CF.cyan, img: '/3d3.png',
-      forWhom: 'Churches · event companies · sports leagues · music labels · media houses',
-      pitch: 'We build, launch, and run your owned media platform. Streaming, community, commerce, ownership — one stack you fully control.',
+      forWhom: 'Creators · public figures · communities · institutions',
+      pitch: 'Stop building on rented platforms. Owned media platform setup, live broadcasting, and cultural distribution — on infrastructure that can’t be taken away.',
     },
     {
-      n: '03', title: 'Onchain Brand & Community Launch',
-      tagline: 'Build culture people can join, own, and shape.',
-      bg: CF.lime, img: '/3d5.png',
-      forWhom: 'Creator-led brands · fan communities · cultural brands · consumer brands entering Web3',
-      pitch: 'A real community growth system. Web3 used only where it serves your audience. No NFT stunts. No hype drops.',
+      n: '02', id: 'creator-growth-os', title: 'Creator Growth OS',
+      tagline: 'Grow & own your audience — and the revenue it earns.',
+      bg: CF.periwinkle, img: '/3d.png',
+      forWhom: 'Individual creators · public figures · creator-founders · creator-led brands',
+      pitch: 'You built the audience. Now own it — and get paid directly. Owned-audience OS, direct payments, creator commerce, and onchain identity that travels with you.',
+    },
+    {
+      n: '03', id: 'community-engine', title: 'Community Engine',
+      tagline: 'Turn your audience into an owned community that compounds.',
+      bg: CF.mint, img: '/3d5.png',
+      forWhom: 'Communities · institutions · fan bases · brands',
+      pitch: 'Followers watch. Communities own. Tokenized membership, loyalty & rewards, fan economics, and the smart-contract layer that makes ownership real.',
+    },
+    {
+      n: '04', id: 'ai-agent-studio', title: 'AI Agent Studio',
+      tagline: 'Scale your presence and operations with AI that works for you.',
+      bg: CF.lime, img: '/3d6.png',
+      forWhom: 'Creators · brands · communities',
+      pitch: 'Do more than a team twice your size. AI agents, content pipelines, and automation that create, engage, and run the repetitive work — so you scale presence, not overhead.',
     },
   ]
   return (
-    <section id="programs" style={{ maxWidth: 1480, margin: '0 auto', padding: '64px 16px 0' }}>
+    <section id="solutions" style={{ maxWidth: 1480, margin: '0 auto', padding: '64px 16px 0' }}>
       <div style={{
         display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
         gap: 24, padding: '0 8px 32px', flexWrap: 'wrap',
       }}>
         <div style={{ maxWidth: 880 }}>
-          <Eyebrow color={CF.muted}>The programs</Eyebrow>
+          <Eyebrow color={CF.muted}>The solutions</Eyebrow>
           <h2 style={{
             fontSize: 'clamp(2rem, 4.2vw, 3.5rem)', fontWeight: 450,
             letterSpacing: '-0.025em', lineHeight: 1.05, color: CF.dark, marginTop: 12,
           }}>
-            Three programs. Three outcomes.<br />
-            <span style={{ color: CF.muted, fontWeight: 380 }}>Pick the one that matches what you&apos;re building.</span>
+            Four ways to own what you build.<br />
+            <span style={{ color: CF.muted, fontWeight: 380 }}>Launch your media. Grow your audience. Build your community. Scale it all with AI.</span>
           </h2>
         </div>
       </div>
 
-      <div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))' }}>
-        {programs.map((p) => (
-          <article key={p.n}
+      <div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
+        {solutions.map((p) => (
+          <article key={p.n} id={p.id}
             onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-6px)' }}
             onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)' }}
             style={{
               ...CARD_BASE, background: p.bg, padding: 0, display: 'flex', flexDirection: 'column',
-              minHeight: 600, transition: 'transform 400ms cubic-bezier(0.22,1,0.36,1)',
+              minHeight: 600, scrollMarginTop: 160,
+              transition: 'transform 400ms cubic-bezier(0.22,1,0.36,1)',
             }}>
             <div style={{
               padding: '26px 28px 0',
               display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
             }}>
               <div>
-                <Eyebrow>Program {p.n}</Eyebrow>
+                <Eyebrow>Solution {p.n}</Eyebrow>
                 <div style={{
                   fontFamily: SERIF, fontWeight: 450,
                   fontSize: 96, lineHeight: 0.85, color: CF.dark,
@@ -753,7 +764,7 @@ export default function AgencyPage() {
         <div className="order-1 md:order-none"><HeroBento accent={accent} /></div>
         <div className="order-2 md:order-none"><FeaturedCreatorNetwork /></div>
         <div className="order-4 md:order-none"><ArgumentSection accent={accent} /></div>
-        <div className="order-3 md:order-none"><ProgramsSection accent={accent} /></div>
+        <div className="order-3 md:order-none"><SolutionsSection accent={accent} /></div>
         <div className="order-5 md:order-none"><Process /></div>
         <div className="order-6 md:order-none"><ProofInProgress accent={accent} /></div>
         <div className="order-7 md:order-none"><FAQ /></div>

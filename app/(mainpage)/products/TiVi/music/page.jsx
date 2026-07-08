@@ -6,7 +6,7 @@ import {
   BarChart2, Play, Globe, Shield, Zap, Radio,
 } from 'lucide-react'
 
-const data = {
+export const data = {
   icon: Music,
   badge: 'TiVi for Music',
   headline: 'YOUR OWN MTV.',
