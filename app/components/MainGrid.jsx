@@ -322,30 +322,73 @@ const MainGrid = () => {
 
   const WeatherSection = () => <WeatherWidget />;
 
-  const NewsletterSection = () => (
-    <div className="border-[2px] border-dark-blue border-solid rounded-[26px] p-6 md:p-8 h-auto md:h-[297px] relative overflow-hidden flex flex-col md:justify-between">
-      <div>
-        <h3 className="text-[11px] font-bold tracking-[0.18em] uppercase text-dark-blue/55 mb-3">Sabi</h3>
-        <p className="text-dark-blue text-[24px] md:text-[26px] leading-[1.1] tracking-tight font-bold mb-3">
-          Africa&apos;s onchain broadcast signal.
-        </p>
-        <p className="text-dark-blue/65 text-[14px] md:text-[15px] leading-[1.5] max-w-[34ch]">
-          Writings and broadcasts on blockchains, AI, and the technologies unlocking the African creator economy.
-        </p>
+  const NewsletterSection = () => {
+    const [email, setEmail] = useState('');
+    const [status, setStatus] = useState('idle'); // idle | submitting | sent | error
+
+    const subscribe = async () => {
+      if (!email.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        setStatus('error');
+        return;
+      }
+      setStatus('submitting');
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ formType: 'newsletter', email, source: 'homepage-sabi' }),
+        });
+        if (!res.ok) throw new Error('failed');
+        setStatus('sent');
+      } catch (e) {
+        setStatus('error');
+      }
+    };
+
+    return (
+      <div className="border-[2px] border-dark-blue border-solid rounded-[26px] p-6 md:p-8 h-auto md:h-[297px] relative overflow-hidden flex flex-col md:justify-between">
+        <div>
+          <h3 className="text-[11px] font-bold tracking-[0.18em] uppercase text-dark-blue/55 mb-3">Sabi</h3>
+          <p className="text-dark-blue text-[24px] md:text-[26px] leading-[1.1] tracking-tight font-bold mb-3">
+            Africa&apos;s onchain broadcast signal.
+          </p>
+          <p className="text-dark-blue/65 text-[14px] md:text-[15px] leading-[1.5] max-w-[34ch]">
+            Writings and broadcasts on blockchains, AI, and the technologies unlocking the African creator economy.
+          </p>
+        </div>
+        {status === 'sent' ? (
+          <p className="mt-8 md:mt-0 text-dark-blue text-sm font-semibold">Subscribed. Welcome to Sabi.</p>
+        ) : (
+          <div className="mt-8 md:mt-0">
+            <div className="relative">
+              <input
+                type="email"
+                aria-label="Email address"
+                value={email}
+                onChange={(e) => { setEmail(e.target.value); if (status === 'error') setStatus('idle'); }}
+                onKeyDown={(e) => { if (e.key === 'Enter') subscribe(); }}
+                placeholder="your@email.com"
+                className="w-full h-12 pl-5 pr-28 font-mono text-sm border border-dark-blue/25 rounded-full text-dark-blue focus:outline-none focus:border-dark-blue transition-colors"
+              />
+              <button
+                onClick={subscribe}
+                disabled={status === 'submitting'}
+                className="absolute right-1 top-1 bottom-1 px-5 bg-dark-blue text-white text-sm font-semibold rounded-full hover:opacity-90 transition-opacity overflow-hidden group flex items-center justify-center disabled:opacity-70"
+              >
+                <span className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-full group-hover:opacity-0">
+                  {status === 'submitting' ? 'Sending…' : 'Subscribe'}
+                </span>
+                <span className="inline-block absolute transition-transform duration-200 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 whitespace-nowrap">
+                  {status === 'submitting' ? 'Sending…' : 'Subscribe'}
+                </span>
+              </button>
+            </div>
+            {status === 'error' && <p className="mt-2 text-xs text-red-500">That email doesn&apos;t look right.</p>}
+          </div>
+        )}
       </div>
-      <div className="relative mt-8 md:mt-0">
-        <input
-          type="email"
-          aria-label="Email address"
-          className="w-full h-12 pl-5 pr-28 font-mono text-sm border border-dark-blue/25 rounded-full text-dark-blue focus:outline-none focus:border-dark-blue transition-colors"
-        />
-        <button className="absolute right-1 top-1 bottom-1 px-5 bg-dark-blue text-white text-sm font-semibold rounded-full hover:opacity-90 transition-opacity overflow-hidden group flex items-center justify-center">
-          <span className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-full group-hover:opacity-0">Subscribe</span>
-          <span className="inline-block absolute transition-transform duration-200 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 whitespace-nowrap">Subscribe</span>
-        </button>
-      </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div id="top" className="min-h-screen bg-white p-2 md:mb-16 md:mt-2 pb-24 md:pb-0">
@@ -356,16 +399,16 @@ const MainGrid = () => {
       <div className="flex md:hidden flex-col gap-2">
         <MobileHero />
         <WhatWeBuild />
-        <WhatWeDoSection />
-        <MissionSection />
         <ForCreatorsSection />
+        <MissionSection />
+        <WhatWeDoSection />
         <PlaybookSection />
         <AbstractIconSection />
         <WeatherSection />
         <ThreeDIconSection />
         <NewsletterSection />
         <div className="flex justify-center py-8">
-          <button 
+          <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="text-dark-blue font-bold flex items-center gap-2 hover:opacity-70 transition-opacity"
           >
@@ -378,7 +421,7 @@ const MainGrid = () => {
       </div>
 
       {/* --- DESKTOP LAYOUT (HIDDEN ON SM) --- */}
-      <div className="hidden md:grid grid-cols-1 md:grid-cols-[738px_363px_363px] gap-2 max-w-[1500px] mx-auto items-start">
+      <div className="hidden md:grid grid-cols-1 md:grid-cols-[738px_363px_363px] gap-2 max-w-[1500px] mx-auto items-start justify-center">
         {/* LEFT BLOCK: Columns 1 & 2 Wrapper */}
         <div className="flex flex-col gap-2 md:col-span-1">
           <HeroSection />

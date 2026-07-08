@@ -31,7 +31,7 @@ function JsonLd() {
   const service = {
     '@context': 'https://schema.org', '@type': 'Service', name: 'Chainfren Media Launchpad',
     serviceType: 'Owned media platform launch (streaming, broadcasting, distribution)',
-    description: 'Media Launchpad is Chainfren’s flagship streaming solution, built on TiVi — an all-in-one platform where creators, churches, sports leagues, event organizers, filmmakers, and musicians launch branded streaming channels they fully own, with live and on-demand video, direct payments, and 100% of revenue retained.',
+    description: 'For creators, churches, sports leagues, event organizers, filmmakers, and musicians — launch your fully branded streaming channel equipped with live and on-demand video, video shopping, and instant payments.',
     provider: { '@type': 'Organization', name: 'Chainfren', url: BASE }, areaServed: ['Africa', 'Global'], url: `${BASE}/solutions/media-launchpad`,
   }
   const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }

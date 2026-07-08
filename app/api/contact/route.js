@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { promises as fs } from 'fs'
 import path from 'path'
+import { deliverToHubSpot } from './hubspot'
 
 const DATA_FILE = path.join(process.cwd(), 'data', 'contact-submissions.json')
 
@@ -101,6 +102,17 @@ export async function POST(request) {
         links: body.links || '',
         submittedAt,
       }
+    } else if (formType === 'newsletter') {
+      if (!body.email || !String(body.email).trim()) {
+        return NextResponse.json({ error: 'Email is required.' }, { status: 400 })
+      }
+      submission = {
+        id,
+        formType,
+        email: body.email,
+        source: body.source || 'unknown',
+        submittedAt,
+      }
     } else if (formType.startsWith('solution-')) {
       // solution-sales | solution-demo | solution-early-access — every lead
       // arrives pre-routed via the `solution` / `vertical` tags.
@@ -147,13 +159,27 @@ export async function POST(request) {
       }
     }
 
-    await ensureDataFile()
-    const raw = await fs.readFile(DATA_FILE, 'utf-8')
-    const submissions = JSON.parse(raw)
-    submissions.push(submission)
-    await fs.writeFile(DATA_FILE, JSON.stringify(submissions, null, 2), 'utf-8')
+    // Deliver into HubSpot so Breeze AI + workflows can work the lead. No-op
+    // (never throws) until HUBSPOT_ACCESS_TOKEN is configured.
+    const delivery = await deliverToHubSpot(submission)
 
-    return NextResponse.json({ success: true, id: submission.id }, { status: 201 })
+    // Best-effort local persistence. On serverless/read-only filesystems this
+    // will fail — that must never break the request, so it's isolated in its
+    // own try/catch. HubSpot is the source of truth once configured.
+    try {
+      await ensureDataFile()
+      const raw = await fs.readFile(DATA_FILE, 'utf-8')
+      const submissions = JSON.parse(raw)
+      submissions.push(submission)
+      await fs.writeFile(DATA_FILE, JSON.stringify(submissions, null, 2), 'utf-8')
+    } catch (fsErr) {
+      console.warn('Local submission persistence skipped:', fsErr.message)
+    }
+
+    return NextResponse.json(
+      { success: true, id: submission.id, delivered: delivery.delivered },
+      { status: 201 }
+    )
   } catch (error) {
     console.error('Contact submission error:', error)
     return NextResponse.json(

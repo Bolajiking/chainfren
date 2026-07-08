@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import ChainfrenWordmark from './ChainfrenWordmark'
 import { Fren } from './Frens'
 import { SOLUTIONS, CF } from '../config/stack'
+import NotifyModal, { openNotify } from './NotifyModal'
 
 const DARK = '#08153C'
 const WHITE = '#FFFFFF'
@@ -83,14 +84,14 @@ const ENGINES = {
     featured: {
       kind: 'starfactor', tag: 'Coming Soon', name: 'Star Factor',
       line: "Africa's first onchain reality entertainment platform. Be first to know when it drops.",
-      cta: 'Get notified', href: 'https://starfactor.xyz', external: true, img: '/3d6.png',
+      cta: 'Get notified', action: 'notify', notifySource: 'nav-star-factor', img: '/3d6.png',
     },
     // No in-page subnav on /products — the offerings are few enough that the
     // mega-menu itself is the navigation surface.
     sections: [],
     mobileRows: [
       { label: 'TVinBio', href: '/products', muted: true },
-      { label: 'Star Factor', href: 'https://starfactor.xyz', accent: '#C8EB6D' },
+      { label: 'Star Factor', accent: '#C8EB6D', action: 'notify', notifySource: 'nav-star-factor-mobile' },
     ],
   },
   media: {
@@ -206,10 +207,14 @@ function FeaturedCard({ feat, anim }) {
   const star = feat.kind === 'starfactor'
   const onDark = dark || night || star
   const bg = star ? DARK : dark ? DARK : night ? NIGHT : feat.bg
-  const Tag = feat.external ? 'a' : Link
-  const tagProps = feat.external ? { href: feat.href, target: '_blank', rel: 'noopener noreferrer' } : { href: feat.href }
+  const isNotify = feat.action === 'notify'
+  const Tag = isNotify ? 'button' : feat.external ? 'a' : Link
+  const tagProps = isNotify
+    ? { type: 'button', onClick: () => openNotify(feat.notifySource || feat.name) }
+    : feat.external ? { href: feat.href, target: '_blank', rel: 'noopener noreferrer' } : { href: feat.href }
   return (
     <Tag {...tagProps} role="menuitem" className="cf-featured" style={{
+      ...(isNotify ? { width: '100%', textAlign: 'left', cursor: 'pointer', font: 'inherit' } : {}),
       position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: 6,
       background: bg, color: onDark ? WHITE : DARK,
       border: onDark ? 'none' : `2px solid ${DARK}`, borderRadius: 18, padding: 16,
@@ -306,6 +311,8 @@ export default function SiteHeader({
   const [acc, setAcc] = useState(null)          // mobile accordion open key
   const [frenOn, setFrenOn] = useState(false)
   const [reduced, setReduced] = useState(false)
+  const [notifyOpen, setNotifyOpen] = useState(false)
+  const [notifySource, setNotifySource] = useState('unknown')
 
   const timers = useRef({})
   const lastFren = useRef(0)
@@ -369,6 +376,15 @@ export default function SiteHeader({
   useEffect(() => {
     clearTimers(); setMenu(null); setMobileOpen(false); setAcc(null)
   }, [pathname, clearTimers])
+
+  // Any component in the tree can summon the shared "get notified" modal by
+  // dispatching cf:open-notify — avoids prop drilling through pages that
+  // don't otherwise talk to SiteHeader (products, agency, etc).
+  useEffect(() => {
+    const onNotify = (e) => { setNotifySource(e.detail?.source || 'unknown'); setNotifyOpen(true) }
+    window.addEventListener('cf:open-notify', onNotify)
+    return () => window.removeEventListener('cf:open-notify', onNotify)
+  }, [])
 
   // Lock body scroll while the mobile overlay is open.
   useEffect(() => {
@@ -638,15 +654,27 @@ export default function SiteHeader({
                   <div className="cf-acc-inner">
                     <div className="cf-acc-desc">{e.identity} — {e.promise}</div>
                     {e.mobileRows.map((r, idx) => (
-                      <Link
-                        key={r.label}
-                        href={r.href}
-                        className={'cf-acc-row' + (r.accent ? ' is-accent' : '')}
-                        style={{ background: r.accent || undefined, color: r.accent ? DARK : undefined, animation: isOpen ? rowAnim(idx) : undefined }}
-                        onClick={sectionOnClick(r)}
-                      >
-                        {r.label} <span aria-hidden="true" style={{ opacity: r.accent ? 0.6 : 0.5 }}>→</span>
-                      </Link>
+                      r.action === 'notify' ? (
+                        <button
+                          key={r.label}
+                          type="button"
+                          className={'cf-acc-row' + (r.accent ? ' is-accent' : '')}
+                          style={{ background: r.accent || undefined, color: r.accent ? DARK : undefined, animation: isOpen ? rowAnim(idx) : undefined, width: '100%', textAlign: 'left', font: 'inherit', cursor: 'pointer' }}
+                          onClick={() => { setMobileOpen(false); openNotify(r.notifySource || r.label) }}
+                        >
+                          {r.label} <span aria-hidden="true" style={{ opacity: r.accent ? 0.6 : 0.5 }}>→</span>
+                        </button>
+                      ) : (
+                        <Link
+                          key={r.label}
+                          href={r.href}
+                          className={'cf-acc-row' + (r.accent ? ' is-accent' : '')}
+                          style={{ background: r.accent || undefined, color: r.accent ? DARK : undefined, animation: isOpen ? rowAnim(idx) : undefined }}
+                          onClick={sectionOnClick(r)}
+                        >
+                          {r.label} <span aria-hidden="true" style={{ opacity: r.accent ? 0.6 : 0.5 }}>→</span>
+                        </Link>
+                      )
                     ))}
                   </div>
                 </div>
@@ -888,6 +916,8 @@ export default function SiteHeader({
           .cf-eq span, .cf-scrub span, .cf-live-dot { animation: none !important; }
         }
       `}</style>
+
+      <NotifyModal open={notifyOpen} onClose={() => setNotifyOpen(false)} source={notifySource} accent={accent} />
     </>
   )
 }

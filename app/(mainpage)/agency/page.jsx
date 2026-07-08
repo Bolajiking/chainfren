@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import SiteHeader from '../../components/SiteHeader'
 import AgencyContactModal from '../../components/AgencyContactModal'
+import { openNotify } from '../../components/NotifyModal'
 import ChainfrenWordmark from '../../components/ChainfrenWordmark'
 import ChainfrenIcon from '../../components/ChainfrenIcon'
 import { Fren } from '../../components/Frens'
@@ -140,15 +141,15 @@ function HeroBento({ accent }) {
         </div>
 
         <div className="cf-bento-side" style={{ gridColumn: 'span 4', display: 'grid', gap: 8, gridTemplateRows: '1fr 1fr' }}>
-          <a
-            href="https://starfactor.xyz"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={() => openNotify('agency-star-factor')}
             className="cf-card-pad cf-starfactor"
             style={{
               ...CARD_BASE, background: CF.dark, color: CF.white,
               padding: 0, display: 'flex', flexDirection: 'column',
-              textDecoration: 'none',
+              textDecoration: 'none', textAlign: 'left', width: '100%',
+              font: 'inherit', cursor: 'pointer',
               backgroundImage: `radial-gradient(60% 50% at 88% 0%, ${CF.coral}77 0%, transparent 60%), radial-gradient(55% 45% at 10% 0%, ${CF.lime}66 0%, transparent 60%), radial-gradient(70% 60% at 95% 100%, ${CF.cyan}55 0%, transparent 60%), radial-gradient(80% 60% at 0% 100%, ${CF.periwinkle}66 0%, transparent 60%)`,
             }}
           >
@@ -161,15 +162,15 @@ function HeroBento({ accent }) {
                 fontSize: 10.5, fontWeight: 480, letterSpacing: '0.14em', textTransform: 'uppercase',
               }}>
                 <span style={{
-                  width: 7, height: 7, borderRadius: '50%', background: CF.coral,
-                  boxShadow: `0 0 0 4px ${CF.coral}33`, animation: 'cf-pulse 2s infinite',
+                  width: 7, height: 7, borderRadius: '50%', background: CF.lime,
+                  boxShadow: `0 0 0 4px ${CF.lime}33`, animation: 'cf-pulse 2s infinite',
                 }} />
-                Live · Lagos
+                Coming Soon
               </span>
               <span style={{
                 fontSize: 10, fontWeight: 450, letterSpacing: '0.1em',
                 color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase',
-              }}>24/7</span>
+              }}>Lagos</span>
             </div>
 
             <div style={{
@@ -198,21 +199,20 @@ function HeroBento({ accent }) {
               display: 'flex', flexDirection: 'column', gap: 10,
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ flex: 1, height: 3, borderRadius: 2, background: 'rgba(255,255,255,0.18)', position: 'relative' }}>
-                  <span style={{ position: 'absolute', inset: '0 35% 0 0', background: `linear-gradient(90deg, ${CF.lime}, ${CF.coral}, ${CF.cyan})`, borderRadius: 2 }} />
-                  <span style={{ position: 'absolute', top: -4, left: '65%', width: 11, height: 11, borderRadius: '50%', background: CF.coral, boxShadow: `0 0 0 3px ${CF.coral}44` }} />
+                <span style={{ flex: 1, height: 3, borderRadius: 2, background: 'rgba(255,255,255,0.18)', position: 'relative', overflow: 'hidden' }}>
+                  <span className="cf-starfactor-scrub" style={{ position: 'absolute', inset: 0, width: '38%', borderRadius: 2, background: `linear-gradient(90deg, ${CF.lime}, ${CF.coral}, ${CF.cyan})` }} />
                 </span>
-                <span style={{ fontSize: 10, fontWeight: 450, letterSpacing: '0.08em', color: 'rgba(255,255,255,0.6)' }}>LIVE</span>
+                <span style={{ fontSize: 10, fontWeight: 450, letterSpacing: '0.08em', color: 'rgba(255,255,255,0.6)' }}>SOON</span>
               </div>
               <span style={{
                 display: 'inline-flex', alignItems: 'center', gap: 6,
                 fontSize: 11.5, fontWeight: 450, letterSpacing: '0.08em',
                 textTransform: 'uppercase', color: CF.white,
               }}>
-                Watch on starfactor.xyz <Arrow size={11} />
+                Get notified <Arrow size={11} />
               </span>
             </div>
-          </a>
+          </button>
 
           <div className="cf-card-pad" style={{
             ...CARD_BASE, background: CF.dark, color: CF.white, padding: '24px 26px',
@@ -739,6 +739,8 @@ export default function AgencyPage() {
     }}>
       <style dangerouslySetInnerHTML={{ __html: `
 @keyframes cf-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.92)}}
+.cf-starfactor-scrub{animation:cf-starfactor-scrub 6s linear infinite}
+@keyframes cf-starfactor-scrub{0%{transform:translateX(-100%)}100%{transform:translateX(280%)}}
 @media (max-width:820px){
   .cf-faq-grid,.cf-bento-grid,.cf-proof-grid{grid-template-columns:1fr !important;gap:20px !important}
   .cf-bento-main,.cf-bento-side,.cf-proof-main,.cf-proof-side{grid-column:1 / -1 !important}

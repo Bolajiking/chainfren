@@ -151,7 +151,7 @@ export default function CreatorNetworkBrandModal({ open, onClose, accent = '#5AC
               Got it. We&apos;ll come back within 48 hours with next steps.
             </h2>
             <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.78)', lineHeight: 1.65, marginBottom: 28 }}>
-              We&apos;ll match your brief against the network and follow up with a roster and plan. Prefer to talk directly? <a href="mailto:bolaji@chainfren.com" style={{ color: accent, textDecoration: 'underline' }}>bolaji@chainfren.com</a>
+              We&apos;ll match your brief against the network and follow up with a roster and plan. Prefer to talk directly? <a href="mailto:hello@chainfren.com" style={{ color: accent, textDecoration: 'underline' }}>hello@chainfren.com</a>
             </p>
             <button onClick={onClose} style={{
               padding: '14px 28px', borderRadius: 9999,
