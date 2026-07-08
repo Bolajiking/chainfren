@@ -131,8 +131,11 @@ export default function MediaLaunchpad() {
         <section style={{ maxWidth: 1480, margin: '0 auto', padding: '8px 16px 0' }}>
           <Reveal>
             <div style={{ ...cardBase, background: CF.white, padding: 'clamp(24px, 3vw, 36px)', marginTop: 8 }}>
-              <p style={{ fontSize: 'clamp(15px, 1.6vw, 17px)', lineHeight: 1.6, color: CF.muted }}>
-                <strong style={{ color: CF.dark }}>Media Launchpad</strong> is Chainfren’s flagship streaming solution, built on <strong style={{ color: CF.dark }}>TiVi</strong> — an all-in-one platform where creators, churches, sports leagues, event organizers, filmmakers, and musicians launch branded streaming channels they fully own, with live and on-demand video, direct payments, and 100% of revenue retained.
+              <p style={{ fontSize: 'clamp(1.7rem, 3.6vw, 2.75rem)', fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1.15, color: CF.dark }}>
+                For creators, churches, sports leagues, event organizers, filmmakers, and musicians.
+              </p>
+              <p style={{ fontSize: 'clamp(13px, 1.4vw, 15px)', fontWeight: 500, letterSpacing: '0.02em', color: CF.muted, marginTop: 14 }}>
+                Launch your fully branded streaming channel equipped with live and on-demand video, <span style={{ fontStyle: 'italic', color: ACCENT }}>video shopping</span>, and instant payments.
               </p>
             </div>
           </Reveal>

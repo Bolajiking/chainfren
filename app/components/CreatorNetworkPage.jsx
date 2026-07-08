@@ -549,7 +549,7 @@ function FinalCTA({ finalRef, onHire, bucket }) {
           </Reveal>
           <Reveal delay={0.18}>
             <p style={{ marginTop: 24, fontSize: 14, color: 'rgba(255,255,255,0.55)' }}>
-              Or talk to us directly &mdash; <a href="mailto:bolaji@chainfren.com" style={{ color: CF.electric, textDecoration: 'underline' }}>bolaji@chainfren.com</a>
+              Or talk to us directly &mdash; <a href="mailto:hello@chainfren.com" style={{ color: CF.electric, textDecoration: 'underline' }}>hello@chainfren.com</a>
             </p>
           </Reveal>
         </div>
