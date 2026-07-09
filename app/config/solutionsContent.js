@@ -84,7 +84,7 @@ export const SOLUTION_CONTENT = {
     h1: ['Scale your presence, not your ', 'overhead', '.'],
     subhead: 'AI agents and automation that create, engage, and run the work — an always-on version of you, working across content, community, and operations.',
     definitional:
-      'AI Agent Studio is Chainfren’s productized solution for scaling creators, brands, and communities with artificial intelligence. It builds custom AI agents, AI content pipelines, and operational automation — so a creator or brand can multiply output, presence, and engagement without multiplying headcount.',
+      'AI Agent Studio is Chainfren’s productized AI-native growth engine for creators, brands, and consumer companies. It builds custom AI agents, always-on content pipelines, AI-automated content distribution, and acquisition automation — so a creator or brand can grow reach, content, and revenue without multiplying headcount.',
     tension:
       'You are the product, the marketer, the community manager, and the operations team. That ceiling is why most creators plateau. Agents remove the ceiling — the repetitive work runs itself, and your presence works while you sleep.',
     capabilities: [
@@ -99,10 +99,10 @@ export const SOLUTION_CONTENT = {
       { q: 'Will it sound like me?', a: 'Yes — agents are trained on your voice, style, and rules, with your approval loop on what ships.' },
       { q: 'Does this replace my team?', a: 'It replaces repetition, not judgment. Your people do the human work; agents do the rest.' },
     ],
-    serviceType: 'AI agents, content pipelines & operational automation',
+    serviceType: 'AI-native growth engine — agents, content pipelines, distribution & acquisition',
     meta: {
-      title: 'AI Agent Studio for Creators & Brands',
-      description: 'AI agents that create, engage, and run the work. Chainfren builds custom agents, content pipelines, and automation so creators and brands scale presence, not overhead.',
+      title: 'AI Agent Studio — AI-Native Growth Engine for Brands & Creators',
+      description: 'Chainfren AI Agent Studio: custom AI agents, content pipelines, creator-powered distribution, and automated acquisition — one always-on machine that scales your presence, not your overhead. Built for creators, brands, and African consumer & FMCG companies.',
     },
   },
 }

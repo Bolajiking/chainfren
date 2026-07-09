@@ -9,6 +9,7 @@ import {
 import SiteHeader from './SiteHeader'
 import SiteFooter from './SiteFooter'
 import SolutionLeadModal from './SolutionLeadModal'
+import SolutionFrenAnimated from './SolutionFrenAnimated'
 import { CF, solutionByKey } from '../config/stack'
 
 const SOL = solutionByKey('media-launchpad')
@@ -80,7 +81,8 @@ const FAQS = [
 function Hero({ onDemo, onEarly }) {
   return (
     <section style={{ maxWidth: 1480, margin: '0 auto', padding: '20px 16px 0' }}>
-      <div className="ml-hero" style={{ ...cardBase, background: CF.dark, color: '#fff', padding: 'clamp(32px, 5vw, 64px)', backgroundImage: `radial-gradient(ellipse at 85% 12%, ${ACCENT}44, transparent 55%), radial-gradient(ellipse at 8% 100%, ${CF.periwinkle}33, transparent 55%)` }}>
+      <div className="ml-hero" style={{ ...cardBase, background: CF.dark, color: '#fff', padding: 'clamp(32px, 5vw, 64px)', display: 'grid', gridTemplateColumns: '1.15fr 0.85fr', gap: 32, alignItems: 'center', backgroundImage: `radial-gradient(ellipse at 85% 12%, ${ACCENT}44, transparent 55%), radial-gradient(ellipse at 8% 100%, ${CF.periwinkle}33, transparent 55%)` }}>
+        <div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginBottom: 22 }}>
           <Eyebrow color={ACCENT}>Media Launchpad · TiVi</Eyebrow>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '5px 12px', borderRadius: 9999, border: `1.5px solid ${ACCENT}`, color: ACCENT, fontSize: 10.5, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
@@ -102,6 +104,12 @@ function Hero({ onDemo, onEarly }) {
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} style={{ marginTop: 28, fontSize: 14, color: 'rgba(255,255,255,0.6)' }}>
           Joining the <strong style={{ color: '#fff' }}>$214B global creator economy</strong> — built for the 96% of creators platforms ignore.
         </motion.p>
+        </div>
+        <motion.div className="ml-hero-art" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
+          style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+          <span style={{ position: 'absolute', width: '78%', aspectRatio: '1', borderRadius: '50%', background: `radial-gradient(circle, ${ACCENT}55, transparent 70%)`, filter: 'blur(12px)' }} />
+          <SolutionFrenAnimated id="media-launchpad" color={ACCENT} sub={CF.periwinkle} label="Media Launchpad" style={{ width: 'min(360px, 60vw)', aspectRatio: '1', position: 'relative' }} />
+        </motion.div>
       </div>
     </section>
   )
@@ -118,6 +126,7 @@ export default function MediaLaunchpad() {
       <style dangerouslySetInnerHTML={{ __html: `
         .ml-card-hover { transition: transform 300ms cubic-bezier(0.22,1,0.36,1); }
         .ml-card-hover:hover { transform: translateY(-4px); }
+        @media (max-width: 860px){ .ml-hero { grid-template-columns: 1fr !important; } .ml-hero-art { order: -1; } }
         @media (max-width: 760px){ .ml-faq { grid-template-columns: 1fr !important; } .ml-get { grid-template-columns: 1fr !important; } }
         @media (max-width: 560px){ .ml-stats { grid-template-columns: repeat(2, 1fr) !important; } .ml-stats > div:nth-child(3) { border-left: none !important; } }
         .ml-compare-scroll::-webkit-scrollbar { height: 6px; }
