@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import SiteHeader from '../../components/SiteHeader'
 import SiteFooter from '../../components/SiteFooter'
-import { Fren } from '../../components/Frens'
+import AudienceFren from '../../components/AudienceFren'
 import { CF } from '../../config/stack'
 
 export const metadata = {
@@ -41,7 +41,7 @@ export default function ForBrandsPage() {
               Everything Chainfren builds for brands — community that compounds, AI that scales, media you control, and the creators who move culture.
             </p>
           </div>
-          <Fren pose="squad" colorA={CF.cyan} colorB={CF.mint} sw={18} size={280} style={{ width: 'min(280px, 36vw)', height: 'auto', flexShrink: 0 }} />
+          <AudienceFren variant="brands" color={CF.cyan} style={{ width: 'min(300px, 40vw)', aspectRatio: '1', flexShrink: 0 }} />
         </div>
       </section>
 

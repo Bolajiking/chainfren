@@ -9,23 +9,17 @@ import AnimatedLogoCard from './AnimatedLogoCard';
 import AnimatedWordmarkCard from './AnimatedWordmarkCard';
 import WhatWeBuild from './WhatWeBuild';
 import MobileHero from './MobileHero';
+import AudienceCard from './AudienceCard';
 
 const MainGrid = () => {
   // Tab data for sections
-  const creatorTabs = [
-    { title: 'For Creators', heading: 'Own your audience. Keep your money. Build the business the platforms wouldn\'t let you build.', buttonText: 'EXPLORE FOR CREATORS', buttonLink: '/for-creators', backgroundImage: '/3d.png', backgroundColor: '#08153C', textColor: 'text-white' },
-    { title: 'For Brands', heading: 'Build culture people own. Distribute on infrastructure you control. Turn influence into a business you keep.', buttonText: 'EXPLORE FOR BRANDS', buttonLink: '/for-brands', backgroundImage: '/3d4.png', backgroundColor: '#1DA6E2', textColor: 'text-black' },
-  ];
   const playbookTabs = [
     { title: '1000 TRUE FANS - How Creators and Brands can use web3 for growth', buttonText: 'READ', buttonLink: '/blog/1000-true-fans-how-creators-and-brands-can-use-web3-for-growth', backgroundImage: '/bgChain.png' },
     { title: '', buttonText: 'VIEW ALL ARTICLES', buttonLink: '/blog', backgroundImage: '' },
   ];
 
-  const [currentCreatorTab, setCurrentCreatorTab] = useState(0);
   const [currentPlaybookTab, setCurrentPlaybookTab] = useState(0);
 
-  const nextCreatorTab = () => setCurrentCreatorTab((prev) => (prev + 1) % creatorTabs.length);
-  const prevCreatorTab = () => setCurrentCreatorTab((prev) => (prev - 1 + creatorTabs.length) % creatorTabs.length);
   const nextPlaybookTab = () => setCurrentPlaybookTab((prev) => (prev + 1) % playbookTabs.length);
   const prevPlaybookTab = () => setCurrentPlaybookTab((prev) => (prev - 1 + playbookTabs.length) % playbookTabs.length);
 
@@ -138,52 +132,7 @@ const MainGrid = () => {
     );
   }
 
-  const ForCreatorsSection = () => (
-    <div className="border-[2px] border-dark-blue rounded-[26px] px-4 py-5 md:px-7 md:py-7 relative overflow-hidden transition-colors duration-500 h-[529px]" style={{ backgroundColor: creatorTabs[currentCreatorTab].backgroundColor }}>
-      {/* Navigation arrows - top right on mobile */}
-      <div className="flex items-center justify-end mb-4 md:justify-between md:mb-4 relative z-20">
-        <span className={`hidden md:block text-sm font-semibold ${creatorTabs[currentCreatorTab].textColor} transition-colors duration-300`}>{creatorTabs[currentCreatorTab].title}</span>
-        <div className="flex gap-2 relative z-20">
-          <button onClick={prevCreatorTab} className={`${creatorTabs[currentCreatorTab].textColor} hover:opacity-70 transition-opacity p-1 relative z-20`} type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="15" y2="12"/><path d="M9 6l-6 6 6 6"/></svg></button>
-          <button onClick={nextCreatorTab} className={`${creatorTabs[currentCreatorTab].textColor} hover:opacity-70 transition-opacity p-1 relative z-20`} type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="9" y1="12" x2="21" y2="12"/><path d="M15 6l6 6-6 6"/></svg></button>
-        </div>
-      </div>
-      {/* Title - 32px on mobile */}
-      <h2 className={`text-[32px] md:text-2xl lg:text-3xl font-bold ${creatorTabs[currentCreatorTab].textColor} mb-2 md:mb-3 leading-tight transition-all duration-300 relative z-10`}>{creatorTabs[currentCreatorTab].title}</h2>
-      {/* Heading - 28px on mobile */}
-      <p className={`text-[28px] md:text-xl ${creatorTabs[currentCreatorTab].textColor} mb-4 md:mb-6 leading-tight transition-all duration-300 relative z-10`}>{creatorTabs[currentCreatorTab].heading}</p>
-      {/* Button - positioned absolutely with specific dimensions on mobile */}
-      <Link 
-        href={creatorTabs[currentCreatorTab].buttonLink} 
-        className="absolute z-20 left-1/2 -translate-x-1/2 top-[407px] md:bottom-6 md:top-auto md:w-[calc(100%-3rem)] md:max-w-[80%]"
-        style={{ width: '269px' }}
-      >
-        <button 
-          className={`w-full text-[18px] md:text-base border-2 font-semibold rounded-[50px] transition-colors overflow-hidden relative group flex items-center justify-center whitespace-nowrap ${creatorTabs[currentCreatorTab].backgroundColor === '#08153C' ? 'border-white text-black bg-white hover:text-dark-blue' : 'border-dark-blue text-dark-blue bg-white hover:bg-dark-blue hover:text-white'}`}
-          style={{ height: '62px' }}
-        >
-          <span className="whitespace-nowrap">{creatorTabs[currentCreatorTab].buttonText}</span>
-        </button>
-      </Link>
-      {/* 3D Image - positioned with specific dimensions on mobile */}
-      <div 
-        className="absolute z-0 md:bottom-0 md:right-0 md:opacity-100"
-        style={{ 
-          top: '203px', 
-          left: '-18.05px', 
-          opacity: 0.3,
-          transform: 'rotate(-6.58deg)'
-        }}
-      >
-        <img 
-          src={creatorTabs[currentCreatorTab].backgroundImage} 
-          alt="" 
-          className="transition-opacity duration-300 object-contain"
-          style={{ width: '402px', height: '402px' }}
-        />
-      </div>
-    </div>
-  );
+  const ForCreatorsSection = () => <AudienceCard />;
 
   const AbstractIconSection = () => (
     <AnimatedLogoCard className="rounded-[26px] h-[509px] relative overflow-hidden flex items-center justify-center" />
