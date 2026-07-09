@@ -5,7 +5,7 @@ import { motion, useInView } from 'framer-motion'
 import SiteHeader from './SiteHeader'
 import SiteFooter from './SiteFooter'
 import SolutionLeadModal from './SolutionLeadModal'
-import { Fren } from './Frens'
+import SolutionFrenAnimated from './SolutionFrenAnimated'
 import { CF, solutionByKey } from '../config/stack'
 import { SOLUTION_CONTENT } from '../config/solutionsContent'
 
@@ -76,7 +76,11 @@ function Hero({ sol, content, onSales, onSecondary }) {
         <motion.div className="sp-hero-art" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
           style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
           <span style={{ position: 'absolute', width: '78%', aspectRatio: '1', borderRadius: '50%', background: `radial-gradient(circle, ${sol.accent}55, transparent 70%)`, filter: 'blur(10px)' }} />
-          <Fren pose={sol.pose} colorA={navy ? sol.accent : CF.dark} colorB={sol.accentB} sw={20} size={320} className="sp-fren" style={{ width: 'min(340px, 42vw)', height: 'auto', position: 'relative' }} />
+          <SolutionFrenAnimated id={sol.key}
+            color={navy ? sol.accent : CF.dark}
+            sub={navy ? sol.accentB : (sol.key === 'community-loyalty' ? '#7FA83A' : sol.accent)}
+            label={sol.name}
+            style={{ width: 'min(340px, 60vw)', aspectRatio: '1', position: 'relative' }} />
         </motion.div>
       </div>
     </section>
