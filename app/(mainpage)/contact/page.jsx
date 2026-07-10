@@ -417,7 +417,7 @@ export default function Contact() {
                               name="interest"
                               value={formData.interest}
                               onChange={handleChange}
-                              className="w-full px-4 py-3.5 rounded-xl border-2 text-sm focus:outline-none transition-all appearance-none bg-white cursor-pointer"
+                              className="w-full px-4 py-3.5 rounded-xl border-2 text-sm focus:outline-none transition-[border-color,box-shadow] duration-200 appearance-none bg-white cursor-pointer"
                               style={{ borderColor: C.dark + '15', color: formData.interest ? C.dark : C.dim }}
                             >
                               <option value="">Select a topic</option>
@@ -448,7 +448,7 @@ export default function Contact() {
                             onChange={handleChange}
                             required
                             rows={5}
-                            className="w-full px-4 py-3.5 rounded-xl border-2 text-sm focus:outline-none transition-all resize-none"
+                            className="w-full px-4 py-3.5 rounded-xl border-2 text-sm focus:outline-none transition-[border-color,box-shadow] duration-200 resize-none"
                             style={{ borderColor: C.dark + '15', color: C.dark }}
                             placeholder="Tell us about your project, goals, or how we can help..."
                           />
@@ -513,7 +513,7 @@ function FormField({ label, id, type = 'text', required, value, onChange, placeh
         value={value}
         onChange={onChange}
         required={required}
-        className="w-full px-4 py-3.5 rounded-xl border-2 text-sm focus:outline-none transition-all"
+        className="w-full px-4 py-3.5 rounded-xl border-2 text-sm focus:outline-none transition-[border-color,box-shadow] duration-200"
         style={{ borderColor: '#08153C15', color: '#08153C' }}
         placeholder={placeholder}
       />

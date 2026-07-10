@@ -84,7 +84,7 @@ function Brands({ R, color }) {
 const KEYFRAMES = `
 @keyframes cfAudFigIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes cfAudInR { from { opacity: 0; transform: translateX(150px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes cfAudPop { 0% { transform: scale(0); opacity: 0; } 60% { opacity: 1; } 78% { transform: scale(1.3); } 100% { transform: scale(1); opacity: 1; } }
+@keyframes cfAudPop { 0% { transform: scale(0.6); opacity: 0; } 60% { opacity: 1; } 78% { transform: scale(1.12); } 100% { transform: scale(1); opacity: 1; } }
 @keyframes cfAudTokenPass { 0%, 100% { transform: translateX(-14px); } 50% { transform: translateX(14px) translateY(-4px); } }
 @keyframes cfAudBreathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 @keyframes cfAudOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }

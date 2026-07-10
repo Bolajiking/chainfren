@@ -351,7 +351,7 @@ function RadioGroup({ name, value, onChange, options, accent }) {
             padding: '14px 16px', borderRadius: 14,
             background: sel ? `${accent}1f` : 'rgba(255,255,255,0.04)',
             border: `1px solid ${sel ? accent : 'rgba(255,255,255,0.14)'}`,
-            cursor: 'pointer', transition: 'all 180ms',
+            cursor: 'pointer', transition: 'background 180ms, border-color 180ms',
             position: 'relative',
           }}>
             <span style={{
@@ -360,7 +360,7 @@ function RadioGroup({ name, value, onChange, options, accent }) {
               border: `2px solid ${sel ? accent : 'rgba(255,255,255,0.4)'}`,
               background: sel ? accent : 'transparent',
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              transition: 'all 180ms',
+              transition: 'background 180ms, border-color 180ms',
             }}>
               {sel && <span style={{ width: 6, height: 6, background: '#08153C', borderRadius: '50%' }} />}
             </span>

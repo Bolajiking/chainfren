@@ -61,7 +61,7 @@ function ScaleIn({ children, delay = 0, className = '' }) {
 }
 
 function BrandButton({ href, onClick, children, variant = 'dark', className = '' }) {
-  const base = 'group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold uppercase tracking-wide transition-all duration-200 border-2'
+  const base = 'group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold uppercase tracking-wide transition-colors duration-200 border-2'
   const styles = {
     dark:  'bg-dark-blue text-white border-dark-blue hover:bg-white hover:text-dark-blue',
     light: 'bg-white text-dark-blue border-dark-blue hover:bg-dark-blue hover:text-white',
@@ -537,10 +537,10 @@ function LeadForm({ data }) {
                       <h3 className="text-xl font-bold mb-1" style={{ color: C.dark }}>Request Early Access</h3>
                       <p className="text-sm mb-6" style={{ color: C.dim }}>{data.formSubheadline || 'Be among the first to launch your own channel.'}</p>
                       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                        <input required placeholder="Your Name" name="name" className="w-full px-4 py-3 rounded-2xl border-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 transition-all" style={{ borderColor: C.dark + '20', color: C.dark }} />
-                        <input required type="email" placeholder="Email Address" name="email" className="w-full px-4 py-3 rounded-2xl border-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 transition-all" style={{ borderColor: C.dark + '20', color: C.dark }} />
-                        <input placeholder={data.orgPlaceholder || 'Organization (optional)'} name="org" className="w-full px-4 py-3 rounded-2xl border-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 transition-all" style={{ borderColor: C.dark + '20', color: C.dark }} />
-                        <button type="submit" disabled={submitting} className="w-full mt-2 px-7 py-3.5 rounded-full text-sm font-bold uppercase tracking-wide border-2 transition-all duration-200 disabled:opacity-50" style={{ background: C.dark, color: 'white', borderColor: C.dark }}>
+                        <input required placeholder="Your Name" name="name" className="w-full px-4 py-3 rounded-2xl border-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 transition-[border-color,box-shadow] duration-200" style={{ borderColor: C.dark + '20', color: C.dark }} />
+                        <input required type="email" placeholder="Email Address" name="email" className="w-full px-4 py-3 rounded-2xl border-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 transition-[border-color,box-shadow] duration-200" style={{ borderColor: C.dark + '20', color: C.dark }} />
+                        <input placeholder={data.orgPlaceholder || 'Organization (optional)'} name="org" className="w-full px-4 py-3 rounded-2xl border-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 transition-[border-color,box-shadow] duration-200" style={{ borderColor: C.dark + '20', color: C.dark }} />
+                        <button type="submit" disabled={submitting} className="w-full mt-2 px-7 py-3.5 rounded-full text-sm font-bold uppercase tracking-wide border-2 transition-colors duration-200 disabled:opacity-50" style={{ background: C.dark, color: 'white', borderColor: C.dark }}>
                           {submitting ? 'Submitting...' : (data.formButtonText || 'Request Early Access')}
                         </button>
                       </form>

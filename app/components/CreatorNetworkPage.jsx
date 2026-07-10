@@ -278,8 +278,8 @@ function Fork({ onHire, bucket }) {
       <section style={{ background: CF.navy, padding: 'clamp(64px,8vw,0px) 0 0' }}>
         <div style={{ padding: '56px 24px 64px', maxWidth: 640, margin: '0 auto' }}>
           <div style={{ display: 'flex', gap: 8, background: 'rgba(255,255,255,0.08)', borderRadius: 9999, padding: 5, marginBottom: 28 }}>
-            <button type="button" onClick={() => setTab('brands')} style={{ flex: 1, height: 44, borderRadius: 9999, border: 'none', fontFamily: 'inherit', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase', cursor: 'pointer', background: tab === 'brands' ? CF.cyan : 'transparent', color: tab === 'brands' ? CF.navy : 'rgba(255,255,255,0.7)', transition: 'all 200ms' }}>For Brands</button>
-            <button type="button" onClick={() => setTab('creators')} style={{ flex: 1, height: 44, borderRadius: 9999, border: 'none', fontFamily: 'inherit', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase', cursor: 'pointer', background: tab === 'creators' ? CF.mint : 'transparent', color: tab === 'creators' ? CF.navy : 'rgba(255,255,255,0.7)', transition: 'all 200ms' }}>For Creators</button>
+            <button type="button" onClick={() => setTab('brands')} style={{ flex: 1, height: 44, borderRadius: 9999, border: 'none', fontFamily: 'inherit', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase', cursor: 'pointer', background: tab === 'brands' ? CF.cyan : 'transparent', color: tab === 'brands' ? CF.navy : 'rgba(255,255,255,0.7)', transition: 'background 200ms, color 200ms' }}>For Brands</button>
+            <button type="button" onClick={() => setTab('creators')} style={{ flex: 1, height: 44, borderRadius: 9999, border: 'none', fontFamily: 'inherit', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase', cursor: 'pointer', background: tab === 'creators' ? CF.mint : 'transparent', color: tab === 'creators' ? CF.navy : 'rgba(255,255,255,0.7)', transition: 'background 200ms, color 200ms' }}>For Creators</button>
           </div>
           {tab === 'brands' ? (
             <div>
