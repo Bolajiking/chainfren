@@ -1,6 +1,5 @@
-'use client';
+'use client'
 
-import VerticalLandingTemplate from '@/app/components/VerticalLandingTemplate'
 import {
   Ticket, DollarSign, Users, Eye, Lock, Wallet,
   BarChart2, Play, Globe, Shield, Calendar, Video
@@ -179,8 +178,4 @@ export const data = {
   orgPlaceholder: 'Venue / Promoter Name (optional)',
   formButtonText: 'Launch My Channel',
   formSubheadline: 'Get early access — free to set up, no commitments.',
-}
-
-export default function EventsPage() {
-  return <VerticalLandingTemplate data={data} />
 }

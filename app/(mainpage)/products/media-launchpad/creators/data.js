@@ -1,6 +1,5 @@
-'use client';
+'use client'
 
-import VerticalLandingTemplate from '@/app/components/VerticalLandingTemplate'
 import {
   Tv, DollarSign, Users, Eye, Lock, Wallet,
   BarChart2, Play, Globe, Shield, Zap, ShoppingBag,
@@ -173,8 +172,4 @@ export const data = {
   formSubheadline: 'Join the waitlist and be among the first creators to launch.',
   orgPlaceholder: 'Channel / Brand Name (optional)',
   formButtonText: 'Launch My Channel',
-}
-
-export default function TiViCreatorsPage() {
-  return <VerticalLandingTemplate data={data} />
 }

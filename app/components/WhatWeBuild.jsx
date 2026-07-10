@@ -15,25 +15,25 @@ const SLIDES = [
     key: 'media-launchpad', label: 'Media Launchpad',
     pre: 'Launch the media presence you ', em: 'own', post: '.',
     body: 'Streaming, broadcasting, distribution — stood up end to end, on infrastructure no platform can take away.',
-    href: '/solutions/media-launchpad', cta: 'Explore Media Launchpad', bg: '#5ACDFF',
+    href: '/products/media-launchpad', cta: 'Explore Media Launchpad', bg: '#5ACDFF',
   },
   {
     key: 'creator-growth-os', label: 'Creator Growth OS',
     pre: 'Turn influence into a business you ', em: 'keep', post: '.',
     body: 'Owned audience, direct payments, creator commerce — the operating system behind your audience.',
-    href: '/solutions/creator-growth-os', cta: 'Explore Creator Growth OS', bg: '#8DAAFF',
+    href: '/products/creator-growth-os', cta: 'Explore Creator Growth OS', bg: '#8DAAFF',
   },
   {
     key: 'community-loyalty', label: 'Community Engine',
     pre: 'Turn your audience into ', em: 'owners', post: '.',
     body: 'Tokenized membership, fan economics, loyalty that compounds — followers become stakeholders.',
-    href: '/solutions/community-loyalty', cta: 'Explore Community Engine', bg: '#CBF0B8',
+    href: '/products/community-engine', cta: 'Explore Community Engine', bg: '#CBF0B8',
   },
   {
     key: 'ai-agents', label: 'AI Agent Studio',
     pre: 'Scale your presence, not your ', em: 'overhead', post: '.',
     body: 'AI agents that create, engage, and run the work — always on, working as you.',
-    href: '/solutions/ai-agents', cta: 'Explore AI Agent Studio', bg: '#A6E1FA',
+    href: '/products/ai-agent-studio', cta: 'Explore AI Agent Studio', bg: '#A6E1FA',
   },
 ];
 
@@ -228,7 +228,7 @@ function SliderHeader({ index, total, onPrev, onNext }) {
         </div>
       </div>
       <p className="m-0 text-[20px] md:text-[22px] leading-[1.05] tracking-[-0.025em] font-medium text-dark-blue">
-        <em className="italic font-medium">Four solutions. One outcome: ownership.</em>
+        <em className="italic font-medium">Four products. One outcome: ownership.</em>
       </p>
     </header>
   );

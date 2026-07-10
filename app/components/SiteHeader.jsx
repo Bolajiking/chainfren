@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import ChainfrenWordmark from './ChainfrenWordmark'
 import { Fren } from './Frens'
-import { SOLUTIONS, CF } from '../config/stack'
+import { PRODUCTS, SOLUTION_PERSONAS, FEATURED, CF } from '../config/stack'
 import NotifyModal, { openNotify } from './NotifyModal'
 
 const DARK = '#08153C'
@@ -20,8 +20,8 @@ const EIO = 'cubic-bezier(0.65, 0, 0.35, 1)' // symmetric: height/accordion
 // Kept for backwards-compat with existing imports across pages. The three
 // engines are now built into the mega-menu, so these are only a fallback.
 export const DEFAULT_LINKS = [
-  { label: 'Solutions', href: '/solutions' },
   { label: 'Products', href: '/products' },
+  { label: 'Solutions', href: '/solutions' },
   { label: 'Media', href: '/media' },
 ]
 export const DEFAULT_CTA = { label: 'Join Chainfren', href: '/contact' }
@@ -32,66 +32,67 @@ export const DEFAULT_CTA = { label: 'Join Chainfren', href: '/contact' }
 // destinations that exist in the app (no dead routes).
 // ─────────────────────────────────────────────────────────────────────────
 const ENGINES = {
-  solutions: {
-    key: 'solutions',
-    trigger: 'Solutions',
-    href: '/solutions',
-    eyebrow: 'Chainfren Solutions',
-    identity: 'Chainfren Solutions',
-    promise: 'Four ways to own what you build.',
-    exploreLabel: 'Explore Solutions',
-    exploreHref: '/solutions',
-    pose: 'handshake',
-    poseB: '#0091FF',
-    offeringsEyebrow: 'The Solutions — four ways to own what you build',
-    // Living-nav: offerings render from the stack config (app/config/stack.js).
-    offerings: SOLUTIONS.map((s) => ({
-      color: s.accent,
-      title: s.nickname ? `${s.name} · ${s.nickname}` : s.name,
-      desc: s.outcome, href: s.url,
-    })),
-    featured: {
-      kind: 'dark', tag: 'Featured', name: 'Creator Network',
-      line: "Africa's biggest creators, matched to the biggest brands in crypto. Curated, vetted, paid onchain.",
-      cta: 'Explore the network', href: '/creator-network', img: '/3d.png',
-    },
-    sections: [
-      ...SOLUTIONS.map((s) => ({ label: s.name, href: s.url })),
-      { label: 'Creator Network', href: '/creator-network' },
-    ],
-    mobileRows: [
-      { label: 'Explore Solutions', href: '/solutions', muted: true },
-      ...SOLUTIONS.map((s) => ({ label: s.nickname ? `${s.name} · ${s.nickname}` : s.name, href: s.url, muted: true })),
-      { label: 'Creator Network', href: '/creator-network', accent: '#5ACDFF' },
-    ],
-  },
   products: {
     key: 'products',
     trigger: 'Products',
     href: '/products',
     eyebrow: 'Chainfren Products',
     identity: 'Chainfren Products',
-    promise: 'Tools for creators who own what they build.',
+    promise: 'Four ways to own what you build.',
     exploreLabel: 'See all products',
     exploreHref: '/products',
     pose: 'lift',
     poseB: '#5ACDFF',
-    offeringsEyebrow: 'The portfolio',
-    offerings: [
-      { color: '#8DAAFF', title: 'TVinBio', desc: 'Turn followers into true fans. Livestream, share videos, and sell products from your link in bio.', href: '/products' },
-      { color: '#C8EB6D', title: 'Star Factor', desc: "Africa's first reality TV that pays you to watch. Watch, Predict, Earn.", href: '/products' },
-    ],
+    offeringsEyebrow: 'The products — four building blocks',
+    // Living-nav: offerings render from the stack config (app/config/stack.js).
+    offerings: PRODUCTS.map((p) => ({
+      color: p.accent,
+      title: p.nickname ? `${p.name} · ${p.nickname}` : p.name,
+      desc: p.outcome, href: p.url,
+    })),
     featured: {
-      kind: 'starfactor', tag: 'Coming Soon', name: 'Star Factor',
-      line: "Africa's first onchain reality entertainment platform. Be first to know when it drops.",
-      cta: 'Get notified', action: 'notify', notifySource: 'nav-star-factor', img: '/3d6.png',
+      kind: 'dark', tag: 'Flagship', name: 'Media Launchpad',
+      line: 'Your Netflix. Your Twitch. Your YouTube — owned. Now in early access.',
+      cta: 'Explore Media Launchpad', href: '/products/media-launchpad', img: '/3d.png',
     },
-    // No in-page subnav on /products — the offerings are few enough that the
-    // mega-menu itself is the navigation surface.
-    sections: [],
+    sections: [
+      ...PRODUCTS.map((p) => ({ label: p.name, href: p.url })),
+    ],
     mobileRows: [
-      { label: 'TVinBio', href: '/products', muted: true },
-      { label: 'Star Factor', accent: '#C8EB6D', action: 'notify', notifySource: 'nav-star-factor-mobile' },
+      { label: 'See all products', href: '/products', muted: true },
+      ...PRODUCTS.map((p) => ({ label: p.nickname ? `${p.name} · ${p.nickname}` : p.name, href: p.url, muted: true })),
+    ],
+  },
+  solutions: {
+    key: 'solutions',
+    trigger: 'Solutions',
+    href: '/solutions',
+    eyebrow: 'Chainfren Solutions',
+    identity: 'Built for who you are',
+    promise: 'The whole stack, packaged for creators and for brands.',
+    exploreLabel: 'Explore Solutions',
+    exploreHref: '/solutions',
+    pose: 'handshake',
+    poseB: '#0091FF',
+    offeringsEyebrow: 'By audience',
+    // Living-nav: personas render from the stack config (app/config/stack.js).
+    offerings: SOLUTION_PERSONAS.map((p) => ({
+      color: p.accent,
+      title: p.name, desc: p.blurb, href: p.href,
+    })),
+    featured: { ...FEATURED.creatorNetwork, kind: 'dark' },
+    // A compact second notice tucked under the featured card (approved mockup):
+    // Star Factor's coming-soon, relocated here from the old Products menu.
+    notice: { ...FEATURED.starFactor },
+    sections: [
+      ...SOLUTION_PERSONAS.map((p) => ({ label: p.name, href: p.href })),
+      { label: 'Creator Network', href: '/creator-network' },
+    ],
+    mobileRows: [
+      { label: 'Explore Solutions', href: '/solutions', muted: true },
+      ...SOLUTION_PERSONAS.map((p) => ({ label: p.name, href: p.href, muted: true })),
+      { label: 'Creator Network', href: '/creator-network', accent: '#5ACDFF' },
+      { label: 'Star Factor — coming soon', accent: '#C8EB6D', action: 'notify', notifySource: 'nav-star-factor-mobile' },
     ],
   },
   media: {
@@ -126,7 +127,7 @@ const ENGINES = {
     ],
   },
 }
-const ENGINE_ORDER = ['solutions', 'products', 'media']
+const ENGINE_ORDER = ['products', 'solutions', 'media']
 
 // Map a badge / pathname onto an engine key.
 function engineFromBadge(badgeLabel) {
@@ -139,10 +140,10 @@ function engineFromBadge(badgeLabel) {
 }
 function engineFromPath(path) {
   if (!path) return null
-  // Media Launchpad lives under /solutions but is a product-flavored page; the
-  // /products check still maps legacy /products/TiVi links to products.
-  if (path.startsWith('/solutions') || path.startsWith('/agency') || path.startsWith('/creator-network')) return 'solutions'
+  // The four offers now live under /products. Solutions = the persona pages
+  // (/for-creators, /for-brands), the /solutions chooser, and Creator Network.
   if (path.startsWith('/products')) return 'products'
+  if (path.startsWith('/solutions') || path.startsWith('/for-creators') || path.startsWith('/for-brands') || path.startsWith('/agency') || path.startsWith('/creator-network')) return 'solutions'
   if (path.startsWith('/media') || path.startsWith('/blog')) return 'media'
   return null
 }
@@ -189,13 +190,43 @@ function MegaContent({ engine, reduced }) {
         ))}
       </div>
 
-      {/* Featured card */}
+      {/* Featured card (+ optional compact notice, e.g. Star Factor coming soon) */}
       {engine === 'media' ? (
         <SabiPlayerCard feat={e.featured} anim={anim(200)} />
+      ) : e.notice ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <FeaturedCard feat={e.featured} anim={anim(200)} />
+          <MiniNotice feat={e.notice} anim={anim(248)} />
+        </div>
       ) : (
         <FeaturedCard feat={e.featured} anim={anim(200)} />
       )}
     </div>
+  )
+}
+
+// Compact coming-soon strip that sits beneath a featured card (Star Factor in
+// the Solutions menu). Opens the shared NotifyModal on click.
+function MiniNotice({ feat, anim }) {
+  const isNotify = feat.action === 'notify'
+  const Tag = isNotify ? 'button' : feat.external ? 'a' : Link
+  const tagProps = isNotify
+    ? { type: 'button', onClick: () => openNotify(feat.notifySource || feat.name) }
+    : feat.external ? { href: feat.href, target: '_blank', rel: 'noopener noreferrer' } : { href: feat.href }
+  return (
+    <Tag {...tagProps} role="menuitem" className="cf-mini-notice" style={{
+      ...(isNotify ? { width: '100%', textAlign: 'left', cursor: 'pointer', font: 'inherit' } : {}),
+      position: 'relative', display: 'flex', alignItems: 'center', gap: 10,
+      background: DARK, color: WHITE, border: 'none', borderRadius: 14, padding: '10px 14px',
+      textDecoration: 'none', animation: anim,
+    }}>
+      <span className="cf-live-dot" style={{ flex: 'none', width: 7, height: 7, borderRadius: '50%', background: CF.lime, boxShadow: `0 0 0 3px ${CF.lime}33` }} />
+      <span style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+        <span style={{ fontSize: 8.5, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.55)' }}>{feat.tag}</span>
+        <span style={{ fontSize: 12.5, fontWeight: 600, letterSpacing: '-0.01em' }}>{feat.name}</span>
+      </span>
+      <span style={{ marginLeft: 'auto', display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 9.5, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.85)', whiteSpace: 'nowrap' }}>{feat.cta} <ArrowRight size={11} /></span>
+    </Tag>
   )
 }
 
@@ -791,6 +822,8 @@ export default function SiteHeader({
         .cf-offering:hover { background: rgba(8,21,60,0.045); transform: translateY(-2px); }
         .cf-featured { transition: transform 140ms ${EQ}, box-shadow 140ms ${EQ}; }
         .cf-featured:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(8,21,60,0.28); }
+        .cf-mini-notice { transition: transform 140ms ${EQ}, box-shadow 140ms ${EQ}; }
+        .cf-mini-notice:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(8,21,60,0.28); }
         .cf-sabi-player { transition: transform 140ms ${EQ}, box-shadow 140ms ${EQ}; }
         .cf-sabi-player:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(8,21,60,0.32); }
         .cf-foryou-link { transition: opacity 120ms ${EQ}; }

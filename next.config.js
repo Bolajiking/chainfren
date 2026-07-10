@@ -16,10 +16,19 @@ const nextConfig = {
       { source: '/agency', destination: '/solutions', permanent: true },
       { source: '/agency/creator-network', destination: '/creator-network', permanent: true },
       { source: '/agency/creator-network/apply', destination: '/creator-network/apply', permanent: true },
+      // Solutions → Products restructure (the 4 offers are now Products; Solutions
+      // is re-scoped to the For Creators / For Brands persona pages). Verticals
+      // before the parent so the more specific rule still resolves cleanly.
+      { source: '/solutions/media-launchpad/:vertical*', destination: '/products/media-launchpad/:vertical*', permanent: true },
+      { source: '/solutions/media-launchpad', destination: '/products/media-launchpad', permanent: true },
+      { source: '/solutions/creator-growth-os', destination: '/products/creator-growth-os', permanent: true },
+      { source: '/solutions/community-loyalty', destination: '/products/community-engine', permanent: true },
+      { source: '/solutions/ai-agents', destination: '/products/ai-agent-studio', permanent: true },
       // TiVi → Media Launchpad consolidation (contact before :vertical so it wins)
-      { source: '/products/TiVi', destination: '/solutions/media-launchpad', permanent: true },
-      { source: '/products/TiVi/contact', destination: '/solutions/media-launchpad/demo', permanent: true },
-      { source: '/products/TiVi/:vertical', destination: '/solutions/media-launchpad/:vertical', permanent: true },
+      { source: '/products/TiVi', destination: '/products/media-launchpad', permanent: true },
+      { source: '/products/TiVi/contact', destination: '/products/media-launchpad/demo', permanent: true },
+      { source: '/products/TiVi/:vertical', destination: '/products/media-launchpad/:vertical', permanent: true },
+      { source: '/products/product2', destination: '/products/community-engine', permanent: true },
     ]
   },
 }

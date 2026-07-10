@@ -1,5 +1,4 @@
-'use client';
-import VerticalLandingTemplate from '@/app/components/VerticalLandingTemplate'
+'use client'
 import { Film, DollarSign, Users, Eye, Lock, Wallet, BarChart2, Play, Globe, Shield, Camera, ShoppingBag } from 'lucide-react'
 
 export const data = {
@@ -175,8 +174,4 @@ export const data = {
   orgPlaceholder: 'Studio / Production House Name (optional)',
   formSubheadline: 'Be among the first filmmakers to own your own cinema.',
   formButtonText: 'Launch My Cinema',
-}
-
-export default function FilmVerticalPage() {
-  return <VerticalLandingTemplate data={data} />
 }

@@ -35,7 +35,12 @@ export const STAGE = {
   live: { label: 'Live', tone: 'live' },
 }
 
-export const SOLUTIONS = [
+// The four productized offers. Formerly framed as "Solutions"; now Chainfren's
+// Products (the building blocks), matching the Stripe model where Solutions are
+// these products packaged per audience. `key` values are unchanged so
+// SOLUTION_CONTENT, SolutionFrenAnimated, and page `solutionKey` props still map;
+// only the public `url` slugs moved under /products.
+export const PRODUCTS = [
   {
     key: 'media-launchpad',
     n: '01',
@@ -43,7 +48,7 @@ export const SOLUTIONS = [
     nickname: 'TiVi',
     outcome: 'Launch the media presence you own.',
     emphasis: 'own',
-    url: '/solutions/media-launchpad',
+    url: '/products/media-launchpad',
     accent: CF.cyan,
     accentB: CF.periwinkle,
     pose: 'reach',
@@ -51,15 +56,15 @@ export const SOLUTIONS = [
     stageDetail: 'Now in Early Access',
     flagship: true,
     audience: 'Creators · public figures · communities · institutions',
-    builtOn: { name: 'TiVi', line: 'Your Netflix. Your Twitch. Your YouTube — owned.', href: '/solutions/media-launchpad' },
+    builtOn: { name: 'TiVi', line: 'Your Netflix. Your Twitch. Your YouTube — owned.', href: '/products/media-launchpad' },
     primaryCta: 'demo',
     children: [
-      { name: 'Sports & Leagues', slug: 'sports', url: '/solutions/media-launchpad/sports' },
-      { name: 'Churches & Ministries', slug: 'churches', url: '/solutions/media-launchpad/churches' },
-      { name: 'Events & Concerts', slug: 'events', url: '/solutions/media-launchpad/events' },
-      { name: 'Film & Cinema', slug: 'film', url: '/solutions/media-launchpad/film' },
-      { name: 'Music & Artists', slug: 'music', url: '/solutions/media-launchpad/music' },
-      { name: 'Content Creators', slug: 'creators', url: '/solutions/media-launchpad/creators' },
+      { name: 'Sports & Leagues', slug: 'sports', url: '/products/media-launchpad/sports' },
+      { name: 'Churches & Ministries', slug: 'churches', url: '/products/media-launchpad/churches' },
+      { name: 'Events & Concerts', slug: 'events', url: '/products/media-launchpad/events' },
+      { name: 'Film & Cinema', slug: 'film', url: '/products/media-launchpad/film' },
+      { name: 'Music & Artists', slug: 'music', url: '/products/media-launchpad/music' },
+      { name: 'Content Creators', slug: 'creators', url: '/products/media-launchpad/creators' },
     ],
   },
   {
@@ -69,7 +74,7 @@ export const SOLUTIONS = [
     nickname: null,
     outcome: 'Turn influence into a business you keep.',
     emphasis: 'keep',
-    url: '/solutions/creator-growth-os',
+    url: '/products/creator-growth-os',
     accent: CF.periwinkle,
     accentB: CF.cyan,
     pose: 'stride',
@@ -87,7 +92,7 @@ export const SOLUTIONS = [
     nickname: null,
     outcome: 'Turn your audience into owners.',
     emphasis: 'owners',
-    url: '/solutions/community-loyalty',
+    url: '/products/community-engine',
     accent: CF.mint,
     accentB: CF.lime,
     pose: 'squad',
@@ -105,7 +110,7 @@ export const SOLUTIONS = [
     nickname: null,
     outcome: 'Scale your presence, not your overhead.',
     emphasis: 'overhead',
-    url: '/solutions/ai-agents',
+    url: '/products/ai-agent-studio',
     accent: CF.lavender,
     accentB: CF.electric,
     pose: 'echo',
@@ -113,7 +118,7 @@ export const SOLUTIONS = [
     stageDetail: 'Early access',
     flagship: false,
     audience: 'Creators · brands · communities scaling output without scaling headcount',
-    builtOn: { name: "Chainfren's proven agent work", line: 'The AI layer that powers every other solution.', href: '/solutions/ai-agents' },
+    builtOn: { name: "Chainfren's proven agent work", line: 'The AI layer that powers every other product.', href: '/products/ai-agent-studio' },
     // The "Built on Chainfren infrastructure" band is self-referential for this
     // solution (it built on itself) — hidden on the page while builtOn data
     // stays intact for the hero's secondary-CTA logic.
@@ -122,7 +127,48 @@ export const SOLUTIONS = [
   },
 ]
 
-export const solutionByKey = (key) => SOLUTIONS.find((s) => s.key === key)
+// Legacy alias — many surfaces still import { SOLUTIONS }. Keeps them working
+// through the Products rename with zero behavioural change.
+export const SOLUTIONS = PRODUCTS
+
+export const productByKey = (key) => PRODUCTS.find((p) => p.key === key)
+// Backwards-compatible name kept for SolutionPage.jsx and friends.
+export const solutionByKey = productByKey
+
+// ─────────────────────────────────────────────────────────────────────────
+// Solutions = the products packaged per audience (the Stripe "Solutions"
+// model). Two personas, each a standalone landing page whose "stack" is a
+// curated ordering of the four Products above. Nav, the /solutions chooser,
+// and the persona pages all read this.
+// ─────────────────────────────────────────────────────────────────────────
+export const SOLUTION_PERSONAS = [
+  {
+    key: 'creators',
+    name: 'For Creators',
+    href: '/for-creators',
+    frenVariant: 'creators',
+    accent: CF.mint,
+    tag: 'Solution',
+    blurb: 'Own your audience, keep your money, and build the business the platforms wouldn’t let you build.',
+    // Ordered by what a creator reaches for first.
+    productKeys: ['creator-growth-os', 'media-launchpad', 'ai-agents', 'community-loyalty'],
+  },
+  {
+    key: 'brands',
+    name: 'For Brands',
+    href: '/for-brands',
+    frenVariant: 'brands',
+    accent: CF.cyan,
+    tag: 'Solution',
+    blurb: 'Build culture people own — community that compounds, AI that scales, media you control, and the creators who move it.',
+    productKeys: ['community-loyalty', 'ai-agents', 'media-launchpad'],
+  },
+]
+
+export const personaByKey = (key) => SOLUTION_PERSONAS.find((p) => p.key === key)
+// Resolve a persona's productKeys into full Product objects (nav + pages).
+export const personaStack = (persona) =>
+  (persona?.productKeys || []).map(productByKey).filter(Boolean)
 
 // Featured cards per menu (Solutions Pages Spec §5.1).
 export const FEATURED = {
@@ -134,6 +180,17 @@ export const FEATURED = {
     href: '/creator-network',
     img: '/3d.png',
   },
+  // Star Factor's coming-soon notice — relocated from the old Products menu into
+  // Solutions. Opens the shared NotifyModal (no dedicated page yet).
+  starFactor: {
+    tag: 'Coming Soon',
+    name: 'Star Factor',
+    line: "Africa's first onchain reality entertainment platform. Be first to know when it drops.",
+    cta: 'Get notified',
+    action: 'notify',
+    notifySource: 'nav-star-factor',
+    img: '/3d6.png',
+  },
 }
 
 // Footer "Explore" map — generated from the same config so nav, footer and
@@ -142,22 +199,19 @@ export const FOOTER_COLUMNS = [
   {
     heading: 'Explore',
     links: [
+      ['Products', '/products'],
       ['Solutions', '/solutions'],
       ['Creator Network', '/creator-network'],
-      ['Products', '/products'],
       ['Media', '/media'],
     ],
   },
   {
-    heading: 'Solutions',
-    links: SOLUTIONS.map((s) => [s.name, s.url]),
+    heading: 'Products',
+    links: PRODUCTS.map((p) => [p.name, p.url]),
   },
   {
-    heading: 'For you',
-    links: [
-      ['For Creators', '/for-creators'],
-      ['For Brands', '/for-brands'],
-    ],
+    heading: 'Solutions',
+    links: SOLUTION_PERSONAS.map((p) => [p.name, p.href]),
   },
   {
     heading: 'Company',

@@ -33,11 +33,11 @@ export default function DemoPage() {
 
   return (
     <div style={{ background: '#F5F4EE', minHeight: '100vh', fontFamily: 'var(--font-inter), "Inter Display", "Inter", sans-serif', color: CF.dark }}>
-      <SiteHeader badgeLabel="Solutions" accent={ACCENT} cta={{ label: 'Talk to us', href: '/solutions/media-launchpad' }} />
+      <SiteHeader badgeLabel="Products" accent={ACCENT} cta={{ label: 'Talk to us', href: '/products/media-launchpad' }} />
       <main style={{ maxWidth: 720, margin: '0 auto', padding: '20px 16px 0' }}>
         <nav aria-label="Breadcrumb" style={{ display: 'flex', gap: 8, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.04em', color: CF.muted, marginBottom: 20 }}>
-          <Link href="/solutions" style={{ color: CF.muted, textDecoration: 'none' }}>Solutions</Link><span>›</span>
-          <Link href="/solutions/media-launchpad" style={{ color: CF.muted, textDecoration: 'none' }}>Media Launchpad</Link><span>›</span>
+          <Link href="/products" style={{ color: CF.muted, textDecoration: 'none' }}>Products</Link><span>›</span>
+          <Link href="/products/media-launchpad" style={{ color: CF.muted, textDecoration: 'none' }}>Media Launchpad</Link><span>›</span>
           <span style={{ color: CF.dark }}>Demo</span>
         </nav>
 

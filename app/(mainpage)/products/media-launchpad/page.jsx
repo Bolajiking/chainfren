@@ -32,12 +32,12 @@ function JsonLd() {
     '@context': 'https://schema.org', '@type': 'Service', name: 'Chainfren Media Launchpad',
     serviceType: 'Owned media platform launch (streaming, broadcasting, distribution)',
     description: 'For creators, churches, sports leagues, event organizers, filmmakers, and musicians — launch your fully branded streaming channel equipped with live and on-demand video, video shopping, and instant payments.',
-    provider: { '@type': 'Organization', name: 'Chainfren', url: BASE }, areaServed: ['Africa', 'Global'], url: `${BASE}/solutions/media-launchpad`,
+    provider: { '@type': 'Organization', name: 'Chainfren', url: BASE }, areaServed: ['Africa', 'Global'], url: `${BASE}/products/media-launchpad`,
   }
   const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }
   const breadcrumb = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Solutions', item: `${BASE}/solutions` },
-    { '@type': 'ListItem', position: 2, name: 'Media Launchpad', item: `${BASE}/solutions/media-launchpad` },
+    { '@type': 'ListItem', position: 1, name: 'Products', item: `${BASE}/products` },
+    { '@type': 'ListItem', position: 2, name: 'Media Launchpad', item: `${BASE}/products/media-launchpad` },
   ] }
   return [software, service, faq, breadcrumb].map((b, i) => <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(b) }} />)
 }

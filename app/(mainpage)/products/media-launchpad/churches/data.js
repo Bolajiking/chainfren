@@ -1,6 +1,5 @@
-'use client';
+'use client'
 
-import VerticalLandingTemplate from '@/app/components/VerticalLandingTemplate'
 import { Church, Heart, Users, Eye, Lock, Wallet, BarChart2, Play, Globe, Shield, BookOpen, Video } from 'lucide-react'
 
 export const data = {
@@ -176,8 +175,4 @@ export const data = {
   orgPlaceholder: 'Church / Ministry Name (optional)',
   formSubheadline: 'Be among the first churches to launch on TiVi.',
   formButtonText: 'Launch My Channel',
-}
-
-export default function ChurchesPage() {
-  return <VerticalLandingTemplate data={data} />
 }

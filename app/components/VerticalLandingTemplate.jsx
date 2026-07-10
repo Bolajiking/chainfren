@@ -563,9 +563,9 @@ function BackLink({ title }) {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs uppercase tracking-wider" style={{ color: C.muted }}>
-        <Link href="/solutions" className="hover:opacity-70 transition-opacity" style={{ color: C.muted }}>Solutions</Link>
+        <Link href="/products" className="hover:opacity-70 transition-opacity" style={{ color: C.muted }}>Products</Link>
         <span aria-hidden="true">›</span>
-        <Link href="/solutions/media-launchpad" className="hover:opacity-70 transition-opacity" style={{ color: C.muted }}>Media Launchpad</Link>
+        <Link href="/products/media-launchpad" className="hover:opacity-70 transition-opacity" style={{ color: C.muted }}>Media Launchpad</Link>
         <span aria-hidden="true">›</span>
         <span style={{ color: C.dark }}>{title}</span>
       </nav>
@@ -580,7 +580,7 @@ export default function VerticalLandingTemplate({ data }) {
   const vTitle = (data.badge || '').replace(/^TiVi for\s*/i, '') || data.verticalName
   return (
     <div className="bg-white min-h-screen">
-      <SiteHeader badgeLabel="Solutions" accent={data.accentColor} cta={{ label: 'Book a demo', href: '/solutions/media-launchpad/demo' }} />
+      <SiteHeader badgeLabel="Products" accent={data.accentColor} cta={{ label: 'Book a demo', href: '/products/media-launchpad/demo' }} />
       <BackLink title={vTitle} />
       <HeroSection data={data} />
       <StatsBar stats={data.stats} accentColor={data.accentColor} />

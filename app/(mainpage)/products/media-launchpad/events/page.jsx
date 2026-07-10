@@ -1,5 +1,5 @@
 import VerticalLandingTemplate from '../../../../components/VerticalLandingTemplate'
-import { data } from '../../../products/TiVi/events/page'
+import { data } from './data'
 
 export const metadata = {
   title: { absolute: 'TiVi for Events & Concerts — Your Venue Never Closes | Chainfren Media Launchpad' },

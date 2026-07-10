@@ -117,7 +117,7 @@ function Hero({ onSales, onEarly }) {
         backgroundImage: `radial-gradient(ellipse at 85% 12%, ${ACCENT_B}44, transparent 55%), radial-gradient(ellipse at 6% 100%, ${ACCENT}2e, transparent 55%)` }}>
         <div>
           <nav style={{ fontSize: 12, letterSpacing: '0.02em', color: 'rgba(255,255,255,0.6)', marginBottom: 18 }}>
-            <Link href="/solutions" style={{ color: 'inherit', textDecoration: 'none' }}>Solutions</Link>
+            <Link href="/products" style={{ color: 'inherit', textDecoration: 'none' }}>Products</Link>
             <span style={{ margin: '0 8px', opacity: 0.5 }}>›</span>
             <span style={{ color: '#fff' }}>AI Agent Studio</span>
           </nav>
@@ -168,7 +168,7 @@ export default function AiAgentStudio() {
         @media (max-width: 760px){ .ai-faq { grid-template-columns: 1fr !important; } .ai-get { grid-template-columns: 1fr !important; } .ai-modules { grid-template-columns: 1fr !important; } }
         @media (max-width: 560px){ .ai-stats { grid-template-columns: repeat(2, 1fr) !important; } .ai-stats > div:nth-child(3){ border-left: none !important; } }
       ` }} />
-      <SiteHeader accent={ACCENT} badgeLabel="Solutions" cta={{ label: 'Talk to us', onClick: openSales }} />
+      <SiteHeader accent={ACCENT} badgeLabel="Products" cta={{ label: 'Talk to us', onClick: openSales }} />
 
       <main style={{ paddingBottom: 8 }}>
         <Hero onSales={openSales} onEarly={openEarly} />

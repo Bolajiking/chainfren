@@ -65,6 +65,14 @@ const VARIANT = {
     success: 'You’re on the list. We onboard in waves — watch your inbox.',
     formType: 'solution-early-access',
   },
+  access: {
+    eyebrow: 'Request access',
+    title: 'Request access.',
+    sub: 'Tell us who you are and we’ll get you set up. We onboard in waves and reply within 48 hours.',
+    submit: 'Request access',
+    success: 'Got it. We onboard in waves — watch your inbox for your access.',
+    formType: 'solution-access',
+  },
 }
 
 function Arrow({ size = 14 }) {
@@ -77,6 +85,9 @@ function Arrow({ size = 14 }) {
 
 export default function SolutionLeadModal({ open, variant = 'sales', solution = '', solutionName = '', vertical = '', accent = DEFAULT_ACCENT, onClose }) {
   const cfg = VARIANT[variant] || VARIANT.sales
+  // The vertical picker (Sports/Churches/Film…) only applies to Media Launchpad.
+  // Other solutions (Creator Growth OS, Community Engine) skip it entirely.
+  const showVertical = solution === 'media-launchpad' || Boolean(vertical)
   const [data, setData] = useState({})
   const [errors, setErrors] = useState({})
   const [sent, setSent] = useState(false)
@@ -98,8 +109,9 @@ export default function SolutionLeadModal({ open, variant = 'sales', solution = 
   const set = (k, v) => setData((p) => ({ ...p, [k]: v }))
 
   const requiredByVariant = () => {
-    if (variant === 'demo') return ['name', 'email', 'vertical', 'project']
-    if (variant === 'early-access') return ['email', 'channel', 'vertical']
+    if (variant === 'access') return ['name', 'email']
+    if (variant === 'demo') return showVertical ? ['name', 'email', 'vertical', 'project'] : ['name', 'email', 'project']
+    if (variant === 'early-access') return showVertical ? ['email', 'channel', 'vertical'] : ['email', 'channel']
     return ['name', 'email', 'project']
   }
 
@@ -195,7 +207,7 @@ export default function SolutionLeadModal({ open, variant = 'sales', solution = 
               <Inp ref={variant === 'early-access' ? firstRef : undefined} type="email" value={data.email || ''} onChange={(v) => set('email', v)} placeholder="your@email.com" autoComplete="email" accent={accent} />
             </Field>
 
-            {variant === 'sales' && (
+            {(variant === 'sales' || variant === 'access') && (
               <Field id="company" label="Company / creator name">
                 <Inp value={data.company || ''} onChange={(v) => set('company', v)} placeholder="Company or creator name" accent={accent} />
               </Field>
@@ -213,9 +225,15 @@ export default function SolutionLeadModal({ open, variant = 'sales', solution = 
               </Field>
             )}
 
-            {(variant === 'demo' || variant === 'early-access') && (
+            {(variant === 'demo' || variant === 'early-access') && showVertical && (
               <Field id="vertical" label="Vertical" error={errors.vertical}>
                 <Sel value={data.vertical || vertical || ''} onChange={(v) => set('vertical', v)} options={VERTICAL_OPTIONS} accent={accent} placeholder="Pick your vertical" />
+              </Field>
+            )}
+
+            {variant === 'access' && (
+              <Field id="project" label="Anything we should know? (optional)">
+                <Area value={data.project || ''} onChange={(v) => set('project', v)} placeholder="A sentence or two — optional." accent={accent} />
               </Field>
             )}
 
