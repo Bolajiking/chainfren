@@ -2,9 +2,9 @@ import Link from 'next/link'
 import SiteHeader, { DEFAULT_CTA } from '../../components/SiteHeader'
 
 export const metadata = {
-  title: 'Media — Watch and Read from Chainfren',
+  title: 'Sabi — Africa’s Onchain Broadcasting Network | Chainfren',
   description:
-    'Live broadcasts, upcoming streams, and articles from Chainfren on African creators, ownership, and onchain culture.',
+    'Sabi is Chainfren’s media network — live broadcasts, videos, and writing on African creators, ownership, and onchain culture. Reachable at /sabi (and /media).',
 }
 
 const CF = {
@@ -417,7 +417,7 @@ function NextUpCard() {
 
 function WatchSection() {
   return (
-    <section style={{ padding: '20px 16px 0' }}>
+    <section id="broadcasts" style={{ padding: '20px 16px 0', scrollMarginTop: 100 }}>
       <div className="cf-watch-grid">
         <div className="cf-watch-hero">
           <HeroPlayer />
@@ -427,6 +427,8 @@ function WatchSection() {
         </div>
       </div>
 
+      {/* Videos anchor — the Media nav's "Videos" deep-links here (programming). */}
+      <span id="videos" aria-hidden="true" style={{ display: 'block', height: 0, scrollMarginTop: 100 }} />
       <div
         id="schedule"
         style={{

@@ -27,16 +27,16 @@ function Hero() {
       <div className="pv-hero" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 8, alignItems: 'stretch' }}>
         <div style={{ gridColumn: 'span 8' }} className="pv-hero-main">
           <div style={{ ...CARD_BASE, background: CF.white, padding: 'clamp(28px, 4vw, 44px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 520 }}>
-            <Eyebrow color={CF.muted}>Chainfren Products</Eyebrow>
+            <Eyebrow color={CF.muted}>Chainfren Solutions</Eyebrow>
             <h1 style={{ fontSize: 'clamp(2.5rem, 5.5vw, 5rem)', fontWeight: 500, lineHeight: 1.0, letterSpacing: '-0.03em', color: CF.dark, margin: '24px 0 0' }}>
               Four ways to <span style={{ fontStyle: 'italic', background: `linear-gradient(110deg, ${CF.dark} 40%, ${CF.accent} 60%, ${CF.dark} 80%)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>own</span> what you build.
             </h1>
             <p style={{ fontSize: 19, color: CF.muted, lineHeight: 1.55, maxWidth: 640, marginTop: 24 }}>
-              The building blocks of a business you keep — launch your media, grow your audience, build your community, and scale it all with AI. Every product runs on infrastructure you own, not rent.
+              The building blocks of a business you keep — launch your media, grow your audience, build your community, and scale it all with AI. Every one runs on infrastructure you own, not rent.
             </p>
             <div style={{ display: 'flex', gap: 10, marginTop: 32, flexWrap: 'wrap' }}>
               <button onClick={openContact} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 9999, border: `2px solid ${CF.dark}`, background: CF.dark, color: '#fff', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13, fontWeight: 450, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Tell us what you’re building <Arrow /></button>
-              <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 9999, border: `2px solid ${CF.dark}`, background: CF.white, color: CF.dark, textDecoration: 'none', fontFamily: 'inherit', fontSize: 13, fontWeight: 450, letterSpacing: '0.06em', textTransform: 'uppercase' }}>See the products</a>
+              <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 9999, border: `2px solid ${CF.dark}`, background: CF.white, color: CF.dark, textDecoration: 'none', fontFamily: 'inherit', fontSize: 13, fontWeight: 450, letterSpacing: '0.06em', textTransform: 'uppercase' }}>See the solutions</a>
             </div>
           </div>
         </div>
@@ -67,9 +67,9 @@ function ProductsGrid() {
   return (
     <section id="products" style={{ maxWidth: 1480, margin: '0 auto', padding: '64px 16px 0', scrollMarginTop: 120 }}>
       <div style={{ padding: '0 8px 28px', maxWidth: 880 }}>
-        <Eyebrow color={CF.muted}>The products</Eyebrow>
+        <Eyebrow color={CF.muted}>The solutions</Eyebrow>
         <h2 style={{ fontSize: 'clamp(2rem, 4.2vw, 3.5rem)', fontWeight: 450, letterSpacing: '-0.025em', lineHeight: 1.05, color: CF.dark, marginTop: 12 }}>
-          Four products. One outcome: ownership.
+          Four solutions. One outcome: ownership.
         </h2>
       </div>
       <div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
@@ -78,7 +78,7 @@ function ProductsGrid() {
             <article className="pv-card" style={{ ...CARD_BASE, background: p.accent, padding: 0, display: 'flex', flexDirection: 'column', minHeight: 480 }}>
               <div style={{ padding: '26px 28px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
-                  <Eyebrow>Product {p.n}</Eyebrow>
+                  <Eyebrow>Solution {p.n}</Eyebrow>
                   <div style={{ fontFamily: SERIF, fontWeight: 450, fontSize: 88, lineHeight: 0.85, color: CF.dark, letterSpacing: '-0.05em', marginTop: 6 }}>{p.n}</div>
                 </div>
                 <Fren pose={p.pose} colorA={CF.dark} colorB={p.accentB} sw={18} size={110} style={{ width: 110, height: 110, flexShrink: 0 }} />
@@ -142,7 +142,7 @@ function ForWhom() {
       <div style={{ padding: '0 8px 24px', maxWidth: 880 }}>
         <Eyebrow color={CF.muted}>Packaged for you</Eyebrow>
         <h2 style={{ fontSize: 'clamp(1.8rem, 3.6vw, 2.75rem)', fontWeight: 450, letterSpacing: '-0.02em', lineHeight: 1.1, color: CF.dark, marginTop: 12 }}>
-          Not sure which products you need? Start with who you are.
+          Not sure which solution you need? Start with who you are.
         </h2>
       </div>
       <div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
@@ -165,7 +165,7 @@ function ForWhom() {
 
 function FAQ() {
   const qs = [
-    { q: 'What’s the difference between a Chainfren product and a solution?', a: 'Products are the four building blocks — Media Launchpad, Creator Growth OS, Community Engine, and AI Agent Studio. Solutions are those products packaged for who you are: the For Creators and For Brands stacks. Pick a product if you know what you need; start with a solution if you don’t.' },
+    { q: 'What are Chainfren’s solutions?', a: 'Four ways to own what you build — Media Launchpad, Creator Growth OS, Community Engine, and AI Agent Studio. Pick the one that matches what you’re building, or start with the For Creators / For Brands stack if you’re not sure where to begin.' },
     { q: 'Do I need to understand Web3 to use them?', a: 'No. We do, and we translate where it matters. Crypto and digital assets only show up where they solve a real problem — cross-border payments, ownership that survives platform changes, identity that travels.' },
     { q: 'Are these self-serve tools or done-with-you builds?', a: 'Both, depending on the product. TVinBio and TiVi you can launch yourself; the full products are done-with-you — Chainfren designs, builds, and launches on infrastructure you own.' },
     { q: 'What does an engagement cost?', a: 'Scoped to your stage, audience, and goals — anything from a short diagnostic to a multi-month build. Talk to us and we’ll match you to the right product and pricing.' },

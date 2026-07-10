@@ -228,7 +228,7 @@ function SliderHeader({ index, total, onPrev, onNext }) {
         </div>
       </div>
       <p className="m-0 text-[20px] md:text-[22px] leading-[1.05] tracking-[-0.025em] font-medium text-dark-blue">
-        <em className="italic font-medium">Four products. One outcome: ownership.</em>
+        <em className="italic font-medium">Four solutions. One outcome: ownership.</em>
       </p>
     </header>
   );

@@ -563,7 +563,7 @@ function BackLink({ title }) {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs uppercase tracking-wider" style={{ color: C.muted }}>
-        <Link href="/products" className="hover:opacity-70 transition-opacity" style={{ color: C.muted }}>Products</Link>
+        <Link href="/products" className="hover:opacity-70 transition-opacity" style={{ color: C.muted }}>Solutions</Link>
         <span aria-hidden="true">›</span>
         <Link href="/products/media-launchpad" className="hover:opacity-70 transition-opacity" style={{ color: C.muted }}>Media Launchpad</Link>
         <span aria-hidden="true">›</span>

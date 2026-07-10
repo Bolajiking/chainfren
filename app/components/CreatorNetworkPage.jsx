@@ -591,7 +591,7 @@ function PageFooter() {
       <div>
         <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', color: CF.subtle, marginBottom: 12 }}>Explore</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          {[['Products', '/products'], ['Solutions', '/solutions'], ['Creator Network', '/creator-network'], ['Media', '/media']].map(([l, h]) => (
+          {[['Products', '/products'], ['Solutions', '/solutions'], ['Creator Network', '/creator-network'], ['Media', '/sabi']].map(([l, h]) => (
             <Link key={l} href={h} style={{ fontSize: 13.5, color: CF.navy, textDecoration: 'none' }}>{l}</Link>
           ))}
         </div>

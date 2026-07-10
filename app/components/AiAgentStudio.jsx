@@ -117,7 +117,7 @@ function Hero({ onSales, onEarly }) {
         backgroundImage: `radial-gradient(ellipse at 85% 12%, ${ACCENT_B}44, transparent 55%), radial-gradient(ellipse at 6% 100%, ${ACCENT}2e, transparent 55%)` }}>
         <div>
           <nav style={{ fontSize: 12, letterSpacing: '0.02em', color: 'rgba(255,255,255,0.6)', marginBottom: 18 }}>
-            <Link href="/products" style={{ color: 'inherit', textDecoration: 'none' }}>Products</Link>
+            <Link href="/products" style={{ color: 'inherit', textDecoration: 'none' }}>Solutions</Link>
             <span style={{ margin: '0 8px', opacity: 0.5 }}>›</span>
             <span style={{ color: '#fff' }}>AI Agent Studio</span>
           </nav>

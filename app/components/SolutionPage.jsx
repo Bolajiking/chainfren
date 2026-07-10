@@ -51,7 +51,7 @@ function Hero({ sol, content, onLead }) {
         backgroundImage: navy ? `radial-gradient(ellipse at 85% 15%, ${sol.accent}33, transparent 60%)` : 'none' }}>
         <div>
           <nav style={{ fontSize: 12, letterSpacing: '0.02em', color: navy ? 'rgba(255,255,255,0.6)' : CF.muted, marginBottom: 20 }}>
-            <Link href="/products" style={{ color: 'inherit', textDecoration: 'none' }}>Products</Link>
+            <Link href="/products" style={{ color: 'inherit', textDecoration: 'none' }}>Solutions</Link>
             <span style={{ margin: '0 8px', opacity: 0.5 }}>›</span>
             <span style={{ color: fg }}>{content.breadcrumb}</span>
           </nav>

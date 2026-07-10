@@ -29,6 +29,8 @@ const nextConfig = {
       { source: '/products/TiVi/contact', destination: '/products/media-launchpad/demo', permanent: true },
       { source: '/products/TiVi/:vertical', destination: '/products/media-launchpad/:vertical', permanent: true },
       { source: '/products/product2', destination: '/products/community-engine', permanent: true },
+      // Media → Sabi: the media hub is now canonical at /sabi; /media still resolves.
+      { source: '/media', destination: '/sabi', permanent: true },
     ]
   },
 }

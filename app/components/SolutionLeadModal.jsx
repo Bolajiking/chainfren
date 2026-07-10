@@ -183,7 +183,7 @@ export default function SolutionLeadModal({ open, variant = 'sales', solution = 
             </div>
             <h2 style={{ fontSize: 'clamp(1.6rem, 3.4vw, 2.25rem)', fontWeight: 450, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: 16 }}>{cfg.success}</h2>
             <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.7)', lineHeight: 1.6, marginBottom: 24 }}>
-              A real human from the Chainfren team reads every submission. While you wait, read <a href="/media" style={{ color: accent, textDecoration: 'underline' }}>Sabi</a> — where the work gets documented.
+              A real human from the Chainfren team reads every submission. While you wait, read <a href="/sabi" style={{ color: accent, textDecoration: 'underline' }}>Sabi</a> — where the work gets documented.
             </p>
             <button onClick={onClose} style={{ padding: '14px 28px', borderRadius: 9999, background: 'transparent', color: '#fff', border: '1.5px solid rgba(255,255,255,0.3)', fontFamily: 'inherit', fontSize: 13, fontWeight: 450, letterSpacing: '0.06em', textTransform: 'uppercase', cursor: 'pointer' }}>Close</button>
           </div>

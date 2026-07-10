@@ -197,26 +197,28 @@ export const FEATURED = {
 // sitemap can never drift apart.
 export const FOOTER_COLUMNS = [
   {
-    heading: 'Explore',
+    heading: 'Solutions',
     links: [
-      ['Products', '/products'],
-      ['Solutions', '/solutions'],
+      ...PRODUCTS.map((p) => [p.name, p.url]),
       ['Creator Network', '/creator-network'],
-      ['Media', '/media'],
     ],
   },
   {
-    heading: 'Products',
-    links: PRODUCTS.map((p) => [p.name, p.url]),
+    heading: 'Media',
+    links: [
+      ['Blog', '/blog'],
+      ['Videos', '/sabi#videos'],
+      ['Broadcast', '/sabi#broadcasts'],
+      ['Sabi', '/sabi'],
+    ],
   },
   {
-    heading: 'Solutions',
+    heading: 'For you',
     links: SOLUTION_PERSONAS.map((p) => [p.name, p.href]),
   },
   {
     heading: 'Company',
     links: [
-      ['Playbook', '/blog'],
       ['Contact', '/contact'],
       ['Join Chainfren', '/contact'],
     ],

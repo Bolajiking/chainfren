@@ -50,7 +50,7 @@ export const PERSONA_CONTENT = {
       eyebrow: 'Your stage',
       title: 'Sabi — Africa’s onchain broadcasting network.',
       body: 'When you’re ready to broadcast beyond your own channel, Sabi is the signal.',
-      cta: { label: 'Visit Sabi', href: '/media' },
+      cta: { label: 'Visit Sabi', href: '/sabi' },
     },
     faq: [
       { q: 'Do I have to leave the platforms I’m already on?', a: 'No — they become the top of your funnel. The stack captures that audience into channels you own, so a platform change can never wipe out your business.' },
@@ -109,7 +109,7 @@ export const PERSONA_CONTENT = {
       eyebrow: 'Your channels',
       title: 'Broadcast your brand on Africa’s onchain signal.',
       body: 'Sabi is the owned-media network for brands ready to broadcast on their own terms.',
-      cta: { label: 'Explore Sabi', href: '/media' },
+      cta: { label: 'Explore Sabi', href: '/sabi' },
     },
     faq: [
       { q: 'Is this an NFT play?', a: 'No. Ownership mechanics, not speculation — Web3 shows up only where it serves the customer, never as a hype drop.' },

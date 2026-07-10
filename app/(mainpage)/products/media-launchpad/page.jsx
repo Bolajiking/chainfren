@@ -36,7 +36,7 @@ function JsonLd() {
   }
   const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }
   const breadcrumb = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Products', item: `${BASE}/products` },
+    { '@type': 'ListItem', position: 1, name: 'Solutions', item: `${BASE}/products` },
     { '@type': 'ListItem', position: 2, name: 'Media Launchpad', item: `${BASE}/products/media-launchpad` },
   ] }
   return [software, service, faq, breadcrumb].map((b, i) => <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(b) }} />)
