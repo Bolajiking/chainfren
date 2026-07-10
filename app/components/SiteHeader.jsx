@@ -135,6 +135,12 @@ const ArrowRight = ({ size = 14 }) => (
   </svg>
 )
 
+const BellIcon = ({ size = 14 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.7 21a2 2 0 0 1-3.4 0" />
+  </svg>
+)
+
 // ─────────────────────────────────────────────────────────────────────────
 // Desktop mega-menu content for one engine
 // ─────────────────────────────────────────────────────────────────────────
@@ -316,20 +322,22 @@ function MobileUtility({ onClose, reduced, visible }) {
       aria-label="Notices and announcements"
       style={{ animation: reduced || !visible ? undefined : `cfItemIn 220ms ${EO} 150ms both` }}
     >
-      <div className="cf-utility-eyebrow">
-        <span>On Chainfren</span>
-        <span>Notices + opportunities</span>
+      <div className="cf-utility-eyebrow" aria-hidden="true">
+        <BellIcon size={13} />
       </div>
       {MOBILE_UTILITY_ITEMS.map((item) => {
         const content = (
           <>
-            <span className="cf-utility-marker" aria-hidden="true" />
+            <span className="cf-utility-dot" aria-hidden="true" />
             <span className="cf-utility-copy">
-              <span className="cf-utility-status">{item.status}</span>
               <span className="cf-utility-name">{item.label}</span>
+              <span className="cf-utility-detail">
+                <span className="cf-utility-status">{item.status}</span>
+                <span className="cf-utility-sep" aria-hidden="true">·</span>
+                {item.detail}
+              </span>
             </span>
-            <span className="cf-utility-detail">{item.detail}</span>
-            <span className="cf-utility-arrow" aria-hidden="true"><ArrowRight size={13} /></span>
+            <span className="cf-utility-arrow" aria-hidden="true"><ArrowRight size={14} /></span>
           </>
         )
 
@@ -948,48 +956,54 @@ export default function SiteHeader({
           color: rgba(8,21,60,0.75); text-decoration: none; font-size: 14px; font-weight: 500;
         }
         .cf-overlay-utility {
-          display: flex; flex-direction: column; gap: 7px;
-          padding: 8px 4px 12px;
+          display: flex; flex-direction: column; gap: 8px;
+          padding: 6px 4px 12px;
         }
         .cf-utility-eyebrow {
-          display: flex; align-items: center; justify-content: space-between; gap: 12px;
-          padding: 0 4px 2px;
-          color: rgba(8,21,60,0.42); font-size: 8.5px; font-weight: 700;
-          letter-spacing: 0.13em; line-height: 1.2; text-transform: uppercase;
+          display: flex; align-items: center; gap: 10px;
+          padding: 0 6px 8px; color: rgba(8,21,60,0.38);
         }
-        .cf-utility-eyebrow span:last-child { font-weight: 500; letter-spacing: 0.08em; }
+        .cf-utility-eyebrow::after {
+          content: ''; flex: 1 1 auto; height: 1px; background: rgba(8,21,60,0.10);
+        }
         .cf-utility-strip {
-          width: 100%; min-height: 52px; padding: 8px 9px 8px 11px;
-          display: grid; grid-template-columns: 6px minmax(0, 1fr) auto 32px;
-          align-items: center; gap: 10px;
+          width: 100%; min-height: 58px; padding: 12px 14px;
+          display: grid; grid-template-columns: 8px minmax(0, 1fr) 18px;
+          align-items: center; gap: 13px;
           color: ${DARK}; text-decoration: none; text-align: left;
-          border: 0; border-radius: 16px; cursor: pointer; font-family: inherit;
-          box-shadow: inset 0 0 0 1px rgba(8,21,60,0.07), 0 8px 24px rgba(8,21,60,0.045);
-          transition: transform 100ms ${EQ}, box-shadow 160ms ${EQ}, background-color 160ms ${EQ};
-        }
-        .cf-utility-strip.is-network { background: rgba(90,205,255,0.16); }
-        .cf-utility-strip.is-star { background: rgba(200,235,109,0.19); }
-        .cf-utility-strip:active { transform: scale(0.96); }
-        .cf-utility-strip:focus-visible { outline: 2px solid ${DARK}; outline-offset: 2px; }
-        .cf-utility-marker { width: 6px; height: 24px; border-radius: 9999px; }
-        .cf-utility-strip.is-network .cf-utility-marker { background: ${CF.cyan}; }
-        .cf-utility-strip.is-star .cf-utility-marker { background: ${CF.lime}; }
-        .cf-utility-copy { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-        .cf-utility-status {
-          color: rgba(8,21,60,0.48); font-size: 8px; font-weight: 700;
-          letter-spacing: 0.12em; line-height: 1.2; text-transform: uppercase;
-        }
-        .cf-utility-name {
-          overflow: hidden; color: ${DARK}; font-size: 13.5px; font-weight: 600;
-          letter-spacing: -0.01em; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap;
-        }
-        .cf-utility-detail { color: rgba(8,21,60,0.58); font-size: 9.5px; font-weight: 500; white-space: nowrap; }
-        .cf-utility-arrow {
-          width: 32px; height: 32px; border-radius: 9999px;
-          display: inline-flex; align-items: center; justify-content: center;
-          background: rgba(255,255,255,0.46); color: rgba(8,21,60,0.68);
+          border: 0; border-radius: 14px; cursor: pointer; font-family: inherit;
+          background: rgba(8,21,60,0.035);
           box-shadow: inset 0 0 0 1px rgba(8,21,60,0.06);
+          transition: transform 100ms ${EQ}, background-color 160ms ${EQ};
         }
+        .cf-utility-strip.is-network { background: rgba(90,205,255,0.11); }
+        .cf-utility-strip.is-star { background: rgba(200,235,109,0.15); }
+        .cf-utility-strip:active { transform: scale(0.985); }
+        .cf-utility-strip:focus-visible { outline: 2px solid ${DARK}; outline-offset: 2px; }
+        .cf-utility-dot { width: 8px; height: 8px; border-radius: 9999px; }
+        .cf-utility-strip.is-network .cf-utility-dot { background: ${CF.cyan}; box-shadow: 0 0 0 3px rgba(90,205,255,0.22); }
+        .cf-utility-strip.is-star .cf-utility-dot { background: ${CF.lime}; box-shadow: 0 0 0 3px rgba(200,235,109,0.28); }
+        .cf-utility-copy { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+        .cf-utility-name {
+          overflow: hidden; color: ${DARK}; font-size: 15px; font-weight: 600;
+          letter-spacing: -0.01em; line-height: 1.15; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .cf-utility-detail {
+          display: flex; align-items: center; gap: 6px; min-width: 0;
+          color: rgba(8,21,60,0.55); font-size: 11px; font-weight: 500;
+          line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .cf-utility-status {
+          flex: none; color: rgba(8,21,60,0.7); font-size: 9.5px; font-weight: 700;
+          letter-spacing: 0.09em; text-transform: uppercase;
+        }
+        .cf-utility-sep { flex: none; color: rgba(8,21,60,0.3); }
+        .cf-utility-arrow {
+          display: inline-flex; align-items: center; justify-content: center;
+          color: rgba(8,21,60,0.4);
+          transition: transform 160ms ${EQ}, color 160ms ${EQ};
+        }
+        .cf-utility-strip:active .cf-utility-arrow { color: ${DARK}; transform: translateX(2px); }
         .cf-overlay-cta {
           flex: 0 0 auto; margin-top: 14px;
           display: flex; align-items: center; justify-content: center;
@@ -1014,10 +1028,6 @@ export default function SiteHeader({
         @media (prefers-reduced-motion: reduce) {
           .cf-fren-delight, .cf-pose-settle { animation: none !important; }
           .cf-eq span, .cf-scrub span, .cf-live-dot { animation: none !important; }
-        }
-        @media (max-width: 390px) {
-          .cf-utility-detail { display: none; }
-          .cf-utility-strip { grid-template-columns: 6px minmax(0, 1fr) 32px; }
         }
       `}</style>
 
