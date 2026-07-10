@@ -81,7 +81,7 @@ function PillRadioRow({ options, value, onChange }) {
             background: sel ? CF.dark : CF.white,
             color: sel ? CF.white : CF.dark,
             fontFamily: 'inherit', fontSize: 13, fontWeight: 450,
-            cursor: 'pointer', transition: 'all 160ms',
+            cursor: 'pointer', transition: 'background 160ms, color 160ms, border-color 160ms',
           }}>{opt}</button>
         )
       })}
