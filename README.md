@@ -32,3 +32,27 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Branch workflow
+
+Each pull request must use a new branch created from the latest `origin/master`.
+Do not reuse a local branch after its pull request has merged, especially when
+GitHub squash merging is used: the local commits and the squash commit have
+different histories and will conflict when the old branch is pushed again.
+
+```bash
+git fetch --prune origin
+git switch master
+git pull --ff-only origin master
+git switch -c feat/<short-description>
+```
+
+Before pushing additional commits to an open pull request, replay the branch on
+the current base and run the build:
+
+```bash
+git fetch origin
+git rebase origin/master
+npm run build
+git push --force-with-lease
+```
