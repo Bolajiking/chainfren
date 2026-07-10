@@ -889,10 +889,13 @@ export default function SiteHeader({
           display: inline-flex; align-items: center; justify-content: center;
           width: 44px; height: 44px; background: transparent; border: 0; color: ${DARK};
           cursor: pointer; border-radius: 9999px;
+          -webkit-tap-highlight-color: transparent;
           transition: background 180ms ${EO}, transform 180ms ${EO};
         }
         .cf-mbar-toggle:hover { background: rgba(8,21,60,0.06); }
         .cf-mbar-toggle:active { transform: scale(0.94); }
+        .cf-mbar-toggle:focus,
+        .cf-mbar-toggle:focus-visible { outline: none; }
 
         /* ── Mobile overlay ── */
         .cf-overlay {
@@ -909,10 +912,13 @@ export default function SiteHeader({
         .cf-overlay-close {
           width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
           background: none; border: none; cursor: pointer; color: ${DARK}; border-radius: 9999px;
+          -webkit-tap-highlight-color: transparent;
           transition: background 180ms ${EO}, transform 180ms ${EO};
         }
         .cf-overlay-close:hover { background: rgba(8,21,60,0.06); }
         .cf-overlay-close:active { transform: scale(0.94); }
+        .cf-overlay-close:focus,
+        .cf-overlay-close:focus-visible { outline: none; }
         .cf-overlay-scroll { flex: 1 1 auto; overflow-y: auto; -webkit-overflow-scrolling: touch; }
         .cf-acc-head {
           display: flex; justify-content: space-between; align-items: center; width: 100%;
