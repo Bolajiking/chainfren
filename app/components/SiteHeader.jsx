@@ -57,8 +57,6 @@ const ENGINES = {
     notice: { ...FEATURED.starFactor },
     mobileRows: [
       ...PRODUCTS.map((p) => ({ label: p.nickname ? `${p.name} · ${p.nickname}` : p.name, href: p.url, muted: true })),
-      { label: 'Creator Network', href: '/creator-network', accent: '#5ACDFF' },
-      { label: 'Star Factor — coming soon', accent: '#C8EB6D', action: 'notify', notifySource: 'nav-star-factor-mobile' },
     ],
   },
   media: {
@@ -90,6 +88,27 @@ const ENGINES = {
   },
 }
 const ENGINE_ORDER = ['solutions', 'media']
+
+// A small, data-driven utility rail for mobile-only notices and opportunities.
+// These items sit outside the navigation taxonomy so future announcements can
+// be added without making an accordion feel like a catch-all.
+const MOBILE_UTILITY_ITEMS = [
+  {
+    label: 'Creator Network',
+    status: 'Open now',
+    detail: 'Creators × brands',
+    href: '/creator-network',
+    tone: 'network',
+  },
+  {
+    label: 'Star Factor',
+    status: 'Coming soon',
+    detail: 'Join the first-look list',
+    action: 'notify',
+    notifySource: 'nav-star-factor-mobile',
+    tone: 'star',
+  },
+]
 
 // Map a badge / pathname onto an engine key.
 function engineFromBadge(badgeLabel) {
@@ -287,6 +306,53 @@ function ForYouStrip() {
       <Link href="/for-brands" className="cf-foryou-link" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11.5, fontWeight: 500, color: 'rgba(8,21,60,0.8)', textDecoration: 'none', whiteSpace: 'nowrap' }}>For Brands <ArrowRight size={11} /></Link>
       <span style={{ marginLeft: 'auto', fontSize: 9.5, fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(8,21,60,0.35)', whiteSpace: 'nowrap' }}>Lagos, Nigeria</span>
     </div>
+  )
+}
+
+function MobileUtility({ onClose, reduced, visible }) {
+  return (
+    <section
+      className="cf-overlay-utility"
+      aria-label="Notices and announcements"
+      style={{ animation: reduced || !visible ? undefined : `cfItemIn 220ms ${EO} 150ms both` }}
+    >
+      <div className="cf-utility-eyebrow">
+        <span>On Chainfren</span>
+        <span>Notices + opportunities</span>
+      </div>
+      {MOBILE_UTILITY_ITEMS.map((item) => {
+        const content = (
+          <>
+            <span className="cf-utility-marker" aria-hidden="true" />
+            <span className="cf-utility-copy">
+              <span className="cf-utility-status">{item.status}</span>
+              <span className="cf-utility-name">{item.label}</span>
+            </span>
+            <span className="cf-utility-detail">{item.detail}</span>
+            <span className="cf-utility-arrow" aria-hidden="true"><ArrowRight size={13} /></span>
+          </>
+        )
+
+        if (item.action === 'notify') {
+          return (
+            <button
+              key={item.label}
+              type="button"
+              className={`cf-utility-strip is-${item.tone}`}
+              onClick={() => { onClose(); openNotify(item.notifySource || item.label) }}
+            >
+              {content}
+            </button>
+          )
+        }
+
+        return (
+          <Link key={item.label} href={item.href} className={`cf-utility-strip is-${item.tone}`} onClick={onClose}>
+            {content}
+          </Link>
+        )
+      })}
+    </section>
   )
 }
 
@@ -657,10 +723,13 @@ export default function SiteHeader({
           })}
 
           {showAudienceStrip && (
-            <div className="cf-overlay-foryou">
-              <Link href="/for-creators" className="cf-overlay-foryou-link">For Creators →</Link>
-              <Link href="/for-brands" className="cf-overlay-foryou-link">For Brands →</Link>
-            </div>
+            <>
+              <div className="cf-overlay-foryou">
+                <Link href="/for-creators" className="cf-overlay-foryou-link" onClick={() => setMobileOpen(false)}>For Creators →</Link>
+                <Link href="/for-brands" className="cf-overlay-foryou-link" onClick={() => setMobileOpen(false)}>For Brands →</Link>
+              </div>
+              <MobileUtility onClose={() => setMobileOpen(false)} reduced={reduced} visible={mobileOpen} />
+            </>
           )}
         </div>
 
@@ -867,10 +936,53 @@ export default function SiteHeader({
         }
         .cf-acc-row.is-accent { font-weight: 600; }
         .cf-acc-row:active { transform: scale(0.98); }
-        .cf-overlay-foryou { display: flex; gap: 18px; padding: 18px 4px 6px; }
+        .cf-overlay-foryou { display: flex; gap: 18px; padding: 18px 4px 8px; }
         .cf-overlay-foryou-link {
           min-height: 44px; display: inline-flex; align-items: center;
           color: rgba(8,21,60,0.75); text-decoration: none; font-size: 14px; font-weight: 500;
+        }
+        .cf-overlay-utility {
+          display: flex; flex-direction: column; gap: 7px;
+          padding: 8px 4px 12px;
+        }
+        .cf-utility-eyebrow {
+          display: flex; align-items: center; justify-content: space-between; gap: 12px;
+          padding: 0 4px 2px;
+          color: rgba(8,21,60,0.42); font-size: 8.5px; font-weight: 700;
+          letter-spacing: 0.13em; line-height: 1.2; text-transform: uppercase;
+        }
+        .cf-utility-eyebrow span:last-child { font-weight: 500; letter-spacing: 0.08em; }
+        .cf-utility-strip {
+          width: 100%; min-height: 52px; padding: 8px 9px 8px 11px;
+          display: grid; grid-template-columns: 6px minmax(0, 1fr) auto 32px;
+          align-items: center; gap: 10px;
+          color: ${DARK}; text-decoration: none; text-align: left;
+          border: 0; border-radius: 16px; cursor: pointer; font-family: inherit;
+          box-shadow: inset 0 0 0 1px rgba(8,21,60,0.07), 0 8px 24px rgba(8,21,60,0.045);
+          transition: transform 100ms ${EQ}, box-shadow 160ms ${EQ}, background-color 160ms ${EQ};
+        }
+        .cf-utility-strip.is-network { background: rgba(90,205,255,0.16); }
+        .cf-utility-strip.is-star { background: rgba(200,235,109,0.19); }
+        .cf-utility-strip:active { transform: scale(0.96); }
+        .cf-utility-strip:focus-visible { outline: 2px solid ${DARK}; outline-offset: 2px; }
+        .cf-utility-marker { width: 6px; height: 24px; border-radius: 9999px; }
+        .cf-utility-strip.is-network .cf-utility-marker { background: ${CF.cyan}; }
+        .cf-utility-strip.is-star .cf-utility-marker { background: ${CF.lime}; }
+        .cf-utility-copy { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+        .cf-utility-status {
+          color: rgba(8,21,60,0.48); font-size: 8px; font-weight: 700;
+          letter-spacing: 0.12em; line-height: 1.2; text-transform: uppercase;
+        }
+        .cf-utility-name {
+          overflow: hidden; color: ${DARK}; font-size: 13.5px; font-weight: 600;
+          letter-spacing: -0.01em; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .cf-utility-detail { color: rgba(8,21,60,0.58); font-size: 9.5px; font-weight: 500; white-space: nowrap; }
+        .cf-utility-arrow {
+          width: 32px; height: 32px; border-radius: 9999px;
+          display: inline-flex; align-items: center; justify-content: center;
+          background: rgba(255,255,255,0.46); color: rgba(8,21,60,0.68);
+          box-shadow: inset 0 0 0 1px rgba(8,21,60,0.06);
         }
         .cf-overlay-cta {
           flex: 0 0 auto; margin-top: 14px;
@@ -896,6 +1008,10 @@ export default function SiteHeader({
         @media (prefers-reduced-motion: reduce) {
           .cf-fren-delight, .cf-pose-settle { animation: none !important; }
           .cf-eq span, .cf-scrub span, .cf-live-dot { animation: none !important; }
+        }
+        @media (max-width: 390px) {
+          .cf-utility-detail { display: none; }
+          .cf-utility-strip { grid-template-columns: 6px minmax(0, 1fr) 32px; }
         }
       `}</style>
 
