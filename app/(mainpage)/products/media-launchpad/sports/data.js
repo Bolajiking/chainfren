@@ -1,6 +1,5 @@
-'use client';
+'use client'
 
-import VerticalLandingTemplate from '@/app/components/VerticalLandingTemplate'
 import { Trophy, DollarSign, Users, Eye, Lock, Wallet, BarChart2, Play, Globe, Shield, Zap, Tv } from 'lucide-react'
 
 export const data = {
@@ -175,8 +174,4 @@ export const data = {
   ],
   orgPlaceholder: 'Team / League Name (optional)',
   formButtonText: 'Launch My Channel',
-}
-
-export default function SportsPage() {
-  return <VerticalLandingTemplate data={data} />
 }

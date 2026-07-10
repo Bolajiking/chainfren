@@ -1,5 +1,5 @@
 import VerticalLandingTemplate from '../../../../components/VerticalLandingTemplate'
-import { data } from '../../../products/TiVi/creators/page'
+import { data } from './data'
 
 export const metadata = {
   title: { absolute: 'TiVi for Creators — You Are the Network | Chainfren Media Launchpad' },

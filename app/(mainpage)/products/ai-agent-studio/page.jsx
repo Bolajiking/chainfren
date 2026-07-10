@@ -8,12 +8,12 @@ const c = SOLUTION_CONTENT['ai-agents']
 export const metadata = {
   title: { absolute: `${c.meta.title} | Chainfren` },
   description: c.meta.description,
-  alternates: { canonical: `${BASE}/solutions/ai-agents` },
+  alternates: { canonical: `${BASE}/products/ai-agent-studio` },
   openGraph: {
     title: `${c.meta.title} | Chainfren`,
     description: c.meta.description,
     type: 'website',
-    url: `${BASE}/solutions/ai-agents`,
+    url: `${BASE}/products/ai-agent-studio`,
   },
   twitter: { card: 'summary_large_image', title: c.meta.title, description: c.meta.description },
 }
@@ -25,7 +25,7 @@ function JsonLd() {
     provider: { '@type': 'Organization', name: 'Chainfren', url: BASE },
     areaServed: ['Africa', 'Global'],
     audience: { '@type': 'Audience', audienceType: 'Creators, brands, and consumer & FMCG companies scaling output without scaling headcount' },
-    url: `${BASE}/solutions/ai-agents`,
+    url: `${BASE}/products/ai-agent-studio`,
     hasOfferCatalog: {
       '@type': 'OfferCatalog', name: 'AI Agent Studio tiers',
       itemListElement: TIERS.map((t) => ({
@@ -41,8 +41,8 @@ function JsonLd() {
   const breadcrumb = {
     '@context': 'https://schema.org', '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Solutions', item: `${BASE}/solutions` },
-      { '@type': 'ListItem', position: 2, name: 'AI Agent Studio', item: `${BASE}/solutions/ai-agents` },
+      { '@type': 'ListItem', position: 1, name: 'Products', item: `${BASE}/products` },
+      { '@type': 'ListItem', position: 2, name: 'AI Agent Studio', item: `${BASE}/products/ai-agent-studio` },
     ],
   }
   return [service, faq, breadcrumb].map((b, i) => <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(b) }} />)

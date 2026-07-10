@@ -1,5 +1,5 @@
 import VerticalLandingTemplate from '../../../../components/VerticalLandingTemplate'
-import { data } from '../../../products/TiVi/churches/page'
+import { data } from './data'
 
 export const metadata = {
   title: { absolute: 'TiVi for Churches — Stream on a Platform Your Ministry Owns | Chainfren Media Launchpad' },

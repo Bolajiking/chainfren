@@ -39,7 +39,7 @@ function Arrow({ size = 14 }) {
 
 const cardBase = { borderRadius: 28, border: `2px solid ${CF.dark}`, position: 'relative', overflow: 'hidden' }
 
-function Hero({ sol, content, onSales, onSecondary }) {
+function Hero({ sol, content, onLead }) {
   const navy = content.heroTone === 'navy'
   const bg = navy ? CF.dark : CF.white
   const fg = navy ? '#fff' : CF.dark
@@ -51,7 +51,7 @@ function Hero({ sol, content, onSales, onSecondary }) {
         backgroundImage: navy ? `radial-gradient(ellipse at 85% 15%, ${sol.accent}33, transparent 60%)` : 'none' }}>
         <div>
           <nav style={{ fontSize: 12, letterSpacing: '0.02em', color: navy ? 'rgba(255,255,255,0.6)' : CF.muted, marginBottom: 20 }}>
-            <Link href="/solutions" style={{ color: 'inherit', textDecoration: 'none' }}>Solutions</Link>
+            <Link href="/products" style={{ color: 'inherit', textDecoration: 'none' }}>Products</Link>
             <span style={{ margin: '0 8px', opacity: 0.5 }}>›</span>
             <span style={{ color: fg }}>{content.breadcrumb}</span>
           </nav>
@@ -65,12 +65,17 @@ function Hero({ sol, content, onSales, onSecondary }) {
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
             style={{ display: 'flex', gap: 12, marginTop: 32, flexWrap: 'wrap' }}>
-            <button onClick={onSales} style={{
+            <button onClick={() => onLead('access')} style={{
               display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 9999,
               background: sol.accent, color: CF.dark, border: `2px solid ${sol.accent}`, cursor: 'pointer',
               fontFamily: 'inherit', fontSize: 13, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase',
-            }}>Talk to us <Arrow /></button>
-            {onSecondary}
+            }}>Request access <Arrow /></button>
+            <button onClick={() => onLead('demo')} style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 24px', borderRadius: 9999,
+              background: 'transparent', color: navy ? '#fff' : CF.dark,
+              border: `2px solid ${navy ? 'rgba(255,255,255,0.4)' : CF.dark}`, cursor: 'pointer',
+              fontFamily: 'inherit', fontSize: 13, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase',
+            }}>Book a demo <Arrow /></button>
           </motion.div>
         </div>
         <motion.div className="sp-hero-art" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
@@ -97,27 +102,6 @@ export default function SolutionPage({ solutionKey }) {
   const openLead = (variant) => setModal({ open: true, variant })
 
   const builtOn = sol.builtOn
-  // Secondary hero CTA — external product for live-core solutions, early-access for AI.
-  let secondary = null
-  if (builtOn.external) {
-    secondary = (
-      <a href={builtOn.href} target="_blank" rel="noopener noreferrer" style={{
-        display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 24px', borderRadius: 9999,
-        background: 'transparent', color: content.heroTone === 'navy' ? '#fff' : CF.dark,
-        border: `2px solid ${content.heroTone === 'navy' ? 'rgba(255,255,255,0.4)' : CF.dark}`, textDecoration: 'none',
-        fontFamily: 'inherit', fontSize: 13, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase',
-      }}>{builtOn.cta} <Arrow /></a>
-    )
-  } else if (sol.stage === 'early-access') {
-    secondary = (
-      <button onClick={() => openLead('early-access')} style={{
-        display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 24px', borderRadius: 9999,
-        background: 'transparent', color: content.heroTone === 'navy' ? '#fff' : CF.dark,
-        border: `2px solid ${content.heroTone === 'navy' ? 'rgba(255,255,255,0.4)' : CF.dark}`, cursor: 'pointer',
-        fontFamily: 'inherit', fontSize: 13, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase',
-      }}>Request early access <Arrow /></button>
-    )
-  }
 
   return (
     <div style={{ background: '#F5F4EE', color: CF.dark, minHeight: '100vh', fontFamily: 'var(--font-inter), "Inter Display", "Inter", sans-serif' }}>
@@ -131,10 +115,10 @@ export default function SolutionPage({ solutionKey }) {
         @media (prefers-reduced-motion: reduce) { .sp-fren { animation: none !important; } }
       ` }} />
 
-      <SiteHeader accent={accent} badgeLabel="Solutions" cta={{ label: 'Talk to us', onClick: () => openLead('sales') }} />
+      <SiteHeader accent={accent} badgeLabel="Products" cta={{ label: 'Talk to us', onClick: () => openLead('sales') }} />
 
       <main style={{ paddingBottom: 8 }}>
-        <Hero sol={sol} content={content} onSales={() => openLead('sales')} onSecondary={secondary} />
+        <Hero sol={sol} content={content} onLead={openLead} />
 
         {/* Definitional (GEO) + tension */}
         <section style={{ maxWidth: 1480, margin: '0 auto', padding: '40px 16px 0' }}>
@@ -197,11 +181,7 @@ export default function SolutionPage({ solutionKey }) {
                     {builtOn.line} Solutions delivered on your own infrastructure — not rented, not borrowed.
                   </p>
                 </div>
-                {builtOn.external ? (
-                  <a href={builtOn.href} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 9999, background: accent, color: CF.dark, fontSize: 13, fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase', textDecoration: 'none', flexShrink: 0 }}>{builtOn.cta || `Explore ${builtOn.name}`} <Arrow /></a>
-                ) : (
-                  <Link href={builtOn.href} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 9999, background: accent, color: CF.dark, fontSize: 13, fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase', textDecoration: 'none', flexShrink: 0 }}>Explore {builtOn.name} <Arrow /></Link>
-                )}
+                <button onClick={() => openLead('access')} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 9999, background: accent, color: CF.dark, border: 'none', fontFamily: 'inherit', fontSize: 13, fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase', cursor: 'pointer', flexShrink: 0 }}>Request access <Arrow /></button>
               </div>
             </Reveal>
           </section>

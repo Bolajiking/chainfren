@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react'
 import Link from 'next/link'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Check, Mail, Send, Calendar, Briefcase, Box, Radio, ArrowUpRight } from 'lucide-react'
+import { ArrowRight, Check, Mail, Send, Calendar, Briefcase, Box, Radio, Users, ArrowUpRight } from 'lucide-react'
 import CalendlyWidget from '@/app/components/CalendlyWidget'
 import SiteHeader, { DEFAULT_LINKS, DEFAULT_CTA } from '@/app/components/SiteHeader'
 
@@ -52,34 +52,47 @@ function StaggerItem({ children, index }) {
 }
 
 const services = [
-  { icon: Briefcase, label: 'Solutions', desc: 'Done-with-you growth systems', href: '/solutions', color: C.cyan },
-  { icon: Box, label: 'Products', desc: 'TVinBio · Star Factor', href: '/products', color: C.periwinkle },
-  { icon: Radio, label: 'Sabi', desc: 'Onchain broadcasting network', href: '/media', color: C.mint },
+  { icon: Box, label: 'Products', desc: 'The four building blocks', href: '/products', color: C.periwinkle },
+  { icon: Briefcase, label: 'Solutions', desc: 'For creators · for brands', href: '/solutions', color: C.cyan },
+  { icon: Users, label: 'Creator Network', desc: 'Creators × brand campaigns', href: '/creator-network', color: C.lime },
+  { icon: Radio, label: 'Media', desc: 'Sabi · The Playbook', href: '/media', color: C.mint },
 ]
 
 const interestGroups = [
   {
-    label: 'Agency',
-    options: ['Agency — Strategy & Done-With-You Growth Work'],
-  },
-  {
     label: 'Products',
     options: [
-      'Products — TiVi Streaming Platform',
-      'Products — TVinBio (Owned Audience Hub)',
-      'Products — Comeownity / Star Factor',
+      'Products — Media Launchpad (TiVi)',
+      'Products — Creator Growth OS',
+      'Products — Community Engine',
+      'Products — AI Agent Studio',
     ],
   },
   {
-    label: 'Sabi',
-    options: ['Sabi — Editorial / Press / Network Inquiry'],
+    label: 'Solutions',
+    options: [
+      'For Creators — my full creator stack',
+      'For Brands — my full brand stack',
+    ],
   },
   {
-    label: 'Other',
+    label: 'Creator Network',
+    options: [
+      "Creator Network — I'm a creator (apply)",
+      "Creator Network — I'm a brand (hire creators)",
+    ],
+  },
+  {
+    label: 'Media & Press',
+    options: ['Sabi — press, editorial or media partnership'],
+  },
+  {
+    label: 'Company',
     options: [
       'Partnership / Collaboration',
-      'Investment / Business Development',
-      'Other',
+      'Investment / Business development',
+      'Careers — join the team',
+      'Something else',
     ],
   },
 ]
@@ -175,7 +188,7 @@ export default function Contact() {
           </FadeUp>
           <FadeUp delay={0.16}>
             <p className="mt-6 text-base sm:text-lg max-w-lg leading-relaxed" style={{ color: C.dim }}>
-              The ownership infrastructure for Africa&apos;s creator economy. Whether you&apos;re launching, scaling, or rebuilding — agency, products, or the Sabi network — start here.
+              The ownership infrastructure for Africa&apos;s creator economy. A product, a creator or brand stack, the Creator Network, press for Sabi — whatever brought you here, this is the front door. One form, a real human on the other side.
             </p>
           </FadeUp>
 
@@ -251,18 +264,39 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* TiVi callout */}
+            {/* Faster routes — send common cases straight to the right door */}
             <FadeUp delay={0.15}>
-              <Link href="/solutions/media-launchpad/demo" className="group block mt-6">
-                <div className="p-5 rounded-2xl border-2 transition-all duration-300 group-hover:shadow-lg" style={{ borderColor: C.periwinkle + '30', background: C.periwinkle + '08' }}>
-                  <p className="text-xs font-bold tracking-wider uppercase mb-1" style={{ color: C.periwinkle }}>
-                    Looking for TiVi?
+              <p className="text-xs font-bold tracking-[0.2em] uppercase mt-8 mb-4" style={{ color: C.dim }}>
+                Faster routes
+              </p>
+            </FadeUp>
+            <FadeUp delay={0.18}>
+              <Link href="/creator-network/apply" className="group block">
+                <div className="p-5 rounded-2xl border-2 transition-all duration-300 group-hover:shadow-lg" style={{ borderColor: C.lime + '40', background: C.lime + '10' }}>
+                  <p className="text-xs font-bold tracking-wider uppercase mb-1" style={{ color: C.dark }}>
+                    Are you a creator?
                   </p>
                   <p className="text-sm" style={{ color: C.muted }}>
-                    Talk directly to the streaming product team
+                    Apply to the Creator Network and get matched to paid brand campaigns
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 mt-3 text-[11px] font-bold uppercase tracking-wider transition-all group-hover:gap-2.5" style={{ color: C.dark }}>
+                    Apply to the network
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </div>
+              </Link>
+            </FadeUp>
+            <FadeUp delay={0.22}>
+              <Link href="/products/media-launchpad/demo" className="group block mt-4">
+                <div className="p-5 rounded-2xl border-2 transition-all duration-300 group-hover:shadow-lg" style={{ borderColor: C.periwinkle + '30', background: C.periwinkle + '08' }}>
+                  <p className="text-xs font-bold tracking-wider uppercase mb-1" style={{ color: C.periwinkle }}>
+                    Want a live product demo?
+                  </p>
+                  <p className="text-sm" style={{ color: C.muted }}>
+                    See Media Launchpad (TiVi) in action, with your channel already mocked up
                   </p>
                   <span className="inline-flex items-center gap-1.5 mt-3 text-[11px] font-bold uppercase tracking-wider transition-all group-hover:gap-2.5" style={{ color: C.periwinkle }}>
-                    Go to TiVi Contact
+                    Book a demo
                     <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </div>

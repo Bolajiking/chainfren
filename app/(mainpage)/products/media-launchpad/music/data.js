@@ -1,6 +1,5 @@
-'use client';
+'use client'
 
-import VerticalLandingTemplate from '@/app/components/VerticalLandingTemplate'
 import {
   Music, DollarSign, Users, Eye, Lock, Wallet,
   BarChart2, Play, Globe, Shield, Zap, Radio,
@@ -173,8 +172,4 @@ export const data = {
   formSubheadline: 'Be among the first artists to launch on TiVi.',
   orgPlaceholder: 'Artist / Label Name (optional)',
   formButtonText: 'Launch My Channel',
-}
-
-export default function TiViMusicPage() {
-  return <VerticalLandingTemplate data={data} />
 }

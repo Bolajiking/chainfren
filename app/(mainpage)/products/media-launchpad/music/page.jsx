@@ -1,5 +1,5 @@
 import VerticalLandingTemplate from '../../../../components/VerticalLandingTemplate'
-import { data } from '../../../products/TiVi/music/page'
+import { data } from './data'
 
 export const metadata = {
   title: { absolute: 'TiVi for Music & Artists — Your Own MTV | Chainfren Media Launchpad' },

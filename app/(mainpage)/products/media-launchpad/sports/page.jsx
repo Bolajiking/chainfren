@@ -1,5 +1,5 @@
 import VerticalLandingTemplate from '../../../../components/VerticalLandingTemplate'
-import { data } from '../../../products/TiVi/sports/page'
+import { data } from './data'
 
 export const metadata = {
   title: { absolute: "TiVi for Sports — Your League's Own Streaming Channel | Chainfren Media Launchpad" },

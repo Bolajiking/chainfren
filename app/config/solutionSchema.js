@@ -29,7 +29,7 @@ export function solutionJsonLd(solutionKey) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Solutions', item: `${BASE}/solutions` },
+      { '@type': 'ListItem', position: 1, name: 'Products', item: `${BASE}/products` },
       { '@type': 'ListItem', position: 2, name: sol.name, item: BASE + sol.url },
     ],
   }

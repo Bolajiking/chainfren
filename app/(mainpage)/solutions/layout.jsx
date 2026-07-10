@@ -1,12 +1,12 @@
-// Metadata for the /solutions overview route. Child solution pages export
-// their own metadata, which overrides this per-route.
+// Metadata for the /solutions overview route (the persona chooser). Child
+// persona pages (/for-creators, /for-brands) export their own metadata.
 export const metadata = {
-  title: { absolute: 'Solutions — Four Ways to Own What You Build | Chainfren' },
+  title: { absolute: 'Solutions — Built for Who You Are | Chainfren' },
   description:
-    'Chainfren’s productized solutions for creators and brands: Media Launchpad, Creator Growth OS, Community Engine, and AI Agent Studio — done with you, on infrastructure you own.',
+    'Chainfren’s full product stack, packaged for who you are. For Creators: own your audience and revenue. For Brands: build community, scale with AI, and reach the creators who move culture.',
   openGraph: {
-    title: 'Chainfren Solutions — Four Ways to Own What You Build',
-    description: 'Media Launchpad, Creator Growth OS, Community Engine, and AI Agent Studio — ownership infrastructure for Africa’s creator economy.',
+    title: 'Chainfren Solutions — Built for Who You Are',
+    description: 'The whole Chainfren stack, packaged per audience — For Creators and For Brands.',
     type: 'website',
   },
 }

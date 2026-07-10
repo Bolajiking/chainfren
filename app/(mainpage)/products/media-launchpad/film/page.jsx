@@ -1,5 +1,5 @@
 import VerticalLandingTemplate from '../../../../components/VerticalLandingTemplate'
-import { data } from '../../../products/TiVi/film/page'
+import { data } from './data'
 
 export const metadata = {
   title: { absolute: 'TiVi for Film & Cinema — Your Own Cinema, Your Audience | Chainfren Media Launchpad' },

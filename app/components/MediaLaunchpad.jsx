@@ -131,7 +131,7 @@ export default function MediaLaunchpad() {
         @media (max-width: 560px){ .ml-stats { grid-template-columns: repeat(2, 1fr) !important; } .ml-stats > div:nth-child(3) { border-left: none !important; } }
         .ml-compare-scroll::-webkit-scrollbar { height: 6px; }
       ` }} />
-      <SiteHeader accent={ACCENT} badgeLabel="Solutions" cta={{ label: 'Book a demo', onClick: openDemo }} />
+      <SiteHeader accent={ACCENT} badgeLabel="Products" cta={{ label: 'Book a demo', onClick: openDemo }} />
 
       <main style={{ paddingBottom: 8 }}>
         <Hero onDemo={openDemo} onEarly={openEarly} />
@@ -286,7 +286,7 @@ export default function MediaLaunchpad() {
               const Icon = v.icon
               return (
                 <Reveal key={v.slug} delay={i * 0.05}>
-                  <Link href={`/solutions/media-launchpad/${v.slug}`} style={{ textDecoration: 'none' }}>
+                  <Link href={`/products/media-launchpad/${v.slug}`} style={{ textDecoration: 'none' }}>
                     <div className="ml-card-hover" style={{ ...cardBase, background: v.bg, padding: '26px 26px', height: '100%', display: 'flex', flexDirection: 'column' }}>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
                         <div style={{ width: 42, height: 42, borderRadius: 12, background: '#fff', border: `2px solid ${CF.dark}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon size={20} color={CF.dark} /></div>
