@@ -343,12 +343,12 @@ const MainGrid = () => {
     <div id="top" className="min-h-screen bg-white p-2 md:mb-16 md:mt-2 pb-24 md:pb-0">
 
       {/* --- MOBILE LAYOUT (HIDDEN ON MD) --- */}
-      {/* Order optimised for mobile engagement: CTA before argument,
-          argument before proof, proof before decoration. */}
+      {/* Order optimised for mobile engagement: audience fit before the
+          solution catalogue, then argument, proof, and supporting utilities. */}
       <div className="flex md:hidden flex-col gap-2">
         <MobileHero />
-        <WhatWeBuild />
         <ForCreatorsSection />
+        <WhatWeBuild />
         <MissionSection />
         <WhatWeDoSection />
         <PlaybookSection />
