@@ -31,66 +31,32 @@ export const DEFAULT_CTA = { label: 'Join Chainfren', href: '/contact' }
 // mega-menus and the mobile accordions. All links are real, crawlable
 // destinations that exist in the app (no dead routes).
 // ─────────────────────────────────────────────────────────────────────────
+// Two menus: Solutions (the four offers) and Media (Sabi). Products and Solutions
+// were collapsed into one concept — "Solutions" — at this stage. Triggers open
+// the mega-menu on click/hover; they do not navigate (the /solutions and /media
+// overview pages stay reachable by direct URL but are not nav destinations).
 const ENGINES = {
-  products: {
-    key: 'products',
-    trigger: 'Products',
-    href: '/products',
-    eyebrow: 'Chainfren Products',
-    identity: 'Chainfren Products',
+  solutions: {
+    key: 'solutions',
+    trigger: 'Solutions',
+    href: '/solutions',   // kept for reference only; the trigger no longer navigates
+    eyebrow: 'Chainfren Solutions',
+    identity: 'Chainfren Solutions',
     promise: 'Four ways to own what you build.',
-    exploreLabel: 'See all products',
-    exploreHref: '/products',
     pose: 'lift',
     poseB: '#5ACDFF',
-    offeringsEyebrow: 'The products — four building blocks',
+    offeringsEyebrow: 'The solutions — four ways to own what you build',
     // Living-nav: offerings render from the stack config (app/config/stack.js).
     offerings: PRODUCTS.map((p) => ({
       color: p.accent,
       title: p.nickname ? `${p.name} · ${p.nickname}` : p.name,
       desc: p.outcome, href: p.url,
     })),
-    featured: {
-      kind: 'dark', tag: 'Flagship', name: 'Media Launchpad',
-      line: 'Your Netflix. Your Twitch. Your YouTube — owned. Now in early access.',
-      cta: 'Explore Media Launchpad', href: '/products/media-launchpad', img: '/3d.png',
-    },
-    sections: [
-      ...PRODUCTS.map((p) => ({ label: p.name, href: p.url })),
-    ],
-    mobileRows: [
-      { label: 'See all products', href: '/products', muted: true },
-      ...PRODUCTS.map((p) => ({ label: p.nickname ? `${p.name} · ${p.nickname}` : p.name, href: p.url, muted: true })),
-    ],
-  },
-  solutions: {
-    key: 'solutions',
-    trigger: 'Solutions',
-    href: '/solutions',
-    eyebrow: 'Chainfren Solutions',
-    identity: 'Built for who you are',
-    promise: 'The whole stack, packaged for creators and for brands.',
-    exploreLabel: 'Explore Solutions',
-    exploreHref: '/solutions',
-    pose: 'handshake',
-    poseB: '#0091FF',
-    offeringsEyebrow: 'By audience',
-    // Living-nav: personas render from the stack config (app/config/stack.js).
-    offerings: SOLUTION_PERSONAS.map((p) => ({
-      color: p.accent,
-      title: p.name, desc: p.blurb, href: p.href,
-    })),
+    // Creator Network is the featured card; Star Factor sits under it as a notice.
     featured: { ...FEATURED.creatorNetwork, kind: 'dark' },
-    // A compact second notice tucked under the featured card (approved mockup):
-    // Star Factor's coming-soon, relocated here from the old Products menu.
     notice: { ...FEATURED.starFactor },
-    sections: [
-      ...SOLUTION_PERSONAS.map((p) => ({ label: p.name, href: p.href })),
-      { label: 'Creator Network', href: '/creator-network' },
-    ],
     mobileRows: [
-      { label: 'Explore Solutions', href: '/solutions', muted: true },
-      ...SOLUTION_PERSONAS.map((p) => ({ label: p.name, href: p.href, muted: true })),
+      ...PRODUCTS.map((p) => ({ label: p.nickname ? `${p.name} · ${p.nickname}` : p.name, href: p.url, muted: true })),
       { label: 'Creator Network', href: '/creator-network', accent: '#5ACDFF' },
       { label: 'Star Factor — coming soon', accent: '#C8EB6D', action: 'notify', notifySource: 'nav-star-factor-mobile' },
     ],
@@ -98,53 +64,49 @@ const ENGINES = {
   media: {
     key: 'media',
     trigger: 'Media',
-    href: '/media',
+    href: '/sabi',   // kept for reference only; the trigger no longer navigates
     eyebrow: 'Chainfren Media',
     identity: 'Chainfren Media',
     promise: "Stories and broadcasts from Africa's creator economy.",
-    exploreLabel: 'Explore Media',
-    exploreHref: '/media',
     pose: 'reach',
     poseB: '#8DAAFF',
-    offeringsEyebrow: 'Broadcasts & writing',
+    offeringsEyebrow: 'Watch · read · broadcast',
     offerings: [
-      { color: NIGHT, title: 'Sabi — onchain broadcasting network', desc: "Africa's onchain broadcasting signal.", href: '/media' },
-      { color: '#5ACDFF', title: 'The Playbook — articles & essays', desc: 'The work, documented in public.', href: '/blog' },
+      { color: '#5ACDFF', title: 'Blog', desc: 'The work, documented in public.', href: '/blog' },
+      { color: '#8DAAFF', title: 'Videos', desc: 'On-demand watching from Sabi.', href: '/sabi#videos' },
+      { color: NIGHT, title: 'Broadcast', desc: "Africa's onchain broadcasting signal.", href: '/sabi#broadcasts' },
     ],
-    // featured renders via the dedicated SabiPlayerCard (mini media-player), not the generic FeaturedCard.
+    // featured renders via the dedicated SabiPlayerCard (mini media-player).
     featured: {
       tag: 'Launching 2026', name: 'Sabi',
       line: "Africa's onchain broadcasting signal.",
-      cta: 'Set a reminder', href: '/media',
+      cta: 'Set a reminder', href: '/sabi',
     },
-    sections: [
-      { label: 'Sabi', href: '/media' },
-      { label: 'The Playbook', href: '/blog' },
-    ],
     mobileRows: [
-      { label: 'Sabi — onchain broadcasting signal', href: '/media', muted: true },
-      { label: 'The Playbook', href: '/blog', muted: true },
+      { label: 'Blog', href: '/blog', muted: true },
+      { label: 'Videos', href: '/sabi#videos', muted: true },
+      { label: 'Broadcast', href: '/sabi#broadcasts', muted: true },
     ],
   },
 }
-const ENGINE_ORDER = ['products', 'solutions', 'media']
+const ENGINE_ORDER = ['solutions', 'media']
 
 // Map a badge / pathname onto an engine key.
 function engineFromBadge(badgeLabel) {
   if (!badgeLabel) return null
   const b = badgeLabel.toLowerCase()
-  if (b === 'agency' || b === 'solutions') return 'solutions'
-  if (b === 'products' || b === 'product') return 'products'
+  // Products and Solutions are one concept now — everything offer-related maps
+  // to the single Solutions menu.
+  if (b === 'agency' || b === 'solutions' || b === 'solution' || b === 'products' || b === 'product') return 'solutions'
   if (b === 'media' || b === 'sabi') return 'media'
   return null
 }
 function engineFromPath(path) {
   if (!path) return null
-  // The four offers now live under /products. Solutions = the persona pages
-  // (/for-creators, /for-brands), the /solutions chooser, and Creator Network.
-  if (path.startsWith('/products')) return 'products'
-  if (path.startsWith('/solutions') || path.startsWith('/for-creators') || path.startsWith('/for-brands') || path.startsWith('/agency') || path.startsWith('/creator-network')) return 'solutions'
-  if (path.startsWith('/media') || path.startsWith('/blog')) return 'media'
+  // Solutions = the four offers (/products/*), the /solutions overview, the
+  // persona pages, and Creator Network. Media = Sabi + blog/videos/broadcasts.
+  if (path.startsWith('/products') || path.startsWith('/solutions') || path.startsWith('/for-creators') || path.startsWith('/for-brands') || path.startsWith('/agency') || path.startsWith('/creator-network')) return 'solutions'
+  if (path.startsWith('/media') || path.startsWith('/sabi') || path.startsWith('/blog') || path.startsWith('/videos') || path.startsWith('/broadcasts')) return 'media'
   return null
 }
 
@@ -162,7 +124,7 @@ function MegaContent({ engine, reduced }) {
   const anim = (delay) => (reduced ? undefined : `cfItemIn 160ms ${EO} ${delay}ms both`)
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '28% 1fr 30%', gap: 18, padding: '18px 18px 14px' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '28% 1fr 30%', gap: 16, padding: '14px 16px 12px' }}>
       {/* Identity column */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingRight: 16, borderRight: '1px solid rgba(8,21,60,0.1)', animation: anim(60) }}>
         <div style={{ width: 68, height: 68 }}>
@@ -171,20 +133,23 @@ function MegaContent({ engine, reduced }) {
         <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(8,21,60,0.5)' }}>{e.eyebrow}</div>
         <div style={{ fontSize: 18, fontWeight: 500, letterSpacing: '-0.01em', lineHeight: 1.05 }}>{e.identity}</div>
         <p style={{ margin: 0, fontSize: 12, lineHeight: 1.4, color: 'rgba(8,21,60,0.72)' }}>{e.promise}</p>
-        <Link href={e.exploreHref} className="cf-explore" style={{ marginTop: 2, display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 10.5, fontWeight: 600, letterSpacing: '0.07em', textTransform: 'uppercase', color: DARK, textDecoration: 'none' }}>
-          {e.exploreLabel} <ArrowRight size={12} />
-        </Link>
+        {e.exploreHref && (
+          <Link href={e.exploreHref} className="cf-explore" style={{ marginTop: 2, display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 10.5, fontWeight: 600, letterSpacing: '0.07em', textTransform: 'uppercase', color: DARK, textDecoration: 'none' }}>
+            {e.exploreLabel} <ArrowRight size={12} />
+          </Link>
+        )}
       </div>
 
       {/* Offerings column */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(8,21,60,0.5)', padding: '0 10px 5px' }}>{e.offeringsEyebrow}</div>
         {e.offerings.map((o, i) => (
-          <Link key={o.title} href={o.href} role="menuitem" className="cf-offering" style={{ display: 'flex', gap: 10, alignItems: 'flex-start', padding: '9px 10px', borderRadius: 12, textDecoration: 'none', color: DARK, animation: anim(88 + i * 28) }}>
-            <span style={{ flex: 'none', width: 7, height: 7, marginTop: 6, borderRadius: '50%', background: o.color }} aria-hidden="true" />
-            <span style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0 }}>
+          <Link key={o.title} href={o.href} role="menuitem" className="cf-offering" style={{ display: 'flex', gap: 10, alignItems: 'flex-start', padding: '7px 11px', borderRadius: 12, textDecoration: 'none', color: DARK, animation: anim(88 + i * 28) }}>
+            <span style={{ flex: 'none', width: 7, height: 7, marginTop: 5, borderRadius: '50%', background: o.color }} aria-hidden="true" />
+            <span style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
               <span style={{ fontSize: 13, fontWeight: 600 }}>{o.title}</span>
-              <span style={{ fontSize: 11.5, lineHeight: 1.4, color: 'rgba(8,21,60,0.65)' }}>{o.desc}</span>
+              {/* Description is collapsed by default; revealed on hover/focus (keeps the menu compact). */}
+              <span className="cf-offering-desc"><span>{o.desc}</span></span>
             </span>
           </Link>
         ))}
@@ -194,7 +159,7 @@ function MegaContent({ engine, reduced }) {
       {engine === 'media' ? (
         <SabiPlayerCard feat={e.featured} anim={anim(200)} />
       ) : e.notice ? (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           <FeaturedCard feat={e.featured} anim={anim(200)} />
           <MiniNotice feat={e.notice} anim={anim(248)} />
         </div>
@@ -352,14 +317,8 @@ export default function SiteHeader({
   const menuRef = useRef(null)
   useEffect(() => { menuRef.current = menu }, [menu])
 
-  // Active engine drives trigger highlight + contextual sub-nav.
+  // Active engine drives the trigger highlight only (the sub-nav bar was removed).
   const activeEngine = engineFromBadge(badgeLabel) || engineFromPath(pathname)
-  const chipLabel = badgeLabel || (activeEngine ? ENGINES[activeEngine].trigger : null)
-
-  // Contextual sub-nav sections: explicit `links` prop wins, else engine defaults.
-  const subSections = activeEngine
-    ? (links && links.length ? links : ENGINES[activeEngine].sections)
-    : []
 
   const clearTimers = useCallback(() => {
     clearTimeout(timers.current.open)
@@ -544,20 +503,21 @@ export default function SiteHeader({
               const e = ENGINES[key]
               const isActive = menu === key || activeEngine === key
               return (
-                <Link
+                <button
                   key={key}
-                  href={e.href}
+                  type="button"
                   className="cf-trig"
                   aria-haspopup="true"
                   aria-expanded={menu === key}
                   onMouseEnter={() => openMenu(key)}
                   onMouseLeave={scheduleClose}
                   onFocus={() => openMenu(key, true)}
+                  onClick={() => (menu === key ? (clearTimers(), setMenu(null)) : openMenu(key, true))}
                 >
                   {e.trigger}
                   <svg width="9" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.6 }} aria-hidden="true"><path d="M1 1l4 4 4-4" /></svg>
                   <span style={triggerBar(isActive)} />
-                </Link>
+                </button>
               )
             })}
           </div>
@@ -575,28 +535,11 @@ export default function SiteHeader({
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="4" y1="8" x2="20" y2="8" /><line x1="4" y1="16" x2="20" y2="16" /></svg>
           </button>
         </nav>
-
-        {/* Level two — in-engine contextual sub-nav */}
-        {activeEngine && subSections.length > 0 && (
-          <div className="cf-subnav" aria-label="Section" style={{ animation: reduced ? undefined : `cfItemIn 200ms ${EO} both` }}>
-            {chipLabel && <span className="cf-subnav-chip">{chipLabel}</span>}
-            {subSections.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href || item.anchor || '#'}
-                className={'cf-subnav-link' + (isSectionActive(item) ? ' is-current' : '')}
-                onClick={sectionOnClick(item)}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        )}
       </header>
 
       {/* Spacer reserves the capsule's footprint so switching to fixed
           positioning introduces no layout shift (CLS-safe). Desktop only. */}
-      <div className="cf-nav-spacer" aria-hidden="true" style={{ height: 84 + (activeEngine && subSections.length ? 52 : 0) }} />
+      <div className="cf-nav-spacer" aria-hidden="true" style={{ height: 84 }} />
 
       {/* ───────── Desktop mega-menu panel ───────── */}
       <div className="cf-panel-wrap" style={{ top: panelTop, transition: reduced ? 'none' : `top 200ms ${EO}` }}>
@@ -616,7 +559,7 @@ export default function SiteHeader({
           }}
         >
           <MegaContent key={content} engine={content} reduced={reduced} />
-          {showAudienceStrip && <ForYouStrip />}
+          {showAudienceStrip && content === 'solutions' && <ForYouStrip />}
         </div>
       </div>
 
@@ -761,6 +704,7 @@ export default function SiteHeader({
           padding: 10px 14px; border-radius: 9999px;
           font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
           color: ${DARK}; text-decoration: none;
+          background: none; border: none; cursor: pointer; font-family: inherit;
           transition: background 120ms ${EQ};
         }
         .cf-trig:hover { background: rgba(8,21,60,0.05); }
@@ -820,6 +764,11 @@ export default function SiteHeader({
         .cf-explore:hover { opacity: 0.65; }
         .cf-offering { transition: background 140ms ${EQ}, transform 140ms ${EQ}; }
         .cf-offering:hover { background: rgba(8,21,60,0.045); transform: translateY(-2px); }
+        /* Descriptions collapse to zero height, revealing on hover/focus — keeps the menu compact. */
+        .cf-offering-desc { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 200ms ${EO}; }
+        .cf-offering:hover .cf-offering-desc, .cf-offering:focus-visible .cf-offering-desc { grid-template-rows: 1fr; }
+        .cf-offering-desc > span { overflow: hidden; min-height: 0; padding-top: 2px; font-size: 11.5px; line-height: 1.4; color: rgba(8,21,60,0.65); }
+        @media (prefers-reduced-motion: reduce) { .cf-offering-desc { transition: none; } }
         .cf-featured { transition: transform 140ms ${EQ}, box-shadow 140ms ${EQ}; }
         .cf-featured:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(8,21,60,0.28); }
         .cf-mini-notice { transition: transform 140ms ${EQ}, box-shadow 140ms ${EQ}; }

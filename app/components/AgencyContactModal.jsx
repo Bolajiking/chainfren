@@ -397,7 +397,7 @@ function ThankYou({ accent, email, onClose }) {
         A real human from the Chainfren team will reach out within 24 hours — usually much faster. We&apos;ll have read your form before we email you, so the first conversation can start where you actually are, not where the small talk would have taken us.
       </p>
       <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.7)', lineHeight: 1.65, marginBottom: 24 }}>
-        While you wait — read <a href="/media" style={{ color: accent, textDecoration: 'underline' }}>Sabi</a>, Chainfren&apos;s media network. The work we do with creators and brands gets documented there.
+        While you wait — read <a href="/sabi" style={{ color: accent, textDecoration: 'underline' }}>Sabi</a>, Chainfren&apos;s media network. The work we do with creators and brands gets documented there.
       </p>
 
       <div style={{

@@ -52,24 +52,23 @@ function StaggerItem({ children, index }) {
 }
 
 const services = [
-  { icon: Box, label: 'Products', desc: 'The four building blocks', href: '/products', color: C.periwinkle },
-  { icon: Briefcase, label: 'Solutions', desc: 'For creators · for brands', href: '/solutions', color: C.cyan },
+  { icon: Briefcase, label: 'Solutions', desc: 'The four ways to own it', href: '/solutions', color: C.cyan },
   { icon: Users, label: 'Creator Network', desc: 'Creators × brand campaigns', href: '/creator-network', color: C.lime },
-  { icon: Radio, label: 'Media', desc: 'Sabi · The Playbook', href: '/media', color: C.mint },
+  { icon: Radio, label: 'Media', desc: 'Sabi · blog · broadcast', href: '/sabi', color: C.mint },
 ]
 
 const interestGroups = [
   {
-    label: 'Products',
+    label: 'Solutions',
     options: [
-      'Products — Media Launchpad (TiVi)',
-      'Products — Creator Growth OS',
-      'Products — Community Engine',
-      'Products — AI Agent Studio',
+      'Solutions — Media Launchpad (TiVi)',
+      'Solutions — Creator Growth OS',
+      'Solutions — Community Engine',
+      'Solutions — AI Agent Studio',
     ],
   },
   {
-    label: 'Solutions',
+    label: 'For you',
     options: [
       'For Creators — my full creator stack',
       'For Brands — my full brand stack',
@@ -188,7 +187,7 @@ export default function Contact() {
           </FadeUp>
           <FadeUp delay={0.16}>
             <p className="mt-6 text-base sm:text-lg max-w-lg leading-relaxed" style={{ color: C.dim }}>
-              The ownership infrastructure for Africa&apos;s creator economy. A product, a creator or brand stack, the Creator Network, press for Sabi — whatever brought you here, this is the front door. One form, a real human on the other side.
+              The ownership infrastructure for Africa&apos;s creator economy. A solution, a creator or brand stack, the Creator Network, press for Sabi — whatever brought you here, this is the front door. One form, a real human on the other side.
             </p>
           </FadeUp>
 
