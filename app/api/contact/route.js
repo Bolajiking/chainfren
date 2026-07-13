@@ -188,18 +188,3 @@ export async function POST(request) {
     )
   }
 }
-
-export async function GET() {
-  try {
-    await ensureDataFile()
-    const raw = await fs.readFile(DATA_FILE, 'utf-8')
-    const submissions = JSON.parse(raw)
-    return NextResponse.json({ submissions, count: submissions.length })
-  } catch (error) {
-    console.error('Contact read error:', error)
-    return NextResponse.json(
-      { error: 'Failed to read submissions.' },
-      { status: 500 }
-    )
-  }
-}
