@@ -3,6 +3,7 @@ import ContextProvider from './components/utils/Provider'
 import StyledJsxRegistry from './components/utils/StyledJsxRegistry'
 
 export const metadata = {
+  metadataBase: new URL('https://www.chainfren.com'),
   title: {
     default: 'Chainfren — Ownership Infrastructure for the African Creator Economy',
     template: '%s | Chainfren',
