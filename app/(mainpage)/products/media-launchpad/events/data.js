@@ -8,14 +8,14 @@ import {
 export const data = {
   icon: Ticket,
   badge: 'TiVi for Events',
-  headline: 'YOUR VENUE',
-  headlineAccent: 'NEVER CLOSES.',
+  headline: 'Your venue',
+  headlineAccent: 'never closes.',
   subheadline:
     'The show ends, the lights go dark, and every dollar you could have made from that content disappears. TiVi gives you a permanent streaming channel — one night of magic becomes months of revenue.',
   heroImage: '/img7.jpg',
   heroImageAlt: 'TiVi event streaming platform',
   accentColor: '#E6D9FF',
-  ctaText: 'Launch Your Channel',
+  ctaText: 'Request access',
   verticalName: 'events',
 
   stats: [
@@ -24,9 +24,10 @@ export const data = {
     { value: '$12.5B', label: 'Virtual Concert Market by 2032' },
     { value: '45%', label: 'Revenue from Ticket Sales Alone' },
   ],
+  statsSource: 'Market figures from Verified Market Research (virtual concerts) and IBISWorld (event promotion).',
 
   problemLabel: 'The Revenue Black Hole',
-  problemHeadline: 'YOUR BEST NIGHTS MAKE MONEY EXACTLY ONCE.',
+  problemHeadline: 'Your best nights make money exactly once.',
   problemSubheadline:
     'Weeks of promotion, thousands on production, one unforgettable night — then it is over. The revenue stops. It does not have to.',
 
@@ -70,7 +71,7 @@ export const data = {
   ],
 
   solutionLabel: 'Your Permanent Stage',
-  solutionHeadline: 'ONE CHANNEL. EVERY SHOW. REVENUE THAT NEVER STOPS.',
+  solutionHeadline: 'One channel. Every show. Revenue that never stops.',
 
   features: [
     {
@@ -112,7 +113,7 @@ export const data = {
   ],
 
   useCasesLabel: 'Built For Your World',
-  useCasesHeadline: 'FROM DIVE BARS TO FESTIVAL GROUNDS.',
+  useCasesHeadline: 'From dive bars to festival grounds.',
 
   useCases: [
     {
@@ -148,7 +149,7 @@ export const data = {
   ],
 
   comparisonLabel: 'See The Difference',
-  comparisonHeadline: 'TIVI VS. THE OLD WAY.',
+  comparisonHeadline: 'TiVi vs. the old way.',
   comparisonPlatforms: ['TiVi', 'Veeps', 'Eventbrite', 'Moment'],
   comparisonRows: [
     { feature: 'Permanent branded channel', values: [true, false, false, false] },
@@ -160,13 +161,7 @@ export const data = {
     { feature: 'Revenue share', values: ['0%', '70/30', 'Fees', '80/20'] },
   ],
 
-  quote: {
-    text: 'We used to make money one night at a time. Now every show we stream earns while we book the next one. TiVi turned our archive into our most valuable asset.',
-    author: 'Early Access Venue Owner',
-    role: 'Independent Venue Owner & Promoter',
-  },
-
-  ctaHeadline: 'THE SHOW MUST GO ON. AND ON.',
+  ctaHeadline: 'The show must go on. And on.',
   ctaSubheadline:
     'Turn every event into a revenue engine — not a one-night stand.',
   ctaBullets: [
@@ -176,6 +171,6 @@ export const data = {
     'Build a content library that earns while you sleep',
   ],
   orgPlaceholder: 'Venue / Promoter Name (optional)',
-  formButtonText: 'Launch My Channel',
+  formButtonText: 'Request access',
   formSubheadline: 'Get early access — free to set up, no commitments.',
 }

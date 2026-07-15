@@ -97,10 +97,14 @@ export const PRODUCTS = [
     accentB: CF.lime,
     pose: 'squad',
     stage: 'live-core',
-    stageDetail: 'Powered by Comeownity',
+    stageDetail: 'Live',
     flagship: false,
     audience: 'Communities · institutions · fan bases · cultural & consumer brands',
-    builtOn: { name: 'Comeownity', line: 'Tokenized shows, fan-driven communities. Cultural infrastructure.', href: 'https://comeownity.com/', external: true, cta: 'Explore Comeownity' },
+    // Comeownity sub-brand retired (decision 13 Jul); the "Built on Comeownity"
+    // band is hidden pending the Community Engine repositioning to the owned-
+    // community layer (copy tickets C2/C3). builtOn kept Chainfren-native.
+    builtOn: { name: 'Chainfren community infrastructure', line: 'Loyalty, membership, and fan economics — your owned community layer.', href: '/products/community-engine' },
+    hideBuiltOn: true,
     primaryCta: 'sales',
   },
   {

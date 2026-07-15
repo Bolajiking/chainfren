@@ -26,7 +26,7 @@ const SLIDES = [
   {
     key: 'community-loyalty', label: 'Community Engine',
     pre: 'Turn your audience into ', em: 'owners', post: '.',
-    body: 'Tokenized membership, fan economics, loyalty that compounds — followers become stakeholders.',
+    body: 'Loyalty, fan economics, membership that compounds — followers become stakeholders.',
     href: '/products/community-engine', cta: 'Explore Community Engine', bg: '#CBF0B8',
   },
   {

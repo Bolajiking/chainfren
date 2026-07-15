@@ -71,6 +71,9 @@ function ProductsGrid() {
         <h2 style={{ fontSize: 'clamp(2rem, 4.2vw, 3.5rem)', fontWeight: 450, letterSpacing: '-0.025em', lineHeight: 1.05, color: CF.dark, marginTop: 12 }}>
           Four solutions. One outcome: ownership.
         </h2>
+        <p style={{ fontSize: 17, color: CF.muted, lineHeight: 1.6, marginTop: 18, maxWidth: 780 }}>
+          Same products, packaged for your world — self-serve if you want the keys, done-with-you if you want the crew, and a creator network when you need the people.
+        </p>
       </div>
       <div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
         {PRODUCTS.map((p) => (
@@ -168,7 +171,7 @@ function FAQ() {
     { q: 'What are Chainfren’s solutions?', a: 'Four ways to own what you build — Media Launchpad, Creator Growth OS, Community Engine, and AI Agent Studio. Pick the one that matches what you’re building, or start with the For Creators / For Brands stack if you’re not sure where to begin.' },
     { q: 'Do I need to understand Web3 to use them?', a: 'No. We do, and we translate where it matters. Crypto and digital assets only show up where they solve a real problem — cross-border payments, ownership that survives platform changes, identity that travels.' },
     { q: 'Are these self-serve tools or done-with-you builds?', a: 'Both, depending on the product. TVinBio and TiVi you can launch yourself; the full products are done-with-you — Chainfren designs, builds, and launches on infrastructure you own.' },
-    { q: 'What does an engagement cost?', a: 'Scoped to your stage, audience, and goals — anything from a short diagnostic to a multi-month build. Talk to us and we’ll match you to the right product and pricing.' },
+    { q: 'What does an engagement cost?', a: 'Scoped to your stage, audience, and goals — anything from a short diagnostic to a multi-month build. Tell us what you’re building and we’ll match you to the right product and pricing.' },
     { q: 'How do we start?', a: 'Tell us what you’re building — 60 seconds. A real human reads every submission and replies within 24 hours, usually faster.' },
   ]
   const [open, setOpen] = useState(0)
@@ -239,7 +242,7 @@ export default function ProductsOverview() {
         }
         @media (max-width: 760px) { .pv-faq { grid-template-columns: 1fr !important; } }
       ` }} />
-      <SiteHeader accent={CF.accent} badgeLabel="Products" cta={{ label: 'Talk to us', onClick: () => setContactOpen(true) }} />
+      <SiteHeader accent={CF.accent} badgeLabel="Products" cta={{ label: 'Tell us what you\'re building', onClick: () => setContactOpen(true) }} />
       <main style={{ paddingBottom: 8 }}>
         <Hero />
         <ProductsGrid />

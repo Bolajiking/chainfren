@@ -359,7 +359,7 @@ function SolutionsSection({ accent }) {
       tagline: 'Turn your audience into an owned community that compounds.',
       bg: CF.mint, img: '/3d5.png',
       forWhom: 'Communities · institutions · fan bases · brands',
-      pitch: 'Followers watch. Communities own. Tokenized membership, loyalty & rewards, fan economics, and the smart-contract layer that makes ownership real.',
+      pitch: 'Followers watch. Communities own. Loyalty, membership, and fan economics — your owned community layer that turns your audience into stakeholders.',
     },
     {
       n: '04', id: 'ai-agent-studio', title: 'AI Agent Studio',
@@ -432,7 +432,7 @@ function SolutionsSection({ accent }) {
               </p>
 
               <div style={{ marginTop: 'auto' }}>
-                <PillBtn dark full onClick={openContact}>Talk to us <Arrow /></PillBtn>
+                <PillBtn dark full onClick={openContact}>Tell us what you&apos;re building <Arrow /></PillBtn>
               </div>
             </div>
           </article>
@@ -710,7 +710,7 @@ function PageFooter() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <ChainfrenWordmark fontSize={22} />
-          <span style={{ fontSize: 12, color: CF.subtle }}>2025 © Chainfren. All rights reserved.</span>
+          <span style={{ fontSize: 12, color: CF.subtle }}>© {new Date().getFullYear()} Chainfren. All rights reserved.</span>
         </div>
         <div style={{ display: 'flex', gap: 22, fontSize: 12, color: CF.subtle, fontWeight: 420, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
           <a href="https://x.com/chainfren" style={{ color: 'inherit', textDecoration: 'none' }}>X</a>
@@ -756,7 +756,7 @@ export default function AgencyPage() {
         accent={accent}
         badgeLabel="Agency"
         links={AGENCY_LINKS}
-        cta={{ label: 'Get in touch', onClick: () => setContactOpen(true) }}
+        cta={{ label: 'Tell us what you\'re building', onClick: () => setContactOpen(true) }}
       />
       {/* Flex column + order utilities re-sequence sections on mobile (CTA
           before argument, proof before FAQ) without duplicating markup.

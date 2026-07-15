@@ -8,14 +8,14 @@ import {
 export const data = {
   icon: Music,
   badge: 'TiVi for Music',
-  headline: 'YOUR OWN MTV.',
-  headlineAccent: 'YOUR REVENUE.',
+  headline: 'Your own MTV.',
+  headlineAccent: 'Your revenue.',
   subheadline:
     'Streaming platforms pay you fractions of a cent. TiVi pays you 100%. Your branded channel. Live shows, music videos, merch, fan subscriptions — all in one place. No middlemen. No algorithms.',
   heroImage: '/img7.jpg',
   heroImageAlt: 'TiVi music streaming platform interface',
   accentColor: '#8DAAFF',
-  ctaText: 'Launch Your Channel',
+  ctaText: 'Request access',
   verticalName: 'music',
 
   stats: [
@@ -24,6 +24,7 @@ export const data = {
     { value: '$0.003', label: 'Avg. per-stream payout globally' },
     { value: '95%', label: 'Artists earning almost nothing' },
   ],
+  statsSource: 'Market figures from Mordor Intelligence and Statista; Spotify per-stream payout as publicly reported.',
 
   problemLabel: 'The Problem',
   problemHeadline: 'The streaming economy was built to exploit you.',
@@ -154,12 +155,6 @@ export const data = {
     { feature: 'Wallet-Native Payments', values: [true, false, false, false] },
   ],
 
-  quote: {
-    text: 'TiVi gave us our own channel. Now every fan relationship is ours. The economics finally make sense for independent artists.',
-    author: 'Early Access Artist',
-    role: 'Independent musician, 85K monthly listeners',
-  },
-
   ctaHeadline: 'Stop streaming for pennies.',
   ctaSubheadline:
     'Your channel. Your fans. Your revenue. No middlemen, no algorithms, no excuses.',
@@ -171,5 +166,5 @@ export const data = {
   ],
   formSubheadline: 'Be among the first artists to launch on TiVi.',
   orgPlaceholder: 'Artist / Label Name (optional)',
-  formButtonText: 'Launch My Channel',
+  formButtonText: 'Request access',
 }

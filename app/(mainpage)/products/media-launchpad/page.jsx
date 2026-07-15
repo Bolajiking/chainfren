@@ -18,7 +18,7 @@ const FAQ = [
   { q: 'What’s the difference between TiVi and Media Launchpad?', a: 'TiVi is the platform — launch it yourself in minutes. Media Launchpad is the full solution: Chainfren designs, builds, and launches your entire media presence on TiVi, done with you.' },
   { q: 'How much does TiVi cost?', a: 'TiVi offers a free tier and flexible plans as you grow. All plans let you keep 100% of what you earn from your audience.' },
   { q: 'Do I need coding skills?', a: 'No. Launch your branded streaming channel in minutes with our no-code setup.' },
-  { q: 'How is TiVi different from YouTube or Twitch?', a: 'YouTube takes 45–55% and owns your audience data. Twitch takes 50%. TiVi takes zero — you keep 100% of revenue, own your subscriber data, and control your channel.' },
+  { q: 'How is TiVi different from YouTube or Twitch?', a: 'YouTube takes 45% of ad revenue and owns your audience data. Twitch takes 50%. TiVi takes zero — you keep 100% of revenue, own your subscriber data, and control your channel.' },
 ]
 
 function JsonLd() {

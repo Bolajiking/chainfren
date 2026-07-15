@@ -219,6 +219,11 @@ function Positioning() {
             The Chainfren Creator Network is a curated network of African creators, international crypto KOLs, and partner agencies &mdash; built exclusively for onchain brands. Vetted, not listed. Connected, not brokered. The layer crypto&rsquo;s most ambitious brands run on.
           </p>
         </Reveal>
+        <Reveal delay={0.32}>
+          <p style={{ fontSize: 'clamp(0.98rem,1.35vw,1.1rem)', color: CF.muted, lineHeight: 1.6, maxWidth: 760, margin: '18px 0 0' }}>
+            Same products, packaged for your world &mdash; self-serve if you want the keys, done-with-you if you want the crew, and a creator network when you need the people.
+          </p>
+        </Reveal>
       </div>
     </section>
   )

@@ -18,7 +18,7 @@ export const PERSONA_CONTENT = {
       eyebrow: 'For Creators',
       h1: 'Own your audience. Keep your money. Build the business the platforms wouldn’t let you build.',
       sub: 'Everything Chainfren builds for creators, in one stack — grow and own your audience, launch owned media, turn fans into owners, and scale it all with AI. On infrastructure you keep.',
-      primaryCta: { label: 'Talk to Chainfren', href: '/contact' },
+      primaryCta: { label: 'Tell us what you\'re building', href: '/contact' },
     },
     tension: {
       eyebrow: 'Why this matters',
@@ -38,7 +38,7 @@ export const PERSONA_CONTENT = {
       { key: 'creator-growth-os', angle: 'Own the audience, keep the revenue.', bullets: ['First-party audience and channels you control', 'Direct payments, including stablecoins — no platform tax', 'Onchain identity that travels across platforms'] },
       { key: 'media-launchpad', angle: 'Launch a media presence you own.', bullets: ['Your branded live + on-demand streaming channel', 'Built-in storefront and direct fan payments', 'Keep 100% of revenue and your subscriber data'] },
       { key: 'ai-agents', angle: 'Scale your presence, not your overhead.', bullets: ['Custom agents that engage in your voice', 'Always-on content pipelines and repurposing', 'Automate the repetitive ops behind the scenes'] },
-      { key: 'community-loyalty', angle: 'Turn your fans into owners.', bullets: ['Tokenized membership and rewards', 'Fan economics that reward your day-ones', 'A community with a real stake in your rise'] },
+      { key: 'community-loyalty', angle: 'Turn your fans into owners.', bullets: ['Membership, loyalty, and rewards', 'Fan economics that reward your day-ones', 'A community with a real stake in your rise'] },
     ],
     network: {
       eyebrow: 'Creator Network',
@@ -60,7 +60,7 @@ export const PERSONA_CONTENT = {
     ],
     closing: {
       title: 'Ready to build something you own?',
-      cta: { label: 'Talk to Chainfren', href: '/contact' },
+      cta: { label: 'Tell us what you\'re building', href: '/contact' },
     },
   },
 
@@ -78,7 +78,7 @@ export const PERSONA_CONTENT = {
       eyebrow: 'For Brands',
       h1: 'Build culture people own. Reach the audiences that actually convert.',
       sub: 'Everything Chainfren builds for brands, in one stack — community that compounds, AI that scales, media you control, and the creators who move culture.',
-      primaryCta: { label: 'Talk to Chainfren', href: '/contact' },
+      primaryCta: { label: 'Tell us what you\'re building', href: '/contact' },
     },
     tension: {
       eyebrow: 'Why this matters',
@@ -95,7 +95,7 @@ export const PERSONA_CONTENT = {
       sub: 'The products that turn audiences into owned communities, culture, and revenue.',
     },
     stack: [
-      { key: 'community-loyalty', angle: 'Turn customers into stakeholders.', bullets: ['Loyalty that compounds instead of leaking', 'Tokenized membership and ownership programs', 'Advocates who market on your behalf'] },
+      { key: 'community-loyalty', angle: 'Turn customers into stakeholders.', bullets: ['Loyalty that compounds instead of leaking', 'Membership and ownership programs', 'Advocates who market on your behalf'] },
       { key: 'ai-agents', angle: 'Always-on brand presence and operations.', bullets: ['Branded agents that engage at scale', 'Content pipelines without more headcount', 'Automated moderation and distribution'] },
       { key: 'media-launchpad', angle: 'Owned channels, broadcast on your terms.', bullets: ['Your own branded streaming channel', 'First-party audience data you keep', 'Distribution no algorithm can throttle'] },
     ],
@@ -119,7 +119,7 @@ export const PERSONA_CONTENT = {
     ],
     closing: {
       title: 'Ready to build culture people own?',
-      cta: { label: 'Talk to Chainfren', href: '/contact' },
+      cta: { label: 'Tell us what you\'re building', href: '/contact' },
     },
   },
 }

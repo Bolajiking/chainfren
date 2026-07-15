@@ -101,11 +101,11 @@ const MOAT = [
 ]
 
 const STEPS = [
-  { n: '01', t: 'Diagnose', d: 'A free call. We learn what you’re building and where growth is stuck. If we’re not the right team, we say so.' },
-  { n: '02', t: 'Design', d: 'A written plan: positioning, the modules you switch on, distribution, and the KPIs we’ll move. You sign off first.' },
-  { n: '03', t: 'Build', d: 'We train your brand-locked model, wire the pipelines, and stand up the acquisition and measurement layer.' },
-  { n: '04', t: 'Launch', d: 'The machine goes live — content shipping, creators activated, funnels converting, the dashboard tracking it all.' },
-  { n: '05', t: 'Grow', d: 'We optimize against the numbers. The engine compounds, and your data moat widens every month.' },
+  { n: '01', t: 'Audit', d: 'A free diagnostic. We watch how the work actually happens and find where time and money leak — before we touch a single tool.' },
+  { n: '02', t: 'Optimize', d: 'We cut the waste out of the workflow first — fifteen steps that only needed nine. Automating a bloated process just runs the bloat faster.' },
+  { n: '03', t: 'Automate', d: 'Only now do the agents come in — content, distribution, and acquisition running on the streamlined process, not the mess.' },
+  { n: '04', t: 'Measure', d: 'One dashboard for reach, brand lift, CAC where trackable, and sell-through. Marketing you can finally prove.' },
+  { n: '05', t: 'Compound', d: 'We optimize against the numbers. Your brand-locked model and owned data get sharper every month — the moat widens.' },
 ]
 
 // ── Hero ────────────────────────────────────────────────────────────────
@@ -136,8 +136,8 @@ function Hero({ onSales, onEarly }) {
             We don’t just make content. We build the <strong style={{ color: '#fff' }}>machine that grows the brand</strong> — AI agents and automation that create, distribute, convert, and measure, running while you sleep.
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3, ease: EASE }} style={{ display: 'flex', gap: 12, marginTop: 32, flexWrap: 'wrap' }}>
-            <button onClick={onSales} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 9999, background: ACCENT, color: CF.dark, border: `2px solid ${ACCENT}`, cursor: 'pointer', fontFamily: 'inherit', fontSize: 13.5, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Talk to us <ArrowRight size={16} /></button>
-            <button onClick={onEarly} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 28px', borderRadius: 9999, background: 'transparent', color: '#fff', border: '2px solid rgba(255,255,255,0.4)', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13.5, fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Request early access</button>
+            <button onClick={onSales} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 9999, background: ACCENT, color: CF.dark, border: `2px solid ${ACCENT}`, cursor: 'pointer', fontFamily: 'inherit', fontSize: 13.5, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Book your free diagnostic <ArrowRight size={16} /></button>
+            <button onClick={onEarly} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 28px', borderRadius: 9999, background: 'transparent', color: '#fff', border: '2px solid rgba(255,255,255,0.4)', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13.5, fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Request access</button>
           </motion.div>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} style={{ marginTop: 28, fontSize: 14, color: 'rgba(255,255,255,0.6)' }}>
             <strong style={{ color: '#fff' }}>Culture in, distribution out.</strong>
@@ -157,7 +157,7 @@ export default function AiAgentStudio() {
   const [modal, setModal] = useState({ open: false, variant: 'sales' })
   const [faqOpen, setFaqOpen] = useState(0)
   const openSales = () => setModal({ open: true, variant: 'sales' })
-  const openEarly = () => setModal({ open: true, variant: 'early-access' })
+  const openEarly = () => setModal({ open: true, variant: 'access' })
 
   return (
     <div style={{ background: '#F5F4EE', color: CF.dark, minHeight: '100vh', fontFamily: 'var(--font-inter), "Inter Display", "Inter", sans-serif' }}>
@@ -168,7 +168,7 @@ export default function AiAgentStudio() {
         @media (max-width: 760px){ .ai-faq { grid-template-columns: 1fr !important; } .ai-get { grid-template-columns: 1fr !important; } .ai-modules { grid-template-columns: 1fr !important; } }
         @media (max-width: 560px){ .ai-stats { grid-template-columns: repeat(2, 1fr) !important; } .ai-stats > div:nth-child(3){ border-left: none !important; } }
       ` }} />
-      <SiteHeader accent={ACCENT} badgeLabel="Products" cta={{ label: 'Talk to us', onClick: openSales }} />
+      <SiteHeader accent={ACCENT} badgeLabel="Products" cta={{ label: 'Tell us what you\'re building', onClick: openSales }} />
 
       <main style={{ paddingBottom: 8 }}>
         <Hero onSales={openSales} onEarly={openEarly} />
@@ -230,7 +230,7 @@ export default function AiAgentStudio() {
           <Reveal><div style={{ maxWidth: 760, marginBottom: 40 }}>
             <Eyebrow color={CF.indigo}>The engine</Eyebrow>
             <h2 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1.05, color: CF.dark, marginTop: 12 }}>One machine. Four modules.</h2>
-            <p style={{ fontSize: 16.5, color: CF.muted, lineHeight: 1.6, marginTop: 16 }}>Not a menu of services — a single system, sold as how much of it you switch on. Content in, customers out.</p>
+            <p style={{ fontSize: 16.5, color: CF.muted, lineHeight: 1.6, marginTop: 16 }}>We don’t automate a broken process — we audit and cut the waste first, then this one system runs on what’s left. Sold as how much of it you switch on. Content in, customers out.</p>
           </div></Reveal>
           <div className="ai-modules" style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(2, 1fr)' }}>
             {MODULES.map((m, i) => {
@@ -301,7 +301,7 @@ export default function AiAgentStudio() {
           <Reveal><div style={{ maxWidth: 780, margin: '0 auto', textAlign: 'center', marginBottom: 40 }}>
             <Eyebrow color={CF.indigo}>The ladder</Eyebrow>
             <h2 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1.05, color: CF.dark, marginTop: 12 }}>One system. Switch on as much as you need.</h2>
-            <p style={{ fontSize: 16.5, color: CF.muted, lineHeight: 1.6, marginTop: 16 }}>A fast, affordable proof earns the full engine. Pricing is a subscription base plus performance upside — never hourly, never pure project.</p>
+            <p style={{ fontSize: 16.5, color: CF.muted, lineHeight: 1.6, marginTop: 16 }}>Start free — a diagnostic that earns the Sprint, and a Sprint that earns the full engine. Pricing is a subscription base plus performance upside — never hourly, never pure project.</p>
           </div></Reveal>
           <div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', alignItems: 'stretch' }}>
             {TIERS.map((t, i) => {
@@ -313,6 +313,7 @@ export default function AiAgentStudio() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
                       <Eyebrow color={hero ? ACCENT : 'rgba(8,21,60,0.55)'}>{t.kind}</Eyebrow>
                       {hero && <span style={{ padding: '3px 10px', borderRadius: 9999, background: ACCENT, color: CF.dark, fontSize: 9.5, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Most run this</span>}
+                      {t.free && <span style={{ padding: '3px 10px', borderRadius: 9999, background: CF.mint, color: CF.dark, fontSize: 9.5, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>No cost</span>}
                     </div>
                     <h3 style={{ fontSize: 'clamp(1.6rem, 2.6vw, 2.1rem)', fontWeight: 600, letterSpacing: '-0.02em', color: hero ? '#fff' : CF.dark, marginBottom: 10 }}>{t.name}</h3>
                     <p style={{ fontSize: 15, color: hero ? 'rgba(255,255,255,0.8)' : 'rgba(8,21,60,0.75)', lineHeight: 1.55, marginBottom: 22 }}>{t.line}</p>
@@ -339,7 +340,8 @@ export default function AiAgentStudio() {
         <section style={{ maxWidth: 1480, margin: '0 auto', padding: '64px 16px 0' }}>
           <Reveal><div style={{ maxWidth: 760, marginBottom: 40 }}>
             <Eyebrow color={CF.indigo}>How we work</Eyebrow>
-            <h2 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1.05, color: CF.dark, marginTop: 12 }}>From attention to ownership.</h2>
+            <h2 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1.05, color: CF.dark, marginTop: 12 }}>We audit before we automate.</h2>
+            <p style={{ fontSize: 16.5, color: CF.muted, lineHeight: 1.6, marginTop: 16 }}>Audit → Optimize → Automate. Cut the waste before you speed it up — the discipline that makes the engine pay.</p>
           </div></Reveal>
           <div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
             {STEPS.map((s, i) => (
@@ -417,10 +419,10 @@ export default function AiAgentStudio() {
                 Build the machine that <span style={{ fontStyle: 'italic', color: ACCENT }}>grows it.</span>
               </h2>
               <p style={{ fontSize: 17, lineHeight: 1.6, color: 'rgba(255,255,255,0.82)', maxWidth: 680, marginBottom: 36 }}>
-                Tell us what you’re building. The form takes 60 seconds. Start with a two-week Sprint or go straight to the full engine — if we’re not the right team, we’ll point you to who is.
+                Start with a free diagnostic — a no-lose audit that leaves you with one high-leverage fix. From there, a two-week Sprint or the full engine. The form takes 60 seconds; if we’re not the right team, we’ll point you to who is.
               </p>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <button onClick={openSales} style={{ padding: '16px 32px', borderRadius: 9999, background: ACCENT, border: 'none', color: CF.dark, fontFamily: 'inherit', fontSize: 14, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 10 }}>Talk to us <ArrowRight size={16} /></button>
+                <button onClick={openSales} style={{ padding: '16px 32px', borderRadius: 9999, background: ACCENT, border: 'none', color: CF.dark, fontFamily: 'inherit', fontSize: 14, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 10 }}>Book your free diagnostic <ArrowRight size={16} /></button>
                 <a href="mailto:hello@chainfren.com" style={{ padding: '16px 32px', borderRadius: 9999, background: 'transparent', border: '2px solid #fff', color: '#fff', fontFamily: 'inherit', fontSize: 14, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 10 }}>hello@chainfren.com</a>
               </div>
             </div>

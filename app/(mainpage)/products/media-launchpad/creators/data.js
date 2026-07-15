@@ -8,14 +8,14 @@ import {
 export const data = {
   icon: Tv,
   badge: 'TiVi for Creators',
-  headline: 'YOU ARE THE NETWORK.',
-  headlineAccent: 'YOUR PAGE IS THE CHANNEL.',
+  headline: 'You are the network.',
+  headlineAccent: 'Your page is the channel.',
   subheadline:
-    'YouTube takes 45-55%. Twitch takes 50%. Your link-in-bio sends fans to five different apps. TiVi gives you one channel — streaming, storefront, audience ownership — and you keep every dollar.',
+    'YouTube takes 45%. Twitch takes 50%. Your link-in-bio sends fans to five different apps. TiVi gives you one channel — streaming, storefront, audience ownership — and you keep every dollar.',
   heroImage: '/img8.jpg',
   heroImageAlt: 'TiVi creator streaming platform',
   accentColor: '#A6E1FA',
-  ctaText: 'Launch Your Channel',
+  ctaText: 'Request access',
   verticalName: 'creators',
 
   stats: [
@@ -24,6 +24,7 @@ export const data = {
     { value: '96%', label: 'Creators earning under $100K' },
     { value: '5-10', label: 'Tools juggled simultaneously' },
   ],
+  statsSource: 'Market figures from Goldman Sachs Research, Precedence Research, and Statista.',
 
   problemLabel: 'The Problem',
   problemHeadline: 'You built the audience. They built the cage.',
@@ -34,7 +35,7 @@ export const data = {
     {
       icon: DollarSign,
       title: 'Revenue Splits That Insult You',
-      desc: 'YouTube takes 45-55%. Twitch takes 50%. You create 100% of the value and keep a fraction. The majority of creators worldwide earn less than a living wage.',
+      desc: 'YouTube takes 45%. Twitch takes 50%. You create 100% of the value and keep a fraction. The majority of creators worldwide earn less than a living wage.',
       stat: 'Most creators earn below a living wage',
     },
     {
@@ -145,7 +146,7 @@ export const data = {
   comparisonHeadline: 'See why creators are switching.',
   comparisonPlatforms: ['TiVi', 'YouTube', 'Twitch', 'Stan Store'],
   comparisonRows: [
-    { feature: 'Revenue to Creator', values: ['100%', '45-55%', '50%', '95%'] },
+    { feature: 'Revenue to Creator', values: ['100%', '55%', '50%', '95%'] },
     { feature: 'Live Streaming', values: [true, true, true, false] },
     { feature: 'On-Demand Video Library', values: [true, true, true, false] },
     { feature: 'Built-In Storefront', values: [true, false, false, true] },
@@ -153,12 +154,6 @@ export const data = {
     { feature: 'Branded Channel', values: [true, false, false, true] },
     { feature: 'Wallet-Native Payments', values: [true, false, false, false] },
   ],
-
-  quote: {
-    text: 'Seven tools, two platforms taking cuts, and I still could not tell you who my top 100 fans were. TiVi gave me one channel and everything clicked.',
-    author: 'Early Access Creator',
-    role: 'Full-time content creator, 72K subscribers',
-  },
 
   ctaHeadline: 'Stop renting your audience.',
   ctaSubheadline:
@@ -171,5 +166,5 @@ export const data = {
   ],
   formSubheadline: 'Join the waitlist and be among the first creators to launch.',
   orgPlaceholder: 'Channel / Brand Name (optional)',
-  formButtonText: 'Launch My Channel',
+  formButtonText: 'Request access',
 }
