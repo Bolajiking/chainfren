@@ -28,7 +28,7 @@ function Hero() {
           Built for <span style={{ fontStyle: 'italic', background: `linear-gradient(110deg, ${CF.dark} 40%, ${CF.accent} 60%, ${CF.dark} 80%)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>who you are.</span>
         </h1>
         <p style={{ fontSize: 19, color: CF.muted, lineHeight: 1.55, maxWidth: 680, marginTop: 22 }}>
-          Same products, packaged for your world. The whole Chainfren stack — Media Launchpad, Creator Growth OS, Community Engine, and AI Agent Studio — assembled into one plan for creators, and one for brands. Pick your side.
+          Same products, packaged for your world — self-serve if you want the keys, done-with-you if you want the crew, and a creator network when you need the people. The whole Chainfren stack — Media Launchpad, Creator Growth OS, Community Engine, and AI Agent Studio. Pick your side.
         </p>
       </div>
     </section>
@@ -136,7 +136,7 @@ export default function SolutionsChooser() {
         .sv-card:hover { transform: translateY(-6px); }
         @media (max-width: 820px) { .sv-band { grid-template-columns: 1fr !important; } }
       ` }} />
-      <SiteHeader accent={CF.accent} badgeLabel="Solutions" cta={{ label: 'Talk to us', onClick: () => setContactOpen(true) }} />
+      <SiteHeader accent={CF.accent} badgeLabel="Solutions" cta={{ label: 'Tell us what you\'re building', onClick: () => setContactOpen(true) }} />
       <main style={{ paddingBottom: 8 }}>
         <Hero />
         <Personas />

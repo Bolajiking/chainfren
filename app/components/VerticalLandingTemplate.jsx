@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useState, useRef } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import {
-  Check, ArrowRight, ChevronDown, Star, Zap, ArrowUpRight, X
+  Check, ArrowRight, ChevronDown, Zap, ArrowUpRight, X
 } from 'lucide-react'
 import CalendlyWidget from '@/app/components/CalendlyWidget'
 import SiteHeader from '@/app/components/SiteHeader'
@@ -166,13 +166,13 @@ function HeroSection({ data }) {
               transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
               <BrandButton href="#get-started">
-                {data.ctaText || 'Get Early Access'} <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                {data.ctaText || 'Request access'} <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </BrandButton>
               <BrandButton
                 variant="light"
                 onClick={() => window.Calendly?.initPopupWidget({ url: 'https://calendly.com/chainfren' })}
               >
-                Book a Demo
+                Tell us what you&apos;re building
               </BrandButton>
             </motion.div>
           </div>
@@ -211,7 +211,7 @@ function HeroSection({ data }) {
 // =============================================================================
 // STATS BAR
 // =============================================================================
-function StatsBar({ stats, accentColor }) {
+function StatsBar({ stats, accentColor, source }) {
   return (
     <section className="bg-white border-y-2" style={{ borderColor: C.dark }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -225,6 +225,9 @@ function StatsBar({ stats, accentColor }) {
             </FadeUp>
           ))}
         </div>
+        {source && (
+          <p className="pb-4 -mt-2 text-center text-[11px] leading-relaxed" style={{ color: C.dim }}>{source}</p>
+        )}
       </div>
     </section>
   )
@@ -241,7 +244,7 @@ function ProblemSection({ data }) {
           <span className="text-xs font-bold tracking-wider uppercase" style={{ color: data.accentColor === C.periwinkle ? C.teal : C.blue }}>
             {data.problemLabel || 'The Problem'}
           </span>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight uppercase max-w-4xl mx-auto" style={{ color: C.dark }}>
+          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight max-w-4xl mx-auto" style={{ color: C.dark }}>
             {data.problemHeadline}
           </h2>
           {data.problemSubheadline && (
@@ -291,7 +294,7 @@ function SolutionSection({ data }) {
           <span className="text-xs font-bold tracking-wider uppercase" style={{ color: C.teal }}>
             {data.solutionLabel || 'The TiVi Solution'}
           </span>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight uppercase max-w-4xl mx-auto" style={{ color: C.dark }}>
+          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight max-w-4xl mx-auto" style={{ color: C.dark }}>
             {data.solutionHeadline}
           </h2>
         </FadeUp>
@@ -335,7 +338,7 @@ function UseCasesSection({ data }) {
           <span className="text-xs font-bold tracking-wider uppercase" style={{ color: C.blue }}>
             {data.useCasesLabel || 'Use Cases'}
           </span>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight uppercase max-w-3xl mx-auto" style={{ color: C.dark }}>
+          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight max-w-3xl mx-auto" style={{ color: C.dark }}>
             {data.useCasesHeadline}
           </h2>
         </FadeUp>
@@ -371,7 +374,7 @@ function ComparisonSection({ data }) {
           <span className="text-xs font-bold tracking-wider uppercase" style={{ color: C.teal }}>
             {data.comparisonLabel || 'Compare'}
           </span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold leading-tight uppercase" style={{ color: C.dark }}>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-bold leading-tight" style={{ color: C.dark }}>
             {data.comparisonHeadline}
           </h2>
         </FadeUp>
@@ -432,16 +435,14 @@ function ComparisonSection({ data }) {
 // QUOTE / PULL QUOTE SECTION
 // =============================================================================
 function QuoteSection({ data }) {
+  // Renders only when a real, attributable testimonial exists. No fabricated
+  // quotes or star ratings ship on any surface (copy doctrine, Rule 0).
+  if (!data.quote) return null
   return (
     <section className="bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <FadeUp>
           <div className="rounded-3xl border-2 p-10 sm:p-14 text-center" style={{ background: data.accentColor, borderColor: C.dark }}>
-            <div className="flex justify-center mb-6">
-              {Array.from({ length: 5 }).map((_, j) => (
-                <Star key={j} className="w-5 h-5" style={{ fill: C.dark, color: C.dark }} />
-              ))}
-            </div>
             <blockquote className="text-lg sm:text-xl lg:text-2xl font-bold leading-relaxed max-w-3xl mx-auto" style={{ color: C.dark }}>
               &ldquo;{data.quote.text}&rdquo;
             </blockquote>
@@ -449,6 +450,31 @@ function QuoteSection({ data }) {
               <p className="font-bold" style={{ color: C.dark }}>{data.quote.author}</p>
               <p className="text-sm" style={{ color: C.muted }}>{data.quote.role}</p>
             </div>
+          </div>
+        </FadeUp>
+      </div>
+    </section>
+  )
+}
+
+// =============================================================================
+// CANDOR SECTION — honest proof for a pre-revenue product (copy doctrine,
+// Adoption 1). Fills the slot where fabricated testimonials used to sit.
+// =============================================================================
+function CandorSection({ data }) {
+  // The pre-built proof slot: candor now, real proof later. The day a real,
+  // attributable testimonial (data.quote) is added, QuoteSection renders it and
+  // this candor block steps aside — a content change only (copy doctrine, Adoption 1).
+  if (data.quote) return null
+  return (
+    <section className="bg-white">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <FadeUp>
+          <div className="rounded-3xl border-2 p-10 sm:p-14 text-center" style={{ background: data.accentColor, borderColor: C.dark }}>
+            <span className="text-xs font-bold tracking-wider uppercase" style={{ color: C.dark }}>Building in the open</span>
+            <p className="mt-4 text-lg sm:text-xl lg:text-2xl font-bold leading-relaxed max-w-3xl mx-auto" style={{ color: C.dark }}>
+              Early access — the first cohort is onboarding now. When we have real numbers, we&apos;ll publish them. No invented ones.
+            </p>
           </div>
         </FadeUp>
       </div>
@@ -494,7 +520,7 @@ function LeadForm({ data }) {
             <div className="p-8 sm:p-12 lg:p-14">
               <FadeUp>
                 <span className="text-xs font-bold tracking-wider uppercase" style={{ color: C.dark }}>Get Started</span>
-                <h2 className="mt-3 text-3xl sm:text-4xl font-bold leading-tight uppercase" style={{ color: C.dark }}>
+                <h2 className="mt-3 text-3xl sm:text-4xl font-bold leading-tight" style={{ color: C.dark }}>
                   {data.ctaHeadline}
                 </h2>
                 <p className="mt-4 text-base leading-relaxed" style={{ color: C.muted }}>
@@ -515,7 +541,7 @@ function LeadForm({ data }) {
                   className="mt-8 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider transition-opacity hover:opacity-70 cursor-pointer"
                   style={{ color: C.dark }}
                 >
-                  Or book a free demo call instead <ArrowRight className="w-4 h-4" />
+                  Or tell us what you&apos;re building instead <ArrowRight className="w-4 h-4" />
                 </button>
               </FadeUp>
             </div>
@@ -534,14 +560,14 @@ function LeadForm({ data }) {
                     </motion.div>
                   ) : (
                     <>
-                      <h3 className="text-xl font-bold mb-1" style={{ color: C.dark }}>Request Early Access</h3>
+                      <h3 className="text-xl font-bold mb-1" style={{ color: C.dark }}>Request access</h3>
                       <p className="text-sm mb-6" style={{ color: C.dim }}>{data.formSubheadline || 'Be among the first to launch your own channel.'}</p>
                       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                         <input required placeholder="Your Name" name="name" className="w-full px-4 py-3 rounded-2xl border-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 transition-[border-color,box-shadow] duration-200" style={{ borderColor: C.dark + '20', color: C.dark }} />
                         <input required type="email" placeholder="Email Address" name="email" className="w-full px-4 py-3 rounded-2xl border-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 transition-[border-color,box-shadow] duration-200" style={{ borderColor: C.dark + '20', color: C.dark }} />
                         <input placeholder={data.orgPlaceholder || 'Organization (optional)'} name="org" className="w-full px-4 py-3 rounded-2xl border-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 transition-[border-color,box-shadow] duration-200" style={{ borderColor: C.dark + '20', color: C.dark }} />
                         <button type="submit" disabled={submitting} className="w-full mt-2 px-7 py-3.5 rounded-full text-sm font-bold uppercase tracking-wide border-2 transition-colors duration-200 disabled:opacity-50" style={{ background: C.dark, color: 'white', borderColor: C.dark }}>
-                          {submitting ? 'Submitting...' : (data.formButtonText || 'Request Early Access')}
+                          {submitting ? 'Submitting...' : (data.formButtonText || 'Request access')}
                         </button>
                       </form>
                     </>
@@ -580,15 +606,16 @@ export default function VerticalLandingTemplate({ data }) {
   const vTitle = (data.badge || '').replace(/^TiVi for\s*/i, '') || data.verticalName
   return (
     <div className="bg-white min-h-screen">
-      <SiteHeader badgeLabel="Products" accent={data.accentColor} cta={{ label: 'Book a demo', href: '/products/media-launchpad/demo' }} />
+      <SiteHeader badgeLabel="Products" accent={data.accentColor} cta={{ label: 'Tell us what you\'re building', href: '/products/media-launchpad/demo' }} />
       <BackLink title={vTitle} />
       <HeroSection data={data} />
-      <StatsBar stats={data.stats} accentColor={data.accentColor} />
+      <StatsBar stats={data.stats} accentColor={data.accentColor} source={data.statsSource} />
       <ProblemSection data={data} />
       <SolutionSection data={data} />
       <UseCasesSection data={data} />
       <ComparisonSection data={data} />
       <QuoteSection data={data} />
+      <CandorSection data={data} />
       <LeadForm data={data} />
     </div>
   )

@@ -5,6 +5,13 @@
 //
 // Media Launchpad is the flagship and has its own full SaaS page, so it is
 // not templated here.
+//
+// PROOF SLOT: each solution page has a pre-built proof section that shows a
+// candor line until real proof exists. To add proof as clients land, set:
+//   proof: { quote: '…', author: 'Name', role: 'Title, Org' }
+// on that solution's entry below — it renders in place of the candor block, no
+// layout work. Vertical landers use the same idea via `quote: {…}` in their
+// data.js (rendered by VerticalLandingTemplate's QuoteSection).
 
 // The shared "How we work" strip — lifted from the live agency page.
 export const HOW_WE_WORK = {
@@ -53,28 +60,28 @@ export const SOLUTION_CONTENT = {
     breadcrumb: 'Community Engine',
     heroTone: 'white',
     h1: ['Turn your audience into ', 'owners', '.'],
-    subhead: 'Tokenized membership, fan economics, and loyalty systems that make your community stakeholders — invested, active, and compounding in value.',
+    subhead: 'Loyalty, fan economics, and membership that turn your community into stakeholders — invested, active, and compounding in value. Your owned community layer.',
     definitional:
-      'Community Engine is Chainfren’s productized solution for turning audiences into owned communities. It designs and runs community architecture, tokenized membership, fan economics, and brand loyalty programs for communities, fan bases, and brands — converting passive followers into stakeholders with a real share in what they’re part of.',
+      'Community Engine is Chainfren’s productized solution for turning audiences into owned communities. It designs and runs community architecture, membership and loyalty programs, and fan economics for communities, fan bases, and brands — converting passive followers into stakeholders with a real stake in what they’re part of. Token-free by design, so it works for any brand, crypto-native or not.',
     tension:
       'Followers watch. Members belong. Owners build. Most “communities” are audiences with a group chat — no stake, no reason to stay. We build the version where belonging is real because ownership is real.',
     capabilities: [
       { t: 'Community architecture', d: 'The structure and day-to-day management that turns an audience into a community.' },
-      { t: 'Tokenized membership & rewards', d: 'Membership, status, and rewards that live onchain — provable, portable, real.' },
+      { t: 'Membership & rewards', d: 'Status, recognition, and rewards that reward your day-ones and give members a reason to stay.' },
       { t: 'Fan economics', d: 'Participation mechanics that give members a reason to stay and a share in the upside.' },
-      { t: 'Brand ownership programs', d: 'Customers → advocates → owners — loyalty that compounds instead of leaking.' },
-      { t: 'The smart-contract layer', d: 'The mechanics that make membership and ownership real, not symbolic.' },
+      { t: 'Brand loyalty programs', d: 'Customers → advocates → owners — loyalty that compounds instead of leaking.' },
+      { t: 'The owned community layer', d: 'Loyalty, membership, and fan economics you own and keep — not rented from a platform.' },
     ],
     faq: [
-      { q: 'What is Community Engine?', a: 'Community Engine is Chainfren’s productized solution for turning audiences into owned communities — community architecture, tokenized membership, fan economics, and loyalty programs that convert followers into stakeholders.' },
-      { q: 'Is this an NFT project?', a: 'No. Web3 is used only where it serves your audience — no NFT stunts, no hype drops. Ownership mechanics, not speculation.' },
-      { q: 'What does “members as owners” actually mean?', a: 'Membership, rewards, and status live onchain — so belonging is provable, portable, and can carry real value.' },
+      { q: 'What is Community Engine?', a: 'Community Engine is Chainfren’s productized solution for turning audiences into owned communities — community architecture, membership and loyalty programs, and fan economics that convert followers into stakeholders.' },
+      { q: 'Is this an NFT or token project?', a: 'No. Community Engine is token-free by design — no coin, no NFT stunts, no hype drops. Loyalty and ownership mechanics that work for any brand, crypto-native or not.' },
+      { q: 'What does “members as owners” actually mean?', a: 'Members get a real stake in the community — recognition, rewards, and status that make belonging worth something, plus loyalty that compounds as the community grows. Ownership of the relationship, not a token.' },
       { q: 'Who runs the community day to day?', a: 'We can build it and hand it over, or build and run it with you — scoped per engagement.' },
     ],
-    serviceType: 'Community architecture, tokenized membership & loyalty',
+    serviceType: 'Community architecture, membership & loyalty programs',
     meta: {
       title: 'Community Engine — Turn Fans into Stakeholders',
-      description: 'Turn followers into owners. Chainfren designs tokenized membership, fan economics, and loyalty systems that convert audiences into invested communities that compound.',
+      description: 'Turn followers into owners. Chainfren designs membership, fan economics, and loyalty programs that convert audiences into invested communities that compound — token-free by design.',
     },
   },
 
@@ -94,9 +101,9 @@ export const SOLUTION_CONTENT = {
       { t: 'Audience intelligence', d: 'Personalization and insight that make every touchpoint sharper.' },
     ],
     faq: [
-      { q: 'What is AI Agent Studio?', a: 'AI Agent Studio is Chainfren’s productized solution for scaling creators, brands, and communities with AI — custom agents, content pipelines, and operational automation that multiply output without multiplying headcount.' },
-      { q: 'What can an agent actually do?', a: 'Create and repurpose content, engage your audience in your voice, run repetitive operations — the always-on layer of your business.' },
-      { q: 'Will it sound like me?', a: 'Yes — agents are trained on your voice, style, and rules, with your approval loop on what ships.' },
+      { q: 'What is AI Agent Studio?', a: 'AI Agent Studio is Chainfren’s AI-native growth engine for creators, brands, and consumer companies. We audit how the work actually happens, prescribe what to fix — off-the-shelf before bespoke — then run content, distribution, and acquisition with AI agents, so you grow output without multiplying headcount.' },
+      { q: 'Where do we start?', a: 'A free diagnostic — a no-lose audit that leaves you with one high-leverage fix. From there, a two-week Sprint, the monthly Engine, or the full Growth Partner build.' },
+      { q: 'Do you build everything from scratch?', a: 'No — we prescribe before we build. Off-the-shelf tools where they exist; bespoke (a brand-locked model, owned personas, your context layer) only where it earns its place.' },
       { q: 'Does this replace my team?', a: 'It replaces repetition, not judgment. Your people do the human work; agents do the rest.' },
     ],
     serviceType: 'AI-native growth engine — agents, content pipelines, distribution & acquisition',

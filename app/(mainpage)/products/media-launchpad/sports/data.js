@@ -5,14 +5,14 @@ import { Trophy, DollarSign, Users, Eye, Lock, Wallet, BarChart2, Play, Globe, S
 export const data = {
   icon: Trophy,
   badge: 'TiVi for Sports',
-  headline: 'EVERY GAME.',
-  headlineAccent: 'EVERY FAN.',
+  headline: 'Every game.',
+  headlineAccent: 'Every fan.',
   subheadline:
     'Your league deserves more than a scoreboard update. TiVi gives you your own streaming channel with live broadcasts, PPV ticketing, and direct fan monetization — no six-figure platform deals required.',
   heroImage: '/img9.jpg',
   heroImageAlt: 'TiVi sports streaming platform',
   accentColor: '#5ACDFF',
-  ctaText: 'Launch Your Channel',
+  ctaText: 'Request access',
   verticalName: 'sports',
 
   stats: [
@@ -21,6 +21,7 @@ export const data = {
     { value: '57%', label: 'Fans struggle to watch live games' },
     { value: '12.6%', label: 'Annual Market Growth (CAGR)' },
   ],
+  statsSource: 'Market figures from PwC and Statista.',
 
   problemLabel: 'The Problem',
   problemHeadline: 'The broadcast model is broken. Your fans are stranded.',
@@ -157,12 +158,6 @@ export const data = {
     { feature: 'Affordable for small orgs', values: [true, true, false, false] },
   ],
 
-  quote: {
-    text: 'We spent two years chasing a broadcast deal. With TiVi, we launched our own channel in four days. Our fans finally have a real way to watch — and we keep the revenue.',
-    author: 'Early Access Commissioner',
-    role: 'Independent Indoor Soccer League',
-  },
-
   ctaHeadline: 'Your fans are waiting.',
   ctaSubheadline:
     'No enterprise contracts. No broadcast middlemen. Just your games, your fans, your revenue.',
@@ -173,5 +168,5 @@ export const data = {
     'No setup fees, no annual minimums, no revenue share',
   ],
   orgPlaceholder: 'Team / League Name (optional)',
-  formButtonText: 'Launch My Channel',
+  formButtonText: 'Request access',
 }

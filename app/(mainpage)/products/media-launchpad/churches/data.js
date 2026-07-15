@@ -5,14 +5,14 @@ import { Church, Heart, Users, Eye, Lock, Wallet, BarChart2, Play, Globe, Shield
 export const data = {
   icon: Church,
   badge: 'TiVi for Churches',
-  headline: 'YOUR MINISTRY.',
-  headlineAccent: 'YOUR PLATFORM.',
+  headline: 'Your ministry.',
+  headlineAccent: 'Your platform.',
   subheadline:
     'YouTube runs ads before your sermons. Facebook decides who sees your service. TiVi gives your church a branded streaming channel with built-in giving, sermon archives, and zero ads.',
   heroImage: '/img11.jpg',
   heroImageAlt: 'TiVi church streaming platform',
   accentColor: '#CBF0B8',
-  ctaText: 'Launch Your Channel',
+  ctaText: 'Request access',
   verticalName: 'churches',
 
   stats: [
@@ -21,9 +21,10 @@ export const data = {
     { value: '48%', label: 'Prefer giving right after livestreams' },
     { value: '70%', label: 'Want better streaming tools' },
   ],
+  statsSource: 'Market figures from Church of England, The Business Research Company, and Subsplash & Pushpay church-technology reports.',
 
   problemLabel: 'The Problem',
-  problemHeadline: 'YOU BUILT THE MINISTRY. BIG TECH PROFITS FROM IT.',
+  problemHeadline: 'You built the ministry. Big tech profits from it.',
   problemSubheadline:
     'Your congregation deserves better than gambling ads before the altar call.',
 
@@ -67,7 +68,7 @@ export const data = {
   ],
 
   solutionLabel: 'The TiVi Solution',
-  solutionHeadline: 'ONE CHANNEL. EVERYTHING YOUR MINISTRY NEEDS.',
+  solutionHeadline: 'One channel. Everything your ministry needs.',
 
   features: [
     {
@@ -109,7 +110,7 @@ export const data = {
   ],
 
   useCasesLabel: 'Use Cases',
-  useCasesHeadline: 'BUILT FOR EVERY WAY YOUR CHURCH CONNECTS.',
+  useCasesHeadline: 'Built for every way your church connects.',
 
   useCases: [
     {
@@ -145,7 +146,7 @@ export const data = {
   ],
 
   comparisonLabel: 'Compare',
-  comparisonHeadline: 'SEE HOW TIVI STACKS UP.',
+  comparisonHeadline: 'See how TiVi stacks up.',
   comparisonPlatforms: ['TiVi', 'YouTube', 'Subsplash', 'Resi'],
   comparisonRows: [
     { feature: 'Ad-Free Streaming', values: [true, false, true, true] },
@@ -157,13 +158,7 @@ export const data = {
     { feature: 'Affordable for Any Size', values: [true, true, false, false] },
   ],
 
-  quote: {
-    text: 'YouTube was profiting from our sermons with ads we did not approve. TiVi gave us our own platform. No more ads before the altar call.',
-    author: 'Pastor David Mitchell',
-    role: 'Lead Pastor, Grace Community Church',
-  },
-
-  ctaHeadline: 'YOUR CONGREGATION DESERVES A HOME.',
+  ctaHeadline: 'Your congregation deserves a home.',
   ctaSubheadline:
     'Launch your own branded streaming channel in days — no six-figure budget required.',
   ctaBullets: [
@@ -174,5 +169,5 @@ export const data = {
   ],
   orgPlaceholder: 'Church / Ministry Name (optional)',
   formSubheadline: 'Be among the first churches to launch on TiVi.',
-  formButtonText: 'Launch My Channel',
+  formButtonText: 'Request access',
 }

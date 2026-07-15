@@ -31,6 +31,11 @@ const nextConfig = {
       { source: '/products/product2', destination: '/products/community-engine', permanent: true },
       // Media → Sabi: the media hub is now canonical at /sabi; /media still resolves.
       { source: '/media', destination: '/sabi', permanent: true },
+      // Learn (Web3 explainer section) — RETIRED FOR NOW (temporary redirect, not
+      // permanent). The /(learning) route group stays in the codebase; revive it
+      // by deleting these two rules. Ran an older template + stale branding.
+      { source: '/learn', destination: '/', permanent: false },
+      { source: '/learn/:slug*', destination: '/', permanent: false },
     ]
   },
 }

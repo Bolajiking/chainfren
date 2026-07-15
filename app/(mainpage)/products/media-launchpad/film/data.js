@@ -4,14 +4,14 @@ import { Film, DollarSign, Users, Eye, Lock, Wallet, BarChart2, Play, Globe, Shi
 export const data = {
   icon: Film,
   badge: 'TiVi for Film',
-  headline: 'OWN YOUR OWN CINEMA.',
-  headlineAccent: 'KEEP EVERY DOLLAR.',
+  headline: 'Own your own cinema.',
+  headlineAccent: 'Keep every dollar.',
   subheadline:
     'Why hand your masterpiece to an algorithm that decides if it finds an audience — and then pockets 45% when it does? TiVi is your personal digital cinema. You are the studio head, the distributor, and the box office. All in one.',
   heroImage: '/moviiii.png',
   heroImageAlt: 'TiVi film streaming platform — your own digital cinema',
   accentColor: '#A6D234',
-  ctaText: 'Launch Your Cinema',
+  ctaText: 'Request access',
   verticalName: 'film',
 
   stats: [
@@ -20,9 +20,10 @@ export const data = {
     { value: '70-80%', label: 'Lost to middlemen on other platforms' },
     { value: '10x', label: 'More earnings vs. ad-based models' },
   ],
+  statsSource: 'Market figures from VOD/OTT industry forecasts (Grand View Research, Polaris Market Research); platform payout rates as publicly reported.',
 
   problemLabel: 'The Distribution Trap',
-  problemHeadline: 'YOU MADE THE FILM. THEY KEEP THE MONEY.',
+  problemHeadline: 'You made the film. They keep the money.',
   problemSubheadline:
     'Chase viral trends for pennies, or sign away distribution rights for a fraction of their value. That is the deal you have been given.',
 
@@ -66,7 +67,7 @@ export const data = {
   ],
 
   solutionLabel: 'Enter TiVi',
-  solutionHeadline: 'YOUR BOX OFFICE. YOUR RULES. YOUR REVENUE.',
+  solutionHeadline: 'Your box office. Your rules. Your revenue.',
 
   features: [
     {
@@ -108,7 +109,7 @@ export const data = {
   ],
 
   useCasesLabel: 'Built For Filmmakers',
-  useCasesHeadline: 'FROM FIRST FEATURE TO FESTIVAL EMPIRE.',
+  useCasesHeadline: 'From first feature to festival empire.',
 
   useCases: [
     {
@@ -144,7 +145,7 @@ export const data = {
   ],
 
   comparisonLabel: 'The Numbers Do Not Lie',
-  comparisonHeadline: 'WHAT 1 MILLION VIEWS ACTUALLY EARNS YOU.',
+  comparisonHeadline: 'What 1 million views actually earns you.',
   comparisonPlatforms: ['TiVi', 'YouTube', 'Vimeo OTT', 'Tubi'],
   comparisonRows: [
     { feature: 'Platform revenue cut', values: ['0%', '45%', '10-15%', 'Ad-only'] },
@@ -156,13 +157,7 @@ export const data = {
     { feature: 'Instant global payments', values: [true, false, false, false] },
   ],
 
-  quote: {
-    text: 'We premiered it ourselves, sold 4,000 tickets opening weekend, and earned more in one weekend than a year of YouTube ad revenue. This is what indie distribution should have been.',
-    author: 'Early Access Filmmaker',
-    role: 'Independent Filmmaker & Documentary Producer',
-  },
-
-  ctaHeadline: 'STOP RENTING YOUR AUDIENCE.',
+  ctaHeadline: 'Stop renting your audience.',
   ctaSubheadline:
     'Your personal digital cinema. Virtual premieres, episodic series, curated festivals. No gatekeepers. No middlemen.',
   ctaBullets: [
@@ -173,5 +168,5 @@ export const data = {
   ],
   orgPlaceholder: 'Studio / Production House Name (optional)',
   formSubheadline: 'Be among the first filmmakers to own your own cinema.',
-  formButtonText: 'Launch My Cinema',
+  formButtonText: 'Request access',
 }

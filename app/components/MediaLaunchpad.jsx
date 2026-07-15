@@ -36,17 +36,17 @@ const FEATURES = [
   { icon: Lock, title: 'Gate & monetize access', desc: 'Subscriptions, pay-per-view, or VIP tiers. Set your own prices with direct wallet-to-wallet payments. No middlemen.', bg: CF.cyan },
   { icon: DollarSign, title: 'Built-in storefront', desc: 'Sell merch, digital downloads, tickets, or bundles directly from your channel page. Replace five tools with one.', bg: CF.mint },
   { icon: Users, title: 'Own your audience', desc: 'Unlike YouTube or Twitch, you own your subscriber data. Export it anytime. No algorithm decides who sees your content.', bg: CF.lavender },
-  { icon: Wallet, title: 'Keep 100% of revenue', desc: 'YouTube takes 45–55%. Twitch takes 50%. TiVi takes zero. Direct payments mean every dollar your audience spends goes to you.', bg: CF.lime },
+  { icon: Wallet, title: 'Keep 100% of revenue', desc: 'YouTube takes 45%. Twitch takes 50%. TiVi takes zero. Direct payments mean every dollar your audience spends goes to you.', bg: CF.lime },
   { icon: BarChart2, title: 'Actionable analytics', desc: 'Understand viewer behavior, track revenue in real time, and grow faster with first-party data you actually own.', bg: '#A6E1FA' },
 ]
 const STATS = [['100%', 'Revenue to you'], ['0%', 'Platform cut'], ['<1min', 'To launch'], ['5+', 'Tools replaced']]
 const PROBLEMS = [
-  { stat: '45–55%', label: 'Revenue taken by YouTube & Twitch', detail: 'Major platforms pocket nearly half of what your audience pays to support you.', bg: '#FFDFDF' },
+  { stat: '45–50%', label: 'Revenue taken by YouTube & Twitch', detail: 'Major platforms pocket nearly half of what your audience pays to support you.', bg: '#FFDFDF' },
   { stat: '0%', label: 'Audience data you own on Twitch', detail: 'You cannot export a single subscriber email. Get banned and you lose everything.', bg: '#FFE8CF' },
   { stat: '96%', label: 'Of creators earn under $100K/year', detail: 'Platforms optimize for the top 1%. The algorithm decides who gets paid, not your talent.', bg: '#E6D9FF' },
 ]
 const COMPARE = [
-  { f: 'Revenue to creator', v: ['100%', '45–50%', '50%', '95%'] },
+  { f: 'Revenue to creator', v: ['100%', '55%', '50%', '95%'] },
   { f: 'Audience data ownership', v: [true, false, false, false] },
   { f: 'Built-in storefront', v: [true, false, false, false] },
   { f: 'No algorithm dependency', v: [true, false, false, false] },
@@ -63,17 +63,12 @@ const VERTICALS = [
   { icon: Music, title: 'Music & Artists', stat: '$39B global digital music market', line: 'Your own MTV. Your music. Your fans.', slug: 'music', bg: CF.periwinkle },
   { icon: Tv, title: 'Content Creators', stat: '$214B global creator economy', line: 'You are the network. Your page is the channel.', slug: 'creators', bg: '#A6E1FA' },
 ]
-const TESTIMONIALS = [
-  { quote: 'TiVi let us launch our own pay-per-view sports streams in a weekend. Revenue tripled compared to what we made on Twitch.', author: 'Mark R.', role: 'Event Organizer', bg: CF.periwinkle },
-  { quote: 'We moved from YouTube to our own platform, kept 100% of donations, and finally own our congregation data. No more ads before sermons.', author: 'Pastor Samuel', role: 'Faith Community Leader', bg: CF.mint },
-  { quote: 'As an indie creator, I was tired of algorithms deciding my income. TiVi gave me full control and direct sales in one place. It just works.', author: 'Jane D.', role: 'Content Creator', bg: CF.cyan },
-]
 const FAQS = [
   { q: 'What’s the difference between TiVi and Media Launchpad?', a: 'TiVi is the platform — launch it yourself in minutes. Media Launchpad is the full solution: Chainfren designs, builds, and launches your entire media presence on TiVi, done with you. Same infrastructure; choose your level of hands-on.' },
   { q: 'How much does TiVi cost?', a: 'TiVi offers a free tier to get started and flexible plans as you grow. Unlike platforms that take 30–50% of your revenue, all TiVi plans let you keep 100% of what you earn from your audience.' },
   { q: 'Do I need coding skills?', a: 'No. Launch your branded streaming channel in minutes with our no-code setup. If you can set up a social media profile, you can launch on TiVi.' },
   { q: 'Can I import my existing videos?', a: 'Absolutely. Upload directly or migrate your content from YouTube, Vimeo, or other platforms. Your content library transfers seamlessly.' },
-  { q: 'How is TiVi different from YouTube or Twitch?', a: 'YouTube takes 45–55% of your revenue and owns your audience data. Twitch takes 50%. TiVi takes zero — you keep 100% of revenue through direct payments, own your subscriber data, and control your channel without algorithm interference.' },
+  { q: 'How is TiVi different from YouTube or Twitch?', a: 'YouTube takes 45% of your ad revenue and owns your audience data. Twitch takes 50%. TiVi takes zero — you keep 100% of revenue through direct payments, own your subscriber data, and control your channel without algorithm interference.' },
   { q: 'What about discoverability?', a: 'TiVi is your home base, not a discovery platform. You bring your audience from social media through your link-in-bio, then own that relationship directly. Think of it as the Shopify for live creators.' },
   { q: 'Can organizations and brands use TiVi?', a: 'Yes. TiVi serves individual creators, churches, sports leagues, music labels, event promoters, and film studios. Any organization that needs a branded streaming channel with direct monetization.' },
 ]
@@ -98,8 +93,8 @@ function Hero({ onDemo, onEarly }) {
           TiVi is the all-in-one streaming platform where creators and brands own their audience and keep <strong style={{ color: '#fff' }}>100% of their earnings</strong>. Stream live or on-demand, sell directly, and never depend on an algorithm again.
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3, ease: EASE }} style={{ display: 'flex', gap: 12, marginTop: 32, flexWrap: 'wrap' }}>
-          <button onClick={onEarly} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 9999, background: ACCENT, color: CF.dark, border: `2px solid ${ACCENT}`, cursor: 'pointer', fontFamily: 'inherit', fontSize: 13.5, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Request Early Access <ArrowRight size={16} /></button>
-          <button onClick={onDemo} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 28px', borderRadius: 9999, background: 'transparent', color: '#fff', border: '2px solid rgba(255,255,255,0.4)', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13.5, fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Book a Free Demo</button>
+          <button onClick={onEarly} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 9999, background: ACCENT, color: CF.dark, border: `2px solid ${ACCENT}`, cursor: 'pointer', fontFamily: 'inherit', fontSize: 13.5, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Request access <ArrowRight size={16} /></button>
+          <button onClick={onDemo} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 28px', borderRadius: 9999, background: 'transparent', color: '#fff', border: '2px solid rgba(255,255,255,0.4)', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13.5, fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Tell us what you&apos;re building</button>
         </motion.div>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} style={{ marginTop: 28, fontSize: 14, color: 'rgba(255,255,255,0.6)' }}>
           Joining the <strong style={{ color: '#fff' }}>$214B global creator economy</strong> — built for the 96% of creators platforms ignore.
@@ -116,10 +111,12 @@ function Hero({ onDemo, onEarly }) {
 }
 
 export default function MediaLaunchpad() {
-  const [modal, setModal] = useState({ open: false, variant: 'demo' })
+  const [modal, setModal] = useState({ open: false, variant: 'sales' })
   const [faqOpen, setFaqOpen] = useState(0)
-  const openDemo = () => setModal({ open: true, variant: 'demo' })
-  const openEarly = () => setModal({ open: true, variant: 'early-access' })
+  // Two CTA motions only (copy doctrine, Adoption 3):
+  // consultative → "Tell us what you're building" (sales); product → "Request access" (access).
+  const openDemo = () => setModal({ open: true, variant: 'sales' })
+  const openEarly = () => setModal({ open: true, variant: 'access' })
 
   return (
     <div style={{ background: '#F5F4EE', color: CF.dark, minHeight: '100vh', fontFamily: 'var(--font-inter), "Inter Display", "Inter", sans-serif' }}>
@@ -131,7 +128,7 @@ export default function MediaLaunchpad() {
         @media (max-width: 560px){ .ml-stats { grid-template-columns: repeat(2, 1fr) !important; } .ml-stats > div:nth-child(3) { border-left: none !important; } }
         .ml-compare-scroll::-webkit-scrollbar { height: 6px; }
       ` }} />
-      <SiteHeader accent={ACCENT} badgeLabel="Products" cta={{ label: 'Book a demo', onClick: openDemo }} />
+      <SiteHeader accent={ACCENT} badgeLabel="Products" cta={{ label: 'Tell us what you\'re building', onClick: openDemo }} />
 
       <main style={{ paddingBottom: 8 }}>
         <Hero onDemo={openDemo} onEarly={openEarly} />
@@ -238,8 +235,13 @@ export default function MediaLaunchpad() {
               </div>
             </div>
           </Reveal>
+          <Reveal delay={0.12}>
+            <p style={{ textAlign: 'center', marginTop: 14, fontSize: 12, color: CF.muted, maxWidth: 720, marginLeft: 'auto', marginRight: 'auto', lineHeight: 1.5 }}>
+              Revenue splits reflect each platform&apos;s standard published creator terms — YouTube Partner Program (55/45 ad-revenue share), Twitch (50/50 subscriptions), Kick (95/5). Your terms may vary by program and region.
+            </p>
+          </Reveal>
           <Reveal delay={0.15}><div style={{ textAlign: 'center', marginTop: 28 }}>
-            <button onClick={openEarly} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 9999, background: CF.dark, color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Switch to TiVi <ArrowRight size={15} /></button>
+            <button onClick={openEarly} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 9999, background: CF.dark, color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Request access <ArrowRight size={15} /></button>
           </div></Reveal>
         </section>
 
@@ -255,7 +257,7 @@ export default function MediaLaunchpad() {
                 <Eyebrow color={CF.indigo}>Self-serve · TiVi</Eyebrow>
                 <h3 style={{ fontSize: 24, fontWeight: 500, color: CF.dark, margin: '14px 0 12px', letterSpacing: '-0.01em' }}>Launch your branded channel in under a minute.</h3>
                 <p style={{ fontSize: 15, color: CF.muted, lineHeight: 1.6, marginBottom: 24 }}>No code, no contracts, keep 100%. The platform, run by you.</p>
-                <button onClick={openEarly} style={{ marginTop: 'auto', alignSelf: 'flex-start', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 9999, background: 'transparent', color: CF.dark, border: `2px solid ${CF.dark}`, cursor: 'pointer', fontFamily: 'inherit', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Request Early Access <ArrowRight size={14} /></button>
+                <button onClick={openEarly} style={{ marginTop: 'auto', alignSelf: 'flex-start', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 9999, background: 'transparent', color: CF.dark, border: `2px solid ${CF.dark}`, cursor: 'pointer', fontFamily: 'inherit', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Request access <ArrowRight size={14} /></button>
               </div>
             </Reveal>
             <Reveal delay={0.1}>
@@ -268,7 +270,7 @@ export default function MediaLaunchpad() {
                     <span key={s} style={{ padding: '5px 12px', borderRadius: 9999, border: '1px solid rgba(255,255,255,0.25)', fontSize: 11, fontWeight: 500, letterSpacing: '0.04em', color: 'rgba(255,255,255,0.85)' }}>{s}</span>
                   ))}
                 </div>
-                <button onClick={openDemo} style={{ marginTop: 'auto', alignSelf: 'flex-start', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 9999, background: ACCENT, color: CF.dark, border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 12.5, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Book a demo <ArrowRight size={14} /></button>
+                <button onClick={openDemo} style={{ marginTop: 'auto', alignSelf: 'flex-start', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 9999, background: ACCENT, color: CF.dark, border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 12.5, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Tell us what you&apos;re building <ArrowRight size={14} /></button>
               </div>
             </Reveal>
           </div>
@@ -301,28 +303,23 @@ export default function MediaLaunchpad() {
               )
             })}
           </div>
+          <Reveal delay={0.1}>
+            <p style={{ textAlign: 'center', marginTop: 20, fontSize: 12, color: CF.muted, maxWidth: 820, marginLeft: 'auto', marginRight: 'auto', lineHeight: 1.5 }}>
+              Market figures drawn from Goldman Sachs Research, PwC, Mordor Intelligence, Verified Market Research, and industry VOD/OTT forecasts.
+            </p>
+          </Reveal>
         </section>
 
-        {/* Testimonials */}
-        <section style={{ maxWidth: 1480, margin: '0 auto', padding: '64px 16px 0' }}>
-          <Reveal><div style={{ textAlign: 'center', marginBottom: 40 }}>
-            <Eyebrow color={CF.indigo}>Testimonials</Eyebrow>
-            <h2 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.25rem)', fontWeight: 500, letterSpacing: '-0.02em', color: CF.dark, marginTop: 12 }}>Creators love TiVi.</h2>
-          </div></Reveal>
-          <div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
-            {TESTIMONIALS.map((t, i) => (
-              <Reveal key={t.author} delay={i * 0.1}>
-                <div style={{ ...cardBase, background: t.bg, padding: '30px 28px', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ display: 'flex', gap: 2, marginBottom: 16 }}>{Array.from({ length: 5 }).map((_, j) => <span key={j} style={{ color: CF.dark, fontSize: 15 }}>★</span>)}</div>
-                  <blockquote style={{ flex: 1, fontSize: 15, lineHeight: 1.6, color: CF.dark, margin: 0 }}>“{t.quote}”</blockquote>
-                  <div style={{ marginTop: 22, paddingTop: 18, borderTop: `2px solid ${CF.dark}18` }}>
-                    <div style={{ fontWeight: 600, color: CF.dark }}>{t.author}</div>
-                    <div style={{ fontSize: 13, color: CF.muted }}>{t.role}</div>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+        {/* Candor — honest proof for a pre-revenue product (copy doctrine, Adoption 1). Replaces the removed testimonials; real outcomes drop in here when they exist. */}
+        <section style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 16px 0' }}>
+          <Reveal>
+            <div style={{ ...cardBase, background: ACCENT, padding: 'clamp(32px, 5vw, 56px)', textAlign: 'center' }}>
+              <Eyebrow color={CF.dark}>Building in the open</Eyebrow>
+              <p style={{ fontSize: 'clamp(1.2rem, 2.6vw, 1.75rem)', fontWeight: 500, letterSpacing: '-0.01em', lineHeight: 1.3, color: CF.dark, marginTop: 14, maxWidth: 760, marginLeft: 'auto', marginRight: 'auto' }}>
+                Early access — the first cohort is onboarding now. When we have real numbers, we&apos;ll publish them. No invented ones.
+              </p>
+            </div>
+          </Reveal>
         </section>
 
         {/* FAQ */}
@@ -372,7 +369,7 @@ export default function MediaLaunchpad() {
                       </div>
                     ))}
                   </div>
-                  <button onClick={openDemo} style={{ marginTop: 24, display: 'inline-flex', alignItems: 'center', gap: 8, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', color: CF.dark }}>Or book a free demo call instead <ArrowRight size={15} /></button>
+                  <button onClick={openDemo} style={{ marginTop: 24, display: 'inline-flex', alignItems: 'center', gap: 8, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', color: CF.dark }}>Or tell us what you&apos;re building instead <ArrowRight size={15} /></button>
                 </div>
                 <div style={{ padding: 'clamp(32px, 4vw, 56px)' }}>
                   <InlineEarlyAccess />
@@ -414,7 +411,7 @@ function InlineEarlyAccess() {
         </div>
       ) : (
         <>
-          <h3 style={{ fontSize: 20, fontWeight: 600, color: CF.dark, marginBottom: 4 }}>Request Early Access</h3>
+          <h3 style={{ fontSize: 20, fontWeight: 600, color: CF.dark, marginBottom: 4 }}>Request access</h3>
           <p style={{ fontSize: 13.5, color: CF.dim, marginBottom: 18 }}>Be among the first to launch your own channel.</p>
           <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <input required type="email" placeholder="Email address" value={data.email} onChange={(e) => setData((d) => ({ ...d, email: e.target.value }))} style={inp} />
@@ -423,7 +420,7 @@ function InlineEarlyAccess() {
               <option value="">Vertical (optional)</option>
               {['sports', 'churches', 'events', 'film', 'music', 'creators', 'other'].map((v) => <option key={v} value={v}>{v[0].toUpperCase() + v.slice(1)}</option>)}
             </select>
-            <button type="submit" disabled={submitting} style={{ width: '100%', padding: '15px 24px', borderRadius: 9999, background: CF.dark, color: '#fff', border: 'none', cursor: submitting ? 'wait' : 'pointer', fontFamily: 'inherit', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', marginTop: 4 }}>{submitting ? 'Submitting…' : 'Request Early Access →'}</button>
+            <button type="submit" disabled={submitting} style={{ width: '100%', padding: '15px 24px', borderRadius: 9999, background: CF.dark, color: '#fff', border: 'none', cursor: submitting ? 'wait' : 'pointer', fontFamily: 'inherit', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', marginTop: 4 }}>{submitting ? 'Submitting…' : 'Request access →'}</button>
           </form>
         </>
       )}

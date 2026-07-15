@@ -68,8 +68,8 @@ const MainGrid = () => {
       <div className="absolute bottom-0 left-0 right-0 h-32 md:h-48 overflow-hidden"><div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/3d2.png)' }}></div></div>
       <Link href="/contact" className="absolute bottom-6 md:bottom-6 left-1/2 -translate-x-1/2 z-20 w-[calc(100%-2rem)] md:w-[80%] max-w-md">
         <button className="w-full px-6 py-3 bg-white text-dark-blue font-semibold rounded-full hover:opacity-90 transition-opacity uppercase overflow-hidden relative group">
-          <span className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-full group-hover:opacity-0">GET IN TOUCH</span>
-          <span className="inline-block absolute left-1/2 -translate-x-1/2 w-full transition-transform duration-200 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 whitespace-nowrap">GET IN TOUCH</span>
+          <span className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-full group-hover:opacity-0">Tell us what you&apos;re building</span>
+          <span className="inline-block absolute left-1/2 -translate-x-1/2 w-full transition-transform duration-200 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 whitespace-nowrap">Tell us what you&apos;re building</span>
         </button>
       </Link>
     </div>
@@ -297,7 +297,10 @@ const MainGrid = () => {
     return (
       <div className="border-[2px] border-dark-blue border-solid rounded-[26px] p-6 md:p-8 h-auto md:h-[297px] relative overflow-hidden flex flex-col md:justify-between">
         <div>
-          <h3 className="text-[11px] font-bold tracking-[0.18em] uppercase text-dark-blue/55 mb-3">Sabi</h3>
+          <div className="flex items-center gap-2 mb-3">
+            <h3 className="text-[11px] font-bold tracking-[0.18em] uppercase text-dark-blue/55">Sabi</h3>
+            <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-dark-blue/45 border border-dark-blue/20 rounded-full px-2 py-0.5">Launching 2026</span>
+          </div>
           <p className="text-dark-blue text-[24px] md:text-[26px] leading-[1.1] tracking-tight font-bold mb-3">
             Africa&apos;s onchain broadcast signal.
           </p>
@@ -306,7 +309,7 @@ const MainGrid = () => {
           </p>
         </div>
         {status === 'sent' ? (
-          <p className="mt-8 md:mt-0 text-dark-blue text-sm font-semibold">Subscribed. Welcome to Sabi.</p>
+          <p className="mt-8 md:mt-0 text-dark-blue text-sm font-semibold">You&apos;re on the list — first to know when Sabi goes live.</p>
         ) : (
           <div className="mt-8 md:mt-0">
             <div className="relative">

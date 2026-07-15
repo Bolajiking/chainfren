@@ -70,12 +70,12 @@ function Hero({ sol, content, onLead }) {
               background: sol.accent, color: CF.dark, border: `2px solid ${sol.accent}`, cursor: 'pointer',
               fontFamily: 'inherit', fontSize: 13, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase',
             }}>Request access <Arrow /></button>
-            <button onClick={() => onLead('demo')} style={{
+            <button onClick={() => onLead('sales')} style={{
               display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 24px', borderRadius: 9999,
               background: 'transparent', color: navy ? '#fff' : CF.dark,
               border: `2px solid ${navy ? 'rgba(255,255,255,0.4)' : CF.dark}`, cursor: 'pointer',
               fontFamily: 'inherit', fontSize: 13, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase',
-            }}>Book a demo <Arrow /></button>
+            }}>Tell us what you&apos;re building <Arrow /></button>
           </motion.div>
         </div>
         <motion.div className="sp-hero-art" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
@@ -115,7 +115,7 @@ export default function SolutionPage({ solutionKey }) {
         @media (prefers-reduced-motion: reduce) { .sp-fren { animation: none !important; } }
       ` }} />
 
-      <SiteHeader accent={accent} badgeLabel="Products" cta={{ label: 'Talk to us', onClick: () => openLead('sales') }} />
+      <SiteHeader accent={accent} badgeLabel="Products" cta={{ label: 'Tell us what you\'re building', onClick: () => openLead('sales') }} />
 
       <main style={{ paddingBottom: 8 }}>
         <Hero sol={sol} content={content} onLead={openLead} />
@@ -199,6 +199,35 @@ export default function SolutionPage({ solutionKey }) {
           </Reveal>
         </section>
 
+        {/* Proof — pre-built slot: candor now, real proof (content.proof) when it exists.
+            The day the first case study lands it replaces the candor block here, a
+            content change only (copy doctrine, Adoption 1). */}
+        <section style={{ maxWidth: 1480, margin: '0 auto', padding: '64px 16px 0' }}>
+          <Reveal>
+            <div style={{ ...cardBase, background: CF.dark, color: '#fff', padding: 'clamp(28px, 5vw, 56px)', textAlign: 'center', backgroundImage: `radial-gradient(60% 70% at 90% 10%, ${accent}33, transparent 60%)` }}>
+              {content.proof ? (
+                <>
+                  <Eyebrow color={accent}>Proof</Eyebrow>
+                  <blockquote style={{ fontSize: 'clamp(1.3rem, 2.6vw, 2rem)', fontWeight: 450, letterSpacing: '-0.02em', lineHeight: 1.25, margin: '14px auto 0', maxWidth: 760 }}>
+                    “{content.proof.quote}”
+                  </blockquote>
+                  <div style={{ marginTop: 18 }}>
+                    <div style={{ fontWeight: 600 }}>{content.proof.author}</div>
+                    {content.proof.role && <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)' }}>{content.proof.role}</div>}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Eyebrow color={accent}>Building in the open</Eyebrow>
+                  <p style={{ fontSize: 'clamp(1.2rem, 2.4vw, 1.75rem)', fontWeight: 450, letterSpacing: '-0.01em', lineHeight: 1.3, marginTop: 14, maxWidth: 720, marginLeft: 'auto', marginRight: 'auto', color: 'rgba(255,255,255,0.92)' }}>
+                    Early access — the first cohort is onboarding now. When we have real numbers, we’ll publish them. No invented ones.
+                  </p>
+                </>
+              )}
+            </div>
+          </Reveal>
+        </section>
+
         {/* FAQ */}
         <section style={{ maxWidth: 1480, margin: '0 auto', padding: '64px 16px 0' }}>
           <div className="sp-faq" style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,2fr)', gap: 32 }}>
@@ -244,7 +273,7 @@ export default function SolutionPage({ solutionKey }) {
                 Tell us what you’re building. The form takes 60 seconds. If we’re not the right team, we’ll point you to who is.
               </p>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <button onClick={() => openLead('sales')} style={{ padding: '16px 32px', borderRadius: 9999, background: accent, border: 'none', color: CF.dark, fontFamily: 'inherit', fontSize: 14, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 10 }}>Talk to us <Arrow /></button>
+                <button onClick={() => openLead('sales')} style={{ padding: '16px 32px', borderRadius: 9999, background: accent, border: 'none', color: CF.dark, fontFamily: 'inherit', fontSize: 14, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 10 }}>Tell us what you&apos;re building <Arrow /></button>
                 <a href="mailto:hello@chainfren.com" style={{ padding: '16px 32px', borderRadius: 9999, background: 'transparent', border: '2px solid #fff', color: '#fff', fontFamily: 'inherit', fontSize: 14, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 10 }}>hello@chainfren.com</a>
               </div>
             </div>
