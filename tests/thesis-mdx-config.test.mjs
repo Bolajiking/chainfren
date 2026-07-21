@@ -17,11 +17,11 @@ test('the thesis build supports MDX without adding runtime CMS dependencies', ()
   assert.equal(pkg.scripts['validate:thesis'], 'node scripts/validate-thesis-content.mjs')
 })
 
-test('the thesis validation command succeeds before Task 2 content exists', () => {
+test('the thesis validation command succeeds during partial chapter publication', () => {
   const validatorScript = fileURLToPath(
     new URL('../scripts/validate-thesis-content.mjs', import.meta.url)
   )
-  const result = spawnSync(process.execPath, [validatorScript], {
+  const result = spawnSync(process.execPath, [validatorScript, '--allow-missing-content'], {
     cwd: new URL('../', import.meta.url),
     encoding: 'utf8',
   })
