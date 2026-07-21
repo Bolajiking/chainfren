@@ -121,3 +121,50 @@
   .entrance, .modeCard { transition: none; }
   .entrance:hover, .modeCard:hover { transform: none; }
 }
+
+.readerPage { background: var(--thesis-paper); color: var(--thesis-navy); font-family: var(--thesis-sans); min-height: 100vh; }
+.skipLink { background: var(--thesis-navy); color: var(--thesis-white); left: 16px; padding: 12px 16px; position: fixed; top: -64px; z-index: 30; }
+.skipLink:focus { top: 16px; }
+.readerGrid { box-sizing: border-box; margin: 0 auto; max-width: 1440px; padding: clamp(24px, 5vw, 72px) clamp(18px, 4vw, 48px) 108px; }
+.readerMain { min-width: 0; outline: none; }
+.readerMain article { margin: 0 auto; max-width: 720px; }
+.readerMain article > header { border-bottom: var(--thesis-border); margin-bottom: 34px; padding-bottom: 28px; }
+.readerMain article > header p:first-child { font-size: 12px; font-weight: 600; letter-spacing: .1em; margin: 0 0 16px; text-transform: uppercase; }
+.readerMain article h1 { font-size: clamp(46px, 7vw, 78px); font-weight: 500; letter-spacing: -.065em; line-height: .94; margin: 0; }
+.readerMain article > header p:last-child { font-size: clamp(18px, 2.4vw, 24px); line-height: 1.38; margin: 20px 0 0; max-width: 620px; }
+.readerMain article :global(p) { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.62; }
+.chapterRail, .readerContext { display: none; }
+.desktopPager { border-top: var(--thesis-border); display: flex; gap: 16px; justify-content: space-between; margin: 64px auto 0; max-width: 720px; padding-top: 22px; }
+.desktopPager a { color: var(--thesis-navy); font-size: 14px; font-weight: 600; min-height: 44px; text-decoration: none; }
+.readerChrome { align-items: center; background: var(--thesis-white); border-top: var(--thesis-border); bottom: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; left: 0; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); position: fixed; right: 0; z-index: 20; }
+.mobileControl { align-items: center; background: transparent; border: 0; color: var(--thesis-navy); display: inline-flex; font: inherit; font-size: 13px; font-weight: 600; justify-content: center; min-height: 44px; padding: 6px; text-decoration: none; }
+.mobileControl:first-child { justify-content: flex-start; }
+.mobileControl:last-child { justify-content: flex-end; }
+.mobileProgress { background: var(--thesis-navy); height: 3px; left: 0; position: fixed; right: 0; top: 0; z-index: 20; }
+.mobileProgress span { background: var(--thesis-cyan); display: block; height: 100%; width: 30%; }
+.contentsDialog { align-items: end; background: rgba(8, 21, 60, .36); bottom: 0; display: flex; left: 0; position: fixed; right: 0; top: 0; z-index: 40; }
+.contentsSheet { background: var(--thesis-paper); border-top: var(--thesis-border); max-height: min(82vh, 680px); overflow: auto; padding: 18px 18px calc(24px + env(safe-area-inset-bottom)); width: 100%; }
+.contentsHeader { align-items: center; display: flex; font-size: 18px; justify-content: space-between; margin-bottom: 12px; }
+.closeContents { align-items: center; background: var(--thesis-white); border: var(--thesis-border); border-radius: 50%; color: var(--thesis-navy); display: inline-flex; justify-content: center; min-height: 44px; min-width: 44px; }
+.contentsList, .chapterList { list-style: none; margin: 0; padding: 0; }
+.contentsList a { align-items: center; border-top: 1px solid rgba(8, 21, 60, .25); color: var(--thesis-navy); display: flex; font-size: 18px; font-weight: 500; gap: 16px; min-height: 56px; text-decoration: none; }
+.contentsList span, .chapterList span { color: rgba(8, 21, 60, .65); font-size: 12px; font-weight: 600; letter-spacing: .08em; }
+.chapterList a[aria-current='page'], .contentsList a[aria-current='page'] { text-decoration: underline; text-underline-offset: 4px; }
+.readerMain a:focus-visible, .readerChrome a:focus-visible, .readerChrome button:focus-visible, .contentsSheet a:focus-visible, .chapterRail a:focus-visible, .desktopPager a:focus-visible { outline: var(--thesis-border); outline-offset: 3px; }
+
+@media (min-width: 960px) {
+  .readerGrid { display: grid; gap: clamp(32px, 5vw, 88px); grid-template-columns: minmax(180px, .6fr) minmax(0, 720px) minmax(110px, .35fr); padding-bottom: 72px; }
+  .chapterRail { display: block; position: sticky; align-self: start; top: 96px; }
+  .railLabel { font-size: 12px; font-weight: 600; letter-spacing: .1em; margin: 0 0 14px; text-transform: uppercase; }
+  .chapterList { border-top: 1px solid rgba(8, 21, 60, .25); }
+  .chapterList a { align-items: center; border-bottom: 1px solid rgba(8, 21, 60, .25); color: var(--thesis-navy); display: flex; font-size: 13px; font-weight: 500; gap: 10px; min-height: 44px; text-decoration: none; }
+  .readerContext { border-left: 1px solid rgba(8, 21, 60, .25); display: block; font-size: 12px; line-height: 1.4; padding-left: 16px; position: sticky; align-self: start; top: 96px; }
+  .readerContext span, .readerContext strong, .readerContext p { display: block; margin: 0 0 10px; }
+  .readerContext span { font-weight: 700; letter-spacing: .12em; }
+  .readerContext p { color: rgba(8, 21, 60, .72); }
+  .readerChrome, .mobileProgress { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skipLink { transition: none; }
+}
