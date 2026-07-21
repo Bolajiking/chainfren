@@ -67,6 +67,14 @@ test('permits generic revenue while rejecting the sensitive revenue phrase in ho
   assert.throws(() => validatePublicSystem(publicSystem, new Set(THESIS_MANIFEST.map((chapter) => chapter.slug))), /private operational content/)
 })
 
+test('rejects quarter language and singular or plural targets and metrics in horizons', () => {
+  for (const unsafeSummary of ['Q1 public launch.', 'Q4 planning.', 'next quarter priorities.', 'Quarter three plans.', 'A target for public work.', 'Public targets are set.', 'An internal metric.', 'Internal metrics are tracked.']) {
+    const unsafeSystem = { DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS: ROADMAP_HORIZONS.map((item) => ({ ...item })) }
+    unsafeSystem.ROADMAP_HORIZONS[0].summary = unsafeSummary
+    assert.throws(() => validatePublicSystem(unsafeSystem, new Set(THESIS_MANIFEST.map((chapter) => chapter.slug))), /private operational content/)
+  }
+})
+
 test('requires the frozen public maturity mapping', () => {
   assert.doesNotThrow(() => validateStages([...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY]))
   const altered = [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY].map((item) => ({ ...item }))
