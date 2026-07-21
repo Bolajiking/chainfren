@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
+import { existsSync, lstatSync, readdirSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { THESIS_CONTENT_VERSION, PUBLIC_CTAS, PUBLIC_PRODUCT_MATURITY, PUBLIC_INITIATIVE_MATURITY } from '../content/chainfren-thesis/public-config.mjs'
@@ -21,16 +21,25 @@ export function collectSafetyViolations(text, source) {
 
 const chapterPath = (directory, chapter) => `${fileURLToPath(directory)}chapters/${chapter.id}-${chapter.slug}.mdx`
 const textArtifact = (path) => /\.(?:html|md|mdx|txt)$/i.test(path)
-const scanGeneratedDirectory = (directory, errors) => {
-  if (!directory || !existsSync(directory)) return
-  for (const name of readdirSync(directory)) {
-    const path = resolve(directory, name)
-    if (statSync(path).isDirectory()) scanGeneratedDirectory(path, errors)
+const scanGeneratedDirectory = (directory, errors, visited = new Set()) => {
+  if (!directory) { errors.push('Generated thesis scan requires a directory'); return }
+  if (!existsSync(directory)) { errors.push(`Generated thesis directory does not exist: ${directory}`); return }
+  const root = resolve(directory)
+  const rootStat = lstatSync(root)
+  if (rootStat.isSymbolicLink()) { errors.push(`Generated thesis scan skipped symlink: ${root}`); return }
+  if (!rootStat.isDirectory()) { errors.push(`Generated thesis path is not a directory: ${root}`); return }
+  if (visited.has(root)) return
+  visited.add(root)
+  for (const name of readdirSync(root)) {
+    const path = resolve(root, name)
+    const entry = lstatSync(path)
+    if (entry.isSymbolicLink()) errors.push(`Generated thesis scan skipped symlink: ${path}`)
+    else if (entry.isDirectory()) scanGeneratedDirectory(path, errors, visited)
     else if (textArtifact(path)) errors.push(...collectSafetyViolations(readFileSync(path, 'utf8'), path))
   }
 }
 
-export function validateThesisContent({ allowMissingContent = false, contentDirectory = new URL('../content/chainfren-thesis/', import.meta.url), generatedDirectory } = {}) {
+export function validateThesisContent({ allowMissingContent = false, contentDirectory = new URL('../content/chainfren-thesis/', import.meta.url), generatedDirectory, generatedDirectoryRequested = generatedDirectory !== undefined } = {}) {
   const errors = []
   try {
     if (THESIS_CONTENT_VERSION !== '2026.1') throw new Error('Content version must be 2026.1')
@@ -58,13 +67,13 @@ export function validateThesisContent({ allowMissingContent = false, contentDire
       if (!scannedPaths.has(path) && /\.(?:mjs|mdx|txt)$/.test(name)) errors.push(...collectSafetyViolations(readFileSync(path, 'utf8'), name))
     }
   }
-  scanGeneratedDirectory(generatedDirectory, errors)
+  if (generatedDirectoryRequested) scanGeneratedDirectory(generatedDirectory, errors)
   return errors
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const generatedIndex = process.argv.indexOf('--generated-dir')
   const generatedDirectory = generatedIndex === -1 ? undefined : process.argv[generatedIndex + 1]
-  const errors = validateThesisContent({ allowMissingContent: process.argv.includes('--allow-missing-content'), generatedDirectory })
+  const errors = validateThesisContent({ allowMissingContent: process.argv.includes('--allow-missing-content'), generatedDirectory, generatedDirectoryRequested: generatedIndex !== -1 })
   if (errors.length) { console.error(errors.join('\n')); process.exitCode = 1 } else console.log('Thesis content validation passed.')
 }

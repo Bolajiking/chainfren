@@ -17,8 +17,8 @@ export const PUBLIC_PRODUCT_MATURITY = [
 ]
 
 export const PUBLIC_INITIATIVE_MATURITY = [
-  { id: 'creator-network', label: 'Creator Network', maturity: 'live', href: '/contact' },
+  { id: 'creator-network', label: 'Creator Network', maturity: 'live', href: '/creator-network' },
   { id: 'sabi', label: 'Sabi', maturity: 'building', href: '/sabi' },
-  { id: 'star-factor', label: 'Star Factor', maturity: 'later', href: '/thesis/the-road-ahead' },
-  { id: 'indy', label: 'Indy', maturity: 'directional', href: '/thesis/the-road-ahead' },
+  { id: 'star-factor', label: 'Star Factor', maturity: 'later', href: '/thesis/read/the-road-ahead' },
+  { id: 'indy', label: 'Indy', maturity: 'directional', href: '/thesis/read/the-road-ahead' },
 ]

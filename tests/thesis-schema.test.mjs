@@ -81,3 +81,22 @@ test('requires the frozen public maturity mapping', () => {
   altered[0].maturity = 'live'
   assert.throws(() => validateStages(altered), /required mapping/)
 })
+
+test('requires canonical destinations for every public system and maturity record', () => {
+  const alteredSystem = { DISTRIBUTION_LOOP: DISTRIBUTION_LOOP.map((item) => ({ ...item })), VALUE_PATH, ROADMAP_HORIZONS }
+  alteredSystem.DISTRIBUTION_LOOP[0].href = '/not-a-real-route'
+  assert.throws(() => validatePublicSystem(alteredSystem, new Set(THESIS_MANIFEST.map((chapter) => chapter.slug))), /approved destination/)
+
+  const alteredMaturity = [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY].map((item) => ({ ...item }))
+  alteredMaturity[0].href = '/not-a-real-route'
+  assert.throws(() => validateStages(alteredMaturity), /approved destination/)
+})
+
+test('rejects impossible ISO calendar dates and accepts leap days', () => {
+  const impossible = THESIS_MANIFEST.map((chapter) => ({ ...chapter }))
+  impossible[0].updatedAt = '2026-02-31'
+  assert.throws(() => validateManifest(impossible), /invalid updatedAt/)
+  const leapDay = THESIS_MANIFEST.map((chapter) => ({ ...chapter }))
+  leapDay[0].updatedAt = '2028-02-29'
+  assert.doesNotThrow(() => validateManifest(leapDay))
+})
