@@ -40,7 +40,7 @@ export default function ThesisHub() {
           <ResumeReading />
         </div>
         <div className={styles.coverArt} aria-hidden="true">
-          <Fren pose="bridge" size={260} colorA="#08153C" colorB="#5ACDFF" />
+          <Fren pose="bridge" size={260} colorA="var(--thesis-navy)" colorB="var(--thesis-cyan)" />
           <ChainfrenWordmark fontSize={21} />
         </div>
       </section>

@@ -27,7 +27,7 @@
 
 .brandLink { color: var(--thesis-navy); gap: 8px; text-decoration: none; }
 .navLinks { gap: 14px; font-size: 13px; font-weight: 500; }
-.navLinks a { color: var(--thesis-navy); text-decoration: none; }
+.navLinks a { color: var(--thesis-navy); display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; text-decoration: none; }
 .navAction { gap: 4px; }
 
 .hub {
