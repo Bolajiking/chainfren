@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import { mkdtempSync, mkdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { pathToFileURL } from 'node:url'
 
 import { collectSafetyViolations, validateThesisContent } from '../scripts/validate-thesis-content.mjs'
 
@@ -59,6 +60,17 @@ test('generated scanning does not follow outside symlinks', () => {
     assert(!errors.some((error) => error.includes('excluded venture')))
     assert(errors.some((error) => error.includes('skipped symlink')))
   } finally { rmSync(root, { recursive: true, force: true }); rmSync(outside, { recursive: true, force: true }) }
+})
+
+test('content scanning catches blocked text in unregistered nested MDX files', () => {
+  const root = mkdtempSync(join(tmpdir(), 'chainfren-thesis-content-'))
+  try {
+    const excluded = ['come', 'ownity'].join('')
+    mkdirSync(join(root, 'chapters', 'drafts'), { recursive: true })
+    writeFileSync(join(root, 'chapters', 'drafts', 'unregistered.mdx'), excluded)
+    const errors = validateThesisContent({ allowMissingContent: true, contentDirectory: pathToFileURL(`${root}/`) })
+    assert(errors.some((error) => error.includes('unregistered.mdx') && error.includes('excluded venture')))
+  } finally { rmSync(root, { recursive: true, force: true }) }
 })
 
 test('safety helpers block local paths, sensitive operational terms, and dash punctuation', () => {

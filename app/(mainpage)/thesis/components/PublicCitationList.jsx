@@ -1,19 +1,7 @@
-import { PUBLIC_CITATIONS } from '@/content/chainfren-thesis/citations.mjs'
-
-const PUBLIC_CITATION_RECORDS = new Set(PUBLIC_CITATIONS)
-
-const isPublicCitation = (citation) => {
-  if (!PUBLIC_CITATION_RECORDS.has(citation)) return false
-  if (typeof citation.title !== 'string' || typeof citation.publisher !== 'string') return false
-  try {
-    return new URL(citation.url).protocol === 'https:'
-  } catch {
-    return false
-  }
-}
+import { normalizePublicCitations } from '@/lib/thesis/public-presentation.mjs'
 
 export default function PublicCitationList({ citations = [] }) {
-  const publicCitations = citations.filter(isPublicCitation)
+  const publicCitations = normalizePublicCitations(citations)
   if (publicCitations.length === 0) return null
 
   return (

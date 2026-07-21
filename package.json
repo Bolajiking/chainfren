@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test:thesis": "node --test tests/thesis-*.test.mjs",
-    "validate:thesis": "node scripts/validate-thesis-content.mjs"
+    "validate:thesis": "node scripts/validate-thesis-content.mjs",
+    "validate:thesis:partial": "node scripts/validate-thesis-content.mjs --allow-missing-content"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.18.0",

@@ -21,22 +21,30 @@ export function collectSafetyViolations(text, source) {
 
 const chapterPath = (directory, chapter) => `${fileURLToPath(directory)}chapters/${chapter.id}-${chapter.slug}.mdx`
 const textArtifact = (path) => /\.(?:html|md|mdx|txt)$/i.test(path)
-const scanGeneratedDirectory = (directory, errors, visited = new Set()) => {
+const scanTextTree = (directory, errors, scannedPaths, label, visited = new Set()) => {
+  const root = resolve(directory)
+  if (visited.has(root)) return
+  visited.add(root)
+  for (const name of readdirSync(root)) {
+    const path = resolve(root, name)
+    const entry = lstatSync(path)
+    if (entry.isSymbolicLink()) errors.push(`${label} scan skipped symlink: ${path}`)
+    else if (entry.isDirectory()) scanTextTree(path, errors, scannedPaths, label, visited)
+    else if (textArtifact(path) && !scannedPaths.has(path)) {
+      scannedPaths.add(path)
+      errors.push(...collectSafetyViolations(readFileSync(path, 'utf8'), path))
+    }
+  }
+}
+
+const scanGeneratedDirectory = (directory, errors, scannedPaths = new Set()) => {
   if (!directory) { errors.push('Generated thesis scan requires a directory'); return }
   if (!existsSync(directory)) { errors.push(`Generated thesis directory does not exist: ${directory}`); return }
   const root = resolve(directory)
   const rootStat = lstatSync(root)
   if (rootStat.isSymbolicLink()) { errors.push(`Generated thesis scan skipped symlink: ${root}`); return }
   if (!rootStat.isDirectory()) { errors.push(`Generated thesis path is not a directory: ${root}`); return }
-  if (visited.has(root)) return
-  visited.add(root)
-  for (const name of readdirSync(root)) {
-    const path = resolve(root, name)
-    const entry = lstatSync(path)
-    if (entry.isSymbolicLink()) errors.push(`Generated thesis scan skipped symlink: ${path}`)
-    else if (entry.isDirectory()) scanGeneratedDirectory(path, errors, visited)
-    else if (textArtifact(path)) errors.push(...collectSafetyViolations(readFileSync(path, 'utf8'), path))
-  }
+  scanTextTree(root, errors, scannedPaths, 'Generated thesis')
 }
 
 export function validateThesisContent({ allowMissingContent = false, contentDirectory = new URL('../content/chainfren-thesis/', import.meta.url), generatedDirectory, generatedDirectoryRequested = generatedDirectory !== undefined } = {}) {
@@ -58,14 +66,15 @@ export function validateThesisContent({ allowMissingContent = false, contentDire
   for (const chapter of THESIS_MANIFEST) {
     const path = chapterPath(contentDirectory, chapter)
     if (!existsSync(path)) { if (!allowMissingContent) errors.push(`Missing chapter MDX: chapters/${chapter.id}-${chapter.slug}.mdx`); continue }
-    scannedPaths.add(path)
+    if (lstatSync(path).isSymbolicLink()) { errors.push(`Content thesis scan skipped symlink: ${path}`); continue }
+    scannedPaths.add(resolve(path))
     errors.push(...collectSafetyViolations(readFileSync(path, 'utf8'), path))
   }
   if (existsSync(contentDirectory)) {
-    for (const name of readdirSync(contentDirectory)) {
-      const path = `${fileURLToPath(contentDirectory)}${name}`
-      if (!scannedPaths.has(path) && /\.(?:mjs|mdx|txt)$/.test(name)) errors.push(...collectSafetyViolations(readFileSync(path, 'utf8'), name))
-    }
+    const root = fileURLToPath(contentDirectory)
+    const rootStat = lstatSync(root)
+    if (rootStat.isSymbolicLink()) errors.push(`Content thesis scan skipped symlink: ${resolve(root)}`)
+    else if (rootStat.isDirectory()) scanTextTree(root, errors, scannedPaths, 'Content thesis')
   }
   if (generatedDirectoryRequested) scanGeneratedDirectory(generatedDirectory, errors)
   return errors
