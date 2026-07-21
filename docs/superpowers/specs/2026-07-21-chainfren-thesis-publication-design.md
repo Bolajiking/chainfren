@@ -290,7 +290,7 @@ This is a public strategic explanation. It must not expose internal company stru
 | `/thesis/short` | Curated five-minute read | Server rendered |
 | `/thesis/read/[chapter]` | Full chapter reader | Server rendered with small client islands |
 | `/thesis/map` | Ownership map and mobile claim tree | Server shell with lazy client map |
-| `/thesis/download` | PDF and public export links | Server rendered |
+| `/thesis/download` | PDF download | Server rendered |
 
 Invalid chapter slugs return the normal 404 surface.
 
@@ -433,6 +433,7 @@ Map behavior:
 
 - Desktop initially fits all twelve nodes in view with `attention-to-ownership` and `chainfren-mission` visually central.
 - Selecting a node opens its summary and chapter link without leaving the map.
+- Desktop expand and collapse controls show or hide claim detail panels. They do not reveal nested subgraphs.
 - Mobile groups claims by type in an accessible vertical tree. Groups start collapsed except `mission`.
 - A claim deep link uses `/thesis/map?claim=<claim-id>`.
 - A valid deep link focuses the desktop node or expands and focuses the mobile claim.
