@@ -42,6 +42,7 @@ test('thesis assets are canonical and styles preserve the scoped brand contract'
     assert.equal(createHash('sha256').update(readFileSync(diskPath)).digest('hex'), asset.sha256)
   }
   assert.match(styles, /var\(--thesis-navy\)/)
+  assert.match(styles, /\.brandLink\s*\{[^}]*min-height:\s*44px[^}]*min-width:\s*44px/s)
   assert.match(styles, /\.navLinks a\s*\{[^}]*min-height:\s*44px[^}]*min-width:\s*44px/s)
   assert.doesNotMatch(hub, /#[0-9A-Fa-f]{3,8}/)
   assert.match(styles, /prefers-reduced-motion/)
