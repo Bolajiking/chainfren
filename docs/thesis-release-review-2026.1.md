@@ -2,15 +2,15 @@
 
 Date checked: 2026-07-21
 
-| Public item | Repository source checked | Resulting public label | Public-safe note |
-| --- | --- | --- | --- |
-| Media Launchpad | `app/config/stack.js` | Early access | Public product stage only. |
-| Creator Growth OS | `app/config/stack.js` | Live core | Public product stage only. |
-| Community Engine | `app/config/stack.js` | Live core | Public product stage only. |
-| AI Agent Studio | `app/config/stack.js` | Early access | Public product stage only. |
-| Creator Network | Public thesis contract | Live | Public maturity label only. |
-| Sabi | Public thesis contract | Building | Public maturity label only. |
-| Star Factor | Public thesis contract | Later | Public maturity label only. |
-| Indy | Public thesis contract | Directional | Public maturity label only. |
+| Public item | Repository source and current route or nav source | Live public URL | Verification date | Resulting public label | Public-safe reason |
+| --- | --- | --- | --- | --- | --- |
+| Media Launchpad | `app/config/stack.js`, product route | https://www.chainfren.com/products/media-launchpad | 2026-07-21 | Early access | Public product stage and route only. |
+| Creator Growth OS | `app/config/stack.js`, product route | https://www.chainfren.com/products/creator-growth-os | 2026-07-21 | Live core | Public product stage and route only. |
+| Community Engine | `app/config/stack.js`, product route | https://www.chainfren.com/products/community-engine | 2026-07-21 | Live core | Public product stage and route only. |
+| AI Agent Studio | `app/config/stack.js`, product route | https://www.chainfren.com/products/ai-agent-studio | 2026-07-21 | Early access | Public product stage and route only. |
+| Creator Network | `app/config/stack.js`, creator network route | https://www.chainfren.com/creator-network | 2026-07-21 | Live | Public maturity label and route only. |
+| Sabi | `app/config/stack.js`, Sabi route | https://www.chainfren.com/sabi | 2026-07-21 | Building | Public maturity label and route only. |
+| Star Factor | `app/config/stack.js`, `app/components/SiteHeader.jsx` homepage nav | https://www.chainfren.com | 2026-07-21 | Later | Public horizon label and homepage navigation context only. |
+| Indy | `app/config/stack.js`, homepage public-horizon context | No current public route | 2026-07-21 | Directional | Public horizon label only; no product page is asserted. |
 
 This review records only public labels and repository sources checked. It excludes operational, financial, customer, and source-material details.

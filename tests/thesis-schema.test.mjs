@@ -6,7 +6,8 @@ import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
 import { PUBLIC_CITATIONS } from '../content/chainfren-thesis/citations.mjs'
 import { THESIS_CLAIMS, THESIS_EDGES } from '../content/chainfren-thesis/claims.mjs'
 import { DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS } from '../content/chainfren-thesis/public-system.mjs'
-import { validateCitations } from '../lib/thesis/schema.mjs'
+import { PUBLIC_PRODUCT_MATURITY, PUBLIC_INITIATIVE_MATURITY } from '../content/chainfren-thesis/public-config.mjs'
+import { validateCitations, validateManifest, validatePublicSystem, validateStages } from '../lib/thesis/schema.mjs'
 
 test('defines the public thesis version and nine unique ordered chapters', () => {
   assert.equal(THESIS_CONTENT_VERSION, '2026.1')
@@ -40,4 +41,26 @@ test('defines the exact public distribution and value sequences', () => {
   assert.deepEqual(DISTRIBUTION_LOOP.map((item) => item.id), ['sabi', 'creator-network', 'star-factor', 'products-and-solutions'])
   assert.deepEqual(VALUE_PATH.map((item) => item.id), ['attention', 'participation', 'ownership', 'value'])
   assert.equal(ROADMAP_HORIZONS.length, 4)
+  assert(DISTRIBUTION_LOOP.every((item) => item.href))
+  assert(VALUE_PATH.every((item) => item.href))
+  assert(ROADMAP_HORIZONS.every((item) => item.href))
+})
+
+test('rejects noncanonical manifest slugs and private horizon content', () => {
+  const changedManifest = THESIS_MANIFEST.map((chapter) => ({ ...chapter }))
+  changedManifest[8].slug = 'another-ending'
+  assert.throws(() => validateManifest(changedManifest), /canonical slug/)
+
+  for (const unsafeSummary of ['Target Q3 2027 revenue growth.', 'A budget and internal metric.', 'Extend runway through a control matrix.']) {
+    const unsafeSystem = { DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS: ROADMAP_HORIZONS.map((item) => ({ ...item })) }
+    unsafeSystem.ROADMAP_HORIZONS[0].summary = unsafeSummary
+    assert.throws(() => validatePublicSystem(unsafeSystem, new Set(THESIS_MANIFEST.map((chapter) => chapter.slug))), /private operational content/)
+  }
+})
+
+test('requires the frozen public maturity mapping', () => {
+  assert.doesNotThrow(() => validateStages([...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY]))
+  const altered = [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY].map((item) => ({ ...item }))
+  altered[0].maturity = 'live'
+  assert.throws(() => validateStages(altered), /required mapping/)
 })
