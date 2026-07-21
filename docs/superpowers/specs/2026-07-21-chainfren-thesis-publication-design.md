@@ -78,6 +78,14 @@ The publication has two entrances:
 
 The entrances point to the same chapter set. They do not create separate manuscripts.
 
+The entrance behavior is fixed:
+
+- **Enter through the mission** links to `/thesis/read/the-gap` and starts at Chapter 01.
+- **Enter through the company** links to `/thesis/read/the-company` and starts at Chapter 05.
+- The canonical table of contents always remains Chapter 01 through Chapter 09.
+- The entrance does not create persistent lens state, reorder chapters, or duplicate URLs.
+- Previous and Continue follow canonical chapter order. A company-entry reader who selects Previous on Chapter 05 moves to Chapter 04.
+
 ### First-release modes
 
 1. Five-minute short read.
@@ -86,6 +94,8 @@ The entrances point to the same chapter set. They do not create separate manuscr
 4. Downloadable PDF.
 
 Audio and film are future formats. The first release may include metadata fields that help later script production, but it must not show empty or disabled audio and video pages.
+
+Clean Markdown and HTML are internal build representations for future reuse. They are not user-facing download modes in the first release and do not appear on `/thesis/download`.
 
 ## Source authority
 
@@ -242,6 +252,19 @@ Create distinct public entry points for:
 
 Use one primary CTA per context. Do not create a wall of competing actions.
 
+Use these approved first-release destinations:
+
+| Audience | CTA label | Destination |
+|---|---|---|
+| Creators | Explore for creators | `/for-creators` |
+| Brands | Explore for brands | `/for-brands` |
+| Partners | Partner with Chainfren | `/contact` |
+| Talent and prospective team members | Join the team | `/contact` |
+| Cofounders and executives | Build Chainfren with us | `/contact` |
+| Supporters | Follow the work | `/sabi` |
+
+The first release does not add query parameters, form prefilling, or new submission flows. Shared destinations are intentional. The label and surrounding copy provide context.
+
 ## The distribution-first system
 
 The publication must make this relationship explicit:
@@ -279,7 +302,7 @@ Mobile:
 - Floating bottom reader control with Previous, Contents, and Continue.
 - Contents open as an accessible sheet or full-screen panel.
 - One primary action per screen.
-- Reader position saved on the device only.
+- Reading progress is saved on the device only.
 
 Desktop:
 
@@ -288,6 +311,29 @@ Desktop:
 - Center reading column.
 - Optional right context rail for short read, map link, source note, and resume state.
 - Desktop adds overview. It must not contain required content that mobile lacks.
+
+### Resume reading behavior
+
+Save chapter-level progress only. Do not save exact scroll position or paragraph position.
+
+Use a versioned local-storage record:
+
+```js
+{
+  chapterSlug: "the-thesis",
+  updatedAt: "2026-07-21T12:00:00.000Z",
+  contentVersion: "2026.1"
+}
+```
+
+Rules:
+
+- Update the record when a chapter route becomes active.
+- Show `Resume at <chapter title>` on `/thesis` when the stored version matches the current public content version.
+- Ignore and replace records with an unknown chapter or old content version.
+- Do not restore scroll position.
+- Do not sync progress across devices.
+- If storage is unavailable, hide Resume and keep all navigation functional.
 
 ## Content model
 
@@ -330,6 +376,69 @@ Each chapter must provide:
 ```
 
 Do not include local source paths, private notes, or raw vault metadata in content objects that can reach the browser.
+
+Keep public maturity labels and CTA destinations in validated public configuration. Chapter prose can refer to them, but it must not define conflicting copies of the same value.
+
+The manifest must define a public `contentVersion`, starting with `2026.1`. The website and PDF must display or embed the same version. The build must also calculate a content hash for verification artifacts. The hash does not need to appear in the visible interface.
+
+### Ownership map schema
+
+The first-release map contains a flat claim graph with twelve required public nodes. It does not add nested subgraphs or user-created nodes.
+
+Required claim IDs:
+
+1. `african-cultural-attention`
+2. `african-value-gap`
+3. `attract-then-extract`
+4. `rented-audience-relationship`
+5. `open-economic-rails`
+6. `attention-to-ownership`
+7. `chainfren-mission`
+8. `sabi-attention`
+9. `creator-network-distribution`
+10. `star-factor-proof`
+11. `products-owned-infrastructure`
+12. `owned-value-outcome`
+
+Each claim must use this shape:
+
+```js
+{
+  id: "attention-to-ownership",
+  title: "Attention must become ownership",
+  summary: "Public plain-language summary",
+  type: "mission",
+  chapterSlug: "the-thesis",
+  order: 6,
+  publicCitationIds: []
+}
+```
+
+Allowed claim types are `context`, `diagnosis`, `mechanism`, `mission`, `distribution`, `proof`, `execution`, and `outcome`.
+
+Each edge must use this shape:
+
+```js
+{
+  id: "edge-attention-mission",
+  from: "african-cultural-attention",
+  to: "attention-to-ownership",
+  relation: "enables"
+}
+```
+
+Allowed relations are `causes`, `constrains`, `enables`, `demonstrates`, and `compounds`.
+
+Map behavior:
+
+- Desktop initially fits all twelve nodes in view with `attention-to-ownership` and `chainfren-mission` visually central.
+- Selecting a node opens its summary and chapter link without leaving the map.
+- Mobile groups claims by type in an accessible vertical tree. Groups start collapsed except `mission`.
+- A claim deep link uses `/thesis/map?claim=<claim-id>`.
+- A valid deep link focuses the desktop node or expands and focuses the mobile claim.
+- An invalid claim parameter shows the default map and does not create an error page.
+- Selecting a claim updates the URL with `history.replaceState` so the state can be shared without adding browser-history noise.
+- The no-JavaScript fallback renders all twelve claims and their chapter links as a nested server-rendered outline.
 
 ## Component boundaries
 
@@ -472,6 +581,19 @@ Budgets for publication routes:
 
 If the existing global site shell prevents a budget, the implementation report must identify the inherited cost separately from publication route cost. Do not remove brand or accessibility features to pass a budget.
 
+### Pre-release and field measurement
+
+Pre-release gates use lab measurements. Run at least three cold Lighthouse or equivalent Chromium measurements under the same simulated slow-4G mobile profile and use the median.
+
+Pre-release lab gates:
+
+- Median lab Largest Contentful Paint below 2.5 seconds.
+- Median lab Cumulative Layout Shift below 0.1.
+- Median Total Blocking Time below 200 milliseconds.
+- Route-specific JavaScript and critical-transfer budgets pass.
+
+Interaction to Next Paint at the 75th percentile is a post-launch field target, not a pre-release lab gate. If the existing Chainfren site already collects Core Web Vitals, monitor publication routes after release. This project does not add a new analytics or telemetry service. Deployment and post-launch monitoring require separate authorization.
+
 ## Accessibility
 
 - Use semantic landmarks and one clear `h1` per route.
@@ -504,7 +626,7 @@ PDF requirements:
 - No navigation chrome or interactive-only instructions.
 - No clipped cards, maps, or headings.
 
-Also generate or preserve clean public Markdown and HTML representations. Future audio and film scripts can derive from approved chapters, but they are not first-release outputs.
+Preserve clean public Markdown and HTML as internal build representations for future reuse. Do not publish them as downloadable first-release artifacts. Future audio and film scripts can derive from approved chapters, but they are not first-release outputs.
 
 ## Search and sharing
 
@@ -592,10 +714,14 @@ All market figures must include a date and public source. Remove a number when i
 - Short read navigation.
 - Previous, Contents, and Continue controls.
 - Direct chapter URLs.
-- Resume reading with and without storage.
+- Mission entrance opens Chapter 01.
+- Company entrance opens Chapter 05.
+- Canonical Previous and Continue order from both entrances.
+- Chapter-level Resume with valid, stale, invalid, and unavailable storage states.
 - Native share and clipboard fallback.
 - Desktop map pan, zoom, fit, expand, and collapse.
 - Mobile ownership tree expand and collapse.
+- Valid and invalid map claim deep links.
 - PDF link and file delivery.
 - 404 behavior for invalid chapter slugs.
 
@@ -630,7 +756,7 @@ Check:
 
 - Production build analysis for each publication route.
 - Lighthouse mobile runs under simulated slow 4G.
-- Core Web Vitals checks.
+- Pre-release lab performance checks using the defined median-of-three profile.
 - JavaScript and transfer budget checks.
 - Confirm map code is absent from reader route bundles.
 - Confirm below-fold art does not compete with the first text render.
@@ -655,6 +781,7 @@ The design is complete when:
 - The four approved exploration modes work.
 - The full reader contains nine chapters.
 - Mission and company entrances reach the same canonical content.
+- Mission opens Chapter 01 and company opens Chapter 05 without persistent lens state or chapter reordering.
 - Comeownity is absent.
 - Star Factor is presented as an important later Chainfren milestone and proof project.
 - Sabi, Creator Network, Star Factor, and Products and Solutions form a clear distribution-first story.
@@ -665,7 +792,12 @@ The design is complete when:
 - Performance budgets pass or inherited global costs are isolated and documented.
 - Core content remains readable without JavaScript.
 - The ownership map has a complete mobile and no-JavaScript text fallback.
+- The ownership map implements the approved twelve-node schema and claim deep-link behavior.
 - The PDF comes from the same approved public content and passes visual review.
+- The website and PDF use the same public content version and build hash.
+- Markdown and HTML remain internal build representations, not first-release download modes.
+- Resume stores chapter-level progress only and handles stale or unavailable storage without blocking reading.
+- Pre-release lab performance gates pass. Field percentile targets are not treated as lab release gates.
 - Humanizer, ADS-STE100, factual, maturity, and public-safety reviews are complete.
 
 ## Implementation sequence constraints
