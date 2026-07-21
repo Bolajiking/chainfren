@@ -10,14 +10,14 @@ test('partial validation passes before chapter MDX publication begins', () => {
   assert.deepEqual(validateThesisContent({ allowMissingContent: true, contentDirectory: new URL('../content/chainfren-thesis/', import.meta.url) }), [])
 })
 
-test('strict validation reports each missing chapter MDX file', () => {
+test('strict validation reports the seven unpublished chapter MDX files', () => {
   const errors = validateThesisContent({ allowMissingContent: false, contentDirectory: new URL('../content/chainfren-thesis/', import.meta.url) })
-  assert.equal(errors.filter((error) => error.includes('Missing chapter MDX')).length, 9)
+  assert.equal(errors.filter((error) => error.includes('Missing chapter MDX')).length, 7)
 })
 
 test('strict validation uses the numbered chapter publication paths', () => {
   const errors = validateThesisContent({ allowMissingContent: false, contentDirectory: new URL('../content/chainfren-thesis/', import.meta.url) })
-  assert(errors.some((error) => error.includes('chapters/01-the-gap.mdx')))
+  assert(errors.some((error) => error.includes('chapters/02-the-trap.mdx')))
   assert(errors.some((error) => error.includes('chapters/09-build-with-us.mdx')))
 })
 
