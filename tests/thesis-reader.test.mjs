@@ -49,6 +49,7 @@ test('reader styles support desktop rail and mobile fixed controls accessibly', 
   assert.match(styles, /@media \(min-width: 960px\)/)
   assert.match(styles, /position: fixed/)
   assert.match(styles, /padding-bottom:/)
+  assert.match(styles, /\.desktopPager a\s*\{[^}]*display:\s*inline-flex[^}]*align-items:\s*center[^}]*min-height:\s*44px/s)
   assert.match(styles, /prefers-reduced-motion/)
   assert.doesNotMatch(styles, /body\s*\{[^}]*Georgia/s)
 })

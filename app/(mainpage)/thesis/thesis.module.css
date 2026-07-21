@@ -135,7 +135,7 @@
 .readerMain article :global(p) { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.62; }
 .chapterRail, .readerContext { display: none; }
 .desktopPager { border-top: var(--thesis-border); display: flex; gap: 16px; justify-content: space-between; margin: 64px auto 0; max-width: 720px; padding-top: 22px; }
-.desktopPager a { color: var(--thesis-navy); font-size: 14px; font-weight: 600; min-height: 44px; text-decoration: none; }
+.desktopPager a { color: var(--thesis-navy); display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; min-height: 44px; text-decoration: none; }
 .readerChrome { align-items: center; background: var(--thesis-white); border-top: var(--thesis-border); bottom: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; left: 0; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); position: fixed; right: 0; z-index: 20; }
 .mobileControl { align-items: center; background: transparent; border: 0; color: var(--thesis-navy); display: inline-flex; font: inherit; font-size: 13px; font-weight: 600; justify-content: center; min-height: 44px; padding: 6px; text-decoration: none; }
 .mobileControl:first-child { justify-content: flex-start; }
