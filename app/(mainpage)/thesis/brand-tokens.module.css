@@ -1,0 +1,18 @@
+.shell {
+  --thesis-navy: #08153C;
+  --thesis-paper: #FFFEFA;
+  --thesis-white: #FFFFFF;
+  --thesis-cyan: #5ACDFF;
+  --thesis-mint: #CBF0B8;
+  --thesis-lime: #C8EB6D;
+  --thesis-border: 2px solid var(--thesis-navy);
+  --thesis-radius: 28px;
+  --thesis-radius-small: 26px;
+  --thesis-shadow: 0 8px 40px rgba(8, 21, 60, 0.12);
+  --thesis-shadow-lift: 0 16px 40px rgba(8, 21, 60, 0.28);
+  --thesis-enter: cubic-bezier(0.22, 1, 0.36, 1);
+  --thesis-hover: cubic-bezier(0.33, 1, 0.68, 1);
+  --thesis-symmetric: cubic-bezier(0.65, 0, 0.35, 1);
+  --thesis-sans: "Inter Display", "Inter", sans-serif;
+  --thesis-serif: Georgia, "Times New Roman", serif;
+}

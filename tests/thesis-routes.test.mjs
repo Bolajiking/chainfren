@@ -7,6 +7,8 @@ const publicContentPath = new URL('../lib/thesis/public-content.js', import.meta
 const chapterArticlePath = new URL('../app/(mainpage)/thesis/components/ChapterArticle.jsx', import.meta.url)
 const citationListPath = new URL('../app/(mainpage)/thesis/components/PublicCitationList.jsx', import.meta.url)
 const maturityBadgePath = new URL('../app/(mainpage)/thesis/components/MaturityBadge.jsx', import.meta.url)
+const thesisHubPath = new URL('../app/(mainpage)/thesis/components/ThesisHub.jsx', import.meta.url)
+const thesisPagePath = new URL('../app/(mainpage)/thesis/page.jsx', import.meta.url)
 
 test('chapter registry uses static imports for the published MDX chapters', () => {
   const registry = readFileSync(registryPath, 'utf8')
@@ -42,4 +44,18 @@ test('thesis server content and article components keep a public semantic contra
   assert.doesNotMatch(badge, /PUBLIC_PRODUCT_MATURITY|PUBLIC_INITIATIVE_MATURITY/)
   assert.match(badge, /<span/)
   assert.doesNotMatch(badge, /['"]use client['"]|dangerouslySetInnerHTML/)
+})
+
+test('thesis hub keeps the two reading entrances distinct from publication modes', () => {
+  const hub = readFileSync(thesisHubPath, 'utf8')
+  const page = readFileSync(thesisPagePath, 'utf8')
+
+  assert.match(page, /ThesisHub/)
+  assert.match(hub, /ChainfrenWordmark/)
+  assert.match(hub, /href=['"]\/thesis\/read\/the-gap['"]/)
+  assert.match(hub, /href=['"]\/thesis\/read\/the-company['"]/)
+  for (const href of ['/thesis/short', '/thesis/read/the-gap', '/thesis/map', '/thesis/download']) {
+    assert.match(hub, new RegExp(`['\\"]${href.replaceAll('/', '\\/')}['\\"]`))
+  }
+  assert.doesNotMatch(hub, /https?:\/\/[^'"\s]*(?:fonts|googleapis|typekit)/i)
 })
