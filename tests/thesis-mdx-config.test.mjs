@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import test from 'node:test'
 
 const nextConfig = readFileSync(new URL('../next.config.js', import.meta.url), 'utf8')
@@ -17,7 +18,10 @@ test('the thesis build supports MDX without adding runtime CMS dependencies', ()
 })
 
 test('the thesis validation command succeeds before Task 2 content exists', () => {
-  const result = spawnSync('npm', ['run', 'validate:thesis'], {
+  const validatorScript = fileURLToPath(
+    new URL('../scripts/validate-thesis-content.mjs', import.meta.url)
+  )
+  const result = spawnSync(process.execPath, [validatorScript], {
     cwd: new URL('../', import.meta.url),
     encoding: 'utf8',
   })
