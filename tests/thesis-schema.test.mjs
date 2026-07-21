@@ -58,6 +58,15 @@ test('rejects noncanonical manifest slugs and private horizon content', () => {
   }
 })
 
+test('permits generic revenue while rejecting the sensitive revenue phrase in horizons', () => {
+  const publicSystem = { DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS: ROADMAP_HORIZONS.map((item) => ({ ...item })) }
+  publicSystem.ROADMAP_HORIZONS[0].summary = 'Creators can build durable revenue through participation.'
+  assert.doesNotThrow(() => validatePublicSystem(publicSystem, new Set(THESIS_MANIFEST.map((chapter) => chapter.slug))))
+
+  publicSystem.ROADMAP_HORIZONS[0].summary = 'This includes signed revenue.'
+  assert.throws(() => validatePublicSystem(publicSystem, new Set(THESIS_MANIFEST.map((chapter) => chapter.slug))), /private operational content/)
+})
+
 test('requires the frozen public maturity mapping', () => {
   assert.doesNotThrow(() => validateStages([...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY]))
   const altered = [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY].map((item) => ({ ...item }))
