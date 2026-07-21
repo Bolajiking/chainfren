@@ -1,10 +1,10 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
 import {
   THESIS_CONTENT_VERSION,
   THESIS_PROGRESS_STORAGE_KEY,
   createThesisProgress,
+  getThesisStorage,
   readThesisProgress,
   writeThesisProgress,
 } from '../lib/thesis/progress.mjs'
@@ -50,14 +50,9 @@ test('writes progress without throwing when storage is unavailable or rejects wr
   assert.deepEqual(JSON.parse(written.value), createThesisProgress('the-gap', new Date('2026-07-21T12:00:00.000Z')))
 })
 
-test('progress UI keeps browser APIs inside client boundaries', () => {
-  const root = new URL('..', import.meta.url)
-  const source = (path) => readFileSync(new URL(path, root), 'utf8')
+test('storage acquisition failures do not escape the client boundary', () => {
+  const unavailableWindow = {}
+  Object.defineProperty(unavailableWindow, 'localStorage', { get: () => { throw new Error('blocked') } })
 
-  assert.match(source('app/(mainpage)/thesis/components/ResumeReading.jsx'), /['"]use client['"]\;?/)
-  assert.match(source('app/(mainpage)/thesis/components/ReaderChrome.jsx'), /ReadingProgress/)
-  assert.match(source('app/(mainpage)/thesis/components/ShareControl.jsx'), /['"]use client['"]\;?/)
-  assert.match(source('app/(mainpage)/thesis/components/ShareControl.jsx'), /navigator\.share/)
-  assert.match(source('app/(mainpage)/thesis/components/ShareControl.jsx'), /navigator\.clipboard/)
-  assert.match(source('app/(mainpage)/thesis/components/ShareControl.jsx'), /urlField\.current\?\.select\(\)/)
+  assert.equal(getThesisStorage(unavailableWindow), null)
 })

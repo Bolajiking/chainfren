@@ -1,11 +1,12 @@
 'use client'
 
 import { useEffect } from 'react'
-import { writeThesisProgress } from '@/lib/thesis/progress.mjs'
+import { getThesisStorage, writeThesisProgress } from '@/lib/thesis/progress.mjs'
 
 export default function ReadingProgress({ chapterSlug }) {
   useEffect(() => {
-    const write = () => writeThesisProgress(window.localStorage, chapterSlug)
+    const storage = getThesisStorage(window)
+    const write = () => writeThesisProgress(storage, chapterSlug)
     const timeout = window.setTimeout(write, 0)
     return () => window.clearTimeout(timeout)
   }, [chapterSlug])

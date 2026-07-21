@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { selectShareUrl, shareThesisChapter } from '@/lib/thesis/sharing.mjs'
 import styles from '../thesis.module.css'
 
 export default function ShareControl({ title }) {
@@ -10,31 +11,12 @@ export default function ShareControl({ title }) {
 
   useEffect(() => {
     if (!showUrl) return
-    urlField.current?.focus()
-    urlField.current?.select()
+    selectShareUrl(urlField.current)
   }, [showUrl])
 
   const share = async () => {
     const data = { title, url: window.location.href }
-    try {
-      if (navigator.share) {
-        await navigator.share(data)
-        return
-      }
-    } catch {
-      // A declined native share should still offer the next safe fallback.
-    }
-
-    try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(data.url)
-        return
-      }
-    } catch {
-      // Clipboard permissions are optional; expose a selectable URL instead.
-    }
-
-    setShowUrl(true)
+    if (await shareThesisChapter(data, navigator) === 'manual') setShowUrl(true)
   }
 
   return (
