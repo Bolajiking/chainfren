@@ -69,6 +69,7 @@
 }
 .entrance span { font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
 .entrance strong { font-size: 15px; font-weight: 500; margin-right: auto; max-width: 154px; }
+.resumeReading { color: var(--thesis-navy); display: inline-flex; font-size: 14px; font-weight: 600; margin-top: 18px; min-height: 44px; align-items: center; text-underline-offset: 4px; }
 
 .coverArt { align-items: center; align-self: end; background: var(--thesis-cyan); border: var(--thesis-border); border-radius: var(--thesis-radius-small); display: flex; flex-direction: column; gap: 6px; justify-content: center; min-height: 220px; padding: 20px; }
 .coverArt > svg { height: auto; max-width: 100%; }
@@ -136,10 +137,12 @@
 .chapterRail, .readerContext { display: none; }
 .desktopPager { border-top: var(--thesis-border); display: flex; gap: 16px; justify-content: space-between; margin: 64px auto 0; max-width: 720px; padding-top: 22px; }
 .desktopPager a { color: var(--thesis-navy); display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; min-height: 44px; text-decoration: none; }
-.readerChrome { align-items: center; background: var(--thesis-white); border-top: var(--thesis-border); bottom: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; left: 0; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); position: fixed; right: 0; z-index: 20; }
+.readerChrome { align-items: center; background: var(--thesis-white); border-top: var(--thesis-border); bottom: 0; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; left: 0; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); position: fixed; right: 0; z-index: 20; }
 .mobileControl { align-items: center; background: transparent; border: 0; color: var(--thesis-navy); display: inline-flex; font: inherit; font-size: 13px; font-weight: 600; justify-content: center; min-height: 44px; padding: 6px; text-decoration: none; }
 .mobileControl:first-child { justify-content: flex-start; }
 .mobileControl:last-child { justify-content: flex-end; }
+.shareControl { display: contents; }
+.shareUrl { background: var(--thesis-white); border: var(--thesis-border); bottom: calc(64px + env(safe-area-inset-bottom)); color: var(--thesis-navy); font: inherit; left: 14px; max-width: calc(100vw - 28px); padding: 10px; position: fixed; right: 14px; z-index: 21; }
 .mobileProgress { background: var(--thesis-navy); height: 3px; left: 0; position: fixed; right: 0; top: 0; z-index: 20; }
 .mobileProgress span { background: var(--thesis-cyan); display: block; height: 100%; width: 30%; }
 .contentsDialog { align-items: end; background: rgba(8, 21, 60, .36); bottom: 0; display: flex; left: 0; position: fixed; right: 0; top: 0; z-index: 40; }

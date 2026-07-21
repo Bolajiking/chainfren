@@ -4,6 +4,7 @@ import ChainfrenIcon from '@/app/components/ChainfrenIcon'
 import ChainfrenWordmark from '@/app/components/ChainfrenWordmark'
 import { Fren } from '@/app/components/Frens'
 import ResumeReading from './ResumeReading'
+import { getPublishedChapters } from '@/lib/thesis/public-content'
 import styles from '../thesis.module.css'
 
 const modes = [
@@ -14,6 +15,7 @@ const modes = [
 ]
 
 export default function ThesisHub() {
+  const chapters = getPublishedChapters()
   return (
     <main className={styles.hub}>
       <section className={styles.cover} aria-labelledby="thesis-title">
@@ -37,7 +39,7 @@ export default function ThesisHub() {
               <ArrowRight size={20} strokeWidth={2} aria-hidden="true" />
             </Link>
           </div>
-          <ResumeReading />
+          <ResumeReading chapters={chapters} />
         </div>
         <div className={styles.coverArt} aria-hidden="true">
           <Fren pose="bridge" size={260} colorA="var(--thesis-navy)" colorB="var(--thesis-cyan)" />
