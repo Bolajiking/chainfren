@@ -503,6 +503,22 @@ Use the current Chainfren brand system:
 
 The publication may use quieter, longer reading surfaces than the homepage. It must still feel like the same brand.
 
+### Canonical brand fidelity
+
+Every brand element used by the publication must come from the canonical Chainfren design system or the matching production component. Do not redraw, reinterpret, stretch, recolor outside approved treatments, or replace a brand asset with a close approximation. This applies to:
+
+- The Chainfren wordmark and linked-frens mark.
+- Fren poses, proportions, stroke geometry, duo-color treatments, and contextual choreography.
+- Product and sub-brand color assignments.
+- Inter Display typography, capped weight scale, Georgia accent roles, spacing, radii, borders, shadows, and gradients.
+- Lucide-style interface icons with two-pixel strokes, round caps, and `currentColor`.
+- Motion curves, timings, hover lifts, focus effects, blur, palette transitions, and reduced-motion behavior.
+- Approved 3D iridescent renders, wave masks, favicons, and other production assets when they appear.
+
+Use the existing production components in `app/components` first, including `ChainfrenWordmark`, `ChainfrenIcon`, and `Frens`. Use the existing files in `public` for decorative assets. If a canonical design-system asset is not yet present in the repository and the design needs it, copy the exact source asset into the repository without changing it and record its source checksum in the release review.
+
+The publication does not need to display every asset in the design system. It must use the exact canonical implementation for every asset, icon, animation, and effect that it does display. New publication interactions can be composed from approved tokens and motion primitives, but they must not invent a parallel Chainfren visual language.
+
 ## Immersion and motion
 
 Immersion comes from:
@@ -789,6 +805,8 @@ The design is complete when:
 - Public content does not expose private company information or internal frameworks.
 - Maturity labels match current approved public reality.
 - The publication matches the Chainfren design system.
+- Every logo, mark, fren, icon, animation, effect, color treatment, and decorative asset used by the publication matches its canonical brand implementation or source file.
+- No Chainfren logo, mark, fren, or approved decorative asset is redrawn or approximated.
 - Mobile and desktop experiences pass responsive, accessibility, and visual checks.
 - Performance budgets pass or inherited global costs are isolated and documented.
 - Core content remains readable without JavaScript.
