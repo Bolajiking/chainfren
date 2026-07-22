@@ -191,3 +191,47 @@
 @media (prefers-reduced-motion: reduce) {
   .skipLink { transition: none; }
 }
+
+.mapPage { box-sizing: border-box; color: var(--thesis-navy); font-family: var(--thesis-sans); margin: 0 auto; max-width: 1240px; padding: clamp(32px, 6vw, 82px) clamp(18px, 4vw, 48px) 80px; }
+.mapIntro { border-bottom: var(--thesis-border); max-width: 760px; padding-bottom: 28px; }
+.mapIntro h1 { font-size: clamp(46px, 7vw, 82px); font-weight: 500; letter-spacing: -.065em; line-height: .94; margin: 0; }
+.mapIntro h1 em { font-family: var(--thesis-serif); font-weight: 400; }
+.mapIntro > p:last-child { font-size: clamp(18px, 2.2vw, 24px); line-height: 1.45; margin: 20px 0 0; }
+.ownershipMap { background: var(--thesis-white); border: var(--thesis-border); border-radius: var(--thesis-radius); box-shadow: var(--thesis-shadow); margin-top: 34px; overflow: hidden; }
+.mapToolbar { align-items: center; border-bottom: var(--thesis-border); display: flex; gap: 20px; justify-content: space-between; padding: 20px 22px; }
+.mapToolbar h2 { font-size: 24px; font-weight: 500; letter-spacing: -.04em; margin: 0; }
+.mapToolbar p { font-size: 13px; margin: 5px 0 0; }
+.mapControls { display: flex; gap: 8px; }
+.mapControls button { background: var(--thesis-paper); border: var(--thesis-border); border-radius: 8px; color: var(--thesis-navy); font: inherit; font-size: 14px; min-height: 44px; min-width: 44px; padding: 0 12px; }
+.mapViewport { background: linear-gradient(90deg, rgba(8, 21, 60, .06) 1px, transparent 1px), linear-gradient(rgba(8, 21, 60, .06) 1px, transparent 1px), var(--thesis-mint); background-size: 24px 24px; cursor: grab; overflow: hidden; touch-action: none; }
+.mapViewport:active { cursor: grabbing; }
+.mapViewport svg { display: block; height: min(48vw, 540px); min-height: 430px; width: 100%; }
+.mapEdge { stroke: rgba(8, 21, 60, .45); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.mapNode { cursor: pointer; outline: none; }
+.mapNode rect { fill: var(--thesis-white); stroke: var(--thesis-navy); stroke-width: 2; }
+.mapNode text:first-of-type { fill: var(--thesis-navy); font-family: var(--thesis-sans); font-size: 14px; font-weight: 600; }
+.mapNode text:last-of-type { fill: rgba(8, 21, 60, .72); font-family: var(--thesis-sans); font-size: 11px; text-transform: uppercase; }
+.mapNodeActive rect, .mapNode:hover rect, .mapNode:focus rect { fill: var(--thesis-cyan); stroke-width: 4; }
+.mapDetails { border-top: var(--thesis-border); padding: 20px 22px 24px; }
+.mapDetails h3 { font-size: 26px; font-weight: 500; letter-spacing: -.04em; margin: 0; }
+.mapDetails p:not(.kicker) { font-size: 16px; line-height: 1.5; max-width: 700px; }
+.mapDetails a, .ownershipTree a { color: var(--thesis-navy); font-size: 14px; font-weight: 600; text-underline-offset: 4px; }
+.mapControls button:focus-visible, .mapNode:focus-visible rect, .mapDetails a:focus-visible, .ownershipTree a:focus-visible, .ownershipTree summary:focus-visible { outline: var(--thesis-border); outline-offset: 3px; }
+.ownershipTree { margin-top: 50px; max-width: 850px; }
+.ownershipTree > h2 { font-size: clamp(30px, 4vw, 46px); font-weight: 500; letter-spacing: -.05em; margin: 0; }
+.ownershipTree > p { font-size: 18px; line-height: 1.5; }
+.ownershipTree details { border-top: var(--thesis-border); }
+.ownershipTree details:last-child { border-bottom: var(--thesis-border); }
+.ownershipTree summary { cursor: pointer; font-size: 19px; font-weight: 600; min-height: 44px; padding: 15px 4px; }
+.ownershipTree ol { list-style: none; margin: 0; padding: 0 0 14px; }
+.ownershipTree li { border-top: 1px solid rgba(8, 21, 60, .22); padding: 17px 4px; }
+.ownershipTree h3 { font-size: 21px; font-weight: 500; letter-spacing: -.035em; margin: 0; }
+.ownershipTree article p { font-size: 16px; line-height: 1.5; margin: 8px 0 12px; }
+
+@media (max-width: 959px) {
+  .ownershipMap { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mapViewport { cursor: default; }
+}
