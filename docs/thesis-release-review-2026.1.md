@@ -22,3 +22,7 @@ This review records only public labels and repository sources checked. It exclud
 | 02: The Trap | Humanizer and ADS-STE100 pass | Plain-language platform-dependency model; no figures or outside claims | Pass | Chainfren editorial | 2026-07-21 |
 | 03: The Unlock | Humanizer and ADS-STE100 pass | Mechanism-only description of open rails; no product or speculative claims | Pass | Chainfren editorial | 2026-07-21 |
 | 04: The Thesis | Humanizer and ADS-STE100 pass | Approved mission framing; default-infrastructure position is labelled as ambition | Pass | Chainfren editorial | 2026-07-21 |
+| 06: What We Build | Humanizer and ADS-STE100 pass | Uses registered products, stages, and public system order | Pass | Chainfren editorial | 2026-07-22 |
+| 07: How We Work | Humanizer and ADS-STE100 pass | Public practice statements only; no operational detail | Pass | Chainfren editorial | 2026-07-22 |
+| 08: The Road Ahead | Humanizer and ADS-STE100 pass | Public horizons and directional initiative framing only | Pass | Chainfren editorial | 2026-07-22 |
+| 09: Build With Us | Humanizer and ADS-STE100 pass | Uses the six approved CTA labels and routes without parameters | Pass | Chainfren editorial | 2026-07-22 |

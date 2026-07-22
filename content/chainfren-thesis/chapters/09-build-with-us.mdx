@@ -1,0 +1,11 @@
+import { PUBLIC_CTAS } from '@/content/chainfren-thesis/public-config.mjs'
+
+This work gets better when the people close to the culture help shape it. There are different ways to enter, depending on what you are building and what you need from the relationship.
+
+<ul>
+  {Object.values(PUBLIC_CTAS).map((cta) => (
+    <li key={cta.label}><a href={cta.href}>{cta.label}</a></li>
+  ))}
+</ul>
+
+Start where the fit is honest. Bring a problem, a community, a story, or a useful challenge. We are here to build relationships that can outlast the next post.

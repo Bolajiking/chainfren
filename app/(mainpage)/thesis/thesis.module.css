@@ -134,6 +134,16 @@
 .readerMain article h1 { font-size: clamp(46px, 7vw, 78px); font-weight: 500; letter-spacing: -.065em; line-height: .94; margin: 0; }
 .readerMain article > header p:last-child { font-size: clamp(18px, 2.4vw, 24px); line-height: 1.38; margin: 20px 0 0; max-width: 620px; }
 .readerMain article :global(p) { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.62; }
+.readerMain article :global(ul), .readerMain article :global(ol) { font-size: clamp(17px, 1.5vw, 20px); line-height: 1.55; padding-left: 1.25em; }
+.readerMain article :global(li) { margin: 12px 0; }
+.readerMain article :global(a) { color: inherit; text-underline-offset: 4px; }
+.publicSystem { border-top: var(--thesis-border); margin: 38px 0; padding-top: 22px; }
+.publicSystem h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 500; letter-spacing: -.05em; line-height: 1; margin: 0 0 18px; }
+.publicSystem ol { display: grid; gap: 12px; list-style: decimal-leading-zero; margin: 0; padding-left: 2.5em; }
+.publicSystem li { border-bottom: 1px solid rgba(8, 21, 60, .25); padding: 0 0 14px 4px; }
+.publicSystem li > a { font-size: 18px; font-weight: 600; }
+.publicSystem li > span { border: 1px solid currentColor; border-radius: 999px; display: inline-block; font-size: 11px; letter-spacing: .06em; margin-left: 8px; padding: 2px 7px; text-transform: uppercase; }
+.publicSystem li p { font-size: 16px; line-height: 1.45; margin: 7px 0 0; }
 .chapterRail, .readerContext { display: none; }
 .desktopPager { border-top: var(--thesis-border); display: flex; gap: 16px; justify-content: space-between; margin: 64px auto 0; max-width: 720px; padding-top: 22px; }
 .desktopPager a { color: var(--thesis-navy); display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; min-height: 44px; text-decoration: none; }

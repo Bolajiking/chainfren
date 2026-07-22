@@ -1,25 +1,43 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtempSync, mkdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
+import { mkdtempSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
 import { collectSafetyViolations, validateThesisContent } from '../scripts/validate-thesis-content.mjs'
+import { DISTRIBUTION_LOOP, ROADMAP_HORIZONS, VALUE_PATH } from '../content/chainfren-thesis/public-system.mjs'
+
+const componentSource = (name) => readFileSync(new URL(`../app/(mainpage)/thesis/components/${name}.jsx`, import.meta.url), 'utf8')
 
 test('partial validation passes before chapter MDX publication begins', () => {
   assert.deepEqual(validateThesisContent({ allowMissingContent: true, contentDirectory: new URL('../content/chainfren-thesis/', import.meta.url) }), [])
 })
 
-test('strict validation reports the four unpublished chapter MDX files', () => {
+test('strict validation passes with all nine published chapter MDX files', () => {
   const errors = validateThesisContent({ allowMissingContent: false, contentDirectory: new URL('../content/chainfren-thesis/', import.meta.url) })
-  assert.equal(errors.filter((error) => error.includes('Missing chapter MDX')).length, 4)
+  assert.deepEqual(errors, [])
 })
 
-test('strict validation uses the numbered chapter publication paths', () => {
-  const errors = validateThesisContent({ allowMissingContent: false, contentDirectory: new URL('../content/chainfren-thesis/', import.meta.url) })
-  assert(errors.some((error) => error.includes('chapters/06-what-we-build.mdx')))
-  assert(errors.some((error) => error.includes('chapters/09-build-with-us.mdx')))
+test('company chapter systems keep the approved public sequences and component data boundary', () => {
+  assert.deepEqual(DISTRIBUTION_LOOP.map(({ id }) => id), ['sabi', 'creator-network', 'star-factor', 'products-and-solutions'])
+  assert.deepEqual(VALUE_PATH.map(({ id }) => id), ['attention', 'participation', 'ownership', 'value'])
+  assert.equal(ROADMAP_HORIZONS.length, 4)
+  assert(ROADMAP_HORIZONS.every(({ title, summary }) => !/\b(?:\d{4}|Q[1-4]|quarter|budget|targets?|metrics?|runway|signed\s+revenue|decision-rights|control\s+matrix|risk\s+register)\b/i.test(`${title} ${summary}`)))
+
+  for (const [component, data] of [['DistributionLoop', 'DISTRIBUTION_LOOP'], ['ValuePath', 'VALUE_PATH'], ['RoadmapHorizons', 'ROADMAP_HORIZONS']]) {
+    const source = componentSource(component)
+    assert.match(source, new RegExp(`import\\s+\\{\\s*${data}\\s*\\}\\s+from`))
+    assert.match(source, new RegExp(`${data}\\.map`))
+    assert.match(source, /<ol/)
+    assert.doesNotMatch(source, /['\"]use client['\"]/)
+  }
+})
+
+test('company chapter files use the numbered publication paths', () => {
+  for (const path of ['06-what-we-build.mdx', '07-how-we-work.mdx', '08-the-road-ahead.mdx', '09-build-with-us.mdx']) {
+    assert.match(readFileSync(new URL(`../content/chainfren-thesis/chapters/${path}`, import.meta.url), 'utf8'), /\S/)
+  }
 })
 
 test('explicit generated thesis directories are recursively safety scanned', () => {
