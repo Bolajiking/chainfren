@@ -1,6 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
+import { escapeJsonForHtmlScript } from '../lib/thesis/json-ld.js'
 
 const registryPath = new URL('../lib/thesis/content-registry.js', import.meta.url)
 const publicContentPath = new URL('../lib/thesis/public-content.js', import.meta.url)
@@ -14,7 +15,7 @@ const shortReadPagePath = new URL('../app/(mainpage)/thesis/short/page.jsx', imp
 const thesisLayoutPath = new URL('../app/(mainpage)/thesis/layout.jsx', import.meta.url)
 const mapPagePath = new URL('../app/(mainpage)/thesis/map/page.jsx', import.meta.url)
 const downloadPagePath = new URL('../app/(mainpage)/thesis/download/page.jsx', import.meta.url)
-const ogImagePath = new URL('../app/(mainpage)/thesis/opengraph-image.jsx', import.meta.url)
+const ogImagePath = new URL('../app/(mainpage)/thesis/opengraph-image/route.jsx', import.meta.url)
 const articleJsonLdPath = new URL('../app/(mainpage)/thesis/components/ArticleJsonLd.jsx', import.meta.url)
 const stackPath = new URL('../app/config/stack.js', import.meta.url)
 
@@ -109,7 +110,7 @@ test('thesis discovery metadata uses canonical public URLs and unique chapter me
   const map = readFileSync(mapPagePath, 'utf8')
   const download = readFileSync(downloadPagePath, 'utf8')
 
-  assert.match(layout, /metadataBase:\s*new URL\('https:\/\/www\.chainfren\.com\/thesis'\)/)
+  assert.match(layout, /metadataBase:\s*new URL\('https:\/\/www\.chainfren\.com'\)/)
   for (const source of [hub, shortRead, reader, map, download]) {
     assert.match(source, /alternates:\s*\{\s*canonical:/)
     assert.match(source, /openGraph:/)
@@ -123,12 +124,14 @@ test('thesis discovery metadata uses canonical public URLs and unique chapter me
 test('thesis social image is local, branded, and contains the approved thesis line', () => {
   const ogImage = readFileSync(ogImagePath, 'utf8')
 
-  assert.match(ogImage, /ImageResponse/)
+  assert.match(ogImage, /new Response/)
   assert.match(ogImage, /The Chainfren thesis/)
   assert.match(ogImage, /African creators have already won the attention\. The next fight is ownership\./)
   assert.match(ogImage, /#08153C|#09011B/)
   assert.match(ogImage, /#5ACDFF|#CBF0B8/)
-  assert.doesNotMatch(ogImage, /https?:\/\/|fetch\(|\.ttf|\.woff/i)
+  assert.match(ogImage, /logodark\.svg/)
+  assert.doesNotMatch(ogImage, /borderRadius:\s*999/)
+  assert.doesNotMatch(ogImage, /fetch\(|\.ttf|\.woff/i)
 })
 
 test('short and chapter pages render public article JSON-LD with release identifiers', () => {
@@ -145,7 +148,18 @@ test('short and chapter pages render public article JSON-LD with release identif
   assert.match(articleJsonLd, /THESIS_CONTENT_HASH/)
   assert.match(articleJsonLd, /url:\s*canonicalUrl/)
   assert.match(articleJsonLd, /application\/ld\+json/)
+  assert.match(articleJsonLd, /escapeJsonForHtmlScript/)
   assert.match(articleJsonLd, /https:\/\/www\.chainfren\.com/)
+})
+
+test('article JSON-LD safely serializes a script-closing payload', () => {
+  const unsafe = { headline: '</script><script>alert(1)</script>&\u2028\u2029' }
+  const serialized = escapeJsonForHtmlScript(unsafe)
+
+  assert.doesNotMatch(serialized, /<\/script>/i)
+  assert.doesNotMatch(serialized, /[<>&\u2028\u2029]/)
+  assert.match(serialized, /\\u003C\/script\\u003E/)
+  assert.deepEqual(JSON.parse(serialized), unsafe)
 })
 
 test('the company footer exposes only the thesis discovery link added for this publication', () => {

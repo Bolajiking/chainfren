@@ -1,5 +1,6 @@
 import { THESIS_CONTENT_VERSION } from '@/content/chainfren-thesis/public-config.mjs'
 import { THESIS_CONTENT_HASH } from '@/content/chainfren-thesis/generated-content-hash.mjs'
+import { escapeJsonForHtmlScript } from '@/lib/thesis/json-ld'
 
 const PUBLISHER_URL = 'https://www.chainfren.com'
 
@@ -21,5 +22,5 @@ export default function ArticleJsonLd({ canonicalUrl, headline, description, dat
     },
   }
 
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }} />
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: escapeJsonForHtmlScript(article) }} />
 }
