@@ -15,6 +15,26 @@ Date checked: 2026-07-21
 
 This review records only public labels and repository sources checked. It excludes operational, financial, customer, and source-material details.
 
+## Public release checklist
+
+- [x] The release contains all nine manifest chapters and the short read.
+- [x] Every public claim links to a published chapter and every public CTA resolves to a local route or approved HTTPS destination.
+- [x] Citations use HTTPS or an approved Chainfren first-party URL.
+- [x] Public copy has passed the blocked-text scan. It contains no excluded venture reference, local path, internal identifier, sensitive operating term, em dash, or en dash.
+- [x] The public edition contains no private or sensitive company information. It does not include operating frameworks, financial information, customer information, internal plans, or source-vault material.
+- [x] Version `2026.1`, source checksum, PDF checksum, canonical metadata, and social preview all use the release contract.
+
+## Artifact validation workflow
+
+Run these commands from the repository root before publication:
+
+```sh
+npm run thesis:artifacts
+npm run thesis:verify-release
+```
+
+Then confirm that `public/downloads/chainfren-thesis-2026.1.pdf` opens as the public A4 edition and that `public/downloads/chainfren-thesis-2026.1.sha256` contains two distinct, labeled SHA-256 values. The `Source SHA-256` value must match `content/chainfren-thesis/generated-content-hash.mjs`. The `PDF SHA-256` value must match the PDF file. Do not use a local filesystem path in any public output.
+
 ## Mission chapters
 
 | Chapter | Editorial review | Factual review | Public-safety review | Reviewer | Date |

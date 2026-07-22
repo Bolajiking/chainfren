@@ -130,6 +130,13 @@ test('released checksums match the canonical source inputs and PDF artifact', ()
 
 test('site metadata uses the generated thesis content hash', () => {
   const layout = source('app/layout.jsx')
+  const print = source('app/(mainpage)/thesis/print/page.jsx')
+  const download = source('app/(mainpage)/thesis/download/page.jsx')
+  const config = source('content/chainfren-thesis/public-config.mjs')
   assert.match(layout, /import \{ THESIS_CONTENT_HASH \} from ['"]@\/content\/chainfren-thesis\/generated-content-hash\.mjs['"]/)
   assert.match(layout, /thesis-content-sha256.*THESIS_CONTENT_HASH/s)
+  assert.match(print, /THESIS_CONTENT_VERSION/)
+  assert.match(print, /THESIS_CONTENT_HASH/)
+  assert.match(download, /THESIS_CONTENT_HASH/)
+  assert.match(config, /THESIS_CONTENT_VERSION = '2026\.1'/)
 })

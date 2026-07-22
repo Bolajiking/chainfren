@@ -1,12 +1,15 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtempSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
-import { collectSafetyViolations, validateThesisContent } from '../scripts/validate-thesis-content.mjs'
+import { collectSafetyViolations, validatePublicDestinations, validateThesisContent } from '../scripts/validate-thesis-content.mjs'
 import { DISTRIBUTION_LOOP, ROADMAP_HORIZONS, VALUE_PATH } from '../content/chainfren-thesis/public-system.mjs'
+import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
+import { THESIS_CLAIMS } from '../content/chainfren-thesis/claims.mjs'
+import { PUBLIC_CTAS, PUBLIC_INITIATIVE_MATURITY, PUBLIC_PRODUCT_MATURITY, THESIS_CONTENT_VERSION } from '../content/chainfren-thesis/public-config.mjs'
 
 const componentSource = (name) => readFileSync(new URL(`../app/(mainpage)/thesis/components/${name}.jsx`, import.meta.url), 'utf8')
 
@@ -17,6 +20,38 @@ test('partial validation passes before chapter MDX publication begins', () => {
 test('strict validation passes with all nine published chapter MDX files', () => {
   const errors = validateThesisContent({ allowMissingContent: false, contentDirectory: new URL('../content/chainfren-thesis/', import.meta.url) })
   assert.deepEqual(errors, [])
+})
+
+test('release source has every manifest chapter, registry route, short read, and valid claim chapter', () => {
+  const thesisRoot = new URL('../content/chainfren-thesis/', import.meta.url)
+  assert.equal(THESIS_CONTENT_VERSION, '2026.1')
+  assert.equal(THESIS_MANIFEST.length, 9)
+  for (const chapter of THESIS_MANIFEST) {
+    assert(existsSync(new URL(`chapters/${chapter.id}-${chapter.slug}.mdx`, thesisRoot)))
+  }
+  const registry = readFileSync(new URL('../lib/thesis/public-content.js', import.meta.url), 'utf8')
+  assert.match(registry, /THESIS_MANIFEST/)
+  assert.match(registry, /CHAPTER_COMPONENTS/)
+  assert(existsSync(new URL('short-read.mdx', thesisRoot)))
+  const slugs = new Set(THESIS_MANIFEST.map(({ slug }) => slug))
+  assert(THESIS_CLAIMS.every(({ chapterSlug }) => slugs.has(chapterSlug)))
+})
+
+test('all public CTA destinations resolve to a local route or approved HTTPS URL', () => {
+  const hrefs = [
+    ...Object.values(PUBLIC_CTAS).map(({ href }) => href),
+    ...PUBLIC_PRODUCT_MATURITY.map(({ href }) => href),
+    ...PUBLIC_INITIATIVE_MATURITY.map(({ href }) => href),
+    ...DISTRIBUTION_LOOP.map(({ href }) => href),
+    ...VALUE_PATH.map(({ href }) => href),
+    ...ROADMAP_HORIZONS.map(({ href }) => href),
+  ]
+  assert.deepEqual(validateThesisContent({ allowMissingContent: false, contentDirectory: new URL('../content/chainfren-thesis/', import.meta.url) }), [])
+  assert(hrefs.length > 0)
+})
+
+test('destination validation rejects a public CTA that lacks a matching route file', () => {
+  assert.deepEqual(validatePublicDestinations(['/not-a-public-route']), ['Public CTA destination has no matching route file: /not-a-public-route'])
 })
 
 test('company chapter systems keep the approved public sequences and component data boundary', () => {

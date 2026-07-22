@@ -1,5 +1,5 @@
 import { existsSync, lstatSync, readdirSync, readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { THESIS_CONTENT_VERSION, PUBLIC_CTAS, PUBLIC_PRODUCT_MATURITY, PUBLIC_INITIATIVE_MATURITY } from '../content/chainfren-thesis/public-config.mjs'
 import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
@@ -47,6 +47,64 @@ const scanGeneratedDirectory = (directory, errors, scannedPaths = new Set()) => 
   scanTextTree(root, errors, scannedPaths, 'Generated thesis')
 }
 
+const APP_ROOT = fileURLToPath(new URL('../app/', import.meta.url))
+const APPROVED_FIRST_PARTY_HOSTS = new Set(['chainfren.com', 'www.chainfren.com'])
+
+const collectRoutePatterns = (directory = APP_ROOT, routes = []) => {
+  for (const name of readdirSync(directory)) {
+    const path = resolve(directory, name)
+    const entry = lstatSync(path)
+    if (entry.isSymbolicLink()) continue
+    if (entry.isDirectory()) collectRoutePatterns(path, routes)
+    else if (/^page\.(?:js|jsx|ts|tsx)$/.test(name)) {
+      const segments = relative(APP_ROOT, directory).split('/').filter((segment) => segment && !/^\(.+\)$/.test(segment))
+      routes.push(`/${segments.join('/')}`.replace(/\/$/, '') || '/')
+    }
+  }
+  return routes
+}
+
+const routeMatches = (href, route) => {
+  const routePattern = route.split('/').map((segment) => /^\[.+\]$/.test(segment) ? '[^/]+' : segment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('/')
+  return new RegExp(`^${routePattern}$`).test(href)
+}
+
+export function validatePublicDestinations(hrefs, routePatterns = collectRoutePatterns()) {
+  const errors = []
+  for (const href of hrefs) {
+    if (href.startsWith('/')) {
+      if (!routePatterns.some((route) => routeMatches(href, route))) errors.push(`Public CTA destination has no matching route file: ${href}`)
+      continue
+    }
+    try {
+      const url = new URL(href)
+      if (url.protocol !== 'https:' && !APPROVED_FIRST_PARTY_HOSTS.has(url.hostname)) errors.push(`Public CTA destination must use HTTPS or an approved first-party URL: ${href}`)
+    } catch { errors.push(`Public CTA destination is invalid: ${href}`) }
+  }
+  return errors
+}
+
+const publicDestinations = () => [
+  ...Object.values(PUBLIC_CTAS).map(({ href }) => href),
+  ...PUBLIC_PRODUCT_MATURITY.map(({ href }) => href),
+  ...PUBLIC_INITIATIVE_MATURITY.map(({ href }) => href),
+  ...DISTRIBUTION_LOOP.map(({ href }) => href),
+  ...VALUE_PATH.map(({ href }) => href),
+  ...ROADMAP_HORIZONS.map(({ href }) => href),
+]
+
+const publicRecords = () => ({
+  manifest: THESIS_MANIFEST,
+  claims: THESIS_CLAIMS,
+  citations: PUBLIC_CITATIONS,
+  ctas: PUBLIC_CTAS,
+  productMaturity: PUBLIC_PRODUCT_MATURITY,
+  initiativeMaturity: PUBLIC_INITIATIVE_MATURITY,
+  distributionLoop: DISTRIBUTION_LOOP,
+  valuePath: VALUE_PATH,
+  roadmapHorizons: ROADMAP_HORIZONS,
+})
+
 export function validateThesisContent({ allowMissingContent = false, contentDirectory = new URL('../content/chainfren-thesis/', import.meta.url), generatedDirectory, generatedDirectoryRequested = generatedDirectory !== undefined } = {}) {
   const errors = []
   try {
@@ -61,7 +119,9 @@ export function validateThesisContent({ allowMissingContent = false, contentDire
     validatePublicSystem({ DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS }, new Set(THESIS_MANIFEST.map((chapter) => chapter.slug)))
     validateStages([...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY])
     validateReferences(THESIS_MANIFEST, THESIS_CLAIMS, PUBLIC_CITATIONS)
+    errors.push(...validatePublicDestinations(publicDestinations()))
   } catch (error) { errors.push(error.message) }
+  errors.push(...collectSafetyViolations(JSON.stringify(publicRecords()), 'Public thesis records'))
   const scannedPaths = new Set()
   for (const chapter of THESIS_MANIFEST) {
     const path = chapterPath(contentDirectory, chapter)
