@@ -124,7 +124,9 @@ test('thesis discovery metadata uses canonical public URLs and unique chapter me
 test('thesis social image is local, branded, and contains the approved thesis line', () => {
   const ogImage = readFileSync(ogImagePath, 'utf8')
 
-  assert.match(ogImage, /new Response/)
+  assert.match(ogImage, /new ImageResponse/)
+  assert.match(ogImage, /contentType\s*=\s*['"]image\/png['"]/)
+  assert.match(ogImage, /size\s*=\s*\{\s*width:\s*1200,\s*height:\s*630\s*\}/)
   assert.match(ogImage, /The Chainfren thesis/)
   assert.match(ogImage, /African creators have already won the attention\. The next fight is ownership\./)
   assert.match(ogImage, /#08153C|#09011B/)
