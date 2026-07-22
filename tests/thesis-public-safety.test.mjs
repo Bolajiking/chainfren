@@ -11,6 +11,7 @@ import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
 import { THESIS_CLAIMS } from '../content/chainfren-thesis/claims.mjs'
 import { PUBLIC_CITATIONS } from '../content/chainfren-thesis/citations.mjs'
 import { PUBLIC_CTAS, PUBLIC_INITIATIVE_MATURITY, PUBLIC_PRODUCT_MATURITY, THESIS_CONTENT_VERSION } from '../content/chainfren-thesis/public-config.mjs'
+import { THESIS_CONTENT_HASH } from '../content/chainfren-thesis/generated-content-hash.mjs'
 import { CHAPTER_REGISTRY_SLUGS, createChapterRegistry } from '../lib/thesis/chapter-registry.mjs'
 
 const componentSource = (name) => readFileSync(new URL(`../app/(mainpage)/thesis/components/${name}.jsx`, import.meta.url), 'utf8')
@@ -182,5 +183,27 @@ test('release verification scans deterministic source, PDF text, and fails expli
       extractPdfText: () => 'alpha—beta',
     })
     assert(extractedPdf.some((error) => error.includes('release.pdf extracted text') && error.includes('dash punctuation')))
+  } finally { rmSync(root, { recursive: true, force: true }) }
+})
+
+test('release verification rejects a clean stale build without the current thesis version and content hash', () => {
+  const root = mkdtempSync(join(tmpdir(), 'chainfren-thesis-stale-build-'))
+  try {
+    const buildDirectory = join(root, '.next/server/app/thesis')
+    mkdirSync(buildDirectory, { recursive: true })
+    writeFileSync(join(buildDirectory, 'page.html'), 'clean but old thesis output')
+    const pdfPath = join(root, 'release.pdf')
+    writeFileSync(pdfPath, 'placeholder')
+
+    const errors = validateReleaseOutputs({
+      projectRoot: root,
+      sourcePaths: [],
+      pdfPath,
+      buildDirectory,
+      extractPdfText: () => 'clean PDF text',
+    })
+
+    assert(errors.some((error) => error.includes('stale') && error.includes(THESIS_CONTENT_VERSION)))
+    assert(errors.some((error) => error.includes('stale') && error.includes(THESIS_CONTENT_HASH)))
   } finally { rmSync(root, { recursive: true, force: true }) }
 })

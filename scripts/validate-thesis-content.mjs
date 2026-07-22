@@ -3,6 +3,7 @@ import { spawnSync } from 'node:child_process'
 import { join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { THESIS_CONTENT_VERSION, PUBLIC_CTAS, PUBLIC_PRODUCT_MATURITY, PUBLIC_INITIATIVE_MATURITY } from '../content/chainfren-thesis/public-config.mjs'
+import { THESIS_CONTENT_HASH } from '../content/chainfren-thesis/generated-content-hash.mjs'
 import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
 import { PUBLIC_CITATIONS } from '../content/chainfren-thesis/citations.mjs'
 import { THESIS_CLAIMS, THESIS_EDGES } from '../content/chainfren-thesis/claims.mjs'
@@ -187,6 +188,20 @@ const defaultPdfTextExtractor = (pdfPath) => {
   return result.stdout
 }
 
+const releaseTreeContains = (directory, value) => {
+  const visited = new Set()
+  const scan = (path) => {
+    const resolvedPath = resolve(path)
+    if (visited.has(resolvedPath)) return false
+    visited.add(resolvedPath)
+    const entry = lstatSync(resolvedPath)
+    if (entry.isSymbolicLink()) return false
+    if (!entry.isDirectory()) return releaseTextArtifact(resolvedPath) && readFileSync(resolvedPath, 'utf8').includes(value)
+    return readdirSync(resolvedPath).some((name) => scan(join(resolvedPath, name)))
+  }
+  return scan(directory)
+}
+
 export function validateReleaseOutputs({
   projectRoot = PROJECT_ROOT,
   sourcePaths = defaultReleaseSourcePaths(projectRoot),
@@ -208,6 +223,12 @@ export function validateReleaseOutputs({
     errors.push(`Production thesis build outputs are unavailable at ${buildDirectory}. Run npm run build, then npm run thesis:verify-release.`)
   } else {
     scanReleasePath(buildDirectory, errors, scannedPaths, 'Production thesis build output')
+    if (!releaseTreeContains(buildDirectory, THESIS_CONTENT_VERSION)) {
+      errors.push(`Production thesis build outputs are stale: expected current thesis content version ${THESIS_CONTENT_VERSION}. Run npm run build, then npm run thesis:verify-release.`)
+    }
+    if (!releaseTreeContains(buildDirectory, THESIS_CONTENT_HASH)) {
+      errors.push(`Production thesis build outputs are stale: expected current thesis content hash ${THESIS_CONTENT_HASH}. Run npm run build, then npm run thesis:verify-release.`)
+    }
   }
   return errors
 }
