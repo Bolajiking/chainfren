@@ -223,6 +223,7 @@ export const FOOTER_COLUMNS = [
   {
     heading: 'Company',
     links: [
+      ['The Chainfren thesis', '/thesis'],
       ['Contact', '/contact'],
       ['Join Chainfren', '/contact'],
     ],

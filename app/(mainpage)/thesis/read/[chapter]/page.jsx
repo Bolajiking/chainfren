@@ -3,10 +3,26 @@ import Link from 'next/link'
 import ChapterArticle from '../../components/ChapterArticle'
 import ChapterRail from '../../components/ChapterRail'
 import ReaderChrome from '../../components/ReaderChrome'
+import ArticleJsonLd from '../../components/ArticleJsonLd'
 import styles from '../../thesis.module.css'
 import { getChapterCitations, getChapterComponent, getChapterBySlug, getPublishedChapterNavigation, getPublishedChapters } from '@/lib/thesis/public-content'
 
 export const generateStaticParams = () => getPublishedChapters().map((chapter) => ({ chapter: chapter.slug }))
+
+export function generateMetadata({ params }) {
+  const chapter = getChapterBySlug(params.chapter)
+  if (!chapter) return {}
+  const title = `${chapter.title} | The Chainfren thesis`
+  const description = chapter.summary
+  const canonical = `/thesis/read/${chapter.slug}`
+  return {
+    title,
+    description,
+    alternates: { canonical: canonical },
+    openGraph: { title, description, url: canonical, type: 'article', images: ['/thesis/opengraph-image'] },
+    twitter: { card: 'summary_large_image', title, description, images: ['/thesis/opengraph-image'] },
+  }
+}
 
 export default function ThesisReaderPage({ params }) {
   const chapter = getChapterBySlug(params.chapter)
@@ -21,6 +37,7 @@ export default function ThesisReaderPage({ params }) {
       <div className={styles.readerGrid}>
         <ChapterRail chapters={chapters} currentSlug={chapter.slug} />
         <main id="chapter-content" className={styles.readerMain} tabIndex="-1">
+          <ArticleJsonLd canonicalUrl={`https://www.chainfren.com/thesis/read/${chapter.slug}`} headline={chapter.title} description={chapter.summary} dateModified={chapter.updatedAt} />
           <ChapterArticle chapter={chapter} Content={Content} citations={getChapterCitations(chapter.slug)} />
           <nav className={styles.desktopPager} aria-label="Chapter navigation">
             {navigation.previous ? <Link href={`/thesis/read/${navigation.previous.slug}`}>Previous: {navigation.previous.title}</Link> : <span />}

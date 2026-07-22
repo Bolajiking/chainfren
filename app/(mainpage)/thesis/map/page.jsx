@@ -3,7 +3,16 @@ import OwnershipTree from '../components/OwnershipTree'
 import { THESIS_CLAIMS } from '@/content/chainfren-thesis/claims.mjs'
 import styles from '../thesis.module.css'
 
-export const metadata = { title: 'Ownership map | Chainfren thesis' }
+const title = 'Ownership map | The Chainfren thesis'
+const description = 'Follow the public Chainfren argument, claim by claim, from attention to ownership.'
+
+export const metadata = {
+  title,
+  description,
+  alternates: { canonical: '/thesis/map' },
+  openGraph: { title, description, url: '/thesis/map', type: 'website', images: ['/thesis/opengraph-image'] },
+  twitter: { card: 'summary_large_image', title, description, images: ['/thesis/opengraph-image'] },
+}
 
 export default function OwnershipMapPage() {
   return (
