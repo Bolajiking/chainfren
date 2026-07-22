@@ -9,7 +9,10 @@
     "lint": "next lint",
     "test:thesis": "node --test tests/thesis-*.test.mjs",
     "validate:thesis": "node scripts/validate-thesis-content.mjs",
-    "validate:thesis:partial": "node scripts/validate-thesis-content.mjs --allow-missing-content"
+    "validate:thesis:partial": "node scripts/validate-thesis-content.mjs --allow-missing-content",
+    "thesis:hash": "node scripts/hash-thesis-content.mjs",
+    "thesis:pdf": "node scripts/generate-thesis-pdf.mjs --start-server",
+    "thesis:artifacts": "node scripts/generate-thesis-artifacts.mjs"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.18.0",
@@ -40,6 +43,7 @@
     "tailwindcss": "3.3.2"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.10"
+    "@tailwindcss/typography": "^0.5.10",
+    "playwright": "^1.61.1"
   }
 }

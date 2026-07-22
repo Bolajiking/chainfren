@@ -1,0 +1,11 @@
+@page { size: A4; margin: 16mm 15mm 18mm; }
+.print { color: #161616; background: #fff; font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.55; }
+.cover { min-height: 220mm; display: flex; flex-direction: column; justify-content: center; page-break-after: always; }
+.cover h1 { font-size: 38pt; line-height: 1.05; max-width: 13ch; margin: .2em 0; }
+.cover code { font-size: 8pt; overflow-wrap: anywhere; }
+.contents { page-break-after: always; }.contents li { margin: .45em 0; }
+.chapter { break-before: page; page-break-before: always; }.chapter h2 { font-size: 25pt; line-height: 1.1; }
+.chapter h3 { font-size: 15pt; }.chapter a, .sources a { color: #111; text-decoration: underline; overflow-wrap: anywhere; }
+.chapter :global(img), .print img { max-width: 100%; height: auto; break-inside: avoid; }
+.sources { break-before: page; page-break-before: always; } .print footer { margin-top: 2rem; font-size: 8pt; overflow-wrap: anywhere; }
+@media print { .print { max-width: none; } }
