@@ -5,6 +5,7 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from 'playwright'
 import { THESIS_CONTENT_HASH } from '../content/chainfren-thesis/generated-content-hash.mjs'
+import { waitForOwnedServerReadiness } from '../lib/thesis/owned-server-readiness.mjs'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 const defaultOutput = join(root, 'public/downloads/chainfren-thesis-2026.1.pdf')
@@ -58,8 +59,7 @@ let primaryError
 try {
   if (ownsServer) {
     server = spawn('npm', ['run', 'start', '--', '--hostname', '127.0.0.1', '--port', '3099'], { cwd: root, stdio: 'inherit' })
-    const spawnFailure = new Promise((_, reject) => server.once('error', reject))
-    await Promise.race([waitForHealth(), spawnFailure])
+    await waitForOwnedServerReadiness(server, waitForHealth())
   }
   await mkdir(join(root, 'public/downloads'), { recursive: true })
   const browser = await chromium.launch({ headless: true })

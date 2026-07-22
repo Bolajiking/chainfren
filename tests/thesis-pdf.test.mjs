@@ -1,8 +1,10 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
+import { EventEmitter } from 'node:events'
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
+import { waitForOwnedServerReadiness } from '../lib/thesis/owned-server-readiness.mjs'
 
 const root = new URL('..', import.meta.url)
 const source = (path) => readFileSync(new URL(path, root), 'utf8')
@@ -38,6 +40,7 @@ test('print route is noindex, chrome-free, and print-safe', () => {
 test('hash source is generated from normalized canonical inputs and PDF server is owned', () => {
   const hash = source('scripts/hash-thesis-content.mjs')
   const generator = source('scripts/generate-thesis-pdf.mjs')
+  const ownership = source('lib/thesis/owned-server-readiness.mjs')
   assert.match(hash, /generated-content-hash\.mjs/)
   assert.match(hash, /replace\(\/\\r\\n\?\/g/)
   assert.match(hash, /split\(.*join\('\/'\)/s)
@@ -47,8 +50,47 @@ test('hash source is generated from normalized canonical inputs and PDF server i
   assert.match(generator, /SIGTERM/)
   assert.match(generator, /SIGKILL/)
   assert.match(generator, /5_000/)
-  assert.match(generator, /server\.once\('error'/)
+  assert.match(ownership, /child\.once\('error'/)
+  assert.match(ownership, /child\.once\('exit'/)
+  assert.match(generator, /waitForOwnedServerReadiness/)
   assert.match(generator, /newPage\(\{ viewport: \{ width: 1440, height: 900 \} \}\)/)
+})
+
+test('PDF export rejects an owned server that exits before print readiness', () => {
+  const generator = source('scripts/generate-thesis-pdf.mjs')
+  assert.match(generator, /await waitForOwnedServerReadiness\(server, waitForHealth\(\)\)/)
+})
+
+test('owned readiness rejects when the spawned server exits despite a ready endpoint', async () => {
+  const child = new EventEmitter()
+  child.exitCode = null
+  let markEndpointReady
+  const endpointReady = new Promise((resolve) => { markEndpointReady = resolve })
+  queueMicrotask(() => {
+    child.exitCode = 1
+    child.emit('exit', 1, null)
+  })
+  queueMicrotask(() => markEndpointReady())
+  await assert.rejects(
+    waitForOwnedServerReadiness(child, endpointReady),
+    /Owned thesis server exited before readiness with code 1/,
+  )
+})
+
+test('owned readiness rejects EADDRINUSE after an unrelated endpoint reports ready', async () => {
+  const child = new EventEmitter()
+  child.exitCode = null
+  const unrelatedEndpointIsReady = Promise.resolve()
+  setImmediate(() => {
+    const error = Object.assign(new Error('listen EADDRINUSE: address already in use 127.0.0.1:3099'), { code: 'EADDRINUSE' })
+    child.emit('error', error)
+    child.exitCode = 1
+    child.emit('exit', 1, null)
+  })
+  await assert.rejects(
+    waitForOwnedServerReadiness(child, unrelatedEndpointIsReady),
+    /Owned thesis server failed before readiness: listen EADDRINUSE/,
+  )
 })
 
 test('released checksums match the canonical source inputs and PDF artifact', () => {
@@ -67,6 +109,8 @@ test('released checksums match the canonical source inputs and PDF artifact', ()
   const hash = createHash('sha256')
   for (const path of inputs) hash.update(`${relative(repo, path).replaceAll('\\', '/')}\0${readFileSync(path, 'utf8').replace(/\r\n?/g, '\n')}\0`)
   assert.equal(hash.digest('hex'), sourceMatch[1])
+  const generated = source('content/chainfren-thesis/generated-content-hash.mjs')
+  assert.match(generated, new RegExp(`THESIS_CONTENT_HASH = ['\"]${sourceMatch[1]}['\"]`))
   assert.equal(createHash('sha256').update(readFileSync(new URL('public/downloads/chainfren-thesis-2026.1.pdf', root))).digest('hex'), pdfMatch[1])
 })
 
