@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { canLoadDesktopMap } from '@/lib/thesis/ownership-map.mjs'
 
 export default function OwnershipMapLoader(props) {
   const [DesktopMap, setDesktopMap] = useState(null)
@@ -9,7 +10,7 @@ export default function OwnershipMapLoader(props) {
     const query = window.matchMedia('(min-width: 960px)')
     let active = true
     const load = () => {
-      if (query.matches && !DesktopMap) import('./OwnershipMapDesktop').then((module) => active && setDesktopMap(() => module.default))
+      if (canLoadDesktopMap(query.matches) && !DesktopMap) import('./OwnershipMapDesktop').then((module) => active && setDesktopMap(() => module.default))
     }
     load()
     query.addEventListener('change', load)

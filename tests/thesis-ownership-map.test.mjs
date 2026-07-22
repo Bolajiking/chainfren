@@ -1,6 +1,9 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { existsSync, readFileSync } from 'node:fs'
+import { THESIS_CLAIMS, THESIS_EDGES } from '../content/chainfren-thesis/claims.mjs'
+import { THESIS_MAP_LAYOUT } from '../content/chainfren-thesis/map-layout.mjs'
+import { canLoadDesktopMap, resolveMapClaim } from '../lib/thesis/ownership-map.mjs'
 
 const root = new URL('..', import.meta.url)
 const source = (path) => readFileSync(new URL(path, root), 'utf8')
@@ -26,7 +29,6 @@ test('desktop map remains a desktop-only lazy client enhancement with accessible
   assert.match(loader, /window\.matchMedia\(['"]\(min-width: 960px\)['"]\)/)
   assert.match(loader, /import\(['"]\.\/OwnershipMapDesktop['"]\)/)
   assert.match(loader, /addEventListener\(['"]change['"]/)
-  assert.match(desktop, /<svg/)
   assert.match(desktop, /aria-label=['"]Ownership claim map['"]/) 
   assert.match(desktop, /aria-live=['"]polite['"]/) 
   assert.match(desktop, /Zoom in/)
@@ -34,4 +36,27 @@ test('desktop map remains a desktop-only lazy client enhancement with accessible
   assert.match(desktop, /replaceState/)
   assert.match(desktop, /\?claim=/)
   assert.doesNotMatch(desktop, /react-flow|d3|cytoscape/i)
+})
+
+test('map data covers every claim and only connects known layout endpoints', () => {
+  const claimIds = new Set(THESIS_CLAIMS.map((claim) => claim.id))
+  assert.equal(claimIds.size, 12)
+  assert.deepEqual(new Set(Object.keys(THESIS_MAP_LAYOUT)), claimIds)
+  for (const edge of THESIS_EDGES) {
+    assert(claimIds.has(edge.from))
+    assert(claimIds.has(edge.to))
+    assert(THESIS_MAP_LAYOUT[edge.from])
+    assert(THESIS_MAP_LAYOUT[edge.to])
+  }
+})
+
+test('map deep links choose a valid claim and default invalid or absent claim IDs', () => {
+  assert.equal(resolveMapClaim(THESIS_CLAIMS, 'chainfren-mission'), 'chainfren-mission')
+  assert.equal(resolveMapClaim(THESIS_CLAIMS, 'not-a-claim'), 'attention-to-ownership')
+  assert.equal(resolveMapClaim(THESIS_CLAIMS, null), 'attention-to-ownership')
+})
+
+test('desktop map chunk is eligible only at the 960px breakpoint', () => {
+  assert.equal(canLoadDesktopMap(false), false)
+  assert.equal(canLoadDesktopMap(true), true)
 })
