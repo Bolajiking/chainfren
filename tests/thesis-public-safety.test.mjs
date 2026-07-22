@@ -154,6 +154,48 @@ test('safety helpers block local paths, sensitive operational terms, and dash pu
   assert.equal(collectSafetyViolations('generic revenue is not blocked', 'fixture').length, 0)
 })
 
+test('safety helpers block excluded-venture separator, whitespace, and newline variants', () => {
+  const parts = ['come', 'ownity']
+  for (const separator of [' ', '-', '_', '\n']) {
+    const violations = collectSafetyViolations(parts.join(separator), 'fixture')
+    assert(violations.some((violation) => violation.includes('excluded venture')))
+  }
+})
+
+test('release verification scans checksum text artifacts from custom and default source paths', () => {
+  const root = mkdtempSync(join(tmpdir(), 'chainfren-thesis-checksum-scan-'))
+  try {
+    const blocked = ['come', 'ownity'].join(' ')
+    const buildDirectory = join(root, '.next/server/app/thesis')
+    const pdfPath = join(root, 'release.pdf')
+    mkdirSync(buildDirectory, { recursive: true })
+    writeFileSync(join(buildDirectory, 'page.html'), `${THESIS_CONTENT_VERSION} ${THESIS_CONTENT_HASH}`)
+    writeFileSync(pdfPath, 'clean PDF placeholder')
+
+    const customChecksum = join(root, 'custom.sha256')
+    writeFileSync(customChecksum, `Source SHA-256: ${blocked}`)
+    const customErrors = validateReleaseOutputs({
+      projectRoot: root,
+      sourcePaths: [customChecksum],
+      pdfPath,
+      buildDirectory,
+      extractPdfText: () => 'clean PDF text',
+    })
+    assert(customErrors.some((error) => error.includes('custom.sha256') && error.includes('excluded venture')))
+
+    const defaultChecksum = join(root, 'public/downloads/chainfren-thesis-2026.1.sha256')
+    mkdirSync(join(root, 'public/downloads'), { recursive: true })
+    writeFileSync(defaultChecksum, `PDF SHA-256: ${blocked}`)
+    const defaultErrors = validateReleaseOutputs({
+      projectRoot: root,
+      pdfPath,
+      buildDirectory,
+      extractPdfText: () => 'clean PDF text',
+    })
+    assert(defaultErrors.some((error) => error.includes('chainfren-thesis-2026.1.sha256') && error.includes('excluded venture')))
+  } finally { rmSync(root, { recursive: true, force: true }) }
+})
+
 test('release verification scans deterministic source, PDF text, and fails explicitly without build outputs', () => {
   const root = mkdtempSync(join(tmpdir(), 'chainfren-thesis-release-'))
   try {

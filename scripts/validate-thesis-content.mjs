@@ -14,7 +14,7 @@ import { validateManifest, validateCitations, validateClaims, validateEdges, val
 const blockedPatterns = [
   [/\/Users\//, 'local user path'], [/second-brain/i, 'private knowledge store'], [/CF-C-\d+/i, 'internal identifier'],
   [/signed\s+revenue/i, 'sensitive commercial term'], [/runway/i, 'sensitive operating term'], [/decision-rights/i, 'sensitive governance term'], [/control\s+matrix/i, 'sensitive control term'], [/risk\s+register/i, 'sensitive risk term'], [/\u2014|\u2013/, 'dash punctuation'],
-  [new RegExp(['come', 'ownity'].join(''), 'i'), 'excluded venture'],
+  [new RegExp(['come', 'ownity'].join('[\\s_-]*'), 'i'), 'excluded venture'],
 ]
 
 export function collectSafetyViolations(text, source) {
@@ -143,7 +143,7 @@ export function validateThesisContent({ allowMissingContent = false, contentDire
   return errors
 }
 
-const releaseTextArtifact = (path) => /\.(?:css|html|js|jsx|json|md|mdx|mjs|rsc|svg|txt)$/i.test(path)
+const releaseTextArtifact = (path) => /\.(?:css|html|js|jsx|json|md|mdx|mjs|rsc|sha256|svg|txt)$/i.test(path)
 const defaultReleaseSourcePaths = (projectRoot) => [
   join(projectRoot, 'app/(mainpage)/thesis'),
   join(projectRoot, 'content/chainfren-thesis'),

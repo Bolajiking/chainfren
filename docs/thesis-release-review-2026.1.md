@@ -43,7 +43,7 @@ Manual release verification commands:
 npm run thesis:artifacts
 npm run build
 npm run thesis:verify-release
-pdftotext public/downloads/chainfren-thesis-2026.1.pdf - | rg -n '—|–|/Users/|second-brain|CF-C-|signed revenue|runway|decision-rights|control matrix|risk register|comeownity'
+pdftotext public/downloads/chainfren-thesis-2026.1.pdf - | rg -n '—|–|/Users/|second-brain|CF-C-|signed revenue|runway|decision-rights|control matrix|risk register|come[[:space:]_-]*ownity'
 ```
 
 Completed checks on 2026-07-22:
