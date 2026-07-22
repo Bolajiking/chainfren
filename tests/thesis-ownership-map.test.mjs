@@ -56,6 +56,24 @@ test('map deep links choose a valid claim and default invalid or absent claim ID
   assert.equal(resolveMapClaim(THESIS_CLAIMS, null), 'attention-to-ownership')
 })
 
+test('map deep links fall back to the first available claim when the named default changes', () => {
+  const renamedClaims = [{ id: 'new-center' }, { id: 'another-claim' }]
+  assert.equal(resolveMapClaim(renamedClaims, 'removed-default'), 'new-center')
+  assert.equal(resolveMapClaim(renamedClaims, null), 'new-center')
+})
+
+test('the mobile loader receives no map records and the desktop enhancement owns its data', () => {
+  const page = source('app/(mainpage)/thesis/map/page.jsx')
+  const loader = source('app/(mainpage)/thesis/components/OwnershipMapLoader.jsx')
+  const desktop = source('app/(mainpage)/thesis/components/OwnershipMapDesktop.jsx')
+
+  assert.match(page, /<OwnershipMapLoader\s*\/>/)
+  assert.doesNotMatch(loader, /function OwnershipMapLoader\([^)]*props/)
+  assert.match(desktop, /THESIS_CLAIMS/)
+  assert.match(desktop, /THESIS_EDGES/)
+  assert.match(desktop, /THESIS_MAP_LAYOUT/)
+})
+
 test('desktop map chunk is eligible only at the 960px breakpoint', () => {
   assert.equal(canLoadDesktopMap(false), false)
   assert.equal(canLoadDesktopMap(true), true)

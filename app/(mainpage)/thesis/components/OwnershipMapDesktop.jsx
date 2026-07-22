@@ -4,11 +4,16 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import styles from '../thesis.module.css'
 import { resolveMapClaim } from '@/lib/thesis/ownership-map.mjs'
+import { THESIS_CLAIMS, THESIS_EDGES } from '@/content/chainfren-thesis/claims.mjs'
+import { THESIS_MAP_LAYOUT } from '@/content/chainfren-thesis/map-layout.mjs'
 
 const CANVAS = { width: 1280, height: 540 }
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value))
 
-export default function OwnershipMapDesktop({ claims, edges, layout }) {
+export default function OwnershipMapDesktop() {
+  const claims = THESIS_CLAIMS
+  const edges = THESIS_EDGES
+  const layout = THESIS_MAP_LAYOUT
   const validIds = useMemo(() => new Set(claims.map((claim) => claim.id)), [claims])
   const start = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('claim')
   const [selected, setSelected] = useState(resolveMapClaim(claims, start))

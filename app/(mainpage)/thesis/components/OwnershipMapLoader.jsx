@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { canLoadDesktopMap } from '@/lib/thesis/ownership-map.mjs'
 
-export default function OwnershipMapLoader(props) {
+export default function OwnershipMapLoader() {
   const [DesktopMap, setDesktopMap] = useState(null)
 
   useEffect(() => {
@@ -17,5 +17,5 @@ export default function OwnershipMapLoader(props) {
     return () => { active = false; query.removeEventListener('change', load) }
   }, [DesktopMap])
 
-  return DesktopMap ? <DesktopMap {...props} /> : null
+  return DesktopMap ? <DesktopMap /> : null
 }
