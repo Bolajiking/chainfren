@@ -10,6 +10,7 @@ const maturityBadgePath = new URL('../app/(mainpage)/thesis/components/MaturityB
 const thesisHubPath = new URL('../app/(mainpage)/thesis/components/ThesisHub.jsx', import.meta.url)
 const thesisPagePath = new URL('../app/(mainpage)/thesis/page.jsx', import.meta.url)
 const readerPagePath = new URL('../app/(mainpage)/thesis/read/[chapter]/page.jsx', import.meta.url)
+const shortReadPagePath = new URL('../app/(mainpage)/thesis/short/page.jsx', import.meta.url)
 
 const publishedChapters = [
   ['01', 'the-gap', 'TheGap'],
@@ -80,4 +81,16 @@ test('thesis hub keeps the two reading entrances distinct from publication modes
     assert.match(hub, new RegExp(`['\\"]${href.replaceAll('/', '\\/')}['\\"]`))
   }
   assert.doesNotMatch(hub, /https?:\/\/[^'"\s]*(?:fonts|googleapis|typekit)/i)
+})
+
+test('the five-minute reader imports its dedicated MDX source without reader controls', () => {
+  const page = readFileSync(shortReadPagePath, 'utf8')
+
+  assert.match(page, /import\s+ShortRead\s+from\s+['"][^'"]*short-read\.mdx['"]/)
+  assert.match(page, /<ShortRead\s*\/>/)
+  for (const href of ['/thesis/read/the-gap', '/thesis/map', '/thesis/download']) {
+    assert.match(page, new RegExp(`['\"]${href.replaceAll('/', '\\/')}['\"]`))
+  }
+  assert.doesNotMatch(page, /\.slice\s*\(|substring\s*\(|substr\s*\(/)
+  assert.doesNotMatch(page, /ChapterRail|ReaderChrome|MobileContentsPanel|ChapterArticle/)
 })
