@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import ChapterArticle from '../../components/ChapterArticle'
 import ChapterRail from '../../components/ChapterRail'
 import ReaderChrome from '../../components/ReaderChrome'

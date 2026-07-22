@@ -14,3 +14,11 @@ Date checked: 2026-07-21
 | Indy | `app/config/stack.js`, homepage public-horizon context | No current public route | 2026-07-21 | Directional | Public horizon label only; no product page is asserted. |
 
 This review records only public labels and repository sources checked. It excludes operational, financial, customer, and source-material details.
+
+## Mission chapters
+
+| Chapter | Editorial review | Factual review | Public-safety review | Reviewer | Date |
+| --- | --- | --- | --- | --- | --- |
+| 02: The Trap | Humanizer and ADS-STE100 pass | Plain-language platform-dependency model; no figures or outside claims | Pass | Chainfren editorial | 2026-07-21 |
+| 03: The Unlock | Humanizer and ADS-STE100 pass | Mechanism-only description of open rails; no product or speculative claims | Pass | Chainfren editorial | 2026-07-21 |
+| 04: The Thesis | Humanizer and ADS-STE100 pass | Approved mission framing; default-infrastructure position is labelled as ambition | Pass | Chainfren editorial | 2026-07-21 |

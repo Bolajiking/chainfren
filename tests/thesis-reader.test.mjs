@@ -10,6 +10,7 @@ test('reader route generates only chapters with registered MDX components', () =
   const page = source(pagePath)
   const content = source('lib/thesis/public-content.js')
 
+  assert.match(page, /import\s+Link\s+from\s+['"]next\/link['"]/)
   assert.match(page, /generateStaticParams/)
   assert.match(page, /getPublishedChapters/)
   assert.match(page, /notFound\(\)/)
