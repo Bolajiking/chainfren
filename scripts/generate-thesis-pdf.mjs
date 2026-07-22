@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto'
+import { createHash, randomBytes } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { spawn } from 'node:child_process'
 import { join } from 'node:path'
@@ -18,10 +18,13 @@ const printUrl = arg('--url', ownsServer ? `${baseUrl}/thesis/print` : 'http://1
 let server
 
 const sha256 = async (path) => createHash('sha256').update(await readFile(path)).digest('hex')
-async function waitForHealth() {
+async function waitForHealth(exportToken) {
   const deadline = Date.now() + 30_000
   while (Date.now() < deadline) {
-    try { if ((await fetch(`${baseUrl}/thesis/print`)).ok) return } catch {}
+    try {
+      const response = await fetch(`${baseUrl}/thesis/print`)
+      if (response.ok && response.headers.get('x-chainfren-thesis-export-token') === exportToken) return true
+    } catch {}
     await new Promise((resolve) => setTimeout(resolve, 500))
   }
   throw new Error(`Timed out waiting for ${baseUrl}/thesis/print after 30 seconds`)
@@ -58,8 +61,13 @@ async function stopServer() {
 let primaryError
 try {
   if (ownsServer) {
-    server = spawn('npm', ['run', 'start', '--', '--hostname', '127.0.0.1', '--port', '3099'], { cwd: root, stdio: 'inherit' })
-    await waitForOwnedServerReadiness(server, waitForHealth())
+    const exportToken = randomBytes(32).toString('hex')
+    server = spawn('npm', ['run', 'start', '--', '--hostname', '127.0.0.1', '--port', '3099'], {
+      cwd: root,
+      env: { ...process.env, THESIS_EXPORT_TOKEN: exportToken },
+      stdio: 'inherit',
+    })
+    await waitForOwnedServerReadiness(server, waitForHealth(exportToken))
   }
   await mkdir(join(root, 'public/downloads'), { recursive: true })
   const browser = await chromium.launch({ headless: true })

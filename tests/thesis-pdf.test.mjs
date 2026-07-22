@@ -53,12 +53,15 @@ test('hash source is generated from normalized canonical inputs and PDF server i
   assert.match(ownership, /child\.once\('error'/)
   assert.match(ownership, /child\.once\('exit'/)
   assert.match(generator, /waitForOwnedServerReadiness/)
+  assert.match(generator, /x-chainfren-thesis-export-token/)
+  assert.match(generator, /THESIS_EXPORT_TOKEN/)
+  assert.match(source('middleware.js'), /x-chainfren-thesis-export-token/)
   assert.match(generator, /newPage\(\{ viewport: \{ width: 1440, height: 900 \} \}\)/)
 })
 
 test('PDF export rejects an owned server that exits before print readiness', () => {
   const generator = source('scripts/generate-thesis-pdf.mjs')
-  assert.match(generator, /await waitForOwnedServerReadiness\(server, waitForHealth\(\)\)/)
+  assert.match(generator, /await waitForOwnedServerReadiness\(server, waitForHealth\(exportToken\)\)/)
 })
 
 test('owned readiness rejects when the spawned server exits despite a ready endpoint', async () => {
@@ -77,20 +80,31 @@ test('owned readiness rejects when the spawned server exits despite a ready endp
   )
 })
 
-test('owned readiness rejects EADDRINUSE after an unrelated endpoint reports ready', async () => {
+test('owned readiness rejects delayed EADDRINUSE when an unrelated endpoint is otherwise ready', async () => {
   const child = new EventEmitter()
   child.exitCode = null
-  const unrelatedEndpointIsReady = Promise.resolve()
-  setImmediate(() => {
+  const unrelatedEndpointIsReady = Promise.resolve(false)
+  setImmediate(() => setImmediate(() => {
     const error = Object.assign(new Error('listen EADDRINUSE: address already in use 127.0.0.1:3099'), { code: 'EADDRINUSE' })
     child.emit('error', error)
     child.exitCode = 1
     child.emit('exit', 1, null)
-  })
+  }))
   await assert.rejects(
     waitForOwnedServerReadiness(child, unrelatedEndpointIsReady),
     /Owned thesis server failed before readiness: listen EADDRINUSE/,
   )
+})
+
+test('owned readiness does not treat an HTTP-ready endpoint as owned without the child token', async () => {
+  const child = new EventEmitter()
+  child.exitCode = null
+  const pending = waitForOwnedServerReadiness(child, Promise.resolve(false))
+  setTimeout(() => {
+    child.exitCode = 1
+    child.emit('exit', 1, null)
+  }, 10)
+  await assert.rejects(pending, /Owned thesis server exited before readiness with code 1/)
 })
 
 test('released checksums match the canonical source inputs and PDF artifact', () => {
