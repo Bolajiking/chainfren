@@ -9,22 +9,38 @@ const citationListPath = new URL('../app/(mainpage)/thesis/components/PublicCita
 const maturityBadgePath = new URL('../app/(mainpage)/thesis/components/MaturityBadge.jsx', import.meta.url)
 const thesisHubPath = new URL('../app/(mainpage)/thesis/components/ThesisHub.jsx', import.meta.url)
 const thesisPagePath = new URL('../app/(mainpage)/thesis/page.jsx', import.meta.url)
+const readerPagePath = new URL('../app/(mainpage)/thesis/read/[chapter]/page.jsx', import.meta.url)
 
-test('chapter registry uses static imports for the published MDX chapters', () => {
+const publishedChapters = [
+  ['01', 'the-gap', 'TheGap'],
+  ['02', 'the-trap', 'TheTrap'],
+  ['03', 'the-unlock', 'TheUnlock'],
+  ['04', 'the-thesis', 'TheThesis'],
+  ['05', 'the-company', 'TheCompany'],
+  ['06', 'what-we-build', 'WhatWeBuild'],
+  ['07', 'how-we-work', 'HowWeWork'],
+  ['08', 'the-road-ahead', 'TheRoadAhead'],
+  ['09', 'build-with-us', 'BuildWithUs'],
+]
+
+test('chapter registry statically registers every published MDX chapter', () => {
   const registry = readFileSync(registryPath, 'utf8')
 
-  assert.match(registry, /import\s+TheGap\s+from\s+['"][^'"]*01-the-gap\.mdx['"]/)
-  assert.match(registry, /import\s+TheTrap\s+from\s+['"][^'"]*02-the-trap\.mdx['"]/)
-  assert.match(registry, /import\s+TheUnlock\s+from\s+['"][^'"]*03-the-unlock\.mdx['"]/)
-  assert.match(registry, /import\s+TheThesis\s+from\s+['"][^'"]*04-the-thesis\.mdx['"]/)
-  assert.match(registry, /import\s+TheCompany\s+from\s+['"][^'"]*05-the-company\.mdx['"]/)
-  assert.match(registry, /['"]the-gap['"]\s*:\s*TheGap/)
-  assert.match(registry, /['"]the-trap['"]\s*:\s*TheTrap/)
-  assert.match(registry, /['"]the-unlock['"]\s*:\s*TheUnlock/)
-  assert.match(registry, /['"]the-thesis['"]\s*:\s*TheThesis/)
-  assert.match(registry, /['"]the-company['"]\s*:\s*TheCompany/)
+  for (const [id, slug, component] of publishedChapters) {
+    assert.match(registry, new RegExp(`import\\s+${component}\\s+from\\s+['\"][^'\"]*${id}-${slug}\\.mdx['\"]`))
+    assert.match(registry, new RegExp(`['\"]${slug}['\"]\\s*:\\s*${component}`))
+  }
   assert.doesNotMatch(registry, /import\s*\(/)
   assert.doesNotMatch(registry, /\$\{[^}]+\}/)
+})
+
+test('the static reader route covers every registered chapter through its canonical selector', () => {
+  const reader = readFileSync(readerPagePath, 'utf8')
+  const content = readFileSync(publicContentPath, 'utf8')
+
+  assert.match(reader, /generateStaticParams\s*=\s*\(\)\s*=>\s*getPublishedChapters\(\)\.map\(\(chapter\)\s*=>\s*\(\{\s*chapter:\s*chapter\.slug\s*\}\)\)/)
+  assert.match(content, /THESIS_MANIFEST\.filter\(\(chapter\)\s*=>\s*CHAPTER_COMPONENTS\[chapter\.slug\]\)/)
+  assert.equal(publishedChapters.length, 9)
 })
 
 test('thesis server content and article components keep a public semantic contract', () => {
