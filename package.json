@@ -13,7 +13,7 @@
     "thesis:hash": "node scripts/hash-thesis-content.mjs",
     "thesis:pdf": "node scripts/generate-thesis-pdf.mjs --start-server",
     "thesis:artifacts": "node scripts/generate-thesis-artifacts.mjs",
-    "thesis:verify-release": "npm run validate:thesis && npm run test:thesis"
+    "thesis:verify-release": "node scripts/validate-thesis-content.mjs --release && npm run test:thesis"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.18.0",

@@ -2,6 +2,8 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { escapeJsonForHtmlScript } from '../lib/thesis/json-ld.js'
+import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
+import { CHAPTER_REGISTRY_SLUGS, createChapterRegistry } from '../lib/thesis/chapter-registry.mjs'
 
 const registryPath = new URL('../lib/thesis/content-registry.js', import.meta.url)
 const publicContentPath = new URL('../lib/thesis/public-content.js', import.meta.url)
@@ -44,11 +46,11 @@ test('chapter registry statically registers every published MDX chapter', () => 
 
 test('the static reader route covers every registered chapter through its canonical selector', () => {
   const reader = readFileSync(readerPagePath, 'utf8')
-  const content = readFileSync(publicContentPath, 'utf8')
+  const registry = createChapterRegistry(Object.fromEntries(CHAPTER_REGISTRY_SLUGS.map((slug) => [slug, () => null])))
 
   assert.match(reader, /generateStaticParams\s*=\s*\(\)\s*=>\s*getPublishedChapters\(\)\.map\(\(chapter\)\s*=>\s*\(\{\s*chapter:\s*chapter\.slug\s*\}\)\)/)
-  assert.match(content, /THESIS_MANIFEST\.filter\(\(chapter\)\s*=>\s*CHAPTER_COMPONENTS\[chapter\.slug\]\)/)
-  assert.equal(publishedChapters.length, 9)
+  assert.deepEqual(registry.getPublished(THESIS_MANIFEST).map(({ slug }) => slug), THESIS_MANIFEST.map(({ slug }) => slug))
+  assert.equal(THESIS_MANIFEST.length, 9)
 })
 
 test('thesis server content and article components keep a public semantic contract', () => {

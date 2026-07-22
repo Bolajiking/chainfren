@@ -1,6 +1,8 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { existsSync, readFileSync } from 'node:fs'
+import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
+import { CHAPTER_REGISTRY_SLUGS, createChapterRegistry } from '../lib/thesis/chapter-registry.mjs'
 
 const root = new URL('..', import.meta.url)
 const source = (path) => readFileSync(new URL(path, root), 'utf8')
@@ -8,15 +10,14 @@ const pagePath = 'app/(mainpage)/thesis/read/[chapter]/page.jsx'
 
 test('reader route generates only chapters with registered MDX components', () => {
   const page = source(pagePath)
-  const content = source('lib/thesis/public-content.js')
+  const registry = createChapterRegistry(Object.fromEntries(CHAPTER_REGISTRY_SLUGS.map((slug) => [slug, () => null])))
 
   assert.match(page, /import\s+Link\s+from\s+['"]next\/link['"]/)
   assert.match(page, /generateStaticParams/)
   assert.match(page, /getPublishedChapters/)
   assert.match(page, /notFound\(\)/)
-  assert.match(content, /THESIS_MANIFEST\.filter\(\(chapter\) => CHAPTER_COMPONENTS\[chapter\.slug\]\)/)
-  assert.match(content, /getPublishedChapters/)
-  assert.match(content, /getPublishedChapterNavigation/)
+  assert.deepEqual(registry.getPublished(THESIS_MANIFEST).map(({ slug }) => slug), THESIS_MANIFEST.map(({ slug }) => slug))
+  assert(THESIS_MANIFEST.every(({ slug }) => registry.get(slug)))
 })
 
 test('reader has the required semantic reading controls and navigation', () => {

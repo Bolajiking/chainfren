@@ -13,7 +13,7 @@ import BuildWithUs from '@/content/chainfren-thesis/chapters/09-build-with-us.md
 import { THESIS_MANIFEST } from '@/content/chainfren-thesis/manifest.mjs'
 import styles from './print.module.css'
 
-export const metadata = { title: 'Chainfren Thesis — Print Edition', robots: { index: false, follow: false } }
+export const metadata = { title: 'Chainfren Thesis Print Edition', robots: { index: false, follow: false } }
 const components = [TheGap, TheTrap, TheUnlock, TheThesis, TheCompany, WhatWeBuild, HowWeWork, TheRoadAhead, BuildWithUs]
 
 export default function ThesisPrintPage() {

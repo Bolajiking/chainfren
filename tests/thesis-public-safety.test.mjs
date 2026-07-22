@@ -5,11 +5,13 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
-import { collectSafetyViolations, validatePublicDestinations, validateThesisContent } from '../scripts/validate-thesis-content.mjs'
+import { collectSafetyViolations, validatePublicDestinations, validateReleaseOutputs, validateThesisContent } from '../scripts/validate-thesis-content.mjs'
 import { DISTRIBUTION_LOOP, ROADMAP_HORIZONS, VALUE_PATH } from '../content/chainfren-thesis/public-system.mjs'
 import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
 import { THESIS_CLAIMS } from '../content/chainfren-thesis/claims.mjs'
+import { PUBLIC_CITATIONS } from '../content/chainfren-thesis/citations.mjs'
 import { PUBLIC_CTAS, PUBLIC_INITIATIVE_MATURITY, PUBLIC_PRODUCT_MATURITY, THESIS_CONTENT_VERSION } from '../content/chainfren-thesis/public-config.mjs'
+import { CHAPTER_REGISTRY_SLUGS, createChapterRegistry } from '../lib/thesis/chapter-registry.mjs'
 
 const componentSource = (name) => readFileSync(new URL(`../app/(mainpage)/thesis/components/${name}.jsx`, import.meta.url), 'utf8')
 
@@ -22,19 +24,36 @@ test('strict validation passes with all nine published chapter MDX files', () =>
   assert.deepEqual(errors, [])
 })
 
-test('release source has every manifest chapter, registry route, short read, and valid claim chapter', () => {
+test('release source has every manifest chapter, registry entry, short read, and valid claim chapter', () => {
   const thesisRoot = new URL('../content/chainfren-thesis/', import.meta.url)
   assert.equal(THESIS_CONTENT_VERSION, '2026.1')
   assert.equal(THESIS_MANIFEST.length, 9)
   for (const chapter of THESIS_MANIFEST) {
     assert(existsSync(new URL(`chapters/${chapter.id}-${chapter.slug}.mdx`, thesisRoot)))
   }
-  const registry = readFileSync(new URL('../lib/thesis/public-content.js', import.meta.url), 'utf8')
-  assert.match(registry, /THESIS_MANIFEST/)
-  assert.match(registry, /CHAPTER_COMPONENTS/)
+  const registry = createChapterRegistry(Object.fromEntries(CHAPTER_REGISTRY_SLUGS.map((slug) => [slug, () => slug])))
+  assert.deepEqual(THESIS_MANIFEST.map(({ slug }) => slug), CHAPTER_REGISTRY_SLUGS)
+  assert(THESIS_MANIFEST.every((chapter) => registry.has(chapter.slug)))
+  assert.deepEqual(registry.getPublished(THESIS_MANIFEST).map(({ slug }) => slug), CHAPTER_REGISTRY_SLUGS)
   assert(existsSync(new URL('short-read.mdx', thesisRoot)))
   const slugs = new Set(THESIS_MANIFEST.map(({ slug }) => slug))
   assert(THESIS_CLAIMS.every(({ chapterSlug }) => slugs.has(chapterSlug)))
+})
+
+test('chapter registry rejects missing, non-function, and unknown component entries', () => {
+  const validEntries = Object.fromEntries(CHAPTER_REGISTRY_SLUGS.map((slug) => [slug, () => null]))
+  const missing = { ...validEntries }
+  delete missing['the-gap']
+  assert.throws(() => createChapterRegistry(missing), /requires a component for the-gap/)
+  assert.throws(() => createChapterRegistry({ ...validEntries, 'not-a-chapter': () => null }), /unknown chapter/)
+  assert.throws(() => createChapterRegistry({ ...validEntries, 'the-gap': 'not-a-function' }), /requires a component for the-gap/)
+})
+
+test('public citations are direct HTTPS URLs or approved first-party references', () => {
+  for (const citation of PUBLIC_CITATIONS) {
+    const url = new URL(citation.url)
+    assert(url.protocol === 'https:' || ['chainfren.com', 'www.chainfren.com'].includes(url.hostname), `citation ${citation.id} is not public: ${citation.url}`)
+  }
 })
 
 test('all public CTA destinations resolve to a local route or approved HTTPS URL', () => {
@@ -132,4 +151,36 @@ test('safety helpers block local paths, sensitive operational terms, and dash pu
   const violations = collectSafetyViolations(text, 'fixture')
   assert.equal(violations.length, 10)
   assert.equal(collectSafetyViolations('generic revenue is not blocked', 'fixture').length, 0)
+})
+
+test('release verification scans deterministic source, PDF text, and fails explicitly without build outputs', () => {
+  const root = mkdtempSync(join(tmpdir(), 'chainfren-thesis-release-'))
+  try {
+    const sourceDirectory = join(root, 'public-source')
+    mkdirSync(sourceDirectory)
+    const excluded = ['come', 'ownity'].join('')
+    writeFileSync(join(sourceDirectory, 'social-image.jsx'), `const title = '${excluded}'`)
+    const missingBuild = validateReleaseOutputs({
+      projectRoot: root,
+      sourcePaths: [sourceDirectory],
+      pdfPath: join(root, 'release.pdf'),
+      buildDirectory: join(root, '.next/server/app/thesis'),
+      extractPdfText: () => 'clean PDF text',
+    })
+    assert(missingBuild.some((error) => error.includes('social-image.jsx') && error.includes('excluded venture')))
+    assert(missingBuild.some((error) => error.includes('Production thesis build outputs are unavailable') && error.includes('npm run build')))
+
+    const buildDirectory = join(root, '.next/server/app/thesis')
+    mkdirSync(buildDirectory, { recursive: true })
+    writeFileSync(join(buildDirectory, 'page.html'), 'clean HTML')
+    writeFileSync(join(root, 'release.pdf'), 'placeholder')
+    const extractedPdf = validateReleaseOutputs({
+      projectRoot: root,
+      sourcePaths: [],
+      pdfPath: join(root, 'release.pdf'),
+      buildDirectory,
+      extractPdfText: () => 'alpha—beta',
+    })
+    assert(extractedPdf.some((error) => error.includes('release.pdf extracted text') && error.includes('dash punctuation')))
+  } finally { rmSync(root, { recursive: true, force: true }) }
 })

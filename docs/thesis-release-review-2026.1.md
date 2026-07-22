@@ -35,6 +35,31 @@ npm run thesis:verify-release
 
 Then confirm that `public/downloads/chainfren-thesis-2026.1.pdf` opens as the public A4 edition and that `public/downloads/chainfren-thesis-2026.1.sha256` contains two distinct, labeled SHA-256 values. The `Source SHA-256` value must match `content/chainfren-thesis/generated-content-hash.mjs`. The `PDF SHA-256` value must match the PDF file. Do not use a local filesystem path in any public output.
 
+## Release-gate evidence
+
+Manual release verification commands:
+
+```sh
+npm run thesis:artifacts
+npm run build
+npm run thesis:verify-release
+pdftotext public/downloads/chainfren-thesis-2026.1.pdf - | rg -n '—|–|/Users/|second-brain|CF-C-|signed revenue|runway|decision-rights|control matrix|risk register|comeownity'
+```
+
+Completed checks on 2026-07-22:
+
+- `npm run validate:thesis` passed with all nine chapter files.
+- The focused release tests passed, including direct citation validation, manifest-to-registry coverage, deterministic public-source scanning, PDF extracted-text scanning, and checksum verification.
+- The public PDF and its two labeled SHA-256 values are present under `public/downloads/`.
+- The release validator scans deterministic public thesis routes and components, including the social-image route, public data, the release checksum, the extracted PDF text, and built thesis output when it is available.
+
+Known environment limitation:
+
+- In this desktop environment, `npm run build` can stall while a Next.js production worker terminates. Do not record a passing production-build result until that command completes normally on the release host.
+- `thesis:verify-release` fails explicitly if `.next/server/app/thesis` is absent. Its error records the required `npm run build` command. It still scans the deterministic source files and generated PDF artifact before it reports that missing-build condition.
+- The existing local thesis build output predates the final print-copy cleanup, so the release gate correctly rejects its stale em dash. Rebuild before release, then rerun the gate.
+- The full thesis test command also includes a production metadata endpoint test that cannot reserve a local loopback port in this sandbox (`EPERM`). The focused release tests completed; rerun the full command on the release host.
+
 ## Mission chapters
 
 | Chapter | Editorial review | Factual review | Public-safety review | Reviewer | Date |

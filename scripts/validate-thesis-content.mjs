@@ -1,5 +1,6 @@
 import { existsSync, lstatSync, readdirSync, readFileSync } from 'node:fs'
-import { relative, resolve } from 'node:path'
+import { spawnSync } from 'node:child_process'
+import { join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { THESIS_CONTENT_VERSION, PUBLIC_CTAS, PUBLIC_PRODUCT_MATURITY, PUBLIC_INITIATIVE_MATURITY } from '../content/chainfren-thesis/public-config.mjs'
 import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
@@ -48,6 +49,7 @@ const scanGeneratedDirectory = (directory, errors, scannedPaths = new Set()) => 
 }
 
 const APP_ROOT = fileURLToPath(new URL('../app/', import.meta.url))
+const PROJECT_ROOT = fileURLToPath(new URL('../', import.meta.url))
 const APPROVED_FIRST_PARTY_HOSTS = new Set(['chainfren.com', 'www.chainfren.com'])
 
 const collectRoutePatterns = (directory = APP_ROOT, routes = []) => {
@@ -140,9 +142,80 @@ export function validateThesisContent({ allowMissingContent = false, contentDire
   return errors
 }
 
+const releaseTextArtifact = (path) => /\.(?:css|html|js|jsx|json|md|mdx|mjs|rsc|svg|txt)$/i.test(path)
+const defaultReleaseSourcePaths = (projectRoot) => [
+  join(projectRoot, 'app/(mainpage)/thesis'),
+  join(projectRoot, 'content/chainfren-thesis'),
+  join(projectRoot, 'lib/thesis/public-content.js'),
+  join(projectRoot, 'lib/thesis/public-presentation.mjs'),
+  join(projectRoot, 'lib/thesis/json-ld.js'),
+  join(projectRoot, 'public/downloads/chainfren-thesis-2026.1.sha256'),
+]
+
+const scanReleasePath = (path, errors, scannedPaths, label) => {
+  if (!existsSync(path)) { errors.push(`${label} is missing: ${path}`); return }
+  const entry = lstatSync(path)
+  if (entry.isSymbolicLink()) { errors.push(`${label} scan skipped symlink: ${path}`); return }
+  if (entry.isDirectory()) {
+    const root = resolve(path)
+    const visited = new Set()
+    const scan = (directory) => {
+      if (visited.has(directory)) return
+      visited.add(directory)
+      for (const name of readdirSync(directory)) {
+        const child = resolve(directory, name)
+        const childEntry = lstatSync(child)
+        if (childEntry.isSymbolicLink()) errors.push(`${label} scan skipped symlink: ${child}`)
+        else if (childEntry.isDirectory()) scan(child)
+        else if (releaseTextArtifact(child) && !scannedPaths.has(child)) {
+          scannedPaths.add(child)
+          errors.push(...collectSafetyViolations(readFileSync(child, 'utf8'), child))
+        }
+      }
+    }
+    scan(root)
+  } else if (releaseTextArtifact(path) && !scannedPaths.has(resolve(path))) {
+    scannedPaths.add(resolve(path))
+    errors.push(...collectSafetyViolations(readFileSync(path, 'utf8'), path))
+  }
+}
+
+const defaultPdfTextExtractor = (pdfPath) => {
+  const result = spawnSync('pdftotext', [pdfPath, '-'], { encoding: 'utf8', timeout: 10_000 })
+  if (result.error) throw new Error(`pdftotext is required to scan the release PDF: ${result.error.message}`)
+  if (result.status !== 0) throw new Error(`pdftotext failed for the release PDF: ${result.stderr || `exit ${result.status}`}`)
+  return result.stdout
+}
+
+export function validateReleaseOutputs({
+  projectRoot = PROJECT_ROOT,
+  sourcePaths = defaultReleaseSourcePaths(projectRoot),
+  pdfPath = join(projectRoot, 'public/downloads/chainfren-thesis-2026.1.pdf'),
+  buildDirectory = join(projectRoot, '.next/server/app/thesis'),
+  extractPdfText = defaultPdfTextExtractor,
+} = {}) {
+  const errors = []
+  const scannedPaths = new Set()
+  for (const path of sourcePaths) scanReleasePath(path, errors, scannedPaths, 'Deterministic public release source')
+
+  if (!existsSync(pdfPath)) errors.push(`Release PDF is missing: ${pdfPath}`)
+  else {
+    try { errors.push(...collectSafetyViolations(extractPdfText(pdfPath), `${pdfPath} extracted text`)) }
+    catch (error) { errors.push(error.message) }
+  }
+
+  if (!existsSync(buildDirectory) || !lstatSync(buildDirectory).isDirectory()) {
+    errors.push(`Production thesis build outputs are unavailable at ${buildDirectory}. Run npm run build, then npm run thesis:verify-release.`)
+  } else {
+    scanReleasePath(buildDirectory, errors, scannedPaths, 'Production thesis build output')
+  }
+  return errors
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const generatedIndex = process.argv.indexOf('--generated-dir')
   const generatedDirectory = generatedIndex === -1 ? undefined : process.argv[generatedIndex + 1]
   const errors = validateThesisContent({ allowMissingContent: process.argv.includes('--allow-missing-content'), generatedDirectory, generatedDirectoryRequested: generatedIndex !== -1 })
+  if (process.argv.includes('--release')) errors.push(...validateReleaseOutputs())
   if (errors.length) { console.error(errors.join('\n')); process.exitCode = 1 } else console.log('Thesis content validation passed.')
 }
