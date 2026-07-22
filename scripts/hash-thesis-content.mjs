@@ -22,7 +22,7 @@ const paths = (await Promise.all(canonicalRoots.map(async (path) => (await stat(
 const hash = createHash('sha256')
 for (const path of paths) {
   const name = relative(root, path).split('\\').join('/')
-  const content = (await readFile(path, 'utf8')).replace(/\r\n/g, '\n')
+  const content = (await readFile(path, 'utf8')).replace(/\r\n?/g, '\n')
   hash.update(`${name}\0${content}\0`)
 }
 const value = hash.digest('hex')

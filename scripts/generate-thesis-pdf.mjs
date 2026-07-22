@@ -25,22 +25,46 @@ async function waitForHealth() {
   }
   throw new Error(`Timed out waiting for ${baseUrl}/thesis/print after 30 seconds`)
 }
+async function waitForExit(child, timeout) {
+  if (child.exitCode !== null) return true
+  return new Promise((resolve) => {
+    const timer = setTimeout(() => {
+      child.removeListener('exit', onExit)
+      resolve(false)
+    }, timeout)
+    function onExit() {
+      clearTimeout(timer)
+      resolve(true)
+    }
+    child.once('exit', onExit)
+  })
+}
+function sendSignal(signal) {
+  try {
+    if (!server.kill(signal)) throw new Error(`managed thesis server rejected ${signal}`)
+  } catch (error) {
+    throw new Error(`Could not stop managed thesis server with ${signal}: ${error.message}`, { cause: error })
+  }
+}
 async function stopServer() {
   if (!server || server.exitCode !== null) return
-  server.kill('SIGTERM')
-  const exited = await Promise.race([new Promise((resolve) => server.once('exit', resolve)), new Promise((resolve) => setTimeout(resolve, 5_000))])
-  if (exited === undefined && server.exitCode === null) { server.kill('SIGKILL'); await new Promise((resolve) => server.once('exit', resolve)) }
+  sendSignal('SIGTERM')
+  if (await waitForExit(server, 5_000)) return
+  sendSignal('SIGKILL')
+  if (!await waitForExit(server, 5_000)) throw new Error('Managed thesis server did not exit within 5 seconds of SIGKILL')
 }
 
+let primaryError
 try {
   if (ownsServer) {
     server = spawn('npm', ['run', 'start', '--', '--hostname', '127.0.0.1', '--port', '3099'], { cwd: root, stdio: 'inherit' })
-    await waitForHealth()
+    const spawnFailure = new Promise((_, reject) => server.once('error', reject))
+    await Promise.race([waitForHealth(), spawnFailure])
   }
   await mkdir(join(root, 'public/downloads'), { recursive: true })
   const browser = await chromium.launch({ headless: true })
   try {
-    const page = await browser.newPage()
+    const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
     await page.goto(printUrl, { waitUntil: 'networkidle' })
     await page.emulateMedia({ media: 'print' })
     await page.pdf({ path: output, format: 'A4', printBackground: true, preferCSSPageSize: true })
@@ -49,6 +73,15 @@ try {
   console.log(`PDF SHA-256: ${await sha256(output)}`)
   await writeFile(join(root, 'public/downloads/chainfren-thesis-2026.1.sha256'), `Source SHA-256: ${THESIS_CONTENT_HASH}\nPDF SHA-256: ${await sha256(output)}\n`)
   console.log(`PDF: ${output}`)
+} catch (error) {
+  primaryError = error
+  throw error
 } finally {
-  await stopServer()
+  try {
+    await stopServer()
+  } catch (cleanupError) {
+    const message = `Managed thesis server cleanup failed: ${cleanupError.message}`
+    if (primaryError) console.error(message)
+    else throw new Error(message, { cause: cleanupError })
+  }
 }
