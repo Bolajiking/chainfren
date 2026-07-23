@@ -111,6 +111,7 @@ Checked at 360, 390, 768, 1280, and 1440 on the hub, short read, reader, map, an
 | Claim titles rendered smaller than their own body copy | Claim title links keep the `h3` scale |
 | Reader, short read, and print prose ran together with no paragraph margin | Paragraph rhythm restored on all three surfaces |
 | The outline ignored `?claim=` deep links | Client island opens and focuses the requested claim |
+| Pre-landing review caught the new page-level paragraph rule outranking the download eyebrow class, which rendered the release label at body size | Eyebrow rule scoped to the page and covered by the download style test |
 
 ### Performance
 
@@ -192,6 +193,10 @@ The publication adds 165 bytes to 3.94KB of route JavaScript, about 8KB of HTML 
 | Resume stores chapter-level progress only | `chainfren-thesis-progress-v1` record verified in the browser |
 | Pre-release lab gates measured, field percentiles not treated as lab gates | Lighthouse lab medians recorded; INP left as a post-launch field target |
 | Humanizer, ADS-STE100, factual, maturity, and public-safety reviews complete | Mission chapter table above; rendered copy rescanned for AI-tell vocabulary and blocked punctuation with no hits |
+
+## Pre-landing review
+
+The branch diff was reviewed against the repository review checklist before landing. No SQL, shell, concurrency, or trust-boundary surface exists in this change set: the additions are static route metadata, CSS, one client island that reads a query parameter and calls `getElementById`, and tests. The query parameter is used only as a DOM id lookup, never as markup or a URL, so an unknown value resolves to no element and the outline keeps its default state. One defect was found by the review and fixed: the download eyebrow specificity issue recorded above.
 
 ## Handoff
 
