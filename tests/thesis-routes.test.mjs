@@ -166,9 +166,12 @@ test('article JSON-LD safely serializes a script-closing payload', () => {
   assert.deepEqual(JSON.parse(serialized), unsafe)
 })
 
-test('the company footer exposes only the thesis discovery link added for this publication', () => {
+test('the thesis footer link stays wired but unpublished until the nav flag flips', () => {
   const stack = readFileSync(stackPath, 'utf8')
   const companyColumn = stack.match(/heading: 'Company',[\s\S]*?\n  \},\n\]/)?.[0] || ''
 
-  assert.match(companyColumn, /\['The Chainfren thesis', '\/thesis'\]/)
+  assert.match(stack, /export const THESIS_FOOTER_LINK = \['The Chainfren thesis', '\/thesis'\]/)
+  assert.match(stack, /export const THESIS_IN_PUBLIC_NAV = false/)
+  assert.match(companyColumn, /\.\.\.\(THESIS_IN_PUBLIC_NAV \? \[THESIS_FOOTER_LINK\] : \[\]\)/)
+  assert.doesNotMatch(companyColumn, /^\s*\['The Chainfren thesis', '\/thesis'\],$/m)
 })

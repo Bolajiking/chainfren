@@ -194,6 +194,12 @@ The publication adds 165 bytes to 3.94KB of route JavaScript, about 8KB of HTML 
 | Pre-release lab gates measured, field percentiles not treated as lab gates | Lighthouse lab medians recorded; INP left as a post-launch field target |
 | Humanizer, ADS-STE100, factual, maturity, and public-safety reviews complete | Mission chapter table above; rendered copy rescanned for AI-tell vocabulary and blocked punctuation with no hits |
 
+## Site discovery
+
+The publication is unannounced for now. `THESIS_IN_PUBLIC_NAV` in `app/config/stack.js` is `false`, so the Company footer column renders without the thesis entry, and no page on the site links to `/thesis`. Verified against the built site: the homepage, Sabi, Media Launchpad, Creator Network, Contact, and Blog emit zero `/thesis` hrefs, while all five publication routes return 200 at their direct URLs. `THESIS_FOOTER_LINK` stays wired next to the flag, so announcing the publication is a one-line change.
+
+Routes remain indexable. Nothing links to them and the repository publishes no sitemap, so ordinary crawl discovery is unlikely, but a shared direct URL can still be indexed. Add `robots: { index: false }` to the thesis layout if the publication needs to stay out of search until launch.
+
 ## Pre-landing review
 
 The branch diff was reviewed against the repository review checklist before landing. No SQL, shell, concurrency, or trust-boundary surface exists in this change set: the additions are static route metadata, CSS, one client island that reads a query parameter and calls `getElementById`, and tests. The query parameter is used only as a DOM id lookup, never as markup or a URL, so an unknown value resolves to no element and the outline keeps its default state. One defect was found by the review and fixed: the download eyebrow specificity issue recorded above.
