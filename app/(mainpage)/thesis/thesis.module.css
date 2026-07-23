@@ -130,7 +130,8 @@
 .shortRead h1 { font-size: clamp(46px, 7vw, 78px); font-weight: 500; letter-spacing: -.065em; line-height: .94; margin: 0; }
 .shortRead article > header p:last-child { font-size: clamp(18px, 2.4vw, 24px); line-height: 1.38; margin: 20px 0 0; max-width: 620px; }
 .shortRead article :global(h2) { border-top: var(--thesis-border); font-size: clamp(28px, 4vw, 42px); font-weight: 500; letter-spacing: -.05em; line-height: 1; margin: 42px 0 18px; padding-top: 24px; }
-.shortRead article :global(p) { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.62; }
+.shortRead article :global(p) { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.62; margin: 0 0 24px; }
+.shortRead article :global(p:last-child) { margin-bottom: 0; }
 .shortReadLinks { border-top: var(--thesis-border); display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 54px; padding-top: 22px; }
 .shortReadLinks a { align-items: center; color: var(--thesis-navy); display: inline-flex; font-size: 14px; font-weight: 600; min-height: 44px; text-decoration: none; text-underline-offset: 4px; }
 .shortReadLinks a:focus-visible { outline: var(--thesis-border); outline-offset: 3px; }
@@ -143,7 +144,8 @@
 .readerMain article > header p:first-child { font-size: 12px; font-weight: 600; letter-spacing: .1em; margin: 0 0 16px; text-transform: uppercase; }
 .readerMain article h1 { font-size: clamp(46px, 7vw, 78px); font-weight: 500; letter-spacing: -.065em; line-height: .94; margin: 0; }
 .readerMain article > header p:last-child { font-size: clamp(18px, 2.4vw, 24px); line-height: 1.38; margin: 20px 0 0; max-width: 620px; }
-.readerMain article :global(p) { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.62; }
+.readerMain article :global(p) { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.62; margin: 0 0 24px; }
+.readerMain article :global(p:last-child) { margin-bottom: 0; }
 .readerMain article :global(ul), .readerMain article :global(ol) { font-size: clamp(17px, 1.5vw, 20px); line-height: 1.55; padding-left: 1.25em; }
 .readerMain article :global(li) { margin: 12px 0; }
 .readerMain article :global(a) { color: inherit; text-underline-offset: 4px; }
@@ -239,6 +241,11 @@
 .downloadAction:hover { box-shadow: var(--thesis-shadow-lift); transform: translateY(-4px); }
 .downloadAction:focus-visible { outline: var(--thesis-border); outline-offset: 4px; }
 .downloadHash { color: rgba(8, 21, 60, .68); font-size: 12px; letter-spacing: .01em; margin-top: 26px; overflow-wrap: anywhere; }
+
+@media (prefers-reduced-motion: reduce) {
+  .downloadAction { transition: none; }
+  .downloadAction:hover { transform: none; }
+}
 
 @media (max-width: 959px) {
   .ownershipMap { display: none; }

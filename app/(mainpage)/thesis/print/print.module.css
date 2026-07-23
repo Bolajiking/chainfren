@@ -5,7 +5,8 @@
 .cover code { font-size: 8pt; overflow-wrap: anywhere; }
 .contents { page-break-after: always; }.contents li { margin: .45em 0; }
 .chapter { break-before: page; page-break-before: always; widows: 3; orphans: 3; }.chapter h2 { font-size: 25pt; line-height: 1.1; }
-.chapter h3 { font-size: 15pt; }.chapter a, .sources a { color: #111; text-decoration: underline; overflow-wrap: anywhere; word-break: break-word; }
+.chapter h3 { font-size: 15pt; }.chapter p { margin: 0 0 .85em; }
+.chapter a, .sources a { color: #111; text-decoration: underline; overflow-wrap: anywhere; word-break: break-word; }
 .chapter a::after, .sources a::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
 .chapter :global(img), .print img { max-width: 100%; height: auto; break-inside: avoid; }
 .sources { break-before: page; page-break-before: always; } .print footer { margin-top: 2rem; font-size: 8pt; overflow-wrap: anywhere; }

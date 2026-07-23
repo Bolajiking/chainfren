@@ -55,3 +55,10 @@ test('reader styles support desktop rail and mobile fixed controls accessibly', 
   assert.match(styles, /prefers-reduced-motion/)
   assert.doesNotMatch(styles, /body\s*\{[^}]*Georgia/s)
 })
+
+test('long-form prose keeps paragraph rhythm in the reader and the short read', () => {
+  const styles = source('app/(mainpage)/thesis/thesis.module.css')
+
+  assert.match(styles, /\.readerMain article :global\(p\)\s*\{[^}]*margin:\s*0 0 2[0-9]px/s)
+  assert.match(styles, /\.shortRead article :global\(p\)\s*\{[^}]*margin:\s*0 0 2[0-9]px/s)
+})

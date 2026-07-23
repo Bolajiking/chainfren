@@ -55,10 +55,103 @@ Completed checks on 2026-07-22:
 
 Known environment limitation:
 
-- In this desktop environment, `npm run build` can stall while a Next.js production worker terminates. Do not record a passing production-build result until that command completes normally on the release host.
 - `thesis:verify-release` fails explicitly if `.next/server/app/thesis` is absent. Its error records the required `npm run build` command. It still scans the deterministic source files and generated PDF artifact before it reports that missing-build condition.
-- The existing local thesis build output predates the final print-copy cleanup, so the release gate correctly rejects its stale em dash. Rebuild before release, then rerun the gate.
-- The full thesis test command also includes a production metadata endpoint test that cannot reserve a local loopback port in this sandbox (`EPERM`). The focused release tests completed; rerun the full command on the release host.
+
+## Build environment rule
+
+Node's `fileURLToPath` skips `..` normalization when a path segment starts with a dot. The compiled `@vercel/og` node entry resolves its bundled font with `fileURLToPath(`${import.meta.url}/../noto-sans-v27-latin-regular.ttf`)`, so from a checkout under a dot-prefixed directory that path stays literal and the read fails with `ENOTDIR`. The `/thesis/opengraph-image` route then fails to prerender and takes the whole production build down with it.
+
+Run `npm run build`, `npm run thesis:artifacts`, and `npm run thesis:verify-release` from a checkout whose path contains no dot-prefixed segment. This verification pass ran from `/private/tmp/chainfren-thesis`. The condition is environmental. No application code change is required.
+
+## Verification pass 2026-07-23
+
+### Automated results
+
+| Command | Result |
+| --- | --- |
+| `npm run build` | pass, exit 0, all 47 routes including `/thesis/opengraph-image` |
+| `npm run test:thesis` | 80 tests, 80 pass |
+| `node --test tests/*.test.mjs` | 86 tests, 86 pass |
+| `npm run validate:thesis` | pass |
+| `npm run thesis:verify-release` | pass |
+| `npm run thesis:artifacts` | pass, PDF and both checksums regenerated |
+
+### Responsive and functional checks
+
+Checked at 360, 390, 768, 1280, and 1440 on the hub, short read, reader, map, and download routes.
+
+- No horizontal page overflow at any width.
+- No clipped or covered text.
+- Every visible interactive target measures at least 44 by 44 CSS pixels.
+- One `h1` per route, no skipped heading levels, named landmarks on every route.
+- All nine chapter routes return 200. An unknown chapter slug returns the normal 404 surface.
+- The social image route returns `image/png` with valid PNG bytes from a running production server.
+
+### Accessibility
+
+- The reader skip link moves focus to chapter content.
+- The mobile contents panel is `aria-modal`, keeps Tab inside the panel, closes on Escape, and restores focus to the Contents button with `aria-expanded="false"`.
+- The share control falls back to a labelled read-only URL field when the clipboard is unavailable.
+- Contrast check across all five routes at 390 width: no result below WCAG AA for its text size.
+- Reduced-motion rules cover every animated thesis surface, including the download action.
+- The map keeps a server-rendered nested outline that works without JavaScript.
+- Server HTML carries the full chapter prose, the short read, and the claim outline with scripts disabled.
+
+### Claim deep links and resume
+
+`/thesis/map?claim=<id>` selects the desktop node, opens the matching outline group, scrolls it into view, and focuses the claim. An unknown id falls back to the default claim with no error. `chainfren-thesis-progress-v1` stores `{ chapterSlug, updatedAt, contentVersion }` only, and the hub shows `Resume: <chapter title>` when the stored version matches.
+
+### Defects found and fixed in this pass
+
+| Defect | Fix |
+| --- | --- |
+| The print route inherited global site social metadata carrying an em dash, which failed the release scan | Thesis-owned `openGraph` and `twitter` metadata on `/thesis/print` |
+| The download route rendered as unstyled browser defaults, with the checksum running past the mobile viewport | Route styled from the thesis brand tokens, checksum wrapped |
+| Outline and map detail links were 17 pixels tall | 44 pixel inline-flex targets |
+| Claim titles rendered smaller than their own body copy | Claim title links keep the `h3` scale |
+| Reader, short read, and print prose ran together with no paragraph margin | Paragraph rhythm restored on all three surfaces |
+| The outline ignored `?claim=` deep links | Client island opens and focuses the requested claim |
+
+### Performance
+
+Three cold Lighthouse 12 runs per route, mobile form factor, simulated slow 4G (1,638 Kbps, 150 ms RTT, 4x CPU). Medians below.
+
+Measurement A, the publication as served today, including the globally inherited font payload:
+
+| Route | LCP | CLS | TBT | Transfer | Fonts |
+| --- | --- | --- | --- | --- | --- |
+| `/thesis` | 5.62s | 0.000 | 39ms | 920KB | 723KB |
+| `/thesis/short` | 5.58s | 0.000 | 0ms | 903KB | 723KB |
+| `/thesis/read/the-gap` | 6.18s | 0.000 | 0ms | 913KB | 723KB |
+| `/thesis/map` | 6.19s | 0.000 | 0ms | 918KB | 723KB |
+| `/thesis/download` | 5.58s | 0.000 | 0ms | 900KB | 723KB |
+
+Measurement B, the same runs with the inherited font payload blocked, which isolates publication-route cost:
+
+| Route | LCP | CLS | TBT | Transfer |
+| --- | --- | --- | --- | --- |
+| `/thesis` | 2.47s | 0.000 | 0ms | 197KB |
+| `/thesis/short` | 2.23s | 0.000 | 0ms | 180KB |
+| `/thesis/read/the-gap` | 2.27s | 0.000 | 0ms | 189KB |
+| `/thesis/map` | 2.90s | 0.000 | 0ms | 195KB |
+| `/thesis/download` | 2.14s | 0.000 | 0ms | 177KB |
+
+Gate status:
+
+| Gate | Result |
+| --- | --- |
+| Median CLS below 0.1 | pass, 0.000 on every route |
+| Median TBT below 200ms | pass, 0 to 39ms |
+| Route-specific JavaScript below 70KB | pass, 165 bytes to 3.94KB per route from the build report |
+| Median LCP below 2.5s | publication cost passes on four routes and misses on `/thesis/map` by 0.40s; the shipped page misses on every route because of inherited cost |
+| Critical first-load transfer below 500KB | publication cost passes at 177KB to 197KB; the shipped page misses at about 900KB because of inherited cost |
+
+Inherited cost, owned by the global site shell and shared with every Chainfren route:
+
+- `public/fonts/InterVariable.woff2` at 352KB and `public/fonts/InterVariable-Italic.woff2` at 388KB, both preloaded in `app/layout.jsx` and declared `font-display: block` in `app/globals.css`. Blocking display is what holds first paint: the LCP element on `/thesis` waits 6.0s in render delay while 723KB of fonts arrive over slow 4G.
+- About 78KB of shared Next.js and site-shell JavaScript that every route on the site already carries.
+
+The publication adds 165 bytes to 3.94KB of route JavaScript, about 8KB of HTML per route, and no new font family, images, or third-party scripts. Per the design specification, brand and accessibility behavior was not removed to chase these budgets, and the inherited cost is recorded here rather than fixed inside this feature. The site-level follow-up that would clear both gates is to serve the Inter faces with `font-display: swap`, preload only the upright face, and subset the files. That change affects every page on chainfren.com and needs its own authorization.
 
 ## Mission chapters
 
@@ -72,3 +165,37 @@ Known environment limitation:
 | 08: The Road Ahead | Humanizer and ADS-STE100 pass | Public horizons and directional initiative framing only | Pass | Chainfren editorial | 2026-07-22 |
 | 09: Build With Us | Humanizer and ADS-STE100 pass | Uses the six approved CTA labels and routes without parameters | Pass | Chainfren editorial | 2026-07-22 |
 | Short read | Humanizer and ADS-STE100 pass | Dedicated five-minute synthesis of approved public chapter framing; Star Factor remains a later milestone | Pass | Chainfren editorial | 2026-07-22 |
+
+## Acceptance criteria
+
+| Criterion from the approved design | Evidence |
+| --- | --- |
+| `/thesis` and all approved child routes build | `npm run build` exit 0; hub, short, reader, map, download, print, and social image all render from `next start` |
+| The four approved exploration modes work | Hub links to short read, full reader, map, and download; each verified in the browser |
+| The full reader contains nine chapters | Nine chapter routes return 200; `tests/thesis-routes.test.mjs` covers the registry |
+| Mission and company entrances reach the same canonical content | Hub entrances point to `/thesis/read/the-gap` and `/thesis/read/the-company` with no lens state |
+| Comeownity is absent | Repository scan of content, routes, library, and artifacts returns no match; release validator scans built output |
+| Star Factor reads as a later milestone and proof project | Chapter 08 and the short read frame it as the later proof milestone |
+| Sabi, Creator Network, Star Factor, and Products form a distribution-first story | Chapters 05 to 08 and the public system module |
+| No private company information in public content | Release validator blocked-pattern scan over routes, data, built output, and PDF text |
+| Maturity labels match approved public reality | Public label table at the top of this review, sourced from `app/config/stack.js` |
+| The publication matches the Chainfren design system | `tests/thesis-brand-fidelity.test.mjs` passes; visual review of hub, reader, map, download, and PDF |
+| Canonical brand assets are not redrawn | Brand contract checksums verified in test; components import `ChainfrenWordmark`, `ChainfrenIcon`, and `Fren` |
+| Mobile and desktop pass responsive, accessibility, and visual checks | Responsive and accessibility sections above |
+| Performance budgets pass or inherited cost is isolated | Performance section above, measurements A and B |
+| Core content readable without JavaScript | Server HTML carries chapter prose, short read, and claim outline |
+| The map has a complete mobile and no-JavaScript fallback | Server-rendered `OwnershipTree` outline with grouped `details` |
+| The map implements the twelve-node schema and deep links | Twelve nodes render; `?claim=<id>` selects, expands, and focuses; invalid ids fall back |
+| The PDF comes from the same approved content and passes visual review | `npm run thesis:artifacts` regenerated the PDF from `/thesis/print`; pages inspected for rhythm, page breaks, numbering, and grayscale legibility |
+| Website and PDF share one content version and hash | `Source SHA-256` matches `generated-content-hash.mjs`; version `2026.1` on both surfaces |
+| Markdown and HTML are not first-release download modes | The download route exposes one link, the PDF |
+| Resume stores chapter-level progress only | `chainfren-thesis-progress-v1` record verified in the browser |
+| Pre-release lab gates measured, field percentiles not treated as lab gates | Lighthouse lab medians recorded; INP left as a post-launch field target |
+| Humanizer, ADS-STE100, factual, maturity, and public-safety reviews complete | Mission chapter table above; rendered copy rescanned for AI-tell vocabulary and blocked punctuation with no hits |
+
+## Handoff
+
+- Branch: `codex/chainfren-thesis`.
+- Content version `2026.1`, source hash `275c7d315874d33bdaa10c355418242d43388ea1ed34ab1ed9930daf3cf1564b`.
+- Public artifact: `public/downloads/chainfren-thesis-2026.1.pdf` with `public/downloads/chainfren-thesis-2026.1.sha256`.
+- Deployment is not part of this work and remains separately authorized.
