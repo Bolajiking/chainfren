@@ -158,6 +158,7 @@ test('the download route is styled with the thesis brand contract and stays touc
   assert.match(page, /className=\{styles\.downloadHash\}/)
   assert.match(styles, /\.downloadAction\s*\{[^}]*min-height:\s*44px/s)
   assert.match(styles, /\.downloadHash\s*\{[^}]*overflow-wrap:\s*anywhere/s)
+  assert.match(styles, /\.downloadPage > \.downloadEyebrow\s*\{[^}]*font-size:\s*12px/s)
 })
 
 test('the print edition keeps paragraph rhythm for long-form prose', () => {
