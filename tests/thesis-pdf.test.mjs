@@ -37,6 +37,13 @@ test('print route is noindex, chrome-free, and print-safe', () => {
   assert.match(css, /overflow-wrap:\s*anywhere/)
 })
 
+test('print route owns its social metadata instead of inheriting global site copy', () => {
+  const page = source('app/(mainpage)/thesis/print/page.jsx')
+  assert.match(page, /openGraph:\s*\{/)
+  assert.match(page, /twitter:\s*\{/)
+  assert.doesNotMatch(page, /[–—]/)
+})
+
 test('hash source is generated from normalized canonical inputs and PDF server is owned', () => {
   const hash = source('scripts/hash-thesis-content.mjs')
   const generator = source('scripts/generate-thesis-pdf.mjs')
