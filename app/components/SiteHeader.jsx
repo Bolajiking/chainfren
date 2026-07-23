@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import ChainfrenWordmark from './ChainfrenWordmark'
+import ItalicFontPreload from './ItalicFontPreload'
 import { Fren } from './Frens'
 import { PRODUCTS, SOLUTION_PERSONAS, FEATURED, CF } from '../config/stack'
 import NotifyModal, { openNotify } from './NotifyModal'
@@ -557,6 +558,7 @@ export default function SiteHeader({
 
   return (
     <>
+      <ItalicFontPreload />
       {/* ───────── Desktop: fixed floating capsule + contextual sub-nav ───────── */}
       <header className="cf-nav-fixed" style={{ padding: `${navPad}px 12px 0` }}>
         <nav

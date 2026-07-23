@@ -6,6 +6,7 @@ import Image from 'next/image';
 import logo from '../../public/logo.svg';
 import logodark from '../../public/logodark.svg';
 import { useGlobalContext } from './utils/Provider';
+import ItalicFontPreload from './ItalicFontPreload';
 import Darkmode from './Darkmode';
 
 const Nav2 = () => {
@@ -16,6 +17,7 @@ const Nav2 = () => {
 
   return (
     <div className={`dark:bg-[#09011bce]  border-b-[1px] dark:border-[#40ACFF0F] sticky top-0 dark:text-white bg-white transition-[top] duration-[700ms] ease-in-out z-20 backdrop-blur-xl`}>
+      <ItalicFontPreload />
       <div className='flex justify-between relative  items-center xl:max-w-[1350px] px-4 sm:px-8 py-5 mx-auto'>
 
       <div onClick={e=>setNav(!nav)} className="md:hidden">
