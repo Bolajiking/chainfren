@@ -1,6 +1,7 @@
 import './globals.css'
 import ContextProvider from './components/utils/Provider'
 import StyledJsxRegistry from './components/utils/StyledJsxRegistry'
+import { THESIS_CONTENT_HASH } from '@/content/chainfren-thesis/generated-content-hash.mjs'
 
 export const metadata = {
   metadataBase: new URL('https://www.chainfren.com'),
@@ -22,6 +23,7 @@ export const metadata = {
     title: 'Chainfren — Ownership Infrastructure for the African Creator Economy',
     description: 'Owned audiences. Direct payments. Real ownership. Chainfren is the ownership infrastructure for Africa\'s creator economy — agency, products, and the Sabi broadcasting network, from Lagos.',
   },
+  other: { 'thesis-content-sha256': THESIS_CONTENT_HASH },
 }
 
 export const viewport = {

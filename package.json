@@ -6,7 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:thesis": "node --test tests/thesis-*.test.mjs",
+    "validate:thesis": "node scripts/validate-thesis-content.mjs",
+    "validate:thesis:partial": "node scripts/validate-thesis-content.mjs --allow-missing-content",
+    "thesis:hash": "node scripts/hash-thesis-content.mjs",
+    "thesis:pdf": "node scripts/generate-thesis-pdf.mjs --start-server",
+    "thesis:artifacts": "node scripts/generate-thesis-artifacts.mjs",
+    "thesis:verify-release": "node scripts/validate-thesis-content.mjs --release && npm run test:thesis"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.18.0",
@@ -14,6 +21,9 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@mdx-js/loader": "2.3.0",
+    "@mdx-js/react": "2.3.0",
+    "@next/mdx": "13.4.7",
     "@radix-ui/react-slot": "^1.2.0",
     "ai": "^2.2.14",
     "autoprefixer": "10.4.14",
@@ -34,6 +44,7 @@
     "tailwindcss": "3.3.2"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.10"
+    "@tailwindcss/typography": "^0.5.10",
+    "playwright": "^1.61.1"
   }
 }

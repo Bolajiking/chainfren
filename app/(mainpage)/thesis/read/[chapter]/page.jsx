@@ -1,0 +1,52 @@
+import { notFound } from 'next/navigation'
+import Link from 'next/link'
+import ChapterArticle from '../../components/ChapterArticle'
+import ChapterRail from '../../components/ChapterRail'
+import ReaderChrome from '../../components/ReaderChrome'
+import ArticleJsonLd from '../../components/ArticleJsonLd'
+import styles from '../../thesis.module.css'
+import { getChapterCitations, getChapterComponent, getChapterBySlug, getPublishedChapterNavigation, getPublishedChapters } from '@/lib/thesis/public-content'
+
+export const generateStaticParams = () => getPublishedChapters().map((chapter) => ({ chapter: chapter.slug }))
+
+export function generateMetadata({ params }) {
+  const chapter = getChapterBySlug(params.chapter)
+  if (!chapter) return {}
+  const title = `${chapter.title} | The Chainfren thesis`
+  const description = chapter.summary
+  const canonical = `/thesis/read/${chapter.slug}`
+  return {
+    title,
+    description,
+    alternates: { canonical: canonical },
+    openGraph: { title, description, url: canonical, type: 'article', images: ['/thesis/opengraph-image'] },
+    twitter: { card: 'summary_large_image', title, description, images: ['/thesis/opengraph-image'] },
+  }
+}
+
+export default function ThesisReaderPage({ params }) {
+  const chapter = getChapterBySlug(params.chapter)
+  const Content = getChapterComponent(params.chapter)
+  if (!chapter || !Content) notFound()
+
+  const chapters = getPublishedChapters()
+  const navigation = getPublishedChapterNavigation(chapter.slug)
+  return (
+    <div className={styles.readerPage}>
+      <a className={styles.skipLink} href="#chapter-content">Skip to chapter content</a>
+      <div className={styles.readerGrid}>
+        <ChapterRail chapters={chapters} currentSlug={chapter.slug} />
+        <main id="chapter-content" className={styles.readerMain} tabIndex="-1">
+          <ArticleJsonLd canonicalUrl={`https://www.chainfren.com/thesis/read/${chapter.slug}`} headline={chapter.title} description={chapter.summary} dateModified={chapter.updatedAt} />
+          <ChapterArticle chapter={chapter} Content={Content} citations={getChapterCitations(chapter.slug)} />
+          <nav className={styles.desktopPager} aria-label="Chapter navigation">
+            {navigation.previous ? <Link href={`/thesis/read/${navigation.previous.slug}`}>Previous: {navigation.previous.title}</Link> : <span />}
+            {navigation.next ? <Link href={`/thesis/read/${navigation.next.slug}`}>Continue: {navigation.next.title}</Link> : <Link href="/thesis">Back to thesis</Link>}
+          </nav>
+        </main>
+        <aside className={styles.readerContext} aria-label="Chapter details"><span>{chapter.id}</span><strong>{chapter.readingMinutes} min read</strong><p>{chapter.lens}</p></aside>
+      </div>
+      <ReaderChrome chapters={chapters} currentSlug={chapter.slug} navigation={navigation} />
+    </div>
+  )
+}

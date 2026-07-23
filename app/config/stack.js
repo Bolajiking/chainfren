@@ -197,6 +197,12 @@ export const FEATURED = {
   },
 }
 
+// The thesis publication is live at its own URLs but is not announced on the
+// site yet. The footer entry stays wired here so publishing it later is a
+// one-line flag flip, not a rebuild of the Company column.
+export const THESIS_FOOTER_LINK = ['The Chainfren thesis', '/thesis']
+export const THESIS_IN_PUBLIC_NAV = false
+
 // Footer "Explore" map — generated from the same config so nav, footer and
 // sitemap can never drift apart.
 export const FOOTER_COLUMNS = [
@@ -223,6 +229,7 @@ export const FOOTER_COLUMNS = [
   {
     heading: 'Company',
     links: [
+      ...(THESIS_IN_PUBLIC_NAV ? [THESIS_FOOTER_LINK] : []),
       ['Contact', '/contact'],
       ['Join Chainfren', '/contact'],
     ],

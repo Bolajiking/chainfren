@@ -1,0 +1,28 @@
+import DistributionLoop from '@/app/(mainpage)/thesis/components/DistributionLoop'
+import ValuePath from '@/app/(mainpage)/thesis/components/ValuePath'
+import MaturityBadge from '@/app/(mainpage)/thesis/components/MaturityBadge'
+import { PUBLIC_PRODUCT_MATURITY } from '@/content/chainfren-thesis/public-config.mjs'
+
+We build for the part after attention. A creator, a brand, or a community needs a way to keep the relationship that brought people together. That can mean a clearer way to reach people, a useful place to gather, or a product that makes participation feel worth returning to.
+
+Our Products and Solutions are the practical layer. Media Launchpad, Creator Growth OS, Community Engine, and AI Agent Studio are public product lines with different jobs. They let us turn what we learn from culture and distribution into tools people can use.
+
+<ul>
+  {PUBLIC_PRODUCT_MATURITY.map((product) => (
+    <li key={product.id}><a href={product.href}>{product.label}</a> <MaturityBadge stage={product.id} /></li>
+  ))}
+</ul>
+
+Creator Network is where trusted creators, brands, and campaigns meet with a reason to work together. It is a distribution practice, not a directory. The right partnership needs context, good judgment, and a real fit with the audience.
+
+Sabi is our owned media surface. It is where ideas, stories, and broadcasts can live close to the work. It gives us a public place to listen, publish, and stay in the conversation.
+
+Indy <MaturityBadge stage="indy" /> points toward more independent ways for people to create and participate, while the public work earns the right shape for that idea.
+
+Star Factor is an important mission milestone. It is where we plan to test audience participation more directly, after the distribution and product work has a stronger base.
+
+<DistributionLoop />
+
+<ValuePath />
+
+The loop matters because each part can make the next part more useful. Sabi can earn attention. Creator Network can move that attention through relationships people trust. Products and Solutions can give people a way to keep building after the campaign or broadcast ends.
