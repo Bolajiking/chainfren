@@ -147,3 +147,15 @@ test('site metadata uses the generated thesis content hash', () => {
   assert.match(download, /THESIS_CONTENT_HASH/)
   assert.match(config, /THESIS_CONTENT_VERSION = '2026\.1'/)
 })
+
+test('the download route is styled with the thesis brand contract and stays touch safe', () => {
+  const page = source('app/(mainpage)/thesis/download/page.jsx')
+  const styles = source('app/(mainpage)/thesis/thesis.module.css')
+
+  assert.match(page, /import styles from ['"]\.\.\/thesis\.module\.css['"]/)
+  assert.match(page, /className=\{styles\.downloadPage\}/)
+  assert.match(page, /className=\{styles\.downloadAction\}/)
+  assert.match(page, /className=\{styles\.downloadHash\}/)
+  assert.match(styles, /\.downloadAction\s*\{[^}]*min-height:\s*44px/s)
+  assert.match(styles, /\.downloadHash\s*\{[^}]*overflow-wrap:\s*anywhere/s)
+})

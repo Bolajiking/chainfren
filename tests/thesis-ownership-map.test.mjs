@@ -78,3 +78,11 @@ test('desktop map chunk is eligible only at the 960px breakpoint', () => {
   assert.equal(canLoadDesktopMap(false), false)
   assert.equal(canLoadDesktopMap(true), true)
 })
+
+test('claim links in the outline and desktop detail panel are full touch targets', () => {
+  const styles = source('app/(mainpage)/thesis/thesis.module.css')
+
+  assert.match(styles, /\.ownershipTree h3 a\s*\{[^}]*display:\s*inline-flex[^}]*min-height:\s*44px/s)
+  assert.match(styles, /\.ownershipTree article > a\s*\{[^}]*display:\s*inline-flex[^}]*min-height:\s*44px/s)
+  assert.match(styles, /\.mapDetails a\s*\{[^}]*display:\s*inline-flex[^}]*min-height:\s*44px/s)
+})
