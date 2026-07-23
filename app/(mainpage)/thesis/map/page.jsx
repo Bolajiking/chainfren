@@ -1,3 +1,4 @@
+import ClaimDeepLink from '../components/ClaimDeepLink'
 import OwnershipMapLoader from '../components/OwnershipMapLoader'
 import OwnershipTree from '../components/OwnershipTree'
 import { THESIS_CLAIMS } from '@/content/chainfren-thesis/claims.mjs'
@@ -24,6 +25,7 @@ export default function OwnershipMapPage() {
       </header>
       <OwnershipMapLoader />
       <OwnershipTree claims={THESIS_CLAIMS} />
+      <ClaimDeepLink />
     </main>
   )
 }

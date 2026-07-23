@@ -86,3 +86,16 @@ test('claim links in the outline and desktop detail panel are full touch targets
   assert.match(styles, /\.ownershipTree article > a\s*\{[^}]*display:\s*inline-flex[^}]*min-height:\s*44px/s)
   assert.match(styles, /\.mapDetails a\s*\{[^}]*display:\s*inline-flex[^}]*min-height:\s*44px/s)
 })
+
+test('a valid claim deep link expands and focuses the outline claim', () => {
+  const page = source('app/(mainpage)/thesis/map/page.jsx')
+  const island = source('app/(mainpage)/thesis/components/ClaimDeepLink.jsx')
+
+  assert.match(page, /<ClaimDeepLink\s*\/>/)
+  assert.match(island, /['"]use client['"]/)
+  assert.match(island, /URLSearchParams\(window\.location\.search\)\.get\(['"]claim['"]\)/)
+  assert.match(island, /closest\(['"]details['"]\)/)
+  assert.match(island, /\.focus\(/)
+  assert.doesNotMatch(island, /behavior:\s*['"]smooth['"]/)
+  assert.doesNotMatch(island, /THESIS_CLAIMS/)
+})
