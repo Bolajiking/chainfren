@@ -1,6 +1,7 @@
 import { client } from './contentful/contentful'
 import { PRODUCTS, SOLUTION_PERSONAS } from './config/stack'
 import { SITE } from './config/siteSchema'
+import { getPublishedChapters } from '@/lib/thesis/public-content'
 
 // Dynamic sitemap. Next serves this at /sitemap.xml.
 //
@@ -41,12 +42,26 @@ export default async function sitemap() {
 
   const personaEntries = SOLUTION_PERSONAS.map((p) => url(p.href, { priority: 0.8, changeFrequency: 'monthly' }))
 
+  // The thesis reader, built from the same published-chapter helper the route
+  // uses, so an unpublished chapter can never leak into the sitemap and a newly
+  // published one never has to be added by hand.
+  // /thesis/print is deliberately absent: it sets robots noindex.
+  const thesisEntries = [
+    url('/thesis', { priority: 0.9, changeFrequency: 'monthly' }),
+    url('/thesis/short', { priority: 0.8, changeFrequency: 'monthly' }),
+    url('/thesis/map', { priority: 0.6, changeFrequency: 'monthly' }),
+    ...getPublishedChapters().map((c) =>
+      url(`/thesis/read/${c.slug}`, { priority: 0.7, changeFrequency: 'monthly' }),
+    ),
+  ]
+
   return [
     url('/', { priority: 1.0, changeFrequency: 'weekly' }),
     url('/products', { priority: 0.9, changeFrequency: 'weekly' }),
     ...productEntries,
     ...personaEntries,
     url('/about', { priority: 0.9, changeFrequency: 'monthly' }),
+    ...thesisEntries,
     url('/solutions', { priority: 0.8, changeFrequency: 'monthly' }),
     url('/creator-network', { priority: 0.8, changeFrequency: 'monthly' }),
     url('/creator-network/apply', { priority: 0.6, changeFrequency: 'monthly' }),

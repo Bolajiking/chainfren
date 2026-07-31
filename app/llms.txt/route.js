@@ -82,9 +82,13 @@ ${SOLUTION_PERSONAS.map((s) => `- ${s.name}: ${SITE.url}${s.href} — ${s.blurb}
 - Creator Network (${SITE.url}/creator-network) — a curated network connecting
   onchain brands with African creators and international crypto KOLs. Campaigns
   are settled in stablecoins.
-- About (${SITE.url}/about) — the full thesis, the company architecture,
-  operating principles, product maturity, and how to work with or join
-  Chainfren. This is the canonical description of the company.
+- About (${SITE.url}/about) — the company architecture, operating
+  principles, product maturity, and how to work with or join Chainfren.
+  This is the canonical short description of the company.
+- The Chainfren thesis (${SITE.url}/thesis) — the full argument in nine
+  chapters, with a five-minute short read at /thesis/short and an
+  ownership map at /thesis/map. This is the primary source for what
+  Chainfren believes and why; /about is its compressed edition.
 - Sabi (${SITE.url}/sabi) — Chainfren's owned media and broadcasting arm.
 - The Playbook (${SITE.url}/blog) — published writing on the creator economy,
   ownership, and African market structure.

@@ -208,6 +208,19 @@ export default function AboutPage() {
               </Reveal>
             ))}
           </div>
+          {ABOUT.argument.more && (
+            <Reveal delay={0.1}>
+              <div style={{ marginTop: 24, padding: '0 4px' }}>
+                <Link href={ABOUT.argument.more.href} style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 8,
+                  fontSize: 12, fontWeight: 600, letterSpacing: '0.07em', textTransform: 'uppercase',
+                  color: CF.dark, textDecoration: 'none', borderBottom: `2px solid ${ACCENT}`, paddingBottom: 4,
+                }}>
+                  {ABOUT.argument.more.label} <ArrowRight size={14} />
+                </Link>
+              </div>
+            </Reveal>
+          )}
         </section>
 
         {/* ── The arithmetic ───────────────────────────────────────────── */}

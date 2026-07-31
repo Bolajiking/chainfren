@@ -50,7 +50,11 @@ export const ABOUT = {
   argument: {
     eyebrow: 'What we believe',
     title: 'The argument, in four steps.',
-    intro: 'This is the whole thesis. If you disagree with step two, nothing else we do will make sense to you, and that is a useful thing to find out early.',
+    intro: 'This is the argument in short. If you disagree with step two, nothing else we do will make sense to you, and that is a useful thing to find out early.',
+    // /thesis shipped to master while this page was in flight. It is the full
+    // nine-chapter version; this section is its compressed edition, so it links
+    // out rather than competing with it.
+    more: { label: 'Read the full thesis', href: '/thesis' },
     steps: [
       {
         n: '01',
