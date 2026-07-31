@@ -11,6 +11,7 @@ import SiteFooter from './SiteFooter'
 import SolutionLeadModal from './SolutionLeadModal'
 import SolutionFrenAnimated from './SolutionFrenAnimated'
 import { CF, solutionByKey } from '../config/stack'
+import { SOLUTION_CONTENT } from '../config/solutionsContent'
 
 const SOL = solutionByKey('media-launchpad')
 const ACCENT = SOL.accent // cyan
@@ -63,15 +64,9 @@ const VERTICALS = [
   { icon: Music, title: 'Music & Artists', stat: '$39B global digital music market', line: 'Your own MTV. Your music. Your fans.', slug: 'music', bg: CF.periwinkle },
   { icon: Tv, title: 'Content Creators', stat: '$214B global creator economy', line: 'You are the network. Your page is the channel.', slug: 'creators', bg: '#A6E1FA' },
 ]
-const FAQS = [
-  { q: 'What’s the difference between TiVi and Media Launchpad?', a: 'TiVi is the platform — launch it yourself in minutes. Media Launchpad is the full solution: Chainfren designs, builds, and launches your entire media presence on TiVi, done with you. Same infrastructure; choose your level of hands-on.' },
-  { q: 'How much does TiVi cost?', a: 'TiVi offers a free tier to get started and flexible plans as you grow. Unlike platforms that take 30–50% of your revenue, all TiVi plans let you keep 100% of what you earn from your audience.' },
-  { q: 'Do I need coding skills?', a: 'No. Launch your branded streaming channel in minutes with our no-code setup. If you can set up a social media profile, you can launch on TiVi.' },
-  { q: 'Can I import my existing videos?', a: 'Absolutely. Upload directly or migrate your content from YouTube, Vimeo, or other platforms. Your content library transfers seamlessly.' },
-  { q: 'How is TiVi different from YouTube or Twitch?', a: 'YouTube takes 45% of your ad revenue and owns your audience data. Twitch takes 50%. TiVi takes zero — you keep 100% of revenue through direct payments, own your subscriber data, and control your channel without algorithm interference.' },
-  { q: 'What about discoverability?', a: 'TiVi is your home base, not a discovery platform. You bring your audience from social media through your link-in-bio, then own that relationship directly. Think of it as the Shopify for live creators.' },
-  { q: 'Can organizations and brands use TiVi?', a: 'Yes. TiVi serves individual creators, churches, sports leagues, music labels, event promoters, and film studios. Any organization that needs a branded streaming channel with direct monetization.' },
-]
+// FAQ lives in solutionsContent.js so the rendered list and the FAQPage
+// JSON-LD are the same array — they used to be two different sets.
+const FAQS = SOLUTION_CONTENT['media-launchpad'].faq
 
 function Hero({ onDemo, onEarly }) {
   return (

@@ -35,10 +35,10 @@ export const PERSONA_CONTENT = {
       sub: 'Start with one and add the rest as you grow — every product runs on infrastructure you keep.',
     },
     stack: [
-      { key: 'creator-growth-os', angle: 'Own the audience, keep the revenue.', bullets: ['First-party audience and channels you control', 'Direct payments, including stablecoins — no platform tax', 'Onchain identity that travels across platforms'] },
+      { key: 'creator-growth-os', angle: 'Own the audience, keep the revenue.', bullets: ['A first-party list on channels you control', 'Direct payments — cards, mobile money, stablecoins', 'An ENS name and a wallet that leave with you'] },
       { key: 'media-launchpad', angle: 'Launch a media presence you own.', bullets: ['Your branded live + on-demand streaming channel', 'Built-in storefront and direct fan payments', 'Keep 100% of revenue and your subscriber data'] },
       { key: 'ai-agents', angle: 'Scale your presence, not your overhead.', bullets: ['Custom agents that engage in your voice', 'Always-on content pipelines and repurposing', 'Automate the repetitive ops behind the scenes'] },
-      { key: 'community-loyalty', angle: 'Turn your fans into owners.', bullets: ['Membership, loyalty, and rewards', 'Fan economics that reward your day-ones', 'A community with a real stake in your rise'] },
+      { key: 'community-loyalty', angle: 'Turn your fans into owners.', bullets: ['Your owned community layer, on top of the platforms', 'Membership and status that reward your day-ones', 'Missions that turn members into distribution'] },
     ],
     network: {
       eyebrow: 'Creator Network',
@@ -95,7 +95,7 @@ export const PERSONA_CONTENT = {
       sub: 'The products that turn audiences into owned communities, culture, and revenue.',
     },
     stack: [
-      { key: 'community-loyalty', angle: 'Turn customers into stakeholders.', bullets: ['Loyalty that compounds instead of leaking', 'Membership and ownership programs', 'Advocates who market on your behalf'] },
+      { key: 'community-loyalty', angle: 'Turn customers into stakeholders.', bullets: ['Your owned community layer, not a rented group chat', 'Loyalty that compounds instead of leaking', 'Measured on fan-driven CAC against your paid CAC'] },
       { key: 'ai-agents', angle: 'Always-on brand presence and operations.', bullets: ['Branded agents that engage at scale', 'Content pipelines without more headcount', 'Automated moderation and distribution'] },
       { key: 'media-launchpad', angle: 'Owned channels, broadcast on your terms.', bullets: ['Your own branded streaming channel', 'First-party audience data you keep', 'Distribution no algorithm can throttle'] },
     ],

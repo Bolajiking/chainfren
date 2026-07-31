@@ -5,6 +5,7 @@ import { motion, useInView } from 'framer-motion'
 import {
   Sparkles, Megaphone, Workflow, LineChart, Check, ArrowRight, Zap,
   Fingerprint, Bot, Network, Repeat, Users, Radio, Target, Coins, Gauge,
+  X, Mic, ShoppingCart, Building2, Users2,
 } from 'lucide-react'
 import SiteHeader from './SiteHeader'
 import SiteFooter from './SiteFooter'
@@ -12,7 +13,8 @@ import SolutionLeadModal from './SolutionLeadModal'
 import { Fren } from './Frens'
 import SolutionFrenAnimated from './SolutionFrenAnimated'
 import { CF, solutionByKey } from '../config/stack'
-import { TIERS, FAQS } from '../config/aiAgentStudio'
+import { TIERS } from '../config/aiAgentStudio'
+import { SOLUTION_CONTENT } from '../config/solutionsContent'
 
 const SOL = solutionByKey('ai-agents')
 const ACCENT = SOL.accent // lavender #A6E1FA
@@ -108,6 +110,32 @@ const STEPS = [
   { n: '05', t: 'Compound', d: 'We optimize against the numbers. Your brand-locked model and owned data get sharper every month — the moat widens.' },
 ]
 
+// FAQ lives in solutionsContent.js so the rendered list and the FAQPage
+// JSON-LD are the same array.
+const FAQS = SOLUTION_CONTENT['ai-agents'].faq
+
+// The Studio competes against ways of working, not against a named SaaS —
+// so the comparison is by category. Rows where an alternative genuinely
+// matches are marked as such.
+const COMPARE = [
+  { f: 'Produces content for you', v: [true, true, true, true] },
+  { f: 'Distributes it, not just delivers it', v: [true, false, false, false] },
+  { f: 'Runs 24/7 without someone posting', v: [true, false, true, false] },
+  { f: 'A model locked to your brand', v: [true, false, false, false] },
+  { f: 'Creator distribution network included', v: [true, false, false, false] },
+  { f: 'Reach, brand lift & sell-through measured', v: [true, false, false, true] },
+  { f: 'Scales output without new headcount', v: [true, false, true, false] },
+  { f: 'Priced on outcome, not hours or seats', v: [true, false, false, false] },
+  { f: 'Free diagnostic before you commit', v: [true, false, false, false] },
+]
+
+const SEGMENTS = [
+  { icon: Mic, title: 'Creators & public figures', line: 'Publish like a team of five without hiring one — and stay recognisably yourself doing it.', bg: CF.lavender },
+  { icon: ShoppingCart, title: 'Consumer & FMCG brands', line: 'The most content-hungry category in Africa, served at the speed culture actually moves.', bg: CF.cyan },
+  { icon: Building2, title: 'Growing companies', line: 'Marketing that runs itself while your team does the work only people can do.', bg: CF.mint },
+  { icon: Users2, title: 'Communities & fan bases', line: 'Always-on moderation, onboarding and campaigns — in your voice, around the clock.', bg: CF.lime },
+]
+
 // ── Hero ────────────────────────────────────────────────────────────────
 function Hero({ onSales, onEarly }) {
   return (
@@ -167,6 +195,7 @@ export default function AiAgentStudio() {
         @media (max-width: 860px){ .ai-hero { grid-template-columns: 1fr !important; } .ai-hero-art { order: -1; } }
         @media (max-width: 760px){ .ai-faq { grid-template-columns: 1fr !important; } .ai-get { grid-template-columns: 1fr !important; } .ai-modules { grid-template-columns: 1fr !important; } }
         @media (max-width: 560px){ .ai-stats { grid-template-columns: repeat(2, 1fr) !important; } .ai-stats > div:nth-child(3){ border-left: none !important; } }
+        .ai-compare-scroll::-webkit-scrollbar { height: 6px; }
       ` }} />
       <SiteHeader accent={ACCENT} badgeLabel="Products" cta={{ label: 'Tell us what you\'re building', onClick: openSales }} />
 
@@ -258,6 +287,44 @@ export default function AiAgentStudio() {
               )
             })}
           </div>
+        </section>
+
+        {/* Compare */}
+        <section id="compare" style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 16px 0', scrollMarginTop: 140 }}>
+          <Reveal><div style={{ textAlign: 'center', marginBottom: 32 }}>
+            <Eyebrow color={CF.indigo}>Compare</Eyebrow>
+            <h2 style={{ fontSize: 'clamp(1.9rem, 4vw, 3rem)', fontWeight: 500, letterSpacing: '-0.02em', color: CF.dark, marginTop: 12 }}>An agency, a tool, or a hire?</h2>
+          </div></Reveal>
+          <Reveal delay={0.1}>
+            <div className="ai-compare-scroll" style={{ ...cardBase, background: CF.white, overflowX: 'auto' }}>
+              <div style={{ minWidth: 640 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr repeat(4, minmax(86px, 112px))', background: ACCENT, borderBottom: `2px solid ${CF.dark}` }}>
+                  <div style={{ padding: '14px 18px', fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: CF.dark }}>Feature</div>
+                  {['Chainfren', 'Agency', 'AI tool', 'In-house'].map((p) => (
+                    <div key={p} style={{ padding: '14px 8px', textAlign: 'center', fontSize: 11, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: CF.dark, borderLeft: `1px solid ${CF.dark}22` }}>{p}</div>
+                  ))}
+                </div>
+                {COMPARE.map((row, i) => (
+                  <div key={row.f} style={{ display: 'grid', gridTemplateColumns: '1fr repeat(4, minmax(86px, 112px))', background: i % 2 ? '#FAFAFA' : '#fff', borderBottom: i < COMPARE.length - 1 ? `1px solid ${CF.dark}15` : 'none' }}>
+                    <div style={{ padding: '13px 18px', fontSize: 14, fontWeight: 500, color: CF.dark }}>{row.f}</div>
+                    {row.v.map((val, j) => (
+                      <div key={j} style={{ padding: '13px 8px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderLeft: `1px solid ${CF.dark}10` }}>
+                        {val ? <span style={{ width: 24, height: 24, borderRadius: '50%', background: CF.mint, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}><Check size={14} color={CF.dark} /></span> : <X size={16} color={CF.dim} />}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <p style={{ textAlign: 'center', marginTop: 14, fontSize: 12, color: CF.muted, maxWidth: 720, marginLeft: 'auto', marginRight: 'auto', lineHeight: 1.5 }}>
+              Compared by category rather than by brand — the Studio replaces a way of working, not one tool. Where an alternative genuinely matches, we mark it: this is a comparison, not a sales pitch.
+            </p>
+          </Reveal>
+          <Reveal delay={0.15}><div style={{ textAlign: 'center', marginTop: 28 }}>
+            <button onClick={openSales} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 9999, background: CF.dark, color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Book your free diagnostic <ArrowRight size={15} /></button>
+          </div></Reveal>
         </section>
 
         {/* Dual framing — for consumer & FMCG brands */}
@@ -377,6 +444,41 @@ export default function AiAgentStudio() {
               )
             })}
           </div>
+        </section>
+
+        {/* Who it's for */}
+        <section id="who" style={{ maxWidth: 1480, margin: '0 auto', padding: '64px 16px 0', scrollMarginTop: 140 }}>
+          <Reveal><div style={{ maxWidth: 780, margin: '0 auto', textAlign: 'center', marginBottom: 40 }}>
+            <Eyebrow color={CF.indigo}>Who it’s for</Eyebrow>
+            <h2 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1.05, color: CF.dark, marginTop: 12 }}>Built for anyone outnumbered by their own output.</h2>
+            <p style={{ fontSize: 16.5, color: CF.muted, lineHeight: 1.6, marginTop: 16 }}>If the work is growing faster than the team, this is the gap it closes.</p>
+          </div></Reveal>
+          <div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
+            {SEGMENTS.map((sg, i) => {
+              const Icon = sg.icon
+              return (
+                <Reveal key={sg.title} delay={i * 0.05}>
+                  <div className="ai-card-hover" style={{ ...cardBase, background: sg.bg, padding: '26px 26px', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ width: 42, height: 42, borderRadius: 12, background: '#fff', border: `2px solid ${CF.dark}`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}><Icon size={20} color={CF.dark} /></div>
+                    <h3 style={{ fontSize: 20, fontWeight: 600, color: CF.dark, marginBottom: 6 }}>{sg.title}</h3>
+                    <p style={{ fontSize: 14, color: 'rgba(8,21,60,0.78)', lineHeight: 1.5 }}>{sg.line}</p>
+                  </div>
+                </Reveal>
+              )
+            })}
+          </div>
+        </section>
+
+        {/* Candor — the house pre-revenue proof block (copy doctrine, Adoption 1). */}
+        <section style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 16px 0' }}>
+          <Reveal>
+            <div style={{ ...cardBase, background: ACCENT, padding: 'clamp(32px, 5vw, 56px)', textAlign: 'center' }}>
+              <Eyebrow color={CF.dark}>Building in the open</Eyebrow>
+              <p style={{ fontSize: 'clamp(1.2rem, 2.6vw, 1.75rem)', fontWeight: 500, letterSpacing: '-0.01em', lineHeight: 1.3, color: CF.dark, marginTop: 14, maxWidth: 760, marginLeft: 'auto', marginRight: 'auto' }}>
+                Early access — the first cohort is onboarding now. When we have real numbers, we&apos;ll publish them. No invented ones.
+              </p>
+            </div>
+          </Reveal>
         </section>
 
         {/* FAQ */}

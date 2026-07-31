@@ -20,13 +20,13 @@ const SLIDES = [
   {
     key: 'creator-growth-os', label: 'Creator Growth OS',
     pre: 'Turn influence into a business you ', em: 'keep', post: '.',
-    body: 'Owned audience, direct payments, creator commerce — the operating system behind your audience.',
+    body: 'Capture the audience, charge for it directly, and hold the name, the money and the list yourself.',
     href: '/products/creator-growth-os', cta: 'Explore Creator Growth OS', bg: '#8DAAFF',
   },
   {
     key: 'community-loyalty', label: 'Community Engine',
     pre: 'Turn your audience into ', em: 'owners', post: '.',
-    body: 'Loyalty, fan economics, membership that compounds — followers become stakeholders.',
+    body: 'Your owned community layer — membership, loyalty and fan economics that turn followers into members with a stake.',
     href: '/products/community-engine', cta: 'Explore Community Engine', bg: '#CBF0B8',
   },
   {
