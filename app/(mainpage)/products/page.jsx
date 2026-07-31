@@ -7,6 +7,76 @@ import AgencyContactModal from '../../components/AgencyContactModal'
 import ChainfrenIcon from '../../components/ChainfrenIcon'
 import { Fren } from '../../components/Frens'
 import { CF, PRODUCTS } from '../../config/stack'
+import { SOLUTION_CONTENT } from '../../config/solutionsContent'
+import { SITE, ID, SchemaScript } from '../../config/siteSchema'
+
+// INDEX-ONLY SCHEMA. Lives here, not in layout.jsx: a layout wraps every
+// child route, so declaring the index FAQ there attached it to all four
+// product pages and the six verticals — pages that do not display those
+// questions. Google requires structured data to match visible content.
+//
+// The index carried a five-question FAQ that existed only as rendered HTML —
+// invisible to an engine looking for an answer it can attribute. It is the page
+// most likely to be asked "what does Chainfren sell", so it gets both the
+// enumerable product list and the FAQ as data.
+const FAQ_ITEMS = [
+  { q: 'What are Chainfren’s products?', a: 'Four ways to own what you build — Media Launchpad, Creator Growth OS, Community Engine, and AI Agent Studio. Pick the one that matches what you’re building, or start with the For Creators / For Brands stack if you’re not sure where to begin.' },
+  { q: 'Do I need to understand Web3 to use them?', a: 'No. We do, and we translate where it matters. Crypto and digital assets only show up where they solve a real problem — cross-border payments, ownership that survives platform changes, identity that travels.' },
+  { q: 'Are these self-serve tools or done-with-you builds?', a: 'Both, depending on the product. TVinBio and TiVi you can launch yourself; the full products are done-with-you — Chainfren designs, builds, and launches on infrastructure you own.' },
+  { q: 'What does an engagement cost?', a: 'Scoped to your stage, audience, and goals — anything from a short diagnostic to a multi-month build. Tell us what you’re building and we’ll match you to the right product and pricing.' },
+  { q: 'How do we start?', a: 'Tell us what you’re building — 60 seconds. A real human reads every submission and replies within 24 hours, usually faster.' },
+]
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${SITE.url}/products#webpage`,
+    url: `${SITE.url}/products`,
+    name: 'Chainfren Products',
+    description:
+      'The four products Chainfren ships: Media Launchpad, Creator Growth OS, Community Engine, and AI Agent Studio.',
+    isPartOf: { '@id': ID.website },
+    about: { '@id': ID.org },
+    inLanguage: 'en',
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: PRODUCTS.length,
+      itemListOrder: 'https://schema.org/ItemListOrderAscending',
+      itemListElement: PRODUCTS.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Service',
+          '@id': `${SITE.url}${p.url}#service`,
+          name: `Chainfren ${p.name}`,
+          url: `${SITE.url}${p.url}`,
+          description: SOLUTION_CONTENT[p.key]?.definitional,
+          provider: { '@id': ID.org },
+        },
+      })),
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${SITE.url}/products#faq`,
+    mainEntity: FAQ_ITEMS.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'Products', item: `${SITE.url}/products` },
+    ],
+  },
+]
+
 
 const SERIF = 'Georgia, "Times New Roman", serif'
 const CARD_BASE = { borderRadius: 28, border: `2px solid ${CF.dark}`, position: 'relative', overflow: 'hidden', height: '100%', transition: 'transform 400ms cubic-bezier(0.22,1,0.36,1)' }
@@ -167,13 +237,9 @@ function ForWhom() {
 }
 
 function FAQ() {
-  const qs = [
-    { q: 'What are Chainfren’s solutions?', a: 'Four ways to own what you build — Media Launchpad, Creator Growth OS, Community Engine, and AI Agent Studio. Pick the one that matches what you’re building, or start with the For Creators / For Brands stack if you’re not sure where to begin.' },
-    { q: 'Do I need to understand Web3 to use them?', a: 'No. We do, and we translate where it matters. Crypto and digital assets only show up where they solve a real problem — cross-border payments, ownership that survives platform changes, identity that travels.' },
-    { q: 'Are these self-serve tools or done-with-you builds?', a: 'Both, depending on the product. TVinBio and TiVi you can launch yourself; the full products are done-with-you — Chainfren designs, builds, and launches on infrastructure you own.' },
-    { q: 'What does an engagement cost?', a: 'Scoped to your stage, audience, and goals — anything from a short diagnostic to a multi-month build. Tell us what you’re building and we’ll match you to the right product and pricing.' },
-    { q: 'How do we start?', a: 'Tell us what you’re building — 60 seconds. A real human reads every submission and replies within 24 hours, usually faster.' },
-  ]
+  // Same array the FAQPage schema is built from — the rendered questions and
+  // the structured ones cannot drift apart.
+  const qs = FAQ_ITEMS
   const [open, setOpen] = useState(0)
   return (
     <section style={{ maxWidth: 1480, margin: '0 auto', padding: '64px 16px 0' }}>
@@ -234,6 +300,7 @@ export default function ProductsOverview() {
   }, [])
   return (
     <div style={{ background: '#F5F4EE', color: CF.dark, minHeight: '100vh', fontFamily: 'var(--font-inter), "Inter Display", "Inter", sans-serif' }}>
+      <SchemaScript schema={schema} />
       <style dangerouslySetInnerHTML={{ __html: `
         .pv-card:hover { transform: translateY(-6px); }
         @media (max-width: 900px) {

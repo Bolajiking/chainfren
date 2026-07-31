@@ -96,14 +96,19 @@ export const PRODUCTS = [
     accent: CF.mint,
     accentB: CF.lime,
     pose: 'squad',
-    stage: 'live-core',
-    stageDetail: 'Live',
+    // Stage corrected 30 Jul 2026 (operator call). It carried "Live core / Live"
+    // against no evidenced implementation and a frozen build — the framework's
+    // own repo review names "Community Engine operating actuals" as a standing
+    // evidence gap. Early access is the honest label while the offer is a
+    // pilot-first, done-with-you engagement.
+    stage: 'early-access',
+    stageDetail: 'Early access — pilot cohort forming',
     flagship: false,
     audience: 'Communities · institutions · fan bases · cultural & consumer brands',
     // Comeownity sub-brand retired (decision 13 Jul); the "Built on Comeownity"
-    // band is hidden pending the Community Engine repositioning to the owned-
-    // community layer (copy tickets C2/C3). builtOn kept Chainfren-native.
-    builtOn: { name: 'Chainfren community infrastructure', line: 'Loyalty, membership, and fan economics — your owned community layer.', href: '/products/community-engine' },
+    // band stays hidden — the page now answers "what does it run on?" with the
+    // delivery menu (content.where) instead of a borrowed dependency.
+    builtOn: { name: 'Chainfren community infrastructure', line: 'Membership, loyalty, and fan economics — your owned community layer.', href: '/products/community-engine' },
     hideBuiltOn: true,
     primaryCta: 'sales',
   },
@@ -136,7 +141,7 @@ export const PRODUCTS = [
 export const SOLUTIONS = PRODUCTS
 
 export const productByKey = (key) => PRODUCTS.find((p) => p.key === key)
-// Backwards-compatible name kept for SolutionPage.jsx and friends.
+// Backwards-compatible name kept for the Product page components and friends.
 export const solutionByKey = productByKey
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -229,6 +234,10 @@ export const FOOTER_COLUMNS = [
   {
     heading: 'Company',
     links: [
+      // About first: it is the canonical company page and always live. The
+      // thesis link stays behind its flag and sits under About once shipped,
+      // since /about is the compressed edition of that same argument.
+      ['About', '/about'],
       ...(THESIS_IN_PUBLIC_NAV ? [THESIS_FOOTER_LINK] : []),
       ['Contact', '/contact'],
       ['Join Chainfren', '/contact'],

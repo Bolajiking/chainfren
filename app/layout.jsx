@@ -2,26 +2,54 @@ import './globals.css'
 import ContextProvider from './components/utils/Provider'
 import StyledJsxRegistry from './components/utils/StyledJsxRegistry'
 import { THESIS_CONTENT_HASH } from '@/content/chainfren-thesis/generated-content-hash.mjs'
+import { SITE, siteGraph, SchemaScript } from './config/siteSchema'
+
+const TITLE = 'Chainfren — Ownership Infrastructure for the African Creator Economy'
+const DESC =
+  'Chainfren builds ownership infrastructure for the African creator economy: own your audience, your community, and your revenue instead of renting them from platforms. Four products — Media Launchpad, Creator Growth OS, Community Engine, AI Agent Studio — from Lagos.'
 
 export const metadata = {
-  metadataBase: new URL('https://www.chainfren.com'),
+  metadataBase: new URL(SITE.url),
   title: {
-    default: 'Chainfren — Ownership Infrastructure for the African Creator Economy',
+    default: TITLE,
     template: '%s | Chainfren',
   },
-  description: 'Owned audiences. Direct payments. Real ownership. Chainfren is the ownership infrastructure for Africa\'s creator economy — agency, products, and the Sabi broadcasting network, from Lagos.',
-  keywords: ['African creators', 'creator economy Africa', 'Web3 Africa', 'onchain creator economy', 'Chainfren', 'Sabi', 'TiVi streaming', 'Lagos Nigeria', 'creator tools'],
+  description: DESC,
+  applicationName: 'Chainfren',
+  // Canonical fallback. Every route that can be reached by more than one URL
+  // overrides this with its own; without a default, a stray query string or a
+  // duplicate path splits ranking signal across two addresses.
+  alternates: { canonical: '/' },
+  authors: [{ name: 'Chainfren', url: SITE.url }],
+  creator: 'Chainfren',
+  publisher: 'Chainfren',
+  category: 'technology',
+  // Explicitly invite full snippets and large image previews. Without this,
+  // Google caps text snippets conservatively — and the snippet IS the answer
+  // in an AI Overview, so a truncated one costs the citation.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
+  },
   openGraph: {
-    title: 'Chainfren — Ownership Infrastructure for the African Creator Economy',
-    description: 'Owned audiences. Direct payments. Real ownership. Chainfren is the ownership infrastructure for Africa\'s creator economy — agency, products, and the Sabi broadcasting network, from Lagos.',
+    title: TITLE,
+    description: DESC,
     siteName: 'Chainfren',
     locale: 'en_US',
     type: 'website',
+    url: SITE.url,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Chainfren — Ownership Infrastructure for the African Creator Economy',
-    description: 'Owned audiences. Direct payments. Real ownership. Chainfren is the ownership infrastructure for Africa\'s creator economy — agency, products, and the Sabi broadcasting network, from Lagos.',
+    title: TITLE,
+    description: DESC,
   },
   other: { 'thesis-content-sha256': THESIS_CONTENT_HASH },
 }
@@ -51,6 +79,11 @@ export default function RootLayout({ children }) {
           type="font/woff2"
           crossOrigin="anonymous"
         />
+        {/* The sitewide entity graph — Organization + WebSite, emitted on every
+            route so any page an engine lands on can resolve the brand. Every
+            other schema on the site references these by @id rather than
+            redeclaring the company. */}
+        <SchemaScript schema={siteGraph} />
       </head>
       <body className="antialiased" style={{ fontFamily: '"Inter Display", "Inter", sans-serif' }}>
         <StyledJsxRegistry>
