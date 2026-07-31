@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import SiteHeader, { DEFAULT_CTA } from '../../components/SiteHeader'
 import { client } from '@/app/contentful/contentful'
+import { SITE, ID, SchemaScript, breadcrumbSchema } from '@/app/config/siteSchema'
 
 const MINT = '#CBF0B8'
 
@@ -25,6 +26,43 @@ function countWords(node) {
   return 0
 }
 
+// The archive had no metadata, so every article listing inherited the homepage
+// title and description. A Blog + ItemList schema makes the archive itself an
+// entity an engine can enumerate rather than a page of unexplained links.
+export const metadata = {
+  title: { absolute: 'The Playbook — Writing on Ownership & the Creator Economy | Chainfren' },
+  description:
+    'Chainfren’s writing on audience ownership, creator economics, and how African creators and brands build businesses they keep. Published by Sabi, Chainfren’s media arm.',
+  alternates: { canonical: `${SITE.url}/blog` },
+  openGraph: {
+    title: 'The Playbook — Writing on Ownership & the Creator Economy',
+    description:
+      'Chainfren’s writing on audience ownership, creator economics, and how African creators and brands build businesses they keep.',
+    url: `${SITE.url}/blog`,
+    type: 'website',
+    siteName: 'Chainfren',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Playbook — Chainfren',
+    description: 'Writing on audience ownership, creator economics, and the African creator economy.',
+  },
+}
+
+// Render as a link only when the target exists. Same classes either way, so
+// the placeholder state is visually identical and simply inert.
+function FeaturedWrap({ isReal, slug, children }) {
+  return isReal
+    ? <Link href={`/blog/${slug}`} className="cf-blog__featured">{children}</Link>
+    : <div className="cf-blog__featured" aria-hidden="true">{children}</div>
+}
+
+function ItemWrap({ isReal, slug, children }) {
+  return isReal
+    ? <Link href={`/blog/${slug}`} className="cf-blog__item-link">{children}</Link>
+    : <div className="cf-blog__item-link" aria-hidden="true">{children}</div>
+}
+
 const Page = async () => {
   const blogEntries = await client.getEntries({ content_type: 'blog' }).catch(() => ({ items: [] }))
 
@@ -36,7 +74,13 @@ const Page = async () => {
     readMin: 6,
   }))
 
-  const articles = blogEntries.items.length
+  // `isReal` gates two things: the structured data below, and whether the cards
+  // render as links at all. The placeholder slugs (/blog/article-1…6) resolve to
+  // nothing — shipping them as crawlable <a> tags publishes six dead links and,
+  // because Contentful is behind a try/catch, it does so silently the moment the
+  // CMS has an outage. Links only when the posts are real.
+  const isReal = blogEntries.items.length > 0
+  const articles = isReal
     ? blogEntries.items.map((item) => ({
         title: item.fields.title || 'Untitled',
         slug: item.fields.slug,
@@ -48,8 +92,39 @@ const Page = async () => {
 
   const [featured, ...rest] = articles
 
+  // Structured data only for real posts, same reason.
+  const blogSchema = isReal
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Blog',
+        '@id': `${SITE.url}/blog#blog`,
+        name: 'The Playbook',
+        description:
+          'Chainfren’s writing on audience ownership, creator economics, and how African creators and brands build businesses they keep.',
+        url: `${SITE.url}/blog`,
+        publisher: { '@id': ID.org },
+        isPartOf: { '@id': ID.website },
+        inLanguage: 'en',
+        blogPost: articles.map((a) => ({
+          '@type': 'BlogPosting',
+          '@id': `${SITE.url}/blog/${a.slug}#article`,
+          headline: a.title,
+          url: `${SITE.url}/blog/${a.slug}`,
+          ...(a.excerpt ? { description: a.excerpt } : {}),
+          author: { '@id': ID.org },
+          publisher: { '@id': ID.org },
+        })),
+      }
+    : null
+
   return (
     <div className="cf-blog-root min-h-screen bg-white">
+      {blogSchema && (
+        <SchemaScript schema={[blogSchema, breadcrumbSchema([
+          { name: 'Home', path: '/' },
+          { name: 'The Playbook', path: '/blog' },
+        ])]} />
+      )}
       <SiteHeader badgeLabel="Sabi" accent={MINT} cta={DEFAULT_CTA} />
 
       <div className="cf-blog">
@@ -72,7 +147,7 @@ const Page = async () => {
 
         {/* Featured */}
         {featured && (
-          <Link href={`/blog/${featured.slug}`} className="cf-blog__featured">
+          <FeaturedWrap isReal={isReal} slug={featured.slug}>
             <div className="cf-blog__featured-meta">
               <span className="cf-blog__index">01</span>
               <span className="cf-blog__featured-label">Featured</span>
@@ -93,7 +168,7 @@ const Page = async () => {
                 </svg>
               </span>
             </div>
-          </Link>
+          </FeaturedWrap>
         )}
 
         {/* Rest of the list */}
@@ -106,7 +181,7 @@ const Page = async () => {
             <ul>
               {rest.map((article, i) => (
                 <li key={article.slug} className="cf-blog__item">
-                  <Link href={`/blog/${article.slug}`} className="cf-blog__item-link">
+                  <ItemWrap isReal={isReal} slug={article.slug}>
                     <span className="cf-blog__index">{String(i + 2).padStart(2, '0')}</span>
                     <div className="cf-blog__item-body">
                       <h4 className="cf-blog__item-title">{article.title}</h4>
@@ -125,7 +200,7 @@ const Page = async () => {
                         <polyline points="12 5 19 12 12 19" />
                       </svg>
                     </span>
-                  </Link>
+                  </ItemWrap>
                 </li>
               ))}
             </ul>

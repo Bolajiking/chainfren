@@ -43,3 +43,7 @@ next-env.d.ts
 .gstack/
 .superpowers/
 .worktrees/
+
+# Contact form submissions — contains names, emails and phone numbers.
+# The API recreates this file on first write, so it never needs to be in git.
+data/contact-submissions.json

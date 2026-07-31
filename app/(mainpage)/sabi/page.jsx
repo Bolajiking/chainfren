@@ -1,11 +1,49 @@
 import Link from 'next/link'
 import SiteHeader, { DEFAULT_CTA } from '../../components/SiteHeader'
+import { SITE, ID, SchemaScript, breadcrumbSchema } from '../../config/siteSchema'
 
+// `absolute` because the string already ends in "| Chainfren" — the root
+// layout's "%s | Chainfren" template was appending a second one, shipping
+// "Sabi — … | Chainfren | Chainfren" as the live title.
 export const metadata = {
-  title: 'Sabi — Africa’s Onchain Broadcasting Network | Chainfren',
+  title: { absolute: 'Sabi — Africa’s Onchain Broadcasting Network | Chainfren' },
   description:
-    'Sabi is Chainfren’s media network — live broadcasts, videos, and writing on African creators, ownership, and onchain culture. Reachable at /sabi (and /media).',
+    'Sabi is Chainfren’s media and broadcasting arm — live broadcasts, video, and writing on African creators, audience ownership, and onchain culture.',
+  alternates: { canonical: `${SITE.url}/sabi` },
+  openGraph: {
+    title: 'Sabi — Africa’s Onchain Broadcasting Network',
+    description:
+      'Chainfren’s media and broadcasting arm — live broadcasts, video, and writing on African creators, audience ownership, and onchain culture.',
+    url: `${SITE.url}/sabi`,
+    type: 'website',
+    siteName: 'Chainfren',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sabi — Africa’s Onchain Broadcasting Network',
+    description: 'Chainfren’s media arm: broadcasts, video, and writing on the African creator economy.',
+  },
 }
+
+const sabiSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${SITE.url}/sabi#webpage`,
+    url: `${SITE.url}/sabi`,
+    name: 'Sabi — Africa’s Onchain Broadcasting Network',
+    description:
+      'Chainfren’s media and broadcasting arm — live broadcasts, video, and writing on African creators, audience ownership, and onchain culture.',
+    isPartOf: { '@id': ID.website },
+    about: { '@id': ID.org },
+    publisher: { '@id': ID.org },
+    inLanguage: 'en',
+  },
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Sabi', path: '/sabi' },
+  ]),
+]
 
 const CF = {
   dark: '#08153C',
@@ -731,6 +769,7 @@ async function ReadSection() {
 export default function Media() {
   return (
     <div className="font-fontspring" style={{ background: CF.white, minHeight: '100vh' }}>
+      <SchemaScript schema={sabiSchema} />
       <SiteHeader badgeLabel="Media" accent={CF.mint} cta={DEFAULT_CTA} />
       <div style={{ maxWidth: 1480, margin: '0 auto' }}>
         <WatchSection />
