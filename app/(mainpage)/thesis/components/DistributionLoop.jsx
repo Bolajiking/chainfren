@@ -11,7 +11,7 @@ export default function DistributionLoop() {
         {DISTRIBUTION_LOOP.map((item) => (
           <li key={item.id}>
             <Link href={item.href}>{item.title}</Link>
-            {item.maturity ? <MaturityBadge stage={item.id} /> : null}
+            {item.maturity ? <MaturityBadge stage={item.maturityId || item.id} /> : null}
             <p>{item.summary}</p>
           </li>
         ))}

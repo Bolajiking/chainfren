@@ -1,16 +1,16 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 
-import { THESIS_CONTENT_VERSION, PUBLIC_CTAS } from '../content/chainfren-thesis/public-config.mjs'
+import { THESIS_CONTENT_VERSION, PUBLIC_CTAS, PUBLIC_PRODUCT_GROUPS } from '../content/chainfren-thesis/public-config.mjs'
 import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
 import { PUBLIC_CITATIONS } from '../content/chainfren-thesis/citations.mjs'
 import { THESIS_CLAIMS, THESIS_EDGES } from '../content/chainfren-thesis/claims.mjs'
 import { DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS } from '../content/chainfren-thesis/public-system.mjs'
 import { PUBLIC_PRODUCT_MATURITY, PUBLIC_INITIATIVE_MATURITY } from '../content/chainfren-thesis/public-config.mjs'
-import { validateCitations, validateManifest, validatePublicSystem, validateStages } from '../lib/thesis/schema.mjs'
+import { validateCitations, validateManifest, validateProductGroups, validatePublicSystem, validateStages } from '../lib/thesis/schema.mjs'
 
 test('defines the public thesis version and nine unique ordered chapters', () => {
-  assert.equal(THESIS_CONTENT_VERSION, '2026.1')
+  assert.equal(THESIS_CONTENT_VERSION, '2026.2')
   assert.deepEqual(THESIS_MANIFEST.map(({ id, slug }) => [id, slug]), [
     ['01', 'the-gap'], ['02', 'the-trap'], ['03', 'the-unlock'],
     ['04', 'the-thesis'], ['05', 'the-company'], ['06', 'what-we-build'],
@@ -38,7 +38,10 @@ test('supports well-shaped uniquely identified public citations', () => {
 })
 
 test('defines the exact public distribution and value sequences', () => {
-  assert.deepEqual(DISTRIBUTION_LOOP.map((item) => item.id), ['sabi', 'creator-network', 'star-factor', 'products-and-solutions'])
+  assert.deepEqual(DISTRIBUTION_LOOP.map((item) => item.id), ['sabi', 'creator-network', 'tivi', 'additional-capabilities', 'star-factor'])
+  assert.deepEqual(DISTRIBUTION_LOOP.find((item) => item.id === 'tivi'), {
+    id: 'tivi', title: 'TiVi / Media Launchpad', summary: 'A launchpad for media experiences and owned audience relationships.', maturity: 'early-access', maturityId: 'media-launchpad', href: '/products/media-launchpad',
+  })
   assert.deepEqual(VALUE_PATH.map((item) => item.id), ['attention', 'participation', 'ownership', 'value'])
   assert.equal(ROADMAP_HORIZONS.length, 4)
   assert(DISTRIBUTION_LOOP.every((item) => item.href))
@@ -80,6 +83,51 @@ test('requires the frozen public maturity mapping', () => {
   const altered = [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY].map((item) => ({ ...item }))
   altered[0].maturity = 'live'
   assert.throws(() => validateStages(altered), /required mapping/)
+})
+
+test('defines the exact public product hierarchy', () => {
+  assert.deepEqual(PUBLIC_PRODUCT_GROUPS, [
+    { id: 'flagship', label: 'Flagship product', itemIds: ['media-launchpad'] },
+    { id: 'in-development', label: 'In development', itemIds: ['star-factor'] },
+    { id: 'distribution', label: 'Supporting distribution products', itemIds: ['sabi', 'creator-network'] },
+    { id: 'capabilities', label: 'Additional capabilities', itemIds: ['creator-growth-os', 'community-engine', 'ai-agent-studio'] },
+    { id: 'roadmap', label: 'Roadmap', itemIds: ['indy'] },
+  ])
+  assert.doesNotThrow(() => validateProductGroups(PUBLIC_PRODUCT_GROUPS, [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY]))
+})
+
+test('rejects invalid public product group membership and ordering', () => {
+  const records = [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY]
+  const clone = () => PUBLIC_PRODUCT_GROUPS.map((group) => ({ ...group, itemIds: [...group.itemIds] }))
+
+  const duplicate = clone()
+  duplicate[1].itemIds[0] = 'media-launchpad'
+  assert.throws(() => validateProductGroups(duplicate, records), /unique membership/)
+
+  const missing = clone()
+  missing[4].itemIds = []
+  assert.throws(() => validateProductGroups(missing, records), /complete coverage/)
+
+  const changedGroupOrder = clone()
+  ;[changedGroupOrder[0], changedGroupOrder[1]] = [changedGroupOrder[1], changedGroupOrder[0]]
+  assert.throws(() => validateProductGroups(changedGroupOrder, records), /group order/)
+
+  const changedItemOrder = clone()
+  changedItemOrder[2].itemIds.reverse()
+  assert.throws(() => validateProductGroups(changedItemOrder, records), /item order/)
+
+  const unknown = clone()
+  unknown[4].itemIds[0] = 'unknown-product'
+  assert.throws(() => validateProductGroups(unknown, records), /unknown item/)
+})
+
+test('requires the TiVi distribution loop maturity alias', () => {
+  const altered = DISTRIBUTION_LOOP.map((item) => ({ ...item }))
+  delete altered.find((item) => item.id === 'tivi').maturityId
+  assert.throws(
+    () => validatePublicSystem({ DISTRIBUTION_LOOP: altered, VALUE_PATH, ROADMAP_HORIZONS }, new Set(THESIS_MANIFEST.map((chapter) => chapter.slug))),
+    /maturityId/,
+  )
 })
 
 test('requires canonical destinations for every public system and maturity record', () => {

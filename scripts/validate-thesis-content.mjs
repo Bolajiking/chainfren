@@ -2,14 +2,14 @@ import { existsSync, lstatSync, readdirSync, readFileSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import { join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { THESIS_CONTENT_VERSION, PUBLIC_CTAS, PUBLIC_PRODUCT_MATURITY, PUBLIC_INITIATIVE_MATURITY } from '../content/chainfren-thesis/public-config.mjs'
+import { THESIS_CONTENT_VERSION, PUBLIC_CTAS, PUBLIC_PRODUCT_GROUPS, PUBLIC_PRODUCT_MATURITY, PUBLIC_INITIATIVE_MATURITY } from '../content/chainfren-thesis/public-config.mjs'
 import { THESIS_CONTENT_HASH } from '../content/chainfren-thesis/generated-content-hash.mjs'
 import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
 import { PUBLIC_CITATIONS } from '../content/chainfren-thesis/citations.mjs'
 import { THESIS_CLAIMS, THESIS_EDGES } from '../content/chainfren-thesis/claims.mjs'
 import { THESIS_MAP_LAYOUT } from '../content/chainfren-thesis/map-layout.mjs'
 import { DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS } from '../content/chainfren-thesis/public-system.mjs'
-import { validateManifest, validateCitations, validateClaims, validateEdges, validateLayout, validateCtas, validatePublicSystem, validateStages, validateReferences } from '../lib/thesis/schema.mjs'
+import { validateManifest, validateCitations, validateClaims, validateEdges, validateLayout, validateCtas, validateProductGroups, validatePublicSystem, validateStages, validateReferences } from '../lib/thesis/schema.mjs'
 
 const blockedPatterns = [
   [/\/Users\//, 'local user path'], [/second-brain/i, 'private knowledge store'], [/CF-C-\d+/i, 'internal identifier'],
@@ -103,6 +103,7 @@ const publicRecords = () => ({
   ctas: PUBLIC_CTAS,
   productMaturity: PUBLIC_PRODUCT_MATURITY,
   initiativeMaturity: PUBLIC_INITIATIVE_MATURITY,
+  productGroups: PUBLIC_PRODUCT_GROUPS,
   distributionLoop: DISTRIBUTION_LOOP,
   valuePath: VALUE_PATH,
   roadmapHorizons: ROADMAP_HORIZONS,
@@ -111,7 +112,7 @@ const publicRecords = () => ({
 export function validateThesisContent({ allowMissingContent = false, contentDirectory = new URL('../content/chainfren-thesis/', import.meta.url), generatedDirectory, generatedDirectoryRequested = generatedDirectory !== undefined } = {}) {
   const errors = []
   try {
-    if (THESIS_CONTENT_VERSION !== '2026.1') throw new Error('Content version must be 2026.1')
+    if (THESIS_CONTENT_VERSION !== '2026.2') throw new Error('Content version must be 2026.2')
     validateManifest(THESIS_MANIFEST)
     const claimIds = new Set(THESIS_CLAIMS.map((claim) => claim.id))
     validateCitations(PUBLIC_CITATIONS, claimIds)
@@ -121,6 +122,7 @@ export function validateThesisContent({ allowMissingContent = false, contentDire
     validateCtas(PUBLIC_CTAS)
     validatePublicSystem({ DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS }, new Set(THESIS_MANIFEST.map((chapter) => chapter.slug)))
     validateStages([...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY])
+    validateProductGroups(PUBLIC_PRODUCT_GROUPS, [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY])
     validateReferences(THESIS_MANIFEST, THESIS_CLAIMS, PUBLIC_CITATIONS)
     errors.push(...validatePublicDestinations(publicDestinations()))
   } catch (error) { errors.push(error.message) }
@@ -150,7 +152,7 @@ const defaultReleaseSourcePaths = (projectRoot) => [
   join(projectRoot, 'lib/thesis/public-content.js'),
   join(projectRoot, 'lib/thesis/public-presentation.mjs'),
   join(projectRoot, 'lib/thesis/json-ld.js'),
-  join(projectRoot, 'public/downloads/chainfren-thesis-2026.1.sha256'),
+  join(projectRoot, `public/downloads/chainfren-thesis-${THESIS_CONTENT_VERSION}.sha256`),
 ]
 
 const scanReleasePath = (path, errors, scannedPaths, label) => {
@@ -205,7 +207,7 @@ const releaseTreeContains = (directory, value) => {
 export function validateReleaseOutputs({
   projectRoot = PROJECT_ROOT,
   sourcePaths = defaultReleaseSourcePaths(projectRoot),
-  pdfPath = join(projectRoot, 'public/downloads/chainfren-thesis-2026.1.pdf'),
+  pdfPath = join(projectRoot, `public/downloads/chainfren-thesis-${THESIS_CONTENT_VERSION}.pdf`),
   buildDirectory = join(projectRoot, '.next/server/app/thesis'),
   extractPdfText = defaultPdfTextExtractor,
 } = {}) {

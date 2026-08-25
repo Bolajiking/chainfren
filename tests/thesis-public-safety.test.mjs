@@ -10,7 +10,7 @@ import { DISTRIBUTION_LOOP, ROADMAP_HORIZONS, VALUE_PATH } from '../content/chai
 import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
 import { THESIS_CLAIMS } from '../content/chainfren-thesis/claims.mjs'
 import { PUBLIC_CITATIONS } from '../content/chainfren-thesis/citations.mjs'
-import { PUBLIC_CTAS, PUBLIC_INITIATIVE_MATURITY, PUBLIC_PRODUCT_MATURITY, THESIS_CONTENT_VERSION } from '../content/chainfren-thesis/public-config.mjs'
+import { PUBLIC_CTAS, PUBLIC_INITIATIVE_MATURITY, PUBLIC_PRODUCT_GROUPS, PUBLIC_PRODUCT_MATURITY, THESIS_CONTENT_VERSION } from '../content/chainfren-thesis/public-config.mjs'
 import { THESIS_CONTENT_HASH } from '../content/chainfren-thesis/generated-content-hash.mjs'
 import { CHAPTER_REGISTRY_SLUGS, createChapterRegistry } from '../lib/thesis/chapter-registry.mjs'
 
@@ -27,7 +27,7 @@ test('strict validation passes with all nine published chapter MDX files', () =>
 
 test('release source has every manifest chapter, registry entry, short read, and valid claim chapter', () => {
   const thesisRoot = new URL('../content/chainfren-thesis/', import.meta.url)
-  assert.equal(THESIS_CONTENT_VERSION, '2026.1')
+  assert.equal(THESIS_CONTENT_VERSION, '2026.2')
   assert.equal(THESIS_MANIFEST.length, 9)
   for (const chapter of THESIS_MANIFEST) {
     assert(existsSync(new URL(`chapters/${chapter.id}-${chapter.slug}.mdx`, thesisRoot)))
@@ -75,7 +75,7 @@ test('destination validation rejects a public CTA that lacks a matching route fi
 })
 
 test('company chapter systems keep the approved public sequences and component data boundary', () => {
-  assert.deepEqual(DISTRIBUTION_LOOP.map(({ id }) => id), ['sabi', 'creator-network', 'star-factor', 'products-and-solutions'])
+  assert.deepEqual(DISTRIBUTION_LOOP.map(({ id }) => id), ['sabi', 'creator-network', 'tivi', 'additional-capabilities', 'star-factor'])
   assert.deepEqual(VALUE_PATH.map(({ id }) => id), ['attention', 'participation', 'ownership', 'value'])
   assert.equal(ROADMAP_HORIZONS.length, 4)
   assert(ROADMAP_HORIZONS.every(({ title, summary }) => !/\b(?:\d{4}|Q[1-4]|quarter|budget|targets?|metrics?|runway|signed\s+revenue|decision-rights|control\s+matrix|risk\s+register)\b/i.test(`${title} ${summary}`)))
@@ -86,6 +86,17 @@ test('company chapter systems keep the approved public sequences and component d
     assert.match(source, new RegExp(`${data}\\.map`))
     assert.match(source, /<ol/)
     assert.doesNotMatch(source, /['\"]use client['\"]/)
+  }
+})
+
+test('public product groups are recursively safety scanned', () => {
+  const originalLabel = PUBLIC_PRODUCT_GROUPS[0].label
+  try {
+    PUBLIC_PRODUCT_GROUPS[0].label = ['come', 'ownity'].join('')
+    const errors = validateThesisContent({ allowMissingContent: true, contentDirectory: new URL('../content/chainfren-thesis/', import.meta.url) })
+    assert(errors.some((error) => error.includes('Public thesis records') && error.includes('excluded venture')))
+  } finally {
+    PUBLIC_PRODUCT_GROUPS[0].label = originalLabel
   }
 })
 
@@ -183,7 +194,7 @@ test('release verification scans checksum text artifacts from custom and default
     })
     assert(customErrors.some((error) => error.includes('custom.sha256') && error.includes('excluded venture')))
 
-    const defaultChecksum = join(root, 'public/downloads/chainfren-thesis-2026.1.sha256')
+    const defaultChecksum = join(root, 'public/downloads/chainfren-thesis-2026.2.sha256')
     mkdirSync(join(root, 'public/downloads'), { recursive: true })
     writeFileSync(defaultChecksum, `PDF SHA-256: ${blocked}`)
     const defaultErrors = validateReleaseOutputs({
@@ -192,7 +203,7 @@ test('release verification scans checksum text artifacts from custom and default
       buildDirectory,
       extractPdfText: () => 'clean PDF text',
     })
-    assert(defaultErrors.some((error) => error.includes('chainfren-thesis-2026.1.sha256') && error.includes('excluded venture')))
+    assert(defaultErrors.some((error) => error.includes('chainfren-thesis-2026.2.sha256') && error.includes('excluded venture')))
   } finally { rmSync(root, { recursive: true, force: true }) }
 })
 

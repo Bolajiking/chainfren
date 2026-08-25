@@ -14,6 +14,10 @@ test('maturity normalization accepts approved public records and keys only', () 
   assert.equal(normalizeMaturityStage('anything'), null)
 })
 
+test('media launchpad maturity normalizes to the public TiVi label', () => {
+  assert.deepEqual(normalizeMaturityStage('media-launchpad'), { label: 'TiVi / Media Launchpad', maturity: 'early-access' })
+})
+
 test('citation normalization returns rendering-ready public records and rejects forged data', () => {
   const registered = {
     id: 'public-example', title: 'Public example', publisher: 'Chainfren', url: 'https://example.com/source',
