@@ -16,6 +16,11 @@ const chapters = {
   trap: chapter('02-the-trap.mdx'),
   unlock: chapter('03-the-unlock.mdx'),
   thesis: chapter('04-the-thesis.mdx'),
+  company: chapter('05-the-company.mdx'),
+  products: chapter('06-what-we-build.mdx'),
+  ownership: chapter('07-how-we-work.mdx'),
+  horizon: chapter('08-the-road-ahead.mdx'),
+  invitation: chapter('09-build-with-us.mdx'),
 }
 
 const assertNames = (source, terms) => {
@@ -154,4 +159,54 @@ test('an exact cited numeral claim is allowed when no uncited numeral remains', 
 
 test('the public manuscript contains no uncited numeral claims', () => {
   assert.deepEqual(scanManuscriptNumerals(), [])
+})
+
+test('the company thesis explains its distribution-first public loop in order', () => {
+  assert.match(chapters.company, /distribution-first/i)
+  const sabi = chapters.company.indexOf('Sabi')
+  const creatorNetwork = chapters.company.indexOf('Creator Network')
+  const tivi = chapters.company.indexOf('TiVi')
+  assert.ok(sabi >= 0 && sabi < creatorNetwork && creatorNetwork < tivi)
+})
+
+test('the product thesis renders the public product groups instead of one flat maturity list', () => {
+  assert.match(chapters.products, /import\s*{[^}]*PUBLIC_PRODUCT_GROUPS[^}]*PUBLIC_PRODUCT_MATURITY[^}]*PUBLIC_INITIATIVE_MATURITY[^}]*}/s)
+  assert.match(chapters.products, /PUBLIC_PRODUCT_GROUPS\.map/)
+  assert.doesNotMatch(chapters.products, /PUBLIC_PRODUCT_MATURITY\.map/)
+})
+
+test('the visible product thesis follows the public product group order', () => {
+  const visibleProducts = chapters.products.replace(/^import .*$/gm, '')
+  const labels = ['TiVi', 'Star Factor', 'Sabi', 'Creator Network', 'Creator Growth OS', 'Community Engine', 'AI Agent Studio', 'Indy']
+  const positions = labels.map((label) => visibleProducts.indexOf(label))
+  assert.ok(positions.every((position) => position >= 0))
+  assert.deepEqual([...positions].sort((a, b) => a - b), positions)
+})
+
+test('the product thesis states each product role and maturity without overstating availability', () => {
+  assert.match(chapters.products, /TiVi[^.]*flagship|flagship[^.]*TiVi/i)
+  assert.match(chapters.products, /Media Launchpad[^.]*TiVi|TiVi[^.]*Media Launchpad/i)
+  assert.match(chapters.products, /Star Factor[^.]*currently being built|currently being built[^.]*Star Factor/i)
+  assert.doesNotMatch(chapters.products, /Star Factor[^.]*\b(?:launched|live|available|later)\b/i)
+  assert.match(chapters.products, /Sabi[^.]*Creator Network[^.]*supporting distribution products/i)
+  assert.match(chapters.products, /Creator Growth OS[^.]*Community Engine[^.]*AI Agent Studio[^.]*additional capabilities/i)
+  assert.match(chapters.products, /Indy[^.]*roadmap product[^.]*not currently available/i)
+})
+
+test('the ownership test includes portability and the right to leave', () => {
+  assert.match(chapters.ownership, /portability/i)
+  assert.match(chapters.ownership, /right to leave/i)
+  assert.match(chapters.ownership, /Chainfren[^.]*same ownership test/i)
+})
+
+test('the public horizon separates present building, roadmap direction, and company ambition', () => {
+  assert.match(chapters.horizon, /## Present building[\s\S]*## Roadmap direction[\s\S]*## Company ambition/i)
+  assert.match(chapters.horizon, /Star Factor[^.]*being built/i)
+  assert.match(chapters.horizon, /Indy[^.]*roadmap/i)
+})
+
+test('the closing chapter gives all participants one shared invitation', () => {
+  assertNames(chapters.invitation, ['creators', 'brands', 'audiences', 'builders', 'partners', 'investors', 'potential hires'])
+  assert.match(chapters.invitation, /shared invitation/i)
+  assert.doesNotMatch(chapters.invitation, /PUBLIC_CTAS|\.map\(/)
 })
