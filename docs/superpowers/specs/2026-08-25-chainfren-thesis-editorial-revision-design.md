@@ -101,11 +101,44 @@ The public logic is:
 5. Star Factor applies the model to participatory entertainment.
 6. Indy points toward the future operating layer for creator-owned businesses.
 
+This sequence replaces the current rendered distribution loop while preserving its existing component and routes. The revised `DISTRIBUTION_LOOP` contract is:
+
+1. `sabi`
+2. `creator-network`
+3. `tivi`
+4. `additional-capabilities`
+5. `star-factor`
+
+Indy remains outside the operating loop and appears in the roadmap horizon. Update the public-system data, schema sequence, and regression tests to enforce this order.
+
 Internal operating mechanics, financial sequencing, private gates, pipelines, targets, and decision systems remain outside the publication.
 
 ## 8. Public product hierarchy
 
 Products must be named consistently and described according to their public role.
+
+The following maturity mapping is authoritative for this revision. Update public config, schema enforcement, badges, prose, and tests together:
+
+| Public item | Role | Maturity |
+| --- | --- | --- |
+| TiVi / Media Launchpad | Flagship product | Early access |
+| Star Factor | Product currently being built | Building |
+| Sabi | Supporting distribution product | Building |
+| Creator Network | Supporting distribution product | Live |
+| Creator Growth OS | Additional capability | Live core |
+| Community Engine | Additional capability | Early access |
+| AI Agent Studio | Additional capability | Early access |
+| Indy | Roadmap product | Directional |
+
+Chapter 06 must render these as groups, not as one flat peer list. The exact display contract is:
+
+1. **Flagship:** TiVi / Media Launchpad.
+2. **In development:** Star Factor.
+3. **Supporting distribution products:** Sabi, then Creator Network.
+4. **Additional capabilities:** Creator Growth OS, Community Engine, then AI Agent Studio.
+5. **Roadmap:** Indy.
+
+The content registry may use `media-launchpad` as TiVi's stable internal ID and route, but the visible name and prose must lead with TiVi and explain that Media Launchpad is TiVi.
 
 ### TiVi
 
@@ -204,6 +237,20 @@ Update the map so its claims follow the revised argument. At minimum, it must re
 
 Claim titles, summaries, edges, and chapter links must agree with the manuscript. The map must not expose confidential company information.
 
+The revision covers every public content registry that carries the argument, not only the MDX chapters. Required files include:
+
+- `short-read.mdx`;
+- all nine files under `chapters/`;
+- `manifest.mjs` chapter titles, lenses, and summaries;
+- `claims.mjs` claim titles, summaries, chapter ownership, order, and edges;
+- `public-config.mjs` maturity and public initiative records;
+- `public-system.mjs` distribution loop, value path, and roadmap horizons;
+- `map-layout.mjs` if any claim ID or grouping changes;
+- `lib/thesis/schema.mjs` authoritative mappings and sequences;
+- focused tests that import or assert any of these records.
+
+Stable claim IDs should remain when their meaning can be updated without becoming misleading. If an ID changes, update every link, layout record, test, generated artifact, and deep-link expectation in the same revision.
+
 ## 11. Voice and editorial standard
 
 The voice is an intentional blend:
@@ -265,6 +312,8 @@ The thesis may describe public products and public direction. It must not disclo
 - speculative token plans;
 - local vault paths or raw source filenames.
 
+Preserve the existing release denylist and recursive public-safety scans. They must continue to cover the excluded founder venture, local paths, internal identifiers, private operating and financial terms, source content, deterministic route files, generated files, built output, checksum records, and text extracted from the PDF. Add denylist fixtures for any new sensitive term introduced by this revision. Do not weaken or bypass an existing scan to make revised copy pass.
+
 No number appears without a dated, public source. A claim that cannot be proved should become a clearly labelled belief or ambition, or it should be removed.
 
 ## 13. Acceptance criteria
@@ -287,5 +336,13 @@ The revision is complete when:
 - factual claims, beliefs, and ambitions are distinguishable;
 - the Humanizer draft, audit, and final loop is complete;
 - the final text contains no em dashes or en dashes;
-- thesis validation, focused tests, artifact generation, PDF checks, and the public-safety scan pass.
-
+- `manifest.mjs`, `claims.mjs`, `public-config.mjs`, `public-system.mjs`, schema rules, and map layout agree with the revised manuscript;
+- the nine existing chapter slugs remain unchanged;
+- the short read, full reader, ownership map, and PDF remain available through their existing routes;
+- automated tests assert the exact product grouping, display order, and maturity mapping defined in section 8;
+- automated tests assert the revised five-step distribution loop defined in section 7;
+- automated tests catch stale manifest summaries, missing claims, invalid claim links, forbidden dash characters, stale generated hashes, and stale PDF output;
+- `npm run validate:thesis` passes;
+- `npm run test:thesis` passes;
+- `npm run thesis:artifacts` regenerates the PDF and both hashes from the approved content;
+- `npm run thesis:verify-release` passes against source, generated output, built output, checksum records, and extracted PDF text.
