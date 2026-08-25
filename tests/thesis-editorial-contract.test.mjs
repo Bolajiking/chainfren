@@ -3,6 +3,9 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { PUBLIC_CITATIONS } from '../content/chainfren-thesis/citations.mjs'
+import { THESIS_CLAIMS } from '../content/chainfren-thesis/claims.mjs'
+
 const root = resolve(new URL('..', import.meta.url).pathname)
 const thesisRoot = resolve(root, 'content/chainfren-thesis')
 const chapter = (name) => readFileSync(resolve(thesisRoot, 'chapters', name), 'utf8')
@@ -32,6 +35,40 @@ const manuscriptPaths = [
     '09-build-with-us.mdx',
   ].map((name) => resolve(thesisRoot, 'chapters', name)),
 ]
+
+// Future entries must map an exact claim ID to its file and complete claim text.
+// The claim must also resolve to a dated record in PUBLIC_CITATIONS before a numeral is allowed.
+const NUMERAL_CLAIM_EXCEPTIONS = new Map()
+
+const hasDatedPublicCitation = (claimId, claims, citations) => {
+  const claim = claims.find(({ id }) => id === claimId)
+  if (!claim) return false
+  return claim.publicCitationIds.some((citationId) => citations.some((citation) => (
+    citation.id === citationId
+    && citation.claimIds.includes(claimId)
+    && /^\d{4}-\d{2}-\d{2}$/.test(citation.publishedAt)
+    && /^https:\/\//.test(citation.url)
+  )))
+}
+
+const scanManuscriptNumerals = ({
+  manuscriptRecords = manuscriptPaths.map((path) => ({ path, text: readFileSync(path, 'utf8') })),
+  claimCitationExceptions = NUMERAL_CLAIM_EXCEPTIONS,
+  claims = THESIS_CLAIMS,
+  citations = PUBLIC_CITATIONS,
+} = {}) => manuscriptRecords.flatMap(({ path, text }) => {
+  const hasUncitedNumeral = text.split('\n').some((line) => (
+    /\d/.test(line)
+    && ![...claimCitationExceptions].some(([claimId, exception]) => (
+      exception.path === path
+      && exception.exactClaimText === line.trim()
+      && hasDatedPublicCitation(claimId, claims, citations)
+    ))
+  ))
+  return hasUncitedNumeral
+    ? [`${path} contains a numeral without an exact claim-level dated public citation`]
+    : []
+})
 
 test('the gap names every contributor to African attention', () => {
   assertNames(chapters.gap, ['creators', 'brands', 'audiences'])
@@ -67,8 +104,20 @@ test('the mission is presented as work to do, not an achieved ownership outcome'
   assert.doesNotMatch(target, /ownership\s+(?:is|has been)\s+(?:achieved|complete|completed|secured)/i)
 })
 
+test('the numeral scanner rejects a synthetic numeral without a cited exception', () => {
+  assert.deepEqual(scanManuscriptNumerals({
+    manuscriptRecords: [{ path: 'synthetic.mdx', text: 'The claim reaches seven markets and grew by 2 percent.' }],
+  }), ['synthetic.mdx contains a numeral without an exact claim-level dated public citation'])
+})
+
+test('a numeral exception without a dated public citation still fails', () => {
+  const exactClaimText = 'The claim reaches seven markets and grew by 2 percent.'
+  assert.deepEqual(scanManuscriptNumerals({
+    manuscriptRecords: [{ path: 'synthetic.mdx', text: exactClaimText }],
+    claimCitationExceptions: new Map([['missing-claim', { path: 'synthetic.mdx', exactClaimText }]]),
+  }), ['synthetic.mdx contains a numeral without an exact claim-level dated public citation'])
+})
+
 test('the public manuscript contains no uncited numeral claims', () => {
-  for (const path of manuscriptPaths) {
-    assert.doesNotMatch(readFileSync(path, 'utf8'), /\d/, `${path} contains a numeral without an exact claim-level dated public citation`)
-  }
+  assert.deepEqual(scanManuscriptNumerals(), [])
 })
