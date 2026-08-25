@@ -90,13 +90,13 @@ test('company chapter systems keep the approved public sequences and component d
 })
 
 test('public product groups are recursively safety scanned', () => {
-  const originalLabel = PUBLIC_PRODUCT_GROUPS[0].label
+  const originalItemId = PUBLIC_PRODUCT_GROUPS[0].itemIds[0]
   try {
-    PUBLIC_PRODUCT_GROUPS[0].label = ['come', 'ownity'].join('')
+    PUBLIC_PRODUCT_GROUPS[0].itemIds[0] = ['come', 'ownity'].join('')
     const errors = validateThesisContent({ allowMissingContent: true, contentDirectory: new URL('../content/chainfren-thesis/', import.meta.url) })
     assert(errors.some((error) => error.includes('Public thesis records') && error.includes('excluded venture')))
   } finally {
-    PUBLIC_PRODUCT_GROUPS[0].label = originalLabel
+    PUBLIC_PRODUCT_GROUPS[0].itemIds[0] = originalItemId
   }
 })
 

@@ -121,6 +121,18 @@ test('rejects invalid public product group membership and ordering', () => {
   assert.throws(() => validateProductGroups(unknown, records), /unknown item/)
 })
 
+test('rejects malformed maturity records with an intentional validation error', () => {
+  const records = [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY]
+  for (const malformed of [null, {}, { id: '' }]) {
+    const altered = [...records]
+    altered[0] = malformed
+    assert.throws(
+      () => validateProductGroups(PUBLIC_PRODUCT_GROUPS, altered),
+      /Public maturity record at index 0 requires a non-empty string id/,
+    )
+  }
+})
+
 test('requires the TiVi distribution loop maturity alias', () => {
   const altered = DISTRIBUTION_LOOP.map((item) => ({ ...item }))
   delete altered.find((item) => item.id === 'tivi').maturityId
