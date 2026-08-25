@@ -2,11 +2,12 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 import { PUBLIC_CITATIONS } from '../content/chainfren-thesis/citations.mjs'
 import { THESIS_CLAIMS } from '../content/chainfren-thesis/claims.mjs'
 
-const root = resolve(new URL('..', import.meta.url).pathname)
+const root = resolve(fileURLToPath(new URL('..', import.meta.url)))
 const thesisRoot = resolve(root, 'content/chainfren-thesis')
 const chapter = (name) => readFileSync(resolve(thesisRoot, 'chapters', name), 'utf8')
 
@@ -57,15 +58,17 @@ const scanManuscriptNumerals = ({
   claims = THESIS_CLAIMS,
   citations = PUBLIC_CITATIONS,
 } = {}) => manuscriptRecords.flatMap(({ path, text }) => {
-  const hasUncitedNumeral = text.split('\n').some((line) => (
-    /\d/.test(line)
-    && ![...claimCitationExceptions].some(([claimId, exception]) => (
-      exception.path === path
-      && exception.exactClaimText === line.trim()
+  let textWithoutCitedClaims = text
+  for (const [claimId, exception] of claimCitationExceptions) {
+    const claim = claims.find(({ id }) => id === claimId)
+    const isExactCitedClaim = exception.path === path
+      && exception.exactClaimText === claim?.summary
       && hasDatedPublicCitation(claimId, claims, citations)
-    ))
-  ))
-  return hasUncitedNumeral
+    if (isExactCitedClaim) {
+      textWithoutCitedClaims = textWithoutCitedClaims.replace(exception.exactClaimText, '')
+    }
+  }
+  return /\d/.test(textWithoutCitedClaims)
     ? [`${path} contains a numeral without an exact claim-level dated public citation`]
     : []
 })
@@ -115,6 +118,22 @@ test('a numeral exception without a dated public citation still fails', () => {
   assert.deepEqual(scanManuscriptNumerals({
     manuscriptRecords: [{ path: 'synthetic.mdx', text: exactClaimText }],
     claimCitationExceptions: new Map([['missing-claim', { path: 'synthetic.mdx', exactClaimText }]]),
+  }), ['synthetic.mdx contains a numeral without an exact claim-level dated public citation'])
+})
+
+test('a cited numeral claim cannot hide an uncited numeral claim on the same line', () => {
+  const citedClaimText = 'The cited claim reaches 2 markets.'
+  const manuscriptLine = `${citedClaimText} The uncited claim reaches 3 markets.`
+  assert.deepEqual(scanManuscriptNumerals({
+    manuscriptRecords: [{ path: 'synthetic.mdx', text: manuscriptLine }],
+    claimCitationExceptions: new Map([['cited-claim', { path: 'synthetic.mdx', exactClaimText: manuscriptLine }]]),
+    claims: [{ id: 'cited-claim', summary: citedClaimText, publicCitationIds: ['cited-source'] }],
+    citations: [{
+      id: 'cited-source',
+      claimIds: ['cited-claim'],
+      publishedAt: '2026-08-26',
+      url: 'https://example.com/cited-source',
+    }],
   }), ['synthetic.mdx contains a numeral without an exact claim-level dated public citation'])
 })
 
