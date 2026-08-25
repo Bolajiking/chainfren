@@ -126,7 +126,7 @@ test('a cited numeral claim cannot hide an uncited numeral claim on the same lin
   const manuscriptLine = `${citedClaimText} The uncited claim reaches 3 markets.`
   assert.deepEqual(scanManuscriptNumerals({
     manuscriptRecords: [{ path: 'synthetic.mdx', text: manuscriptLine }],
-    claimCitationExceptions: new Map([['cited-claim', { path: 'synthetic.mdx', exactClaimText: manuscriptLine }]]),
+    claimCitationExceptions: new Map([['cited-claim', { path: 'synthetic.mdx', exactClaimText: citedClaimText }]]),
     claims: [{ id: 'cited-claim', summary: citedClaimText, publicCitationIds: ['cited-source'] }],
     citations: [{
       id: 'cited-source',
@@ -135,6 +135,21 @@ test('a cited numeral claim cannot hide an uncited numeral claim on the same lin
       url: 'https://example.com/cited-source',
     }],
   }), ['synthetic.mdx contains a numeral without an exact claim-level dated public citation'])
+})
+
+test('an exact cited numeral claim is allowed when no uncited numeral remains', () => {
+  const citedClaimText = 'The cited claim reaches 2 markets.'
+  assert.deepEqual(scanManuscriptNumerals({
+    manuscriptRecords: [{ path: 'synthetic.mdx', text: citedClaimText }],
+    claimCitationExceptions: new Map([['cited-claim', { path: 'synthetic.mdx', exactClaimText: citedClaimText }]]),
+    claims: [{ id: 'cited-claim', summary: citedClaimText, publicCitationIds: ['cited-source'] }],
+    citations: [{
+      id: 'cited-source',
+      claimIds: ['cited-claim'],
+      publishedAt: '2026-08-26',
+      url: 'https://example.com/cited-source',
+    }],
+  }), [])
 })
 
 test('the public manuscript contains no uncited numeral claims', () => {
