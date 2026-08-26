@@ -78,6 +78,9 @@ test('company chapter systems keep the approved public sequences and component d
   assert.deepEqual(DISTRIBUTION_LOOP.map(({ id }) => id), ['sabi', 'creator-network', 'tivi', 'additional-capabilities', 'star-factor'])
   assert.deepEqual(VALUE_PATH.map(({ id }) => id), ['attention', 'participation', 'ownership', 'value'])
   assert.equal(ROADMAP_HORIZONS.length, 4)
+  assert.deepEqual(DISTRIBUTION_LOOP.find(({ id }) => id === 'tivi'), {
+    id: 'tivi', title: 'TiVi', summary: 'A media channel where participation and audience relationships can continue.', maturity: 'live', maturityId: 'media-launchpad', href: '/products/media-launchpad',
+  })
   assert(ROADMAP_HORIZONS.every(({ title, summary }) => !/\b(?:\d{4}|Q[1-4]|quarter|budget|targets?|metrics?|runway|signed\s+revenue|decision-rights|control\s+matrix|risk\s+register)\b/i.test(`${title} ${summary}`)))
 
   for (const [component, data] of [['DistributionLoop', 'DISTRIBUTION_LOOP'], ['ValuePath', 'VALUE_PATH'], ['RoadmapHorizons', 'ROADMAP_HORIZONS']]) {

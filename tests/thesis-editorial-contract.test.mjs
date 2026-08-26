@@ -117,7 +117,7 @@ const assertGroupedProductRenderer = (source) => {
   assert.match(source, /const\s+records\s*=\s*\[\.\.\.PUBLIC_PRODUCT_MATURITY,\s*\.\.\.PUBLIC_INITIATIVE_MATURITY]/)
   assert.match(source, /PUBLIC_PRODUCT_GROUPS\.map\(\(group\)\s*=>/)
   assert.match(source, /group\.itemIds\.map\(\(itemId\)\s*=>\s*records\.find\(\(record\)\s*=>\s*record\.id\s*===\s*itemId\)\)/)
-  assert.match(source, /<section\b[\s\S]*?<ul>[\s\S]*?products\.map\(\(product\)\s*=>[\s\S]*?<li\b[\s\S]*?product\.label[\s\S]*?<MaturityBadge\s+stage={product\.id}\s*\/>[\s\S]*?<\/li>[\s\S]*?<\/ul>[\s\S]*?<\/section>/)
+  assert.match(source, /<section\b[\s\S]*?<ul>[\s\S]*?products\.map\(\(product\)\s*=>[\s\S]*?<li\b[\s\S]*?<a\s+href={product\.href}>{product\.label}<\/a>[\s\S]*?<p>{product\.description}<\/p>[\s\S]*?<MaturityBadge\s+stage={product\.id}\s*\/>[\s\S]*?<\/li>[\s\S]*?<\/ul>[\s\S]*?<\/section>/)
   assert.match(source, /<section\s+key={group\.id}\s+aria-labelledby={`product-group-\${group\.id}`}>/)
   assert.match(source, /const\s+headingLevel\s*=\s*\[['"]chapter['"],\s*['"]product group['"]]\.length/)
   assert.match(source, /<div\s+id={`product-group-\${group\.id}`}\s+role="heading"\s+aria-level={headingLevel}>{group\.label}<\/div>/)
@@ -200,31 +200,31 @@ const removeIdea = (source, idea) => source.replace(
 
 test('the gap names every contributor to African attention', () => {
   assertNames(chapters.gap, ['creators', 'brands', 'audiences'])
+  assert.match(chapters.gap, /Africa is already online/i)
+  assert.match(chapters.gap, /value[^.]*travel back|value[^.]*return/i)
   assert.match(chapters.gap, /African attention/i)
   assert.match(chapters.gap, /African control/i)
 })
 
 test('the trap describes extraction as a system, wherever it is based', () => {
   assertNames(chapters.trap, ['platforms', 'middlemen', 'systems'])
+  assert.match(chapters.trap, /attract[\s\S]{0,240}extract/i)
   assert.match(chapters.trap, /extract\w*/i)
-  assert.match(chapters.trap, /foreign or African/i)
+  assert.match(chapters.trap, /foreign[^.]*African|African[^.]*foreign/i)
   assertNames(chapters.trap, ['discovery', 'identity', 'data', 'relationships', 'distribution', 'payment'])
   assert.match(chapters.trap, /(?:does not|doesn't|need not|requires? no)\s+(?:require\s+)?bad (?:individual )?intent/i)
 })
 
-test('the unlock gives blockchain a practical and non-speculative purpose', () => {
-  assert.match(chapters.unlock.split(/\n\s*\n/, 1)[0], /blockchain/i)
+test('the unlock leads with open rails enabled by blockchain', () => {
+  assert.match(chapters.unlock.split(/\n\s*\n/, 1)[0], /open rails/i)
+  assert.match(chapters.unlock, /enabled by blockchain|blockchain[^.]*enable/i)
+  assert.ok((chapters.unlock.match(/\bblockchain\b/gi) ?? []).length <= 3)
   assertNames(chapters.unlock, ['payments', 'identity', 'participation', 'settlement', 'portability'])
   assert.match(chapters.unlock, /transparent settlement/i)
   assert.match(chapters.unlock, /speculation is not (?:the )?(?:purpose|mission)/i)
   assertNames(chapters.unlock, ['devices', 'payment', 'languages', 'communities'])
   assert.match(chapters.unlock, /compatible\s+services[^.]*same\s+standards|same\s+standards[^.]*compatible\s+services/i)
   assert.match(chapters.unlock, /(?:shared\s+record|record)[^.]*support[^.]*portab|support[^.]*portab[^.]*record/i)
-})
-
-test('the unlock states the approved infrastructure and ownership position once', () => {
-  const position = 'Blockchain is the infrastructure. African ownership is the outcome.'
-  assert.equal(chapters.unlock.split(position).length - 1, 1)
 })
 
 test('the thesis states the mission and defines custodianship', () => {
@@ -304,14 +304,13 @@ test('the short read stands alone as the complete five-minute thesis', () => {
 })
 
 test('the short read states public product roles and maturity accurately', () => {
-  assert.match(shortRead, /TiVi[^.]*early access[^.]*flagship|flagship[^.]*TiVi[^.]*early access/i)
-  assert.match(shortRead, /Media Launchpad[^.]*TiVi|TiVi[^.]*Media Launchpad/i)
+  assert.match(shortRead, /TiVi[^.]*live/i)
+  assert.doesNotMatch(shortRead, /Media Launchpad|flagship|live core/i)
   assertStarFactorBuildingStatus(shortRead)
   assert.match(shortRead, /Sabi[^.]*Creator Network[^.]*supporting distribution products/i)
   assert.match(shortRead, /Sabi[^.]*(?:building|being built)/i)
   assert.match(shortRead, /Creator Network[^.]*live/i)
-  assert.match(shortRead, /additional capabilities[\s\S]{0,300}Creator Growth OS[^.]*Community Engine[^.]*AI Agent Studio/i)
-  assert.match(shortRead, /Creator Growth OS[^.]*live core/i)
+  assert.match(shortRead, /Creator Growth OS[^.]*live/i)
   assert.match(shortRead, /Community Engine[^.]*early access/i)
   assert.match(shortRead, /AI Agent Studio[^.]*early access/i)
   assert.match(shortRead, /Indy is a roadmap product/i)
@@ -330,10 +329,9 @@ test('the product thesis renders the public product groups instead of one flat m
 
 test('the canonical product groups define the exact rendered product order', () => {
   assert.deepEqual(PUBLIC_PRODUCT_GROUPS.map(({ id, itemIds }) => ({ id, itemIds })), [
-    { id: 'flagship', itemIds: ['media-launchpad'] },
-    { id: 'in-development', itemIds: ['star-factor'] },
-    { id: 'distribution', itemIds: ['sabi', 'creator-network'] },
-    { id: 'capabilities', itemIds: ['creator-growth-os', 'community-engine', 'ai-agent-studio'] },
+    { id: 'live', itemIds: ['media-launchpad', 'creator-growth-os', 'creator-network'] },
+    { id: 'early-access', itemIds: ['community-engine', 'ai-agent-studio'] },
+    { id: 'building', itemIds: ['star-factor', 'sabi'] },
     { id: 'roadmap', itemIds: ['indy'] },
   ])
   const productLookup = new Map(
@@ -343,20 +341,22 @@ test('the canonical product groups define the exact rendered product order', () 
     group.itemIds.map((itemId) => productLookup.get(itemId)?.label)
   ))
   assert.deepEqual(renderedLabels, [
-    'TiVi / Media Launchpad',
-    'Star Factor',
-    'Sabi',
-    'Creator Network',
+    'TiVi',
     'Creator Growth OS',
+    'Creator Network',
     'Community Engine',
     'AI Agent Studio',
+    'Star Factor',
+    'Sabi',
     'Indy',
   ])
 })
 
 test('the product thesis states each product role and maturity without overstating availability', () => {
-  assert.match(chapters.products, /TiVi[^.]*flagship|flagship[^.]*TiVi/i)
-  assert.match(chapters.products, /Media Launchpad[^.]*TiVi|TiVi[^.]*Media Launchpad/i)
+  assert.match(chapters.products, /We build for the part after attention/i)
+  assert.match(chapters.products, /Our products and solutions are the practical layer/i)
+  assert.doesNotMatch(proseBlocks(chapters.products).slice(0, 2).join(' '), /TiVi|Star Factor|Sabi|Creator Network|Creator Growth OS|Community Engine|AI Agent Studio|Indy/i)
+  assert.doesNotMatch(chapters.products, /flagship|live core/i)
   assertStarFactorBuildingStatus(chapters.products)
   assert.match(chapters.products, /Sabi[^.]*Creator Network[^.]*supporting distribution products/i)
   assert.match(chapters.products, /Creator Growth OS[^.]*Community Engine[^.]*AI Agent Studio[^.]*additional capabilities/i)
@@ -371,6 +371,7 @@ test('the ownership test begins with African context and keeps control practical
 
 test('the public horizon separates present building, roadmap direction, and company ambition', () => {
   assertPublicHorizon(chapters.horizon)
+  assert.match(chapters.horizon, /open rails built by Africans for Africans/i)
 })
 
 test('the closing chapter gives all participants one shared invitation', () => {

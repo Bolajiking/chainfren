@@ -14,13 +14,13 @@ const canonicalClaimRows = [
   ['african-value-gap', 'the-gap', 'diagnosis'],
   ['extractive-systems', 'the-trap', 'diagnosis'],
   ['rented-relationships', 'the-trap', 'diagnosis'],
-  ['blockchain-open-rails', 'the-unlock', 'mechanism'],
+  ['open-rails', 'the-unlock', 'mechanism'],
   ['distribution-first', 'the-company', 'execution'],
   ['attention-to-participation', 'the-thesis', 'mechanism'],
   ['participation-to-ownership', 'the-thesis', 'mission'],
   ['ownership-to-value', 'the-thesis', 'outcome'],
   ['chainfren-mission', 'the-company', 'mission'],
-  ['tivi-flagship', 'what-we-build', 'execution'],
+  ['tivi-product', 'what-we-build', 'execution'],
   ['african-built-ecosystem', 'the-road-ahead', 'outcome'],
 ]
 
@@ -29,18 +29,24 @@ const canonicalEdgeRows = [
   ['extractive-systems', 'rented-relationships', 'causes'],
   ['rented-relationships', 'african-attention-value', 'constrains'],
   ['african-attention-value', 'attention-to-participation', 'enables'],
-  ['blockchain-open-rails', 'participation-to-ownership', 'enables'],
+  ['open-rails', 'participation-to-ownership', 'enables'],
   ['distribution-first', 'attention-to-participation', 'enables'],
   ['attention-to-participation', 'participation-to-ownership', 'enables'],
   ['participation-to-ownership', 'ownership-to-value', 'enables'],
   ['ownership-to-value', 'african-built-ecosystem', 'enables'],
   ['chainfren-mission', 'distribution-first', 'enables'],
-  ['chainfren-mission', 'tivi-flagship', 'enables'],
-  ['tivi-flagship', 'participation-to-ownership', 'enables'],
-  ['blockchain-open-rails', 'tivi-flagship', 'enables'],
-  ['distribution-first', 'tivi-flagship', 'enables'],
-  ['tivi-flagship', 'ownership-to-value', 'enables'],
+  ['chainfren-mission', 'tivi-product', 'enables'],
+  ['tivi-product', 'participation-to-ownership', 'enables'],
+  ['open-rails', 'tivi-product', 'enables'],
+  ['distribution-first', 'tivi-product', 'enables'],
+  ['tivi-product', 'ownership-to-value', 'enables'],
 ]
+
+const findClaim = (claims, id) => {
+  const claim = claims.find((candidate) => candidate.id === id)
+  assert.ok(claim, `Missing canonical claim ${id}`)
+  return claim
+}
 
 test('defines the public thesis version and nine unique ordered chapters', () => {
   assert.equal(THESIS_CONTENT_VERSION, '2026.2')
@@ -57,6 +63,8 @@ test('defines the exact ordered public claim and edge contracts', () => {
   assert.deepEqual(THESIS_CLAIMS.map(({ id, chapterSlug, type }) => [id, chapterSlug, type]), canonicalClaimRows)
   assert.deepEqual(THESIS_CLAIMS.map(({ order }) => order), canonicalClaimRows.map((_, index) => index + 1))
   assert.deepEqual(THESIS_EDGES.map(({ from, to, relation }) => [from, to, relation]), canonicalEdgeRows)
+  assert.equal(THESIS_CLAIMS.find(({ id }) => id === 'open-rails')?.title, 'Open rails enabled by blockchain')
+  assert.equal(THESIS_CLAIMS.find(({ id }) => id === 'tivi-product')?.title, 'TiVi gives participation a product home')
   assert.equal(new Set(THESIS_CLAIMS.map((claim) => claim.id)).size, canonicalClaimRows.length)
   assert.equal(new Set(THESIS_EDGES.map((edge) => edge.id)).size, canonicalEdgeRows.length)
   assert.doesNotThrow(() => validateClaims(THESIS_CLAIMS, new Set(THESIS_MANIFEST.map(({ slug }) => slug)), new Set(PUBLIC_CITATIONS.map(({ id }) => id))))
@@ -69,7 +77,7 @@ test('claim validation rejects reordered rows, invalid ownership, and obsolete p
   assert.throws(() => validateClaims(reordered, new Set(THESIS_MANIFEST.map(({ slug }) => slug)), new Set()), /canonical claim rows/)
 
   const wrongChapter = THESIS_CLAIMS.map((claim) => ({ ...claim }))
-  wrongChapter.find(({ id }) => id === 'tivi-flagship').chapterSlug = 'the-road-ahead'
+  findClaim(wrongChapter, 'tivi-product').chapterSlug = 'the-road-ahead'
   assert.throws(() => validateClaims(wrongChapter, new Set(THESIS_MANIFEST.map(({ slug }) => slug)), new Set()), /canonical claim rows/)
 
   const proofTitle = THESIS_CLAIMS.map((claim) => ({ ...claim }))
@@ -85,18 +93,18 @@ test('claim validation enforces the public TiVi, blockchain, and ecosystem meani
   const validate = (claims) => validateClaims(claims, new Set(THESIS_MANIFEST.map(({ slug }) => slug)), new Set())
 
   const separateTiVi = THESIS_CLAIMS.map((claim) => ({ ...claim }))
-  separateTiVi.find(({ id }) => id === 'tivi-flagship').summary = 'TiVi and Media Launchpad are flagship products.'
-  assert.throws(() => validate(separateTiVi), /Media Launchpad is TiVi/)
+  findClaim(separateTiVi, 'tivi-product').summary = 'TiVi is a flagship product.'
+  assert.throws(() => validate(separateTiVi), /product home/)
 
   for (const overstatement of ['TiVi has launched.', 'TiVi adoption is complete.']) {
     const overstatedTiVi = THESIS_CLAIMS.map((claim) => ({ ...claim }))
-    overstatedTiVi.find(({ id }) => id === 'tivi-flagship').summary = `Media Launchpad is TiVi and TiVi is the flagship expression. ${overstatement}`
+    findClaim(overstatedTiVi, 'tivi-product').summary = `TiVi gives participation a product home. ${overstatement}`
     assert.throws(() => validate(overstatedTiVi), /adoption or launch/)
   }
 
   const vagueBlockchain = THESIS_CLAIMS.map((claim) => ({ ...claim }))
-  vagueBlockchain.find(({ id }) => id === 'blockchain-open-rails').summary = 'Blockchain may help with payments.'
-  assert.throws(() => validate(vagueBlockchain), /practical infrastructure/)
+  findClaim(vagueBlockchain, 'open-rails').summary = 'Blockchain may help with payments.'
+  assert.throws(() => validate(vagueBlockchain), /open rails/)
 
   const achievedEcosystem = THESIS_CLAIMS.map((claim) => ({ ...claim }))
   achievedEcosystem.find(({ id }) => id === 'african-built-ecosystem').summary = 'The African-built ecosystem is finished.'
@@ -143,7 +151,7 @@ test('manifest validation rejects creator-only framing but allows creators insid
 test('manifest claim references must agree with claim chapter ownership', () => {
   assert.doesNotThrow(() => validateReferences(THESIS_MANIFEST, THESIS_CLAIMS, PUBLIC_CITATIONS))
   const wrongOwner = THESIS_MANIFEST.map((chapter) => ({ ...chapter, mapClaimIds: [...chapter.mapClaimIds] }))
-  wrongOwner.find(({ slug }) => slug === 'the-gap').mapClaimIds[0] = 'tivi-flagship'
+  wrongOwner.find(({ slug }) => slug === 'the-gap').mapClaimIds[0] = 'tivi-product'
   assert.throws(() => validateReferences(wrongOwner, THESIS_CLAIMS, PUBLIC_CITATIONS), /belongs to chapter what-we-build/)
 })
 
@@ -161,7 +169,7 @@ test('supports well-shaped uniquely identified public citations', () => {
 test('defines the exact public distribution and value sequences', () => {
   assert.deepEqual(DISTRIBUTION_LOOP.map((item) => item.id), ['sabi', 'creator-network', 'tivi', 'additional-capabilities', 'star-factor'])
   assert.deepEqual(DISTRIBUTION_LOOP.find((item) => item.id === 'tivi'), {
-    id: 'tivi', title: 'TiVi / Media Launchpad', summary: 'A launchpad for media experiences and owned audience relationships.', maturity: 'early-access', maturityId: 'media-launchpad', href: '/products/media-launchpad',
+    id: 'tivi', title: 'TiVi', summary: 'A media channel where participation and audience relationships can continue.', maturity: 'live', maturityId: 'media-launchpad', href: '/products/media-launchpad',
   })
   assert.deepEqual(VALUE_PATH.map((item) => item.id), ['attention', 'participation', 'ownership', 'value'])
   assert.equal(ROADMAP_HORIZONS.length, 4)
@@ -212,20 +220,33 @@ test('rejects quarter language and singular or plural targets and metrics in hor
 })
 
 test('requires the frozen public maturity mapping', () => {
+  assert.deepEqual(Object.fromEntries([...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY].map(({ id, maturity }) => [id, maturity])), {
+    'media-launchpad': 'live',
+    'creator-growth-os': 'live',
+    'creator-network': 'live',
+    'community-engine': 'early-access',
+    'ai-agent-studio': 'early-access',
+    'star-factor': 'building',
+    sabi: 'building',
+    indy: 'directional',
+  })
   assert.doesNotThrow(() => validateStages([...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY]))
   const altered = [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY].map((item) => ({ ...item }))
-  altered[0].maturity = 'live'
+  altered[0].maturity = 'early-access'
   assert.throws(() => validateStages(altered), /required mapping/)
 })
 
 test('defines the exact public product hierarchy', () => {
   assert.deepEqual(PUBLIC_PRODUCT_GROUPS, [
-    { id: 'flagship', label: 'Flagship product', itemIds: ['media-launchpad'] },
-    { id: 'in-development', label: 'In development', itemIds: ['star-factor'] },
-    { id: 'distribution', label: 'Supporting distribution products', itemIds: ['sabi', 'creator-network'] },
-    { id: 'capabilities', label: 'Additional capabilities', itemIds: ['creator-growth-os', 'community-engine', 'ai-agent-studio'] },
+    { id: 'live', label: 'Live', itemIds: ['media-launchpad', 'creator-growth-os', 'creator-network'] },
+    { id: 'early-access', label: 'Early access', itemIds: ['community-engine', 'ai-agent-studio'] },
+    { id: 'building', label: 'Building', itemIds: ['star-factor', 'sabi'] },
     { id: 'roadmap', label: 'Roadmap', itemIds: ['indy'] },
   ])
+  for (const label of [
+    ...PUBLIC_PRODUCT_GROUPS.map(({ label }) => label),
+    ...[...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY].map(({ label }) => label),
+  ]) assert.doesNotMatch(label, /Media Launchpad|flagship|live core/i)
   assert.doesNotThrow(() => validateProductGroups(PUBLIC_PRODUCT_GROUPS, [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY]))
 })
 

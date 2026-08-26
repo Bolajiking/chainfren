@@ -134,6 +134,10 @@ test('desktop map remains a desktop-only lazy client enhancement with accessible
 test('map data covers every claim and only connects known layout endpoints', () => {
   const claimIds = new Set(THESIS_CLAIMS.map((claim) => claim.id))
   assert.equal(claimIds.size, 12)
+  assert(claimIds.has('open-rails'))
+  assert(claimIds.has('tivi-product'))
+  assert(THESIS_MAP_LAYOUT['open-rails'])
+  assert(THESIS_MAP_LAYOUT['tivi-product'])
   assert.deepEqual(new Set(Object.keys(THESIS_MAP_LAYOUT)), claimIds)
   for (const edge of THESIS_EDGES) {
     assert(claimIds.has(edge.from))
@@ -265,8 +269,8 @@ test('the map preserves the public value path and company execution paths', () =
     ['participation-to-ownership', 'ownership-to-value'],
     ['ownership-to-value', 'african-built-ecosystem'],
     ['chainfren-mission', 'distribution-first'],
-    ['distribution-first', 'tivi-flagship'],
-    ['chainfren-mission', 'tivi-flagship'],
+    ['distribution-first', 'tivi-product'],
+    ['chainfren-mission', 'tivi-product'],
   ]) assert.equal(hasDirectedPath(sourceId, targetId), true, `${sourceId} must resolve to ${targetId}`)
 })
 
