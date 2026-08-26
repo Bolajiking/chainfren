@@ -8,11 +8,16 @@ import {
   readThesisProgress,
   writeThesisProgress,
 } from '../lib/thesis/progress.mjs'
+import { THESIS_CONTENT_VERSION as CONFIG_CONTENT_VERSION } from '../content/chainfren-thesis/public-config.mjs'
 
 const chapters = [
   { slug: 'the-gap', title: 'The Gap' },
   { slug: 'the-company', title: 'The Company' },
 ]
+
+test('progress uses the canonical thesis content version', () => {
+  assert.equal(THESIS_CONTENT_VERSION, CONFIG_CONTENT_VERSION)
+})
 
 test('creates the minimal versioned thesis progress record', () => {
   const progress = createThesisProgress('the-gap', new Date('2026-07-21T12:00:00.000Z'))

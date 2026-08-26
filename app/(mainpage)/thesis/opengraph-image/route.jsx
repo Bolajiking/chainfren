@@ -2,6 +2,7 @@ import { Buffer } from 'node:buffer'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { ImageResponse } from 'next/server'
+import { THESIS_CONTENT_VERSION } from '@/content/chainfren-thesis/public-config.mjs'
 
 export const runtime = 'nodejs'
 export const size = { width: 1200, height: 630 }
@@ -27,7 +28,7 @@ export async function GET() {
       >
         <img alt="Chainfren" height="42" src={wordmarkDataUrl} width="168" />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
-          <span style={{ color: '#40607C', fontFamily: 'sans-serif', fontSize: 28, letterSpacing: '2px' }}>PUBLICATION · 2026.2</span>
+          <span style={{ color: '#40607C', fontFamily: 'sans-serif', fontSize: 28, letterSpacing: '2px' }}>PUBLICATION · {THESIS_CONTENT_VERSION}</span>
           <span style={{ color: '#08153C', fontFamily: 'sans-serif', fontSize: 86, fontWeight: 700, letterSpacing: '-4px' }}>The Chainfren thesis</span>
           <span style={{ color: '#08153C', fontFamily: 'sans-serif', fontSize: 34 }}>Africans create attention, and the next work is participation, ownership, and value.</span>
         </div>

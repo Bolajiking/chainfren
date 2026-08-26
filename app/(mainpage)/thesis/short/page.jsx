@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import ShortRead from '@/content/chainfren-thesis/short-read.mdx'
 import ArticleJsonLd from '../components/ArticleJsonLd'
+import { THESIS_CONTENT_VERSION } from '@/content/chainfren-thesis/public-config.mjs'
 import styles from '../thesis.module.css'
 
 const title = 'The Chainfren thesis, short read'
@@ -21,7 +22,7 @@ export default function ShortThesisPage() {
       <ArticleJsonLd canonicalUrl={canonicalUrl} headline={title} description={description} dateModified="2026-08-25" />
       <article>
         <header>
-          <p>Chainfren thesis, short read</p>
+          <p>Chainfren thesis {THESIS_CONTENT_VERSION}, short read</p>
           <h1>Attention is the start. Ownership is the work after.</h1>
           <p>A five-minute path through the argument for how Africans can turn attention into participation, ownership, and value.</p>
         </header>

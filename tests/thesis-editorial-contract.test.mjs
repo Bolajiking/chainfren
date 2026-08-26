@@ -222,6 +222,11 @@ test('the unlock gives blockchain a practical and non-speculative purpose', () =
   assert.match(chapters.unlock, /(?:shared\s+record|record)[^.]*support[^.]*portab|support[^.]*portab[^.]*record/i)
 })
 
+test('the unlock states the approved infrastructure and ownership position once', () => {
+  const position = 'Blockchain is the infrastructure. African ownership is the outcome.'
+  assert.equal(chapters.unlock.split(position).length - 1, 1)
+})
+
 test('the thesis states the mission and defines custodianship', () => {
   assert.match(chapters.thesis, /Chainfren exists to enable Africans to own the full value their attention generates on the internet\./i)
   assertNames(chapters.thesis, ['identity', 'relationships', 'data', 'distribution', 'participation', 'economic value'])

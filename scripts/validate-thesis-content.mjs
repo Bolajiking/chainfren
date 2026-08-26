@@ -128,7 +128,7 @@ const publicRecords = () => ({
 export function validateThesisContent({ allowMissingContent = false, contentDirectory = new URL('../content/chainfren-thesis/', import.meta.url), generatedDirectory, generatedDirectoryRequested = generatedDirectory !== undefined } = {}) {
   const errors = []
   try {
-    if (THESIS_CONTENT_VERSION !== '2026.2') throw new Error('Content version must be 2026.2')
+    if (!/^\d{4}\.\d+$/.test(THESIS_CONTENT_VERSION)) throw new Error('Content version must use YYYY.release format')
     validateManifest(THESIS_MANIFEST)
     const claimIds = new Set(THESIS_CLAIMS.map((claim) => claim.id))
     validateCitations(PUBLIC_CITATIONS, claimIds)

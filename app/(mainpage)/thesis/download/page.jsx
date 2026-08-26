@@ -4,6 +4,8 @@ import styles from '../thesis.module.css'
 
 const title = 'Download the Chainfren thesis'
 const description = 'Download the print-ready public edition of the Chainfren thesis.'
+const releaseBase = `chainfren-thesis-${THESIS_CONTENT_VERSION}`
+const downloadPath = `/downloads/${releaseBase}.pdf`
 
 export const metadata = {
   title,
@@ -18,7 +20,7 @@ export default function ThesisDownloadPage() {
     <p className={styles.downloadEyebrow}>Public edition · {THESIS_CONTENT_VERSION}</p>
     <h1>Download the Chainfren Thesis</h1>
     <p>A print-ready, A4 edition of the full public thesis.</p>
-    <a className={styles.downloadAction} href="/downloads/chainfren-thesis-2026.1.pdf" download="chainfren-thesis-2026.1.pdf">Download PDF</a>
+    <a className={styles.downloadAction} href={downloadPath} download={`${releaseBase}.pdf`}>Download PDF</a>
     <small className={styles.downloadHash}>Source SHA-256: {THESIS_CONTENT_HASH}</small>
   </main>
 }
