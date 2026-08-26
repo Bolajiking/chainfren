@@ -6,6 +6,11 @@ import { fileURLToPath } from 'node:url'
 
 import { PUBLIC_CITATIONS } from '../content/chainfren-thesis/citations.mjs'
 import { THESIS_CLAIMS } from '../content/chainfren-thesis/claims.mjs'
+import {
+  PUBLIC_INITIATIVE_MATURITY,
+  PUBLIC_PRODUCT_GROUPS,
+  PUBLIC_PRODUCT_MATURITY,
+} from '../content/chainfren-thesis/public-config.mjs'
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)))
 const thesisRoot = resolve(root, 'content/chainfren-thesis')
@@ -78,6 +83,66 @@ const scanManuscriptNumerals = ({
     : []
 })
 
+const proseBlocks = (source) => source
+  .split(/\n\s*\n/)
+  .map((block) => block.trim())
+  .filter((block) => block && !/^import\s/.test(block) && !/^\{PUBLIC_PRODUCT_GROUPS\.map/.test(block))
+  .map((block) => block.replace(/<[^>]+>/g, ' ').trim())
+  .filter(Boolean)
+
+const assertNoAchievedOwnership = (source) => {
+  const achievedOwnershipPatterns = [
+    /\bAfricans\s+(?:(?:already|now|currently)\s+)?(?:own|control)\b/i,
+    /\b(?:creators?|brands?|audiences?|communities?|people|customers?|we)\s+(?:already|now|currently)\s+(?:own|owns|control|controls)\b/i,
+    /\b(?:Africans?|creators?|brands?|audiences?|communities?|people|customers?|we)\s+(?:already\s+|now\s+|currently\s+)?have ownership\b/i,
+    /\b(?:Africans?|creators?|brands?|audiences?|communities?|people|customers?)\s+have secured ownership\b/i,
+    /\bownership\s+(?:is|has been)\s+(?:achieved|complete|completed|secured)\b/i,
+  ]
+  for (const pattern of achievedOwnershipPatterns) assert.doesNotMatch(source, pattern)
+}
+
+const assertPublicCompanyScope = (source) => {
+  const privateScopePatterns = [
+    /\b(?:financial|revenue|profit|margin|runway|cash flow|valuation)\s+(?:projections?|forecasts?|targets?|goals?|sequencing)\b/i,
+    /\brevenue from\b[^.]*\b(?:finance|finances|fund|funds|before|after)\b/i,
+    /\b(?:internal|private|confidential)\s+(?:organisation|organization|org chart|operating (?:model|mechanics?|workflow)|mechanics?|workflow|roadmap|sequencing|plan)\b/i,
+    /\b(?:tokenomics|token economics|token design|token allocation|token supply|vesting)\b/i,
+  ]
+  for (const pattern of privateScopePatterns) assert.doesNotMatch(source, pattern)
+}
+
+const assertGroupedProductRenderer = (source) => {
+  assert.match(source, /import\s*{(?=[^}]*\bPUBLIC_PRODUCT_GROUPS\b)(?=[^}]*\bPUBLIC_PRODUCT_MATURITY\b)(?=[^}]*\bPUBLIC_INITIATIVE_MATURITY\b)[^}]*}\s*from\s*['"]@\/content\/chainfren-thesis\/public-config\.mjs['"]/s)
+  assert.match(source, /const\s+records\s*=\s*\[\.\.\.PUBLIC_PRODUCT_MATURITY,\s*\.\.\.PUBLIC_INITIATIVE_MATURITY]/)
+  assert.match(source, /PUBLIC_PRODUCT_GROUPS\.map\(\(group\)\s*=>/)
+  assert.match(source, /group\.itemIds\.map\(\(itemId\)\s*=>\s*records\.find\(\(record\)\s*=>\s*record\.id\s*===\s*itemId\)\)/)
+  assert.match(source, /<section\b[\s\S]*?<ul>[\s\S]*?products\.map\(\(product\)\s*=>[\s\S]*?<li\b[\s\S]*?product\.label[\s\S]*?<MaturityBadge\s+stage={product\.id}\s*\/>[\s\S]*?<\/li>[\s\S]*?<\/ul>[\s\S]*?<\/section>/)
+  assert.doesNotMatch(source, /PUBLIC_PRODUCT_MATURITY\.map/)
+}
+
+const assertNoHardCodedMaturity = (source) => {
+  assert.doesNotMatch(proseBlocks(source).join('\n'), /\b(?:live-core|early-access|building|directional)\b/i)
+}
+
+const assertStarFactorBuildingStatus = (source) => {
+  const starFactorBlock = proseBlocks(source).find((block) => /Star Factor/i.test(block))
+  assert.ok(starFactorBlock, 'Star Factor must have a prose block')
+  assert.match(starFactorBlock, /Star Factor[\s\S]*currently being built|currently being built[\s\S]*Star Factor/i)
+  assert.doesNotMatch(starFactorBlock, /\b(?:launched|live|available|later)\b/i)
+}
+
+const assertSharedInvitation = (source) => {
+  const audiences = ['creators', 'brands', 'audiences', 'builders', 'partners', 'investors', 'potential hires']
+  const sharedBlocks = proseBlocks(source).filter((block) => audiences.every((audience) => new RegExp(`\\b${audience}\\b`, 'i').test(block)))
+  assert.equal(sharedBlocks.length, 1, 'all audiences must appear together in one invitation block')
+  assert.match(sharedBlocks[0], /shared invitation/i)
+  assert.doesNotMatch(source, /PUBLIC_CTAS|\.map\(/)
+  assert.doesNotMatch(source, /^#{1,6}\s+(?:For\s+)?(?:creators|brands|audiences|builders|partners|investors|potential hires)\b/im)
+  const imperativePitchBlocks = proseBlocks(source).filter((block) => /^(?:Join|Build|Invest|Partner|Create|Explore|Start|Bring|Help|Work|Apply)\b/i.test(block))
+  assert.ok(imperativePitchBlocks.length <= 1, 'the invitation must not split into repeated pitch blocks')
+  assert.match(proseBlocks(source).at(-1), /African-built ownership economy/i)
+}
+
 test('the gap names every contributor to African attention', () => {
   assertNames(chapters.gap, ['creators', 'brands', 'audiences'])
   assert.match(chapters.gap, /African attention/i)
@@ -107,9 +172,12 @@ test('the thesis states the mission and defines custodianship', () => {
 })
 
 test('the mission is presented as work to do, not an achieved ownership outcome', () => {
-  const target = Object.values(chapters).join('\n')
-  assert.doesNotMatch(target, /(?:Africans?|creators?|brands?|audiences?|communities?|people|we)\s+(?:already|now|currently)\s+(?:own|owns|control|controls|have ownership)/i)
-  assert.doesNotMatch(target, /ownership\s+(?:is|has been)\s+(?:achieved|complete|completed|secured)/i)
+  assert.equal(manuscriptPaths.length, 10)
+  for (const path of manuscriptPaths) assertNoAchievedOwnership(readFileSync(path, 'utf8'))
+})
+
+test('the complete public manuscript stays within public company scope', () => {
+  for (const path of manuscriptPaths) assertPublicCompanyScope(readFileSync(path, 'utf8'))
 })
 
 test('the numeral scanner rejects a synthetic numeral without a cited exception', () => {
@@ -163,6 +231,9 @@ test('the public manuscript contains no uncited numeral claims', () => {
 
 test('the company thesis explains its distribution-first public loop in order', () => {
   assert.match(chapters.company, /distribution-first/i)
+  assertNames(chapters.company, ['attention', 'trust', 'cultural context'])
+  assert.match(chapters.company, /route into people's lives/i)
+  assertPublicCompanyScope(chapters.company)
   const sabi = chapters.company.indexOf('Sabi')
   const creatorNetwork = chapters.company.indexOf('Creator Network')
   const tivi = chapters.company.indexOf('TiVi')
@@ -170,32 +241,52 @@ test('the company thesis explains its distribution-first public loop in order', 
 })
 
 test('the product thesis renders the public product groups instead of one flat maturity list', () => {
-  assert.match(chapters.products, /import\s*{[^}]*PUBLIC_PRODUCT_GROUPS[^}]*PUBLIC_PRODUCT_MATURITY[^}]*PUBLIC_INITIATIVE_MATURITY[^}]*}/s)
-  assert.match(chapters.products, /PUBLIC_PRODUCT_GROUPS\.map/)
-  assert.doesNotMatch(chapters.products, /PUBLIC_PRODUCT_MATURITY\.map/)
+  assertGroupedProductRenderer(chapters.products)
 })
 
-test('the visible product thesis follows the public product group order', () => {
-  const visibleProducts = chapters.products.replace(/^import .*$/gm, '')
-  const labels = ['TiVi', 'Star Factor', 'Sabi', 'Creator Network', 'Creator Growth OS', 'Community Engine', 'AI Agent Studio', 'Indy']
-  const positions = labels.map((label) => visibleProducts.indexOf(label))
-  assert.ok(positions.every((position) => position >= 0))
-  assert.deepEqual([...positions].sort((a, b) => a - b), positions)
+test('the canonical product groups define the exact rendered product order', () => {
+  assert.deepEqual(PUBLIC_PRODUCT_GROUPS.map(({ id, itemIds }) => ({ id, itemIds })), [
+    { id: 'flagship', itemIds: ['media-launchpad'] },
+    { id: 'in-development', itemIds: ['star-factor'] },
+    { id: 'distribution', itemIds: ['sabi', 'creator-network'] },
+    { id: 'capabilities', itemIds: ['creator-growth-os', 'community-engine', 'ai-agent-studio'] },
+    { id: 'roadmap', itemIds: ['indy'] },
+  ])
+  const productLookup = new Map(
+    [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY].map((product) => [product.id, product]),
+  )
+  const renderedLabels = PUBLIC_PRODUCT_GROUPS.flatMap((group) => (
+    group.itemIds.map((itemId) => productLookup.get(itemId)?.label)
+  ))
+  assert.deepEqual(renderedLabels, [
+    'TiVi / Media Launchpad',
+    'Star Factor',
+    'Sabi',
+    'Creator Network',
+    'Creator Growth OS',
+    'Community Engine',
+    'AI Agent Studio',
+    'Indy',
+  ])
 })
 
 test('the product thesis states each product role and maturity without overstating availability', () => {
   assert.match(chapters.products, /TiVi[^.]*flagship|flagship[^.]*TiVi/i)
   assert.match(chapters.products, /Media Launchpad[^.]*TiVi|TiVi[^.]*Media Launchpad/i)
-  assert.match(chapters.products, /Star Factor[^.]*currently being built|currently being built[^.]*Star Factor/i)
-  assert.doesNotMatch(chapters.products, /Star Factor[^.]*\b(?:launched|live|available|later)\b/i)
+  assertStarFactorBuildingStatus(chapters.products)
   assert.match(chapters.products, /Sabi[^.]*Creator Network[^.]*supporting distribution products/i)
   assert.match(chapters.products, /Creator Growth OS[^.]*Community Engine[^.]*AI Agent Studio[^.]*additional capabilities/i)
   assert.match(chapters.products, /Indy[^.]*roadmap product[^.]*not currently available/i)
+  assertNoHardCodedMaturity(chapters.products)
 })
 
-test('the ownership test includes portability and the right to leave', () => {
-  assert.match(chapters.ownership, /portability/i)
-  assert.match(chapters.ownership, /right to leave/i)
+test('the ownership test begins with African context and keeps control practical', () => {
+  const africanContext = chapters.ownership.search(/African context/i)
+  const ownershipPrinciples = chapters.ownership.search(/ownership test/i)
+  assert.ok(africanContext >= 0 && africanContext < ownershipPrinciples)
+  assertNames(chapters.ownership, ['portability', 'right to leave', 'human dignity', 'customer control'])
+  assert.match(chapters.ownership, /voluntary[\s\S]{0,80}participation|participation[\s\S]{0,80}voluntary/i)
+  assert.match(chapters.ownership, /blockchain[\s\S]{0,180}(?:useful|supports?|practical)/i)
   assert.match(chapters.ownership, /Chainfren[^.]*same ownership test/i)
 })
 
@@ -203,10 +294,68 @@ test('the public horizon separates present building, roadmap direction, and comp
   assert.match(chapters.horizon, /## Present building[\s\S]*## Roadmap direction[\s\S]*## Company ambition/i)
   assert.match(chapters.horizon, /Star Factor[^.]*being built/i)
   assert.match(chapters.horizon, /Indy[^.]*roadmap/i)
+  assert.match(chapters.horizon, /Africans[^.]*distribute[^.]*own[^.]*earn/i)
+  assert.match(chapters.horizon, /open rails built by Africans/i)
+  assert.match(chapters.horizon, /foundational infrastructure/i)
+  assert.match(chapters.horizon, /wider open ecosystem|open ecosystem/i)
 })
 
 test('the closing chapter gives all participants one shared invitation', () => {
-  assertNames(chapters.invitation, ['creators', 'brands', 'audiences', 'builders', 'partners', 'investors', 'potential hires'])
-  assert.match(chapters.invitation, /shared invitation/i)
-  assert.doesNotMatch(chapters.invitation, /PUBLIC_CTAS|\.map\(/)
+  assertSharedInvitation(chapters.invitation)
+})
+
+test('the grouped product renderer rejects a flat or incomplete source fixture', () => {
+  const badRenderers = [
+    `
+      import { PUBLIC_PRODUCT_GROUPS, PUBLIC_PRODUCT_MATURITY } from '@/content/chainfren-thesis/public-config.mjs'
+      <ul>{PUBLIC_PRODUCT_MATURITY.map((product) => <li>{product.label}</li>)}</ul>
+    `,
+    chapters.products.replace('<section', '<div'),
+    chapters.products.replace('group.itemIds.map', 'records.map'),
+    chapters.products.replace('<MaturityBadge stage={product.id} />', ''),
+    chapters.products.replace('[...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY]', '[...PUBLIC_PRODUCT_MATURITY]'),
+  ]
+  for (const source of badRenderers) {
+    assert.throws(() => assertGroupedProductRenderer(source), { name: 'AssertionError' })
+  }
+})
+
+test('the product prose rejects hard-coded internal maturity tokens', () => {
+  assert.throws(() => assertNoHardCodedMaturity('<MaturityBadge stage="media-launchpad" /> TiVi is early-access for selected audiences.'), { name: 'AssertionError' })
+})
+
+test('completed ownership detection rejects plausible achieved-outcome wording', () => {
+  for (const text of [
+    'Africans own the full value their attention creates.',
+    'Creators now control their audience relationships.',
+    'Ownership has been secured for every community.',
+    'Our customers have ownership of their data.',
+  ]) assert.throws(() => assertNoAchievedOwnership(text), { name: 'AssertionError' })
+})
+
+test('public scope detection rejects private and financial material', () => {
+  for (const text of [
+    'Revenue from Sabi will finance TiVi before the next product begins.',
+    'Our internal organisation has a private operating workflow.',
+    'The financial projection sets a revenue target and margin.',
+    'Token economics define token allocation, supply, and vesting.',
+    'The confidential sequencing plan determines which product follows.',
+  ]) assert.throws(() => assertPublicCompanyScope(text), { name: 'AssertionError' })
+})
+
+test('Star Factor status detection follows pronouns through its prose block', () => {
+  assert.throws(() => assertStarFactorBuildingStatus('Star Factor is currently being built. It is live for invited audiences.'), { name: 'AssertionError' })
+})
+
+test('the shared invitation rejects separate audience pitches', () => {
+  const sharedBlock = 'This shared invitation is for creators, brands, audiences, builders, partners, investors, and potential hires.'
+  const ownershipClose = 'Participate in an African-built ownership economy.'
+  const badInvitations = [
+    [sharedBlock, '## Creators', ownershipClose].join('\n\n'),
+    [sharedBlock, '{Object.values(PUBLIC_CTAS).map((cta) => cta.label)}', ownershipClose].join('\n\n'),
+    [sharedBlock, 'Join us with your audience.', 'Build the product with us.', ownershipClose].join('\n\n'),
+  ]
+  for (const source of badInvitations) {
+    assert.throws(() => assertSharedInvitation(source), { name: 'AssertionError' })
+  }
 })
