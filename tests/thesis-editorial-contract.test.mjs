@@ -92,10 +92,10 @@ const proseBlocks = (source) => source
 
 const assertNoAchievedOwnership = (source) => {
   const achievedOwnershipPatterns = [
-    /\bAfricans\s+(?:(?:already|now|currently)\s+)?(?:own|control)\b/i,
-    /\b(?:creators?|brands?|audiences?|communities?|people|customers?|we)\s+(?:already|now|currently)\s+(?:own|owns|control|controls)\b/i,
-    /\b(?:Africans?|creators?|brands?|audiences?|communities?|people|customers?|we)\s+(?:already\s+|now\s+|currently\s+)?have ownership\b/i,
-    /\b(?:Africans?|creators?|brands?|audiences?|communities?|people|customers?)\s+have secured ownership\b/i,
+    /\b(?:Africans|creators?|brands?|audiences?|communities?|people|customers?|builders?|partners?|investors?|potential hires|we)\s+(?:own|owns|control|controls)\s+(?:the\s+)?(?:full value|value\b|(?:their|the)\s+(?:audience relationships?|identity|data))/i,
+    /\b(?:creators?|brands?|audiences?|communities?|people|customers?|builders?|partners?|investors?|potential hires|we)\s+(?:already|now|currently)\s+(?:own|owns|control|controls)\b/i,
+    /\b(?:Africans?|creators?|brands?|audiences?|communities?|people|customers?|builders?|partners?|investors?|potential hires|we)\s+(?:already\s+|now\s+|currently\s+)?have ownership\b/i,
+    /\b(?:Africans?|creators?|brands?|audiences?|communities?|people|customers?|builders?|partners?|investors?|potential hires)\s+have secured ownership\b/i,
     /\bownership\s+(?:is|has been)\s+(?:achieved|complete|completed|secured)\b/i,
   ]
   for (const pattern of achievedOwnershipPatterns) assert.doesNotMatch(source, pattern)
@@ -140,8 +140,45 @@ const assertSharedInvitation = (source) => {
   assert.doesNotMatch(source, /^#{1,6}\s+(?:For\s+)?(?:creators|brands|audiences|builders|partners|investors|potential hires)\b/im)
   const imperativePitchBlocks = proseBlocks(source).filter((block) => /^(?:Join|Build|Invest|Partner|Create|Explore|Start|Bring|Help|Work|Apply)\b/i.test(block))
   assert.ok(imperativePitchBlocks.length <= 1, 'the invitation must not split into repeated pitch blocks')
+  const audiencePitchBlocks = proseBlocks(source).filter((block) => /^(?:Creators|Brands|Audiences|Builders|Partners|Investors|Potential hires)\s+(?:get|gets|receive|receives|gain|gains|can|will|have|has)\b/i.test(block))
+  assert.ok(audiencePitchBlocks.length <= 1, 'the invitation must not split into per-audience pitch paragraphs')
   assert.match(proseBlocks(source).at(-1), /African-built ownership economy/i)
 }
+
+const assertCompanyDistributionThesis = (source) => {
+  assert.match(source, /distribution-first/i)
+  assertNames(source, ['attention', 'trust', 'cultural context'])
+  assert.match(source, /route into people's lives/i)
+  assertPublicCompanyScope(source)
+  const publicLoopOrder = ['Sabi', 'Creator Network', 'TiVi'].map((name) => source.indexOf(name))
+  assert.ok(publicLoopOrder.every((position) => position >= 0))
+  assert.deepEqual([...publicLoopOrder].sort((a, b) => a - b), publicLoopOrder)
+}
+
+const assertOwnershipTest = (source) => {
+  const africanContext = source.search(/African context/i)
+  const ownershipPrinciples = source.search(/ownership test/i)
+  assert.ok(africanContext >= 0 && africanContext < ownershipPrinciples)
+  assertNames(source, ['portability', 'right to leave', 'human dignity', 'customer control'])
+  assert.match(source, /voluntary[\s\S]{0,80}participation|participation[\s\S]{0,80}voluntary/i)
+  assert.match(source, /blockchain[\s\S]{0,180}(?:useful|supports?|practical)/i)
+  assert.match(source, /Chainfren[^.]*same ownership test/i)
+}
+
+const assertPublicHorizon = (source) => {
+  assert.match(source, /## Present building[\s\S]*## Roadmap direction[\s\S]*## Company ambition/i)
+  assert.match(source, /Star Factor[^.]*being built/i)
+  assert.match(source, /Indy[^.]*roadmap/i)
+  assert.match(source, /Africans[^.]*distribute[^.]*own[^.]*earn/i)
+  assert.match(source, /open rails built by Africans/i)
+  assert.match(source, /foundational infrastructure/i)
+  assert.match(source, /wider open ecosystem|open ecosystem/i)
+}
+
+const removeIdea = (source, idea) => source.replace(
+  new RegExp(`\\b${idea.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi'),
+  '',
+)
 
 test('the gap names every contributor to African attention', () => {
   assertNames(chapters.gap, ['creators', 'brands', 'audiences'])
@@ -230,14 +267,7 @@ test('the public manuscript contains no uncited numeral claims', () => {
 })
 
 test('the company thesis explains its distribution-first public loop in order', () => {
-  assert.match(chapters.company, /distribution-first/i)
-  assertNames(chapters.company, ['attention', 'trust', 'cultural context'])
-  assert.match(chapters.company, /route into people's lives/i)
-  assertPublicCompanyScope(chapters.company)
-  const sabi = chapters.company.indexOf('Sabi')
-  const creatorNetwork = chapters.company.indexOf('Creator Network')
-  const tivi = chapters.company.indexOf('TiVi')
-  assert.ok(sabi >= 0 && sabi < creatorNetwork && creatorNetwork < tivi)
+  assertCompanyDistributionThesis(chapters.company)
 })
 
 test('the product thesis renders the public product groups instead of one flat maturity list', () => {
@@ -281,23 +311,11 @@ test('the product thesis states each product role and maturity without overstati
 })
 
 test('the ownership test begins with African context and keeps control practical', () => {
-  const africanContext = chapters.ownership.search(/African context/i)
-  const ownershipPrinciples = chapters.ownership.search(/ownership test/i)
-  assert.ok(africanContext >= 0 && africanContext < ownershipPrinciples)
-  assertNames(chapters.ownership, ['portability', 'right to leave', 'human dignity', 'customer control'])
-  assert.match(chapters.ownership, /voluntary[\s\S]{0,80}participation|participation[\s\S]{0,80}voluntary/i)
-  assert.match(chapters.ownership, /blockchain[\s\S]{0,180}(?:useful|supports?|practical)/i)
-  assert.match(chapters.ownership, /Chainfren[^.]*same ownership test/i)
+  assertOwnershipTest(chapters.ownership)
 })
 
 test('the public horizon separates present building, roadmap direction, and company ambition', () => {
-  assert.match(chapters.horizon, /## Present building[\s\S]*## Roadmap direction[\s\S]*## Company ambition/i)
-  assert.match(chapters.horizon, /Star Factor[^.]*being built/i)
-  assert.match(chapters.horizon, /Indy[^.]*roadmap/i)
-  assert.match(chapters.horizon, /Africans[^.]*distribute[^.]*own[^.]*earn/i)
-  assert.match(chapters.horizon, /open rails built by Africans/i)
-  assert.match(chapters.horizon, /foundational infrastructure/i)
-  assert.match(chapters.horizon, /wider open ecosystem|open ecosystem/i)
+  assertPublicHorizon(chapters.horizon)
 })
 
 test('the closing chapter gives all participants one shared invitation', () => {
@@ -327,10 +345,22 @@ test('the product prose rejects hard-coded internal maturity tokens', () => {
 test('completed ownership detection rejects plausible achieved-outcome wording', () => {
   for (const text of [
     'Africans own the full value their attention creates.',
+    'Creators own the full value their attention creates.',
+    'Brands control their audience relationships.',
+    'Customers own their identity and data.',
     'Creators now control their audience relationships.',
     'Ownership has been secured for every community.',
     'Our customers have ownership of their data.',
   ]) assert.throws(() => assertNoAchievedOwnership(text), { name: 'AssertionError' })
+})
+
+test('completed ownership detection preserves mission, modal, and future language', () => {
+  for (const text of [
+    'Creators can own the full value their attention creates.',
+    'Brands should control their audience relationships.',
+    'Chainfren exists to enable customers to own their identity and data.',
+    'Our ambition is that Africans will own more of the value they create.',
+  ]) assert.doesNotThrow(() => assertNoAchievedOwnership(text))
 })
 
 test('public scope detection rejects private and financial material', () => {
@@ -354,8 +384,58 @@ test('the shared invitation rejects separate audience pitches', () => {
     [sharedBlock, '## Creators', ownershipClose].join('\n\n'),
     [sharedBlock, '{Object.values(PUBLIC_CTAS).map((cta) => cta.label)}', ownershipClose].join('\n\n'),
     [sharedBlock, 'Join us with your audience.', 'Build the product with us.', ownershipClose].join('\n\n'),
+    [
+      sharedBlock,
+      'Creators get direct relationships.',
+      'Brands get trusted distribution.',
+      'Audiences get meaningful participation.',
+      'Builders get useful problems.',
+      'Partners get shared opportunities.',
+      'Investors get company access.',
+      'Potential hires get meaningful work.',
+      ownershipClose,
+    ].join('\n\n'),
   ]
   for (const source of badInvitations) {
     assert.throws(() => assertSharedInvitation(source), { name: 'AssertionError' })
   }
+})
+
+test('the company thesis helper rejects missing foundations and private mechanics', () => {
+  const requiredIdeas = ['attention', 'trust', 'cultural context', "route into people's lives"]
+  for (const idea of requiredIdeas) {
+    assert.throws(() => assertCompanyDistributionThesis(removeIdea(chapters.company, idea)), { name: 'AssertionError' })
+  }
+  assert.throws(() => assertCompanyDistributionThesis(`${chapters.company}\n\nOur internal organisation follows a private operating workflow.`), { name: 'AssertionError' })
+})
+
+test('the ownership helper rejects each missing ownership principle', () => {
+  const requiredIdeas = [
+    'African context',
+    'voluntary',
+    'Blockchain',
+    'human dignity',
+    'customer control',
+    'portability',
+    'right to leave',
+    'same ownership test',
+  ]
+  for (const idea of requiredIdeas) {
+    assert.throws(() => assertOwnershipTest(removeIdea(chapters.ownership, idea)), { name: 'AssertionError' })
+  }
+})
+
+test('the horizon helper rejects missing ambitions and collapsed horizons', () => {
+  const requiredIdeas = [
+    'distribute',
+    'own',
+    'earn',
+    'open rails built by Africans',
+    'foundational infrastructure',
+    'wider open ecosystem',
+  ]
+  for (const idea of requiredIdeas) {
+    assert.throws(() => assertPublicHorizon(removeIdea(chapters.horizon, idea)), { name: 'AssertionError' })
+  }
+  assert.throws(() => assertPublicHorizon(chapters.horizon.replace(/## Roadmap direction/i, '## Present building')), { name: 'AssertionError' })
 })
