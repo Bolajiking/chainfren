@@ -25,16 +25,18 @@ The final pass found no remaining cluster of AI-generated-writing signals. Sente
 
 ## Release verification
 
-Release verification was run fresh on 2026-08-26 from commit `cf24c70` before this review record was committed.
+Release verification was run fresh on 2026-08-26 from commit `5d1acf4` with the final metadata and accessible PDF changes in the working tree before this review record was committed.
 
 | Command | Exit | Result |
 | --- | ---: | --- |
 | `npm run validate:thesis` | 0 | Thesis content validation passed. |
-| `npm run test:thesis` | 0 | 149 tests passed; 0 failed, cancelled, skipped, or todo. |
+| `npm run test:thesis` | 0 | 150 tests passed; 0 failed, cancelled, skipped, or todo. |
 | `npm run build` | 0 | The optimized production build completed, including all 51 static pages. |
-| `npm run thesis:verify-release` | 0 | Release validation passed, followed by 149 tests passed and 0 failed. |
+| `npm run thesis:verify-release` | 0 | Release validation passed, followed by 150 tests passed and 0 failed. |
+| `node --test tests/thesis-routes.test.mjs tests/thesis-pdf.test.mjs` | 0 | All 28 focused route and PDF tests passed. |
+| `pdfinfo public/downloads/chainfren-thesis-2026.2.pdf` | 0 | The final PDF is tagged, readable, and reports 14 A4 pages. |
 
-The test suite and full release verifier each needed a rerun with local loopback binding permission. Their initial restricted runs reached 148 passes and one failure because the metadata test could not listen on `127.0.0.1` (`EPERM`). The source was not changed. Both unchanged commands then passed 149 of 149 with the required local permission, so no release limitation remains.
+The full release verifier ran with local loopback binding permission because its metadata test starts a temporary server on `127.0.0.1`. It passed without a retry or source adjustment, so no release limitation remains.
 
 The successful test runs emitted the Node `[MODULE_TYPELESS_PACKAGE_JSON]` warning for `lib/thesis/json-ld.js`. The successful production build emitted the webpack cache warning that the thesis CSS module warning was not serializable, the autoprefixer warning at `thesis.module.css` line 170 that `end` has mixed support and `flex-end` should be considered, and four missing Contentful environment stub notices. These were warnings only; the build exited 0.
 
@@ -44,9 +46,11 @@ The successful test runs emitted the Node `[MODULE_TYPELESS_PACKAGE_JSON]` warni
 - Independently recomputed canonical source SHA-256 from 16 normalized inputs: `187b8cb321d0f2a5693d7fd90fb1a0d1802213b8ad978c2b5b55e56bd853f55d`.
 - Generated source hash module: exact match.
 - Checksum file source hash: exact match.
-- Independently recomputed PDF SHA-256: `c47074989dd716c47f086e52df56bdde3ae380acb6de45d722625aa24172c14b`.
+- Independently recomputed PDF SHA-256: `92e24283a643a02f5ba14b8b2d41cadc5d4738b1a044b251cef25c4b5f5716ad`.
 - Checksum file PDF hash: exact match.
-- PDF: 14 A4 pages, 207,551 bytes, PDF 1.4.
+- PDF: 14 A4 pages, 255,691 bytes, PDF 1.4, tagged yes.
+- Fresh extracted text contains Africans, the approved blockchain sentence, distribution-first, TiVi, Star Factor, Sabi, Creator Network, and Indy. The approved release safety scan found no forbidden dash punctuation, private terms, or local paths.
+- Every page was freshly rendered to PNG and inspected. No clipping, overlap, broken tables, black squares, unreadable glyphs, hierarchy problems, margin defects, page-numbering defects, or section-transition regressions were found.
 - Approved sentence in both Chapter 03 source and extracted PDF text: "Blockchain is the infrastructure. African ownership is the outcome."
 - Prior artifacts remain intact: `chainfren-thesis-2026.1.pdf` and `chainfren-thesis-2026.1.sha256` are both present, and the prior PDF still matches its recorded SHA-256 `88c104eeaf04266fd85c30290a11f5ebb3f3790fc7cb587bdcb889905ccb8114`.
 
@@ -56,9 +60,9 @@ The baseline SHA was parsed from the labeled `HEAD:` field in the ignored baseli
 
 Fresh scope commands:
 
-- `git status --short`: clean before this review edit.
-- `git diff --check f9b5714ba474cf4a9173842f76738eb53abfc785..HEAD`: exit 0 with no output.
-- `git diff --stat f9b5714ba474cf4a9173842f76738eb53abfc785..HEAD`: 42 files changed, 1,653 insertions, and 188 deletions after this review update.
-- `git diff --name-only f9b5714ba474cf4a9173842f76738eb53abfc785..HEAD`: 42 paths, all inspected.
+- `git status --short`: only the seven explicitly approved metadata, generator, test, artifact, checksum, and review-record paths remained modified before the final commit.
+- `git diff --check`: exit 0 with no output.
+- `git diff --stat f9b5714ba474cf4a9173842f76738eb53abfc785`: 42 files changed, 1,675 insertions, and 189 deletions after the final review-record refresh.
+- `git diff --name-only f9b5714ba474cf4a9173842f76738eb53abfc785`: 42 paths, all inspected.
 
-Every changed path belongs to the approved thesis revision: thesis routes and components, canonical thesis content and schema, thesis PDF and checksum, thesis generation and validation scripts, thesis tests, and this review document. The only path outside those thesis-specific locations is `app/config/siteSchema.js`; its complete diff removes the em dash before "instead" and is the narrowly authorized global punctuation fix. The baseline was clean, no pre-existing user path appears in the range or current status, and the ignored baseline record was neither changed nor staged.
+Every changed path belongs to the approved thesis revision: thesis routes and components, canonical thesis content and schema, thesis PDF and checksum, thesis generation and validation scripts, thesis tests, and this review document. The only path outside those thesis-specific locations is `app/config/siteSchema.js`; its complete diff replaces the old creator-first achieved-capability description with distribution-first mission language for Africans, creators, brands, and audiences. The baseline was clean, no pre-existing user path appears in the range or current status, and the ignored baseline record was neither changed nor staged.

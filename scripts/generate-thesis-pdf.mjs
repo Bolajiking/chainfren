@@ -79,7 +79,7 @@ try {
     await page.goto(printUrl, { waitUntil: 'networkidle' })
     await page.emulateMedia({ media: 'print' })
     await page.addStyleTag({ content: '@media print { main[data-thesis-print] > article > header { padding-top: 20mm; } }' })
-    await page.pdf({ path: output, format: 'A4', printBackground: true, preferCSSPageSize: true })
+    await page.pdf({ path: output, format: 'A4', printBackground: true, preferCSSPageSize: true, tagged: true })
   } finally { await browser.close() }
   console.log(`Source SHA-256: ${THESIS_CONTENT_HASH}`)
   console.log(`PDF SHA-256: ${await sha256(output)}`)

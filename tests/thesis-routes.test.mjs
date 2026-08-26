@@ -204,4 +204,10 @@ test('sitewide structured data stays safe for deterministic thesis release outpu
   const description = siteSchema.match(/description:\s*\n\s*['"]([^'"]+)['"]/)?.[1] || ''
   assert.ok(description, 'site schema has a public description')
   assert.doesNotMatch(description, /[–—]/)
+  assert.match(description, /Africans/i)
+  assert.match(description, /distribution-first/i)
+  assert.match(description, /mission|work(?:ing)? to/i)
+  for (const audience of ['creators', 'brands', 'audiences']) assert.match(description, new RegExp(`\\b${audience}\\b`, 'i'))
+  assert.doesNotMatch(description, /creator economy|creator-first/i)
+  assert.doesNotMatch(description, /\blet(?:s)?\b[^.]*\bown\b|\b(?:Africans|creators|brands|audiences)\s+(?:already\s+|now\s+|currently\s+)?own\b/i)
 })

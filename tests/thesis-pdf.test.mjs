@@ -2,6 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { EventEmitter } from 'node:events'
+import { spawnSync } from 'node:child_process'
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
 import { waitForOwnedServerReadiness } from '../lib/thesis/owned-server-readiness.mjs'
@@ -191,4 +192,14 @@ test('the print edition keeps paragraph rhythm for long-form prose', () => {
 test('the PDF generator gives every chapter a protected print boundary', () => {
   const generator = source('scripts/generate-thesis-pdf.mjs')
   assert.match(generator, /main\[data-thesis-print\] > article > header \{ padding-top: 20mm; \}/)
+})
+
+test('the current PDF is exported as a tagged accessible document', () => {
+  const generator = source('scripts/generate-thesis-pdf.mjs')
+  assert.match(generator, /tagged:\s*true/)
+
+  const pdfPath = new URL('public/downloads/chainfren-thesis-2026.2.pdf', root)
+  const info = spawnSync('pdfinfo', [pdfPath.pathname], { encoding: 'utf8' })
+  assert.equal(info.status, 0, info.stderr || 'pdfinfo must inspect the current artifact')
+  assert.match(info.stdout, /^Tagged:\s+yes$/m)
 })
