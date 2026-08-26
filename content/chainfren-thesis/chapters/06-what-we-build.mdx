@@ -16,9 +16,10 @@ Indy is a roadmap product and is not currently available. It holds a longer dire
 {PUBLIC_PRODUCT_GROUPS.map((group) => {
   const records = [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY]
   const products = group.itemIds.map((itemId) => records.find((record) => record.id === itemId)).filter(Boolean)
+  const headingLevel = ['chapter', 'product group'].length
   return (
-    <section key={group.id} aria-label={group.label}>
-      <header>{group.label}</header>
+    <section key={group.id} aria-labelledby={`product-group-${group.id}`}>
+      <div id={`product-group-${group.id}`} role="heading" aria-level={headingLevel}>{group.label}</div>
       <ul>
         {products.map((product) => (
           <li key={product.id}>

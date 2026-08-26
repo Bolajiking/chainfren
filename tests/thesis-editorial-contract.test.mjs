@@ -117,6 +117,9 @@ const assertGroupedProductRenderer = (source) => {
   assert.match(source, /PUBLIC_PRODUCT_GROUPS\.map\(\(group\)\s*=>/)
   assert.match(source, /group\.itemIds\.map\(\(itemId\)\s*=>\s*records\.find\(\(record\)\s*=>\s*record\.id\s*===\s*itemId\)\)/)
   assert.match(source, /<section\b[\s\S]*?<ul>[\s\S]*?products\.map\(\(product\)\s*=>[\s\S]*?<li\b[\s\S]*?product\.label[\s\S]*?<MaturityBadge\s+stage={product\.id}\s*\/>[\s\S]*?<\/li>[\s\S]*?<\/ul>[\s\S]*?<\/section>/)
+  assert.match(source, /<section\s+key={group\.id}\s+aria-labelledby={`product-group-\${group\.id}`}>/)
+  assert.match(source, /const\s+headingLevel\s*=\s*\[['"]chapter['"],\s*['"]product group['"]]\.length/)
+  assert.match(source, /<div\s+id={`product-group-\${group\.id}`}\s+role="heading"\s+aria-level={headingLevel}>{group\.label}<\/div>/)
   assert.doesNotMatch(source, /PUBLIC_PRODUCT_MATURITY\.map/)
 }
 
@@ -128,7 +131,8 @@ const assertStarFactorBuildingStatus = (source) => {
   const starFactorBlock = proseBlocks(source).find((block) => /Star Factor/i.test(block))
   assert.ok(starFactorBlock, 'Star Factor must have a prose block')
   assert.match(starFactorBlock, /Star Factor[\s\S]*currently being built|currently being built[\s\S]*Star Factor/i)
-  assert.doesNotMatch(starFactorBlock, /\b(?:launched|live|available|later)\b/i)
+  const affirmativeStatusClaims = starFactorBlock.replace(/\b(?:is\s+)?not\s+(?:currently\s+)?available\b/gi, '')
+  assert.doesNotMatch(affirmativeStatusClaims, /\b(?:launched|live|available|later)\b/i)
 }
 
 const assertSharedInvitation = (source) => {
@@ -142,6 +146,7 @@ const assertSharedInvitation = (source) => {
   assert.ok(imperativePitchBlocks.length <= 1, 'the invitation must not split into repeated pitch blocks')
   const audiencePitchBlocks = proseBlocks(source).filter((block) => /^(?:Creators|Brands|Audiences|Builders|Partners|Investors|Potential hires)\s+(?:get|gets|receive|receives|gain|gains|can|will|have|has)\b/i.test(block))
   assert.ok(audiencePitchBlocks.length <= 1, 'the invitation must not split into per-audience pitch paragraphs')
+  assert.equal(source.match(/href=["']\/contact["']/g)?.length ?? 0, 1, 'the shared invitation must have one contact destination')
   assert.match(proseBlocks(source).at(-1), /African-built ownership economy/i)
 }
 
@@ -332,6 +337,9 @@ test('the grouped product renderer rejects a flat or incomplete source fixture',
     chapters.products.replace('group.itemIds.map', 'records.map'),
     chapters.products.replace('<MaturityBadge stage={product.id} />', ''),
     chapters.products.replace('[...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY]', '[...PUBLIC_PRODUCT_MATURITY]'),
+    chapters.products.replace('aria-labelledby={`product-group-${group.id}`}', 'aria-label={group.label}'),
+    chapters.products.replace('id={`product-group-${group.id}`} ', ''),
+    chapters.products.replace('aria-level={headingLevel}', ''),
   ]
   for (const source of badRenderers) {
     assert.throws(() => assertGroupedProductRenderer(source), { name: 'AssertionError' })
@@ -374,13 +382,26 @@ test('public scope detection rejects private and financial material', () => {
 })
 
 test('Star Factor status detection follows pronouns through its prose block', () => {
-  assert.throws(() => assertStarFactorBuildingStatus('Star Factor is currently being built. It is live for invited audiences.'), { name: 'AssertionError' })
+  for (const statusClaim of [
+    'It has launched for invited audiences.',
+    'It is live for invited audiences.',
+    'It is available for invited audiences.',
+    'It will come later.',
+  ]) {
+    assert.throws(() => assertStarFactorBuildingStatus(`Star Factor is currently being built. ${statusClaim}`), { name: 'AssertionError' })
+  }
+})
+
+test('Star Factor status detection allows an explicit not-available statement', () => {
+  assert.doesNotThrow(() => assertStarFactorBuildingStatus('Star Factor is currently being built and is not available.'))
 })
 
 test('the shared invitation rejects separate audience pitches', () => {
-  const sharedBlock = 'This shared invitation is for creators, brands, audiences, builders, partners, investors, and potential hires.'
+  const sharedBlock = 'This shared invitation is for creators, brands, audiences, builders, partners, investors, and potential hires. <a href="/contact">Contact us</a>.'
   const ownershipClose = 'Participate in an African-built ownership economy.'
   const badInvitations = [
+    [sharedBlock.replace(' <a href="/contact">Contact us</a>.', ''), ownershipClose].join('\n\n'),
+    [sharedBlock, '<a href="/contact">Contact us again</a>.', ownershipClose].join('\n\n'),
     [sharedBlock, '## Creators', ownershipClose].join('\n\n'),
     [sharedBlock, '{Object.values(PUBLIC_CTAS).map((cta) => cta.label)}', ownershipClose].join('\n\n'),
     [sharedBlock, 'Join us with your audience.', 'Build the product with us.', ownershipClose].join('\n\n'),
