@@ -191,6 +191,17 @@ test('safety helpers block qualified private concept families with specific labe
     ['speculative token plans', 'private token term'],
     ['private pricing model', 'private pricing term'],
     ['private pricing models', 'private pricing term'],
+    ['private financial model', 'private financial model'],
+    ['confidential financial models', 'private financial model'],
+    ['private credential', 'private credential'],
+    ['private credentials', 'private credential'],
+    ['private security issue', 'private security issue'],
+    ['confidential security issues', 'private security issue'],
+    ['internal security issue', 'private security issue'],
+    ['private operating structure', 'private operating structure'],
+    ['internal operating structures', 'private operating structure'],
+    ['private decision system', 'private decision system'],
+    ['internal decision systems', 'private decision system'],
   ]
 
   for (const [phrase, label] of blockedFixtures) {
@@ -214,6 +225,11 @@ test('safety helpers allow public language and safe qualified near-misses', () =
     'internal risk review',
     'speculative token research',
     'private pricing page',
+    'public financial model discussion',
+    'credential portability',
+    'public security guidance',
+    'this public general description explains an operating structure',
+    'user decision systems',
   ]) {
     assert.deepEqual(collectSafetyViolations(publicPhrase, 'fixture'), [])
   }

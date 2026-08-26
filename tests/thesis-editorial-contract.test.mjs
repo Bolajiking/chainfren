@@ -137,10 +137,15 @@ const assertStarFactorBuildingStatus = (source) => {
 }
 
 const assertSabiBuildingStatus = (source) => {
-  const sabiBlock = proseBlocks(source).find((block) => /\bSabi\b/i.test(block))
-  assert.ok(sabiBlock, 'Sabi must have a prose block')
-  assert.match(sabiBlock, /\bSabi\s+is\s+being\s+built\b/i)
-  assert.doesNotMatch(sabiBlock, /\bSabi\s+(?:gives|offers|provides|operates|publishes|hosts)\b|\bSabi\s+is\s+(?:live|available)\b/i)
+  const blocks = proseBlocks(source)
+  const firstSabiBlock = blocks.findIndex((block) => /\bSabi\b/i.test(block))
+  assert.notEqual(firstSabiBlock, -1, 'Sabi must have a prose block')
+  const sabiText = blocks.slice(firstSabiBlock).join('\n')
+  assert.match(sabiText, /\bSabi\s+is\s+being\s+built\b/i)
+  assert.doesNotMatch(
+    sabiText,
+    /\b(?:Sabi|It)\s+(?:gives|offers|provides|operates|publishes|hosts|runs|serves)\b|\b(?:Sabi|It)\s+is\s+(?:live|available|operational|in operation|launched)\b|\b(?:Sabi|It)\s+has\s+launched\b/i,
+  )
 }
 
 const assertSharedInvitation = (source) => {
@@ -451,6 +456,17 @@ test('Sabi status detection rejects present availability and operation claims', 
 
 test('Sabi status detection accepts explicit in-development language', () => {
   assert.doesNotThrow(() => assertSabiBuildingStatus('Sabi is being built to give African stories a public home.'))
+})
+
+test('Sabi status detection rejects contradictions after valid building language', () => {
+  for (const source of [
+    'Sabi is being built to give African stories a public home. It is live today.',
+    'Sabi is being built to give African stories a public home. It operates a public channel.',
+    'Sabi is being built to give African stories a public home. Sabi is available now.',
+    'Sabi is being built to give African stories a public home.\n\nA later product note follows.\n\nIt is live today.',
+    'Sabi is being built to give African stories a public home.\n\nA later product note follows.\n\nIt operates a public channel.',
+    'Sabi is being built to give African stories a public home.\n\nSabi is available now.',
+  ]) assert.throws(() => assertSabiBuildingStatus(source), { name: 'AssertionError' })
 })
 
 test('the shared invitation rejects separate audience pitches', () => {

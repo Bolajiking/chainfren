@@ -23,6 +23,11 @@ const blockedPatterns = [
   [/\b(?:private|confidential|internal)\s+risk\s+records?\b/i, 'private risk term'],
   [/\bspeculative\s+token\s+plans?\b/i, 'private token term'],
   [/\b(?:private|confidential|internal)\s+pricing\s+models?\b/i, 'private pricing term'],
+  [/\b(?:private|confidential)\s+financial\s+models?\b/i, 'private financial model'],
+  [/\bprivate\s+credentials?\b/i, 'private credential'],
+  [/\b(?:private|confidential|internal)\s+security\s+issues?\b/i, 'private security issue'],
+  [/\b(?:private|internal)\s+operating\s+structures?\b/i, 'private operating structure'],
+  [/\b(?:private|internal)\s+decision\s+systems?\b/i, 'private decision system'],
   [new RegExp(['come', 'ownity'].join('[\\s_-]*'), 'i'), 'excluded venture'],
 ]
 
