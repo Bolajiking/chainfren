@@ -24,6 +24,8 @@ The revision is grounded in:
 
 The public manuscript will not name private sources, local paths, internal records, or working-history artifacts.
 
+Before drafting begins, record a private source checkpoint that identifies the older manuscript revisions and the decisions behind them, then verifies each public product description and status against the latest authoritative product context. Direct user decisions in this review override older conflicting records.
+
 ## Central position
 
 Chainfren exists to enable Africans to own the full value that their attention generates on the internet.
@@ -107,6 +109,8 @@ Explain the practical capabilities of open rails:
 - access and commitments that do not depend on one company's private record;
 - stronger rights to leave, switch, and continue a relationship elsewhere.
 
+Describe these as capabilities that open rails can enable. Do not imply that Chainfren has already shipped each capability unless the public product record verifies it.
+
 Keep the computer-versus-casino boundary clear. Chainfren uses the technology for practical products and credible commitments, not speculation. Open infrastructure still needs useful interfaces, sustainable economics, clear terms, local payment fit, suitable devices, relevant languages, human judgment, and accountable institutions.
 
 ### 04. The Thesis
@@ -127,13 +131,13 @@ The company chapter must not turn into a product catalogue. Chapter 06 owns the 
 
 ### 06. What We Build
 
-Begin with the older framing, edited only as needed for grammar and consistency:
+Begin with the older framing, edited for the approved product-list boundary, grammar, and consistency:
 
 > We build for the part after attention. A creator, a brand, or a community needs a way to keep the relationship that brought people together. That can mean a clearer way to reach people, a useful place to gather, or a product that makes participation feel worth returning to.
 >
-> Our Products and Solutions are the practical layer. Media Launchpad, Creator Growth OS, Community Engine, and AI Agent Studio are public product lines with different jobs. They let us turn what we learn from culture and distribution into tools people can use.
+> Our products and solutions are the practical layer. They let us turn what we learn from culture and distribution into tools people can use.
 
-The second paragraph must be updated to reflect the approved product naming. TiVi is the branded product name. Media Launchpad is not a separate product and must not appear as a competing product name in the thesis.
+TiVi is the branded product name. Media Launchpad is not a separate product and must not appear as a competing product name in the thesis.
 
 After the opening, list the products without forcing them into the chapter's argument. Order them by public availability:
 
@@ -289,8 +293,8 @@ The revision is complete when:
 - The Unlock consistently frames open rails as the unlock and blockchain as the enabling technology;
 - The Thesis and Company retain the approved mission and distribution-first position without policy-like prose;
 - What We Build begins from the approved older framing and lists products without using them as the argument;
-- TiVi appears once as the branded product name, is marked `Live`, and is not called a flagship or early-access product;
-- Media Launchpad does not appear as a separate product;
+- TiVi appears as one product entry under its branded name, is marked `Live`, and is not called a flagship or early-access product;
+- media launchpad may describe what TiVi is, but it does not appear as a separate product, status, or competing name;
 - Creator Growth OS and Creator Network are marked `Live`;
 - Community Engine and AI Agent Studio are marked `Early access`;
 - Star Factor and Sabi are marked `Building`;
@@ -303,6 +307,7 @@ The revision is complete when:
 - the full Humanizer process and the ASD-STE review are complete;
 - the grammar and public-language audit passes;
 - public-safety checks pass without revealing internal material;
+- a pre-draft source checkpoint identifies the older source revisions and verifies every public product description and status against the latest authoritative context, with direct user decisions taking priority over older conflicts;
 - thesis validation, focused tests, production build, PDF generation, and release verification pass.
 
 ## Approved design statement
