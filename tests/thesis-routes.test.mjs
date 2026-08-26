@@ -21,6 +21,7 @@ const downloadPagePath = new URL('../app/(mainpage)/thesis/download/page.jsx', i
 const ogImagePath = new URL('../app/(mainpage)/thesis/opengraph-image/route.jsx', import.meta.url)
 const articleJsonLdPath = new URL('../app/(mainpage)/thesis/components/ArticleJsonLd.jsx', import.meta.url)
 const stackPath = new URL('../app/config/stack.js', import.meta.url)
+const siteSchemaPath = new URL('../app/config/siteSchema.js', import.meta.url)
 
 const publishedChapters = [
   ['01', 'the-gap', 'TheGap'],
@@ -98,7 +99,9 @@ test('thesis hub keeps the two reading entrances distinct from publication modes
   assert.doesNotMatch(hub, /https?:\/\/[^'"\s]*(?:fonts|googleapis|typekit)/i)
   assert.match(hub, /Africans[^.]*attention/i)
   assert.doesNotMatch(hub, /African creators have already won the attention|first public edition/i)
-  assert.match(hub, /2026\.2/)
+  assert.match(hub, /import \{ THESIS_CONTENT_VERSION \} from ['"]@\/content\/chainfren-thesis\/public-config\.mjs['"]/)
+  assert.match(hub, /Publication \{THESIS_CONTENT_VERSION\}/)
+  assert.doesNotMatch(hub, /['"`]2026\.2['"`]/)
 })
 
 test('the five-minute reader imports its dedicated MDX source without reader controls', () => {
@@ -141,7 +144,9 @@ test('thesis social image is local, branded, and uses the current all-Africans l
   assert.match(ogImage, /The Chainfren thesis/)
   assert.match(ogImage, /Africans[^.]*attention[^.]*ownership/i)
   assert.doesNotMatch(ogImage, /African creators have already won the attention|2026\.1/)
-  assert.match(ogImage, /2026\.2/)
+  assert.match(ogImage, /import \{ THESIS_CONTENT_VERSION \} from ['"]@\/content\/chainfren-thesis\/public-config\.mjs['"]/)
+  assert.match(ogImage, /PUBLICATION · \{THESIS_CONTENT_VERSION\}/)
+  assert.doesNotMatch(ogImage, /['"`]2026\.2['"`]/)
   assert.match(ogImage, /#08153C|#09011B/)
   assert.match(ogImage, /#5ACDFF|#CBF0B8/)
   assert.match(ogImage, /logodark\.svg/)
@@ -192,4 +197,11 @@ test('the thesis footer link stays wired but unpublished until the nav flag flip
   assert.match(stack, /export const THESIS_IN_PUBLIC_NAV = false/)
   assert.match(companyColumn, /\.\.\.\(THESIS_IN_PUBLIC_NAV \? \[THESIS_FOOTER_LINK\] : \[\]\)/)
   assert.doesNotMatch(companyColumn, /^\s*\['The Chainfren thesis', '\/thesis'\],$/m)
+})
+
+test('sitewide structured data stays safe for deterministic thesis release output', () => {
+  const siteSchema = readFileSync(siteSchemaPath, 'utf8')
+  const description = siteSchema.match(/description:\s*\n\s*['"]([^'"]+)['"]/)?.[1] || ''
+  assert.ok(description, 'site schema has a public description')
+  assert.doesNotMatch(description, /[–—]/)
 })
