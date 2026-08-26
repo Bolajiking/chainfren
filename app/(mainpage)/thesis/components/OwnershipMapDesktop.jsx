@@ -5,17 +5,10 @@ import Link from 'next/link'
 import styles from '../thesis.module.css'
 import { resolveMapClaim } from '@/lib/thesis/ownership-map.mjs'
 import { THESIS_CLAIMS, THESIS_EDGES } from '@/content/chainfren-thesis/claims.mjs'
-import { THESIS_MAP_LAYOUT } from '@/content/chainfren-thesis/map-layout.mjs'
+import { THESIS_MAP_GEOMETRY, THESIS_MAP_LAYOUT, THESIS_MAP_ROUTES } from '@/content/chainfren-thesis/map-layout.mjs'
 
-const CANVAS = { width: 1280, height: 540 }
-const NODE = { width: 240, height: 60 }
+const { canvas: CANVAS, node: NODE } = THESIS_MAP_GEOMETRY
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value))
-const center = (position) => ({ x: position.x + NODE.width / 2, y: position.y + NODE.height / 2 })
-const nodeBoundaryPoint = (from, to) => {
-  const delta = { x: to.x - from.x, y: to.y - from.y }
-  const scale = 1 / Math.max(Math.abs(delta.x) / (NODE.width / 2), Math.abs(delta.y) / (NODE.height / 2))
-  return { x: from.x + delta.x * scale, y: from.y + delta.y * scale }
-}
 
 export default function OwnershipMapDesktop() {
   const claims = THESIS_CLAIMS
@@ -62,20 +55,19 @@ export default function OwnershipMapDesktop() {
             {edges.map((edge) => {
               const sourceClaim = claimsById.get(edge.from)
               const targetClaim = claimsById.get(edge.to)
-              const sourceCenter = center(layout[edge.from])
-              const targetCenter = center(layout[edge.to])
-              const start = nodeBoundaryPoint(sourceCenter, targetCenter)
-              const finish = nodeBoundaryPoint(targetCenter, sourceCenter)
-              const label = { x: (start.x + finish.x) / 2, y: (start.y + finish.y) / 2 - 6 }
+              const route = THESIS_MAP_ROUTES[edge.id]
+              const labelStart = route.points[route.labelSegment]
+              const labelFinish = route.points[route.labelSegment + 1]
+              const label = { x: (labelStart.x + labelFinish.x) / 2, y: (labelStart.y + labelFinish.y) / 2 }
               return (
                 <g key={edge.id} role="img" aria-label={`${sourceClaim.title} ${edge.relation} ${targetClaim.title}`}>
                   <title>{`${sourceClaim.title} ${edge.relation} ${targetClaim.title}`}</title>
-                  <line className={styles.mapEdge} x1={start.x} y1={start.y} x2={finish.x} y2={finish.y} markerEnd="url(#ownership-arrow)" />
-                  <text className={styles.mapEdgeLabel} x={label.x} y={label.y} textAnchor="middle">{edge.relation}</text>
+                  <polyline className={styles.mapEdge} points={route.points.map(({ x, y }) => `${x},${y}`).join(' ')} markerEnd="url(#ownership-arrow)" />
+                  <text className={styles.mapEdgeLabel} x={label.x} y={label.y} textAnchor="middle" dominantBaseline="middle">{edge.relation}</text>
                 </g>
               )
             })}
-            {claims.map((claim) => { const position = layout[claim.id]; const active = claim.id === selected; return <g key={claim.id} className={`${styles.mapNode} ${active ? styles.mapNodeActive : ''}`} transform={`translate(${position.x} ${position.y})`} tabIndex="0" role="button" aria-pressed={active} aria-label={`Select ${claim.title}`} onClick={() => select(claim.id)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(claim.id) } }}><rect width="240" height="60" rx="12" /><text x="16" y="26">{claim.title}</text><text x="16" y="45">{claim.type}</text></g> })}
+            {claims.map((claim) => { const position = layout[claim.id]; const active = claim.id === selected; return <g key={claim.id} className={`${styles.mapNode} ${active ? styles.mapNodeActive : ''}`} transform={`translate(${position.x} ${position.y})`} tabIndex="0" role="button" aria-pressed={active} aria-label={`Select ${claim.title}`} onClick={() => select(claim.id)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(claim.id) } }}><rect width={NODE.width} height={NODE.height} rx="12" /><text x="16" y="26">{claim.title}</text><text x="16" y="45">{claim.type}</text></g> })}
           </g>
         </svg>
       </div>

@@ -208,7 +208,7 @@
 .mapViewport { background: linear-gradient(90deg, rgba(8, 21, 60, .06) 1px, transparent 1px), linear-gradient(rgba(8, 21, 60, .06) 1px, transparent 1px), var(--thesis-mint); background-size: 24px 24px; cursor: grab; overflow: hidden; touch-action: none; }
 .mapViewport:active { cursor: grabbing; }
 .mapViewport svg { display: block; height: min(48vw, 540px); min-height: 430px; width: 100%; }
-.mapEdge { stroke: rgba(8, 21, 60, .45); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.mapEdge { fill: none; stroke: rgba(8, 21, 60, .45); stroke-linejoin: round; stroke-width: 2; vector-effect: non-scaling-stroke; }
 .mapViewport marker path { fill: var(--thesis-navy); }
 .mapEdgeLabel { fill: var(--thesis-navy); font-family: var(--thesis-sans); font-size: 10px; font-weight: 700; paint-order: stroke; stroke: var(--thesis-mint); stroke-linejoin: round; stroke-width: 5px; text-transform: uppercase; }
 .mapNode { cursor: pointer; outline: none; }

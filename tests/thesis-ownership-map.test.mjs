@@ -2,14 +2,22 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { existsSync, readFileSync } from 'node:fs'
 import { THESIS_CLAIMS, THESIS_EDGES } from '../content/chainfren-thesis/claims.mjs'
-import { THESIS_MAP_LAYOUT } from '../content/chainfren-thesis/map-layout.mjs'
+import * as mapGeometry from '../content/chainfren-thesis/map-layout.mjs'
 import { DEFAULT_MAP_CLAIM, canLoadDesktopMap, resolveMapClaim } from '../lib/thesis/ownership-map.mjs'
 import { validateClaims, validateEdges, validateLayout } from '../lib/thesis/schema.mjs'
 
 const root = new URL('..', import.meta.url)
 const source = (path) => readFileSync(new URL(path, root), 'utf8')
-const CANVAS = { width: 1280, height: 540 }
-const NODE = { width: 240, height: 60, edgePadding: 8 }
+const { THESIS_MAP_LAYOUT } = mapGeometry
+const CANVAS = mapGeometry.THESIS_MAP_GEOMETRY?.canvas || { width: 1280, height: 540 }
+const NODE = mapGeometry.THESIS_MAP_GEOMETRY?.node || { width: 240, height: 60, edgePadding: 8 }
+const LABEL = mapGeometry.THESIS_MAP_GEOMETRY?.label || {
+  characterWidth: 7,
+  horizontalPadding: 16,
+  height: 18,
+  clearance: 18,
+  arrowClearance: 20,
+}
 
 const nodeRect = ({ x, y }, padding = 0) => ({
   left: x - padding,
@@ -23,6 +31,12 @@ const rectanglesOverlap = (one, two) => (
   && one.right >= two.left
   && one.top <= two.bottom
   && one.bottom >= two.top
+)
+
+const pointOnRectangleBoundary = (point, rect) => (
+  (point.x === rect.left || point.x === rect.right) && point.y >= rect.top && point.y <= rect.bottom
+) || (
+  (point.y === rect.top || point.y === rect.bottom) && point.x >= rect.left && point.x <= rect.right
 )
 
 const segmentIntersectsRectangle = (start, finish, rect) => {
@@ -44,6 +58,47 @@ const segmentIntersectsRectangle = (start, finish, rect) => {
     if (low > high) return false
   }
   return true
+}
+
+const routeFor = (edge) => mapGeometry.THESIS_MAP_ROUTES?.[edge.id] || {
+  points: [
+    { x: THESIS_MAP_LAYOUT[edge.from].x + NODE.width / 2, y: THESIS_MAP_LAYOUT[edge.from].y + NODE.height / 2 },
+    { x: THESIS_MAP_LAYOUT[edge.to].x + NODE.width / 2, y: THESIS_MAP_LAYOUT[edge.to].y + NODE.height / 2 },
+  ],
+  labelSegment: 0,
+}
+
+const segments = (points) => points.slice(1).map((finish, index) => ({ start: points[index], finish }))
+const pointEquals = (one, two) => one.x === two.x && one.y === two.y
+const cross = (one, two, three) => (two.x - one.x) * (three.y - one.y) - (two.y - one.y) * (three.x - one.x)
+const pointOnSegment = (point, start, finish) => cross(start, finish, point) === 0
+  && point.x >= Math.min(start.x, finish.x) && point.x <= Math.max(start.x, finish.x)
+  && point.y >= Math.min(start.y, finish.y) && point.y <= Math.max(start.y, finish.y)
+
+const segmentIntersections = (one, two) => {
+  const candidates = [one.start, one.finish, two.start, two.finish]
+    .filter((point) => pointOnSegment(point, one.start, one.finish) && pointOnSegment(point, two.start, two.finish))
+  const unique = candidates.filter((point, index) => candidates.findIndex((candidate) => pointEquals(candidate, point)) === index)
+  if (unique.length) return unique
+  const denominator = (one.start.x - one.finish.x) * (two.start.y - two.finish.y) - (one.start.y - one.finish.y) * (two.start.x - two.finish.x)
+  if (denominator === 0) return []
+  const determinantOne = one.start.x * one.finish.y - one.start.y * one.finish.x
+  const determinantTwo = two.start.x * two.finish.y - two.start.y * two.finish.x
+  const point = {
+    x: (determinantOne * (two.start.x - two.finish.x) - (one.start.x - one.finish.x) * determinantTwo) / denominator,
+    y: (determinantOne * (two.start.y - two.finish.y) - (one.start.y - one.finish.y) * determinantTwo) / denominator,
+  }
+  return pointOnSegment(point, one.start, one.finish) && pointOnSegment(point, two.start, two.finish) ? [point] : []
+}
+
+const labelBox = (edge, route) => {
+  const segment = segments(route.points)[route.labelSegment]
+  const anchor = { x: (segment.start.x + segment.finish.x) / 2, y: (segment.start.y + segment.finish.y) / 2 }
+  const width = edge.relation.length * LABEL.characterWidth + LABEL.horizontalPadding * 2
+  return {
+    anchor,
+    rect: { left: anchor.x - width / 2, right: anchor.x + width / 2, top: anchor.y - LABEL.height / 2, bottom: anchor.y + LABEL.height / 2 },
+  }
 }
 
 test('ownership map route supplies a server-readable claim outline', () => {
@@ -90,6 +145,19 @@ test('map data covers every claim and only connects known layout endpoints', () 
   assert.doesNotThrow(() => validateEdges(THESIS_EDGES, claimIds))
 })
 
+test('map geometry is canonical and supplies a route for every exact edge', () => {
+  assert.deepEqual(mapGeometry.THESIS_MAP_GEOMETRY?.canvas, { width: 1600, height: 900 })
+  assert.deepEqual(mapGeometry.THESIS_MAP_GEOMETRY?.node, { width: 240, height: 60, edgePadding: 8 })
+  assert.deepEqual(mapGeometry.THESIS_MAP_GEOMETRY?.label, {
+    characterWidth: 7,
+    horizontalPadding: 16,
+    height: 18,
+    clearance: 18,
+    arrowClearance: 20,
+  })
+  assert.deepEqual(Object.keys(mapGeometry.THESIS_MAP_ROUTES || {}), THESIS_EDGES.map(({ id }) => id))
+})
+
 test('map nodes fit the canvas and rendered rectangles never overlap', () => {
   const entries = Object.entries(THESIS_MAP_LAYOUT)
   for (const [id, position] of entries) {
@@ -105,20 +173,73 @@ test('map nodes fit the canvas and rendered rectangles never overlap', () => {
   }
 })
 
-test('every straight edge clears every padded non-endpoint node rectangle', () => {
+test('every routed edge clears every padded non-endpoint node rectangle', () => {
   for (const edge of THESIS_EDGES) {
-    const from = THESIS_MAP_LAYOUT[edge.from]
-    const to = THESIS_MAP_LAYOUT[edge.to]
-    const start = { x: from.x + NODE.width / 2, y: from.y + NODE.height / 2 }
-    const finish = { x: to.x + NODE.width / 2, y: to.y + NODE.height / 2 }
-    for (const [claimId, position] of Object.entries(THESIS_MAP_LAYOUT)) {
-      if (claimId === edge.from || claimId === edge.to) continue
-      assert.equal(
-        segmentIntersectsRectangle(start, finish, nodeRect(position, NODE.edgePadding)),
-        false,
-        `${edge.from} -> ${edge.to} must clear ${claimId}`,
-      )
+    for (const segment of segments(routeFor(edge).points)) {
+      for (const [claimId, position] of Object.entries(THESIS_MAP_LAYOUT)) {
+        if (claimId === edge.from || claimId === edge.to) continue
+        assert.equal(
+          segmentIntersectsRectangle(segment.start, segment.finish, nodeRect(position, NODE.edgePadding)),
+          false,
+          `${edge.from} -> ${edge.to} must clear ${claimId}`,
+        )
+      }
     }
+  }
+})
+
+test('routed relationships never cross or overlap away from a shared endpoint', () => {
+  for (let first = 0; first < THESIS_EDGES.length; first += 1) {
+    for (let second = first + 1; second < THESIS_EDGES.length; second += 1) {
+      const firstEdge = THESIS_EDGES[first]
+      const secondEdge = THESIS_EDGES[second]
+      const firstRoute = routeFor(firstEdge)
+      const secondRoute = routeFor(secondEdge)
+      const sharedClaim = [firstEdge.from, firstEdge.to].find((id) => id === secondEdge.from || id === secondEdge.to)
+      for (const firstSegment of segments(firstRoute.points)) {
+        for (const secondSegment of segments(secondRoute.points)) {
+          for (const intersection of segmentIntersections(firstSegment, secondSegment)) {
+            const atFirstEndpoint = pointEquals(intersection, firstRoute.points[0]) || pointEquals(intersection, firstRoute.points.at(-1))
+            const atSecondEndpoint = pointEquals(intersection, secondRoute.points[0]) || pointEquals(intersection, secondRoute.points.at(-1))
+            assert(sharedClaim && atFirstEndpoint && atSecondEndpoint, `${firstEdge.id} must not cross ${secondEdge.id} at ${intersection.x},${intersection.y}`)
+          }
+        }
+      }
+    }
+  }
+})
+
+test('relation labels have unique anchors and clear every node and other label', () => {
+  const labels = THESIS_EDGES.map((edge) => ({ edge, ...labelBox(edge, routeFor(edge)) }))
+  assert.equal(new Set(labels.map(({ anchor }) => `${anchor.x},${anchor.y}`)).size, labels.length, 'relation label anchors must be unique')
+  for (const label of labels) {
+    for (const [claimId, position] of Object.entries(THESIS_MAP_LAYOUT)) {
+      assert.equal(rectanglesOverlap(label.rect, nodeRect(position, NODE.edgePadding)), false, `${label.edge.id} label must clear ${claimId}`)
+    }
+  }
+  for (let first = 0; first < labels.length; first += 1) {
+    for (let second = first + 1; second < labels.length; second += 1) {
+      assert.equal(rectanglesOverlap(labels[first].rect, labels[second].rect), false, `${labels[first].edge.id} label must clear ${labels[second].edge.id}`)
+    }
+  }
+})
+
+test('each relation has documented line space for its word, clearances, and arrowhead', () => {
+  for (const edge of THESIS_EDGES) {
+    const route = routeFor(edge)
+    const routeSegments = segments(route.points)
+    assert(pointOnRectangleBoundary(route.points[0], nodeRect(THESIS_MAP_LAYOUT[edge.from])), `${edge.id} must leave its source boundary`)
+    assert(pointOnRectangleBoundary(route.points.at(-1), nodeRect(THESIS_MAP_LAYOUT[edge.to])), `${edge.id} arrow must meet its target boundary`)
+    for (const point of route.points) assert(point.x >= 0 && point.x <= CANVAS.width && point.y >= 0 && point.y <= CANVAS.height, `${edge.id} route must stay inside the canvas`)
+    assert(Number.isInteger(route.labelSegment) && route.labelSegment >= 0 && route.labelSegment < routeSegments.length, `${edge.id} needs a valid label segment`)
+    for (const segment of routeSegments) {
+      assert(Math.hypot(segment.finish.x - segment.start.x, segment.finish.y - segment.start.y) >= LABEL.arrowClearance, `${edge.id} has a segment too short for a clear arrow route`)
+    }
+    const labelSegment = routeSegments[route.labelSegment]
+    const available = Math.hypot(labelSegment.finish.x - labelSegment.start.x, labelSegment.finish.y - labelSegment.start.y)
+    const wordWidth = edge.relation.length * LABEL.characterWidth + LABEL.horizontalPadding * 2
+    const required = wordWidth + LABEL.clearance * 2 + LABEL.arrowClearance
+    assert(available >= required, `${edge.id} needs ${required}px for its ${edge.relation} label and arrow, found ${available}px`)
   }
 })
 
@@ -161,6 +282,13 @@ test('each claim resolves through schema, layout, and the chapter link component
 
 test('desktop edges expose direction, relation text, and accessible claim titles', () => {
   const desktop = source('app/(mainpage)/thesis/components/OwnershipMapDesktop.jsx')
+  const styles = source('app/(mainpage)/thesis/thesis.module.css')
+  assert.match(desktop, /THESIS_MAP_GEOMETRY/)
+  assert.match(desktop, /THESIS_MAP_ROUTES/)
+  assert.match(desktop, /<polyline/)
+  assert.match(desktop, /route\.points/)
+  assert.match(desktop, /dominantBaseline="middle"/)
+  assert.match(styles, /\.mapEdge\s*\{[^}]*fill:\s*none/s)
   assert.match(desktop, /<marker\s+id="ownership-arrow"/)
   assert.match(desktop, /markerEnd="url\(#ownership-arrow\)"/)
   assert.match(desktop, /className={styles\.mapEdgeLabel}/)
