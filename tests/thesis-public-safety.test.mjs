@@ -165,6 +165,23 @@ test('safety helpers block local paths, sensitive operational terms, and dash pu
   assert.equal(collectSafetyViolations('generic revenue is not blocked', 'fixture').length, 0)
 })
 
+test('safety helpers block narrowly qualified private commercial and planning phrases', () => {
+  for (const phrase of [
+    'fundraising terms',
+    'customer pipeline',
+    'internal launch gates',
+    'speculative token plan',
+    'private pricing model',
+  ]) {
+    const violations = collectSafetyViolations(phrase, 'fixture')
+    assert(violations.length > 0, `expected ${phrase} to be blocked`)
+  }
+
+  for (const publicPhrase of ['price', 'customer', 'roadmap']) {
+    assert.deepEqual(collectSafetyViolations(publicPhrase, 'fixture'), [])
+  }
+})
+
 test('safety helpers block excluded-venture separator, whitespace, and newline variants', () => {
   const parts = ['come', 'ownity']
   for (const separator of [' ', '-', '_', '\n']) {
