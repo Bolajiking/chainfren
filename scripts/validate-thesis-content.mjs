@@ -11,6 +11,8 @@ import { THESIS_MAP_LAYOUT } from '../content/chainfren-thesis/map-layout.mjs'
 import { DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS } from '../content/chainfren-thesis/public-system.mjs'
 import { validateManifest, validateCitations, validateClaims, validateEdges, validateLayout, validateCtas, validateProductGroups, validatePublicSystem, validateStages, validateReferences } from '../lib/thesis/schema.mjs'
 
+const PRIVATE_RELEASE_QUALIFIER = String.raw`(?:private|confidential|internal)`
+
 const blockedPatterns = [
   [/\/Users\//, 'local user path'], [/second-brain/i, 'private knowledge store'], [/CF-C-\d+/i, 'internal identifier'],
   [/signed\s+revenue/i, 'sensitive commercial term'], [/runway/i, 'sensitive operating term'], [/decision-rights/i, 'sensitive governance term'], [/control\s+matrix/i, 'sensitive control term'], [/risk\s+register/i, 'sensitive risk term'], [/\u2014|\u2013/, 'dash punctuation'],
@@ -23,11 +25,11 @@ const blockedPatterns = [
   [/\b(?:private|confidential|internal)\s+risk\s+records?\b/i, 'private risk term'],
   [/\bspeculative\s+token\s+plans?\b/i, 'private token term'],
   [/\b(?:private|confidential|internal)\s+pricing\s+models?\b/i, 'private pricing term'],
-  [/\b(?:private|confidential)\s+financial\s+models?\b/i, 'private financial model'],
-  [/\bprivate\s+credentials?\b/i, 'private credential'],
-  [/\b(?:private|confidential|internal)\s+security\s+issues?\b/i, 'private security issue'],
-  [/\b(?:private|internal)\s+operating\s+structures?\b/i, 'private operating structure'],
-  [/\b(?:private|internal)\s+decision\s+systems?\b/i, 'private decision system'],
+  [new RegExp(String.raw`\b${PRIVATE_RELEASE_QUALIFIER}\s+financial\s+models?\b`, 'i'), 'private financial model'],
+  [new RegExp(String.raw`\b${PRIVATE_RELEASE_QUALIFIER}\s+credentials?\b`, 'i'), 'private credential'],
+  [new RegExp(String.raw`\b${PRIVATE_RELEASE_QUALIFIER}\s+security\s+issues?\b`, 'i'), 'private security issue'],
+  [new RegExp(String.raw`\b${PRIVATE_RELEASE_QUALIFIER}\s+operating\s+structures?\b`, 'i'), 'private operating structure'],
+  [new RegExp(String.raw`\b${PRIVATE_RELEASE_QUALIFIER}\s+decision\s+systems?\b`, 'i'), 'private decision system'],
   [new RegExp(['come', 'ownity'].join('[\\s_-]*'), 'i'), 'excluded venture'],
 ]
 

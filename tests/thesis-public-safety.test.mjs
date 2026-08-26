@@ -191,21 +191,29 @@ test('safety helpers block qualified private concept families with specific labe
     ['speculative token plans', 'private token term'],
     ['private pricing model', 'private pricing term'],
     ['private pricing models', 'private pricing term'],
-    ['private financial model', 'private financial model'],
-    ['confidential financial models', 'private financial model'],
-    ['private credential', 'private credential'],
-    ['private credentials', 'private credential'],
-    ['private security issue', 'private security issue'],
-    ['confidential security issues', 'private security issue'],
-    ['internal security issue', 'private security issue'],
-    ['private operating structure', 'private operating structure'],
-    ['internal operating structures', 'private operating structure'],
-    ['private decision system', 'private decision system'],
-    ['internal decision systems', 'private decision system'],
   ]
 
   for (const [phrase, label] of blockedFixtures) {
     assert.deepEqual(collectSafetyViolations(phrase, 'fixture'), [`fixture: blocked ${label}`])
+  }
+})
+
+test('safety helpers use every private qualifier for each release-boundary family', () => {
+  const families = [
+    { singular: 'financial model', plural: 'financial models', label: 'private financial model' },
+    { singular: 'credential', plural: 'credentials', label: 'private credential' },
+    { singular: 'security issue', plural: 'security issues', label: 'private security issue' },
+    { singular: 'operating structure', plural: 'operating structures', label: 'private operating structure' },
+    { singular: 'decision system', plural: 'decision systems', label: 'private decision system' },
+  ]
+
+  for (const qualifier of ['private', 'confidential', 'internal']) {
+    for (const { singular, plural, label } of families) {
+      for (const concept of [singular, plural]) {
+        const phrase = `${qualifier} ${concept}`
+        assert.deepEqual(collectSafetyViolations(phrase, 'fixture'), [`fixture: blocked ${label}`])
+      }
+    }
   }
 })
 
