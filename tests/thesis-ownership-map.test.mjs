@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { existsSync, readFileSync } from 'node:fs'
 import { THESIS_CLAIMS, THESIS_EDGES } from '../content/chainfren-thesis/claims.mjs'
 import { THESIS_MAP_LAYOUT } from '../content/chainfren-thesis/map-layout.mjs'
-import { canLoadDesktopMap, resolveMapClaim } from '../lib/thesis/ownership-map.mjs'
+import { DEFAULT_MAP_CLAIM, canLoadDesktopMap, resolveMapClaim } from '../lib/thesis/ownership-map.mjs'
 import { validateClaims, validateEdges, validateLayout } from '../lib/thesis/schema.mjs'
 
 const root = new URL('..', import.meta.url)
@@ -93,6 +93,8 @@ test('each claim resolves through schema, layout, and the chapter link component
 })
 
 test('map deep links choose a valid claim and default invalid or absent claim IDs', () => {
+  assert.equal(DEFAULT_MAP_CLAIM, 'african-attention-value')
+  assert(THESIS_CLAIMS.some(({ id }) => id === DEFAULT_MAP_CLAIM))
   assert.equal(resolveMapClaim(THESIS_CLAIMS, 'chainfren-mission'), 'chainfren-mission')
   assert.equal(resolveMapClaim(THESIS_CLAIMS, 'not-a-claim'), 'african-attention-value')
   assert.equal(resolveMapClaim(THESIS_CLAIMS, null), 'african-attention-value')

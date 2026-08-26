@@ -81,6 +81,28 @@ test('claim validation rejects reordered rows, invalid ownership, and obsolete p
   assert.throws(() => validateClaims(reorderedNumbers, new Set(THESIS_MANIFEST.map(({ slug }) => slug)), new Set()), /canonical claim order/)
 })
 
+test('claim validation enforces the public TiVi, blockchain, and ecosystem meanings', () => {
+  const validate = (claims) => validateClaims(claims, new Set(THESIS_MANIFEST.map(({ slug }) => slug)), new Set())
+
+  const separateTiVi = THESIS_CLAIMS.map((claim) => ({ ...claim }))
+  separateTiVi.find(({ id }) => id === 'tivi-flagship').summary = 'TiVi and Media Launchpad are flagship products.'
+  assert.throws(() => validate(separateTiVi), /Media Launchpad is TiVi/)
+
+  for (const overstatement of ['TiVi has launched.', 'TiVi adoption is complete.']) {
+    const overstatedTiVi = THESIS_CLAIMS.map((claim) => ({ ...claim }))
+    overstatedTiVi.find(({ id }) => id === 'tivi-flagship').summary = `Media Launchpad is TiVi and TiVi is the flagship expression. ${overstatement}`
+    assert.throws(() => validate(overstatedTiVi), /adoption or launch/)
+  }
+
+  const vagueBlockchain = THESIS_CLAIMS.map((claim) => ({ ...claim }))
+  vagueBlockchain.find(({ id }) => id === 'blockchain-open-rails').summary = 'Blockchain may help with payments.'
+  assert.throws(() => validate(vagueBlockchain), /practical infrastructure/)
+
+  const achievedEcosystem = THESIS_CLAIMS.map((claim) => ({ ...claim }))
+  achievedEcosystem.find(({ id }) => id === 'african-built-ecosystem').summary = 'The African-built ecosystem is finished.'
+  assert.throws(() => validate(achievedEcosystem), /ambition.*outcome/i)
+})
+
 test('edge validation rejects reordered rows and unknown endpoints', () => {
   const reordered = THESIS_EDGES.map((edge) => ({ ...edge }))
   ;[reordered[0], reordered[1]] = [reordered[1], reordered[0]]
@@ -97,6 +119,25 @@ test('uses the synchronized revision date and revised chapter subjects', () => {
   assert.match(THESIS_MANIFEST.find(({ slug }) => slug === 'the-gap').summary, /Africans|African attention/i)
   assert.match(THESIS_MANIFEST.find(({ slug }) => slug === 'the-company').summary, /distribution-first/i)
   assert.match(THESIS_MANIFEST.find(({ slug }) => slug === 'what-we-build').summary, /TiVi/i)
+})
+
+test('manifest validation enforces every revised chapter subject', () => {
+  assert.doesNotThrow(() => validateManifest(THESIS_MANIFEST))
+  for (const chapter of THESIS_MANIFEST) {
+    const generic = THESIS_MANIFEST.map((item) => ({ ...item }))
+    generic.find(({ slug }) => slug === chapter.slug).summary = 'This chapter explains the public thesis.'
+    assert.throws(() => validateManifest(generic), new RegExp(`${chapter.slug}.*revised chapter subject`))
+  }
+})
+
+test('manifest validation rejects creator-only framing but allows creators inside all-Africans framing', () => {
+  const creatorOnly = THESIS_MANIFEST.map((chapter) => ({ ...chapter }))
+  creatorOnly.find(({ slug }) => slug === 'the-gap').summary = 'African creators create global attention while value collects elsewhere.'
+  assert.throws(() => validateManifest(creatorOnly), /creator-only framing/)
+
+  const allAfricans = THESIS_MANIFEST.map((chapter) => ({ ...chapter }))
+  allAfricans.find(({ slug }) => slug === 'the-gap').summary = 'Africans, including African creators, create attention while control and value collect elsewhere.'
+  assert.doesNotThrow(() => validateManifest(allAfricans))
 })
 
 test('manifest claim references must agree with claim chapter ownership', () => {
