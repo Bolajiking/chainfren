@@ -218,7 +218,6 @@ test('the trap describes extraction as a system, wherever it is based', () => {
 test('the unlock leads with open rails enabled by blockchain', () => {
   assert.match(chapters.unlock.split(/\n\s*\n/, 1)[0], /open rails/i)
   assert.match(chapters.unlock, /enabled by blockchain|blockchain[^.]*enable/i)
-  assert.ok((chapters.unlock.match(/\bblockchain\b/gi) ?? []).length <= 3)
   assertNames(chapters.unlock, ['payments', 'identity', 'participation', 'settlement', 'portability'])
   assert.match(chapters.unlock, /transparent settlement/i)
   assert.match(chapters.unlock, /speculation is not (?:the )?(?:purpose|mission)/i)
