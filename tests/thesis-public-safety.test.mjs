@@ -165,19 +165,56 @@ test('safety helpers block local paths, sensitive operational terms, and dash pu
   assert.equal(collectSafetyViolations('generic revenue is not blocked', 'fixture').length, 0)
 })
 
-test('safety helpers block narrowly qualified private commercial and planning phrases', () => {
-  for (const phrase of [
-    'fundraising terms',
-    'customer pipeline',
-    'internal launch gates',
-    'speculative token plan',
-    'private pricing model',
-  ]) {
-    const violations = collectSafetyViolations(phrase, 'fixture')
-    assert(violations.length > 0, `expected ${phrase} to be blocked`)
-  }
+test('safety helpers block qualified private concept families with specific labels', () => {
+  const blockedFixtures = [
+    ['fundraising term', 'private fundraising term'],
+    ['fundraising terms', 'private fundraising term'],
+    ['fundraising plan', 'private fundraising term'],
+    ['fundraising plans', 'private fundraising term'],
+    ['customer pipeline', 'private customer term'],
+    ['customer pipelines', 'private customer term'],
+    ['private pipeline', 'private customer term'],
+    ['private customer information', 'private customer term'],
+    ['confidential roadmap', 'private roadmap term'],
+    ['internal roadmaps', 'private roadmap term'],
+    ['internal launch gate', 'private launch term'],
+    ['internal launch gates', 'private launch term'],
+    ['private launch gates', 'private launch term'],
+    ['confidential launch gate', 'private launch term'],
+    ['private partner terms', 'private partner term'],
+    ['confidential partner term', 'private partner term'],
+    ['private creator terms', 'private creator term'],
+    ['internal creator term', 'private creator term'],
+    ['internal risk record', 'private risk term'],
+    ['internal risk records', 'private risk term'],
+    ['speculative token plan', 'private token term'],
+    ['speculative token plans', 'private token term'],
+    ['private pricing model', 'private pricing term'],
+    ['private pricing models', 'private pricing term'],
+  ]
 
-  for (const publicPhrase of ['price', 'customer', 'roadmap']) {
+  for (const [phrase, label] of blockedFixtures) {
+    assert.deepEqual(collectSafetyViolations(phrase, 'fixture'), [`fixture: blocked ${label}`])
+  }
+})
+
+test('safety helpers allow public language and safe qualified near-misses', () => {
+  for (const publicPhrase of [
+    'customer',
+    'price',
+    'roadmap',
+    'public launch plan',
+    'public partner terms',
+    'creator terms published as public policy',
+    'private customer support',
+    'confidential product direction',
+    'internal launch checklist',
+    'private partner directory',
+    'internal creator workshop',
+    'internal risk review',
+    'speculative token research',
+    'private pricing page',
+  ]) {
     assert.deepEqual(collectSafetyViolations(publicPhrase, 'fixture'), [])
   }
 })

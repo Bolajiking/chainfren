@@ -14,7 +14,15 @@ import { validateManifest, validateCitations, validateClaims, validateEdges, val
 const blockedPatterns = [
   [/\/Users\//, 'local user path'], [/second-brain/i, 'private knowledge store'], [/CF-C-\d+/i, 'internal identifier'],
   [/signed\s+revenue/i, 'sensitive commercial term'], [/runway/i, 'sensitive operating term'], [/decision-rights/i, 'sensitive governance term'], [/control\s+matrix/i, 'sensitive control term'], [/risk\s+register/i, 'sensitive risk term'], [/\u2014|\u2013/, 'dash punctuation'],
-  [/\bfundraising\s+terms\b/i, 'private fundraising term'], [/\bcustomer\s+pipeline\b/i, 'private customer term'], [/\binternal\s+launch\s+gates\b/i, 'private launch term'], [/\bspeculative\s+token\s+plan\b/i, 'private token term'], [/\bprivate\s+pricing\s+model\b/i, 'private pricing term'],
+  [/\bfundraising\s+(?:terms?|plans?)\b/i, 'private fundraising term'],
+  [/\b(?:customer\s+pipelines?|(?:private|confidential|internal)\s+(?:customer\s+information|(?:customer\s+)?pipelines?))\b/i, 'private customer term'],
+  [/\b(?:private|confidential|internal)\s+roadmaps?\b/i, 'private roadmap term'],
+  [/\b(?:private|confidential|internal)\s+launch\s+gates?\b/i, 'private launch term'],
+  [/\b(?:private|confidential|internal)\s+partner\s+terms?\b/i, 'private partner term'],
+  [/\b(?:private|confidential|internal)\s+creator\s+terms?\b/i, 'private creator term'],
+  [/\b(?:private|confidential|internal)\s+risk\s+records?\b/i, 'private risk term'],
+  [/\bspeculative\s+token\s+plans?\b/i, 'private token term'],
+  [/\b(?:private|confidential|internal)\s+pricing\s+models?\b/i, 'private pricing term'],
   [new RegExp(['come', 'ownity'].join('[\\s_-]*'), 'i'), 'excluded venture'],
 ]
 

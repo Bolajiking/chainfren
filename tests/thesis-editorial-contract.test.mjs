@@ -136,6 +136,13 @@ const assertStarFactorBuildingStatus = (source) => {
   assert.doesNotMatch(affirmativeStatusClaims, /\b(?:launched|live|available|later)\b/i)
 }
 
+const assertSabiBuildingStatus = (source) => {
+  const sabiBlock = proseBlocks(source).find((block) => /\bSabi\b/i.test(block))
+  assert.ok(sabiBlock, 'Sabi must have a prose block')
+  assert.match(sabiBlock, /\bSabi\s+is\s+being\s+built\b/i)
+  assert.doesNotMatch(sabiBlock, /\bSabi\s+(?:gives|offers|provides|operates|publishes|hosts)\b|\bSabi\s+is\s+(?:live|available)\b/i)
+}
+
 const assertSharedInvitation = (source) => {
   const audiences = ['creators', 'brands', 'audiences', 'builders', 'partners', 'investors', 'potential hires']
   const sharedBlocks = proseBlocks(source).filter((block) => audiences.every((audience) => new RegExp(`\\b${audience}\\b`, 'i').test(block)))
@@ -206,6 +213,8 @@ test('the unlock gives blockchain a practical and non-speculative purpose', () =
   assert.match(chapters.unlock, /transparent settlement/i)
   assert.match(chapters.unlock, /speculation is not (?:the )?(?:purpose|mission)/i)
   assertNames(chapters.unlock, ['devices', 'payment', 'languages', 'communities'])
+  assert.match(chapters.unlock, /compatible\s+services[^.]*same\s+standards|same\s+standards[^.]*compatible\s+services/i)
+  assert.match(chapters.unlock, /(?:shared\s+record|record)[^.]*support[^.]*portab|support[^.]*portab[^.]*record/i)
 })
 
 test('the thesis states the mission and defines custodianship', () => {
@@ -302,6 +311,7 @@ test('the short read states public product roles and maturity accurately', () =>
 
 test('the company thesis explains its distribution-first public loop in order', () => {
   assertCompanyDistributionThesis(chapters.company)
+  assertSabiBuildingStatus(chapters.company)
 })
 
 test('the product thesis renders the public product groups instead of one flat maturity list', () => {
@@ -342,6 +352,7 @@ test('the product thesis states each product role and maturity without overstati
   assert.match(chapters.products, /Creator Growth OS[^.]*Community Engine[^.]*AI Agent Studio[^.]*additional capabilities/i)
   assert.match(chapters.products, /Indy[^.]*roadmap product[^.]*not currently available/i)
   assertNoHardCodedMaturity(chapters.products)
+  assertSabiBuildingStatus(chapters.products)
 })
 
 test('the ownership test begins with African context and keeps control practical', () => {
@@ -423,6 +434,23 @@ test('Star Factor status detection follows pronouns through its prose block', ()
 
 test('Star Factor status detection allows an explicit not-available statement', () => {
   assert.doesNotThrow(() => assertStarFactorBuildingStatus('Star Factor is currently being built and is not available.'))
+})
+
+test('Sabi status detection rejects present availability and operation claims', () => {
+  for (const statusClaim of [
+    'Sabi gives stories a public home.',
+    'Sabi offers public broadcasts.',
+    'Sabi provides a media surface.',
+    'Sabi operates a public channel.',
+    'Sabi publishes African ideas.',
+    'Sabi hosts public broadcasts.',
+    'Sabi is live.',
+    'Sabi is available.',
+  ]) assert.throws(() => assertSabiBuildingStatus(statusClaim), { name: 'AssertionError' })
+})
+
+test('Sabi status detection accepts explicit in-development language', () => {
+  assert.doesNotThrow(() => assertSabiBuildingStatus('Sabi is being built to give African stories a public home.'))
 })
 
 test('the shared invitation rejects separate audience pitches', () => {
