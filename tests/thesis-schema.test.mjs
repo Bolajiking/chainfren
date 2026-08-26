@@ -94,7 +94,7 @@ test('claim validation enforces the public TiVi, blockchain, and ecosystem meani
 
   const separateTiVi = THESIS_CLAIMS.map((claim) => ({ ...claim }))
   findClaim(separateTiVi, 'tivi-product').summary = 'TiVi is a flagship product.'
-  assert.throws(() => validate(separateTiVi), /product home/)
+  assert.throws(() => validate(separateTiVi), /media channel/)
 
   for (const overstatement of ['TiVi has launched.', 'TiVi adoption is complete.']) {
     const overstatedTiVi = THESIS_CLAIMS.map((claim) => ({ ...claim }))
@@ -122,7 +122,7 @@ test('edge validation rejects reordered rows and unknown endpoints', () => {
 })
 
 test('uses the synchronized revision date and revised chapter subjects', () => {
-  assert(THESIS_MANIFEST.every(({ updatedAt }) => updatedAt === '2026-08-25'))
+  assert(THESIS_MANIFEST.every(({ updatedAt }) => updatedAt === '2026-08-26'))
   assert.doesNotMatch(THESIS_MANIFEST.map(({ summary }) => summary).join('\n'), /Star Factor is a later|Products and Solutions/i)
   assert.match(THESIS_MANIFEST.find(({ slug }) => slug === 'the-gap').summary, /Africans|African attention/i)
   assert.match(THESIS_MANIFEST.find(({ slug }) => slug === 'the-company').summary, /distribution-first/i)
@@ -259,7 +259,7 @@ test('rejects invalid public product group membership and ordering', () => {
   assert.throws(() => validateProductGroups(duplicate, records), /unique membership/)
 
   const missing = clone()
-  missing[4].itemIds = []
+  missing[3].itemIds = []
   assert.throws(() => validateProductGroups(missing, records), /complete coverage/)
 
   const changedGroupOrder = clone()
@@ -271,7 +271,7 @@ test('rejects invalid public product group membership and ordering', () => {
   assert.throws(() => validateProductGroups(changedItemOrder, records), /item order/)
 
   const unknown = clone()
-  unknown[4].itemIds[0] = 'unknown-product'
+  unknown[3].itemIds[0] = 'unknown-product'
   assert.throws(() => validateProductGroups(unknown, records), /unknown item/)
 })
 

@@ -1,7 +1,7 @@
 export const DISTRIBUTION_LOOP = [
   { id: 'sabi', title: 'Sabi', summary: 'An owned media surface for cultural signal.', maturity: 'building', href: '/sabi' },
   { id: 'creator-network', title: 'Creator Network', summary: 'Trusted distribution for creators, brands, and campaigns.', maturity: 'live', href: '/creator-network' },
-  { id: 'tivi', title: 'TiVi / Media Launchpad', summary: 'A launchpad for media experiences and owned audience relationships.', maturity: 'early-access', maturityId: 'media-launchpad', href: '/products/media-launchpad' },
+  { id: 'tivi', title: 'TiVi', summary: 'A media channel where participation and audience relationships can continue.', maturity: 'live', maturityId: 'media-launchpad', href: '/products/media-launchpad' },
   { id: 'additional-capabilities', title: 'Additional capabilities', summary: 'Practical tools for owned relationships and growth.', href: '/products' },
   { id: 'star-factor', title: 'Star Factor', summary: 'An audience participation product now in development.', maturity: 'building', href: '/thesis/read/the-road-ahead' },
 ]
@@ -17,5 +17,5 @@ export const ROADMAP_HORIZONS = [
   { id: 'foundation', title: 'Foundation', summary: 'Strengthen TiVi and the public product foundation.', href: '/products' },
   { id: 'distribution', title: 'Distribution', summary: 'Connect trusted attention with practical distribution.', href: '/contact' },
   { id: 'participation', title: 'Participation', summary: 'Build Star Factor as a careful test of audience participation.', href: '/thesis/read/the-road-ahead' },
-  { id: 'compounding-value', title: 'Open ecosystem', summary: 'Keep Indy directional while building toward durable value on open rails.', href: '/thesis/read/the-thesis' },
+  { id: 'compounding-value', title: 'Open ecosystem', summary: 'Keep Indy directional while working toward Africans distributing, owning, and earning on open rails built by Africans for Africans.', href: '/thesis/read/the-thesis' },
 ]
