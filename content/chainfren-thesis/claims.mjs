@@ -1,22 +1,36 @@
 const baseline = [
-  ['african-cultural-attention', 'African culture already commands attention', 'African creators shape what people watch, wear, quote, and copy. The attention already exists.', 'context', 'the-gap', 1],
-  ['african-value-gap', "Africa's value gap", 'The culture travels further than the economic value that returns to the people who make it.', 'diagnosis', 'the-gap', 2],
-  ['attract-then-extract', 'Attract, then extract', 'Platforms make creation and growth easy, then tighten control once creators and audiences depend on them.', 'diagnosis', 'the-trap', 3],
-  ['rented-audience-relationship', 'Rented audience relationships', 'A following is fragile when another company controls reach, data, payments, and access.', 'diagnosis', 'the-trap', 4],
-  ['open-economic-rails', 'Open economic rails', 'Open networks can make identity, payments, access, and commitments portable across products and borders.', 'mechanism', 'the-unlock', 5],
-  ['attention-to-ownership', 'Attention must become ownership', 'Attention becomes durable value when people can own the audience relationship, participation, and upside.', 'mission', 'the-thesis', 6],
-  ['chainfren-mission', "Chainfren's mission", 'We build the attention and ownership infrastructure that helps Africa\'s creator economy keep more of the value it creates.', 'mission', 'the-company', 7],
-  ['sabi-attention', 'Sabi builds attention', 'Sabi gives Chainfren an owned media surface for ideas, stories, broadcasts, and cultural signal.', 'distribution', 'what-we-build', 8],
-  ['creator-network-distribution', 'Creator Network turns reach into distribution', 'The network connects trusted creators, brands, and campaigns so attention can move with context and credibility.', 'distribution', 'what-we-build', 9],
-  ['star-factor-proof', 'Star Factor proves the thesis', 'Star Factor is a later milestone designed to test staked entertainment and audience participation in an African context.', 'proof', 'the-road-ahead', 10],
-  ['products-owned-infrastructure', 'Products make ownership usable', 'Chainfren\'s products turn lessons from the market into practical infrastructure for audience relationships, payments, media, community, and growth.', 'execution', 'what-we-build', 11],
-  ['owned-value-outcome', 'Owned attention creates compounding value', 'When creators and audiences keep the relationship, each cycle can create more data, participation, trust, and value.', 'outcome', 'the-road-ahead', 12],
+  ['african-attention-value', 'African attention should create African value', 'Africans create attention across culture, commerce, and community. More of the value should stay with the people and relationships that create it.', 'context', 'the-gap', 1],
+  ['african-value-gap', 'The African value gap', 'African attention travels widely, but control of the relationships and value around it often sits elsewhere.', 'diagnosis', 'the-gap', 2],
+  ['extractive-systems', 'Extraction is a system', 'A system can attract people with reach, then keep control of discovery, identity, data, relationships, distribution, and payment.', 'diagnosis', 'the-trap', 3],
+  ['rented-relationships', 'Rented relationships', 'A relationship is fragile when another company can change access, reach, data, or payment without the community choosing it.', 'diagnosis', 'the-trap', 4],
+  ['blockchain-open-rails', 'Blockchain as practical open rails', 'Blockchain can support portable identity, payments, participation, settlement, and access when it makes the experience more useful.', 'mechanism', 'the-unlock', 5],
+  ['distribution-first', 'Distribution comes first', 'Chainfren starts where attention and trust already move, then uses that route to build products into people\'s lives.', 'execution', 'the-company', 6],
+  ['attention-to-participation', 'Attention can become participation', 'Attention gains meaning when people can take a clear and voluntary role in what they support.', 'mechanism', 'the-thesis', 7],
+  ['participation-to-ownership', 'Participation can become ownership', 'Participation should lead toward portable relationships, customer control, and the right to leave.', 'mission', 'the-thesis', 8],
+  ['ownership-to-value', 'Ownership can create durable value', 'When people can keep a relationship, the value created through it can stay closer and grow through continued participation.', 'outcome', 'the-thesis', 9],
+  ['chainfren-mission', "Chainfren's mission", 'Chainfren exists to enable Africans to own the full value their attention generates on the internet.', 'mission', 'the-company', 10],
+  ['tivi-flagship', 'TiVi is the flagship expression', 'TiVi, whose public product is Media Launchpad, is the flagship expression of the distribution and ownership thesis.', 'execution', 'what-we-build', 11],
+  ['african-built-ecosystem', 'An African-built open ecosystem', 'The ambition is an open ecosystem built by Africans where people can distribute, participate, own, and earn on practical rails.', 'outcome', 'the-road-ahead', 12],
 ]
 
 export const THESIS_CLAIMS = baseline.map(([id, title, summary, type, chapterSlug, order]) => ({ id, title, summary, type, chapterSlug, order, publicCitationIds: [] }))
 
 const edgeId = (from, to, relation) => `${from}:${relation}:${to}`
 const rows = [
-  ['african-value-gap', 'owned-value-outcome', 'constrains'], ['attract-then-extract', 'rented-audience-relationship', 'causes'], ['rented-audience-relationship', 'attention-to-ownership', 'constrains'], ['open-economic-rails', 'attention-to-ownership', 'enables'], ['african-cultural-attention', 'attention-to-ownership', 'enables'], ['attention-to-ownership', 'chainfren-mission', 'enables'], ['chainfren-mission', 'sabi-attention', 'enables'], ['chainfren-mission', 'creator-network-distribution', 'enables'], ['chainfren-mission', 'products-owned-infrastructure', 'enables'], ['sabi-attention', 'creator-network-distribution', 'enables'], ['creator-network-distribution', 'star-factor-proof', 'enables'], ['star-factor-proof', 'attention-to-ownership', 'demonstrates'], ['products-owned-infrastructure', 'owned-value-outcome', 'enables'], ['creator-network-distribution', 'owned-value-outcome', 'enables'], ['attention-to-ownership', 'owned-value-outcome', 'enables'],
+  ['extractive-systems', 'african-value-gap', 'causes'],
+  ['extractive-systems', 'rented-relationships', 'causes'],
+  ['rented-relationships', 'african-attention-value', 'constrains'],
+  ['african-attention-value', 'attention-to-participation', 'enables'],
+  ['blockchain-open-rails', 'participation-to-ownership', 'enables'],
+  ['distribution-first', 'attention-to-participation', 'enables'],
+  ['attention-to-participation', 'participation-to-ownership', 'enables'],
+  ['participation-to-ownership', 'ownership-to-value', 'enables'],
+  ['ownership-to-value', 'african-built-ecosystem', 'enables'],
+  ['chainfren-mission', 'distribution-first', 'enables'],
+  ['chainfren-mission', 'tivi-flagship', 'enables'],
+  ['tivi-flagship', 'participation-to-ownership', 'enables'],
+  ['blockchain-open-rails', 'tivi-flagship', 'enables'],
+  ['distribution-first', 'tivi-flagship', 'enables'],
+  ['tivi-flagship', 'ownership-to-value', 'enables'],
 ]
 export const THESIS_EDGES = rows.map(([from, to, relation]) => ({ id: edgeId(from, to, relation), from, to, relation }))

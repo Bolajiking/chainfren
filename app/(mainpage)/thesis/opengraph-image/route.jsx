@@ -27,9 +27,9 @@ export async function GET() {
       >
         <img alt="Chainfren" height="42" src={wordmarkDataUrl} width="168" />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
-          <span style={{ color: '#40607C', fontFamily: 'sans-serif', fontSize: 28, letterSpacing: '2px' }}>PUBLIC EDITION · 2026.1</span>
+          <span style={{ color: '#40607C', fontFamily: 'sans-serif', fontSize: 28, letterSpacing: '2px' }}>PUBLICATION · 2026.2</span>
           <span style={{ color: '#08153C', fontFamily: 'sans-serif', fontSize: 86, fontWeight: 700, letterSpacing: '-4px' }}>The Chainfren thesis</span>
-          <span style={{ color: '#08153C', fontFamily: 'sans-serif', fontSize: 34 }}>African creators have already won the attention. The next fight is ownership.</span>
+          <span style={{ color: '#08153C', fontFamily: 'sans-serif', fontSize: 34 }}>Africans create attention, and the next work is participation, ownership, and value.</span>
         </div>
         <div style={{ background: 'linear-gradient(90deg, #5ACDFF, #CBF0B8)', height: '12px', width: '100%' }} />
       </div>

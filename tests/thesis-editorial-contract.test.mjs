@@ -27,6 +27,7 @@ const chapters = {
   horizon: chapter('08-the-road-ahead.mdx'),
   invitation: chapter('09-build-with-us.mdx'),
 }
+const shortRead = readFileSync(resolve(thesisRoot, 'short-read.mdx'), 'utf8')
 
 const assertNames = (source, terms) => {
   for (const term of terms) assert.match(source, new RegExp(`\\b${term}\\b`, 'i'))
@@ -269,6 +270,29 @@ test('an exact cited numeral claim is allowed when no uncited numeral remains', 
 
 test('the public manuscript contains no uncited numeral claims', () => {
   assert.deepEqual(scanManuscriptNumerals(), [])
+})
+
+test('the short read stands alone as the complete five-minute thesis', () => {
+  const headings = [...shortRead.matchAll(/^##\s+(.+)$/gm)].map((match) => match[1].toLowerCase())
+  assert.deepEqual(headings, ['the gap', 'the trap', 'the unlock', 'the thesis', 'the company and its loop', 'what we build', 'how we work', 'the road ahead', 'an invitation'])
+  assert.match(shortRead, /Chainfren exists to enable Africans to own the full value their attention generates on the internet\./i)
+  assert.match(shortRead, /blockchain/i)
+  assert.match(shortRead, /speculation is not (?:the )?(?:purpose|mission)/i)
+  assert.match(shortRead, /distribution-first/i)
+  assert.match(shortRead, /right to leave/i)
+  assert.match(shortRead, /African-built open ecosystem/i)
+  assertNames(shortRead, ['Africans', 'TiVi', 'Star Factor', 'Sabi', 'Creator Network', 'Creator Growth OS', 'Community Engine', 'AI Agent Studio', 'Indy'])
+})
+
+test('the short read states public product roles and maturity accurately', () => {
+  assert.match(shortRead, /TiVi[^.]*flagship|flagship[^.]*TiVi/i)
+  assert.match(shortRead, /Media Launchpad[^.]*TiVi|TiVi[^.]*Media Launchpad/i)
+  assertStarFactorBuildingStatus(shortRead)
+  assert.match(shortRead, /Sabi[^.]*Creator Network[^.]*supporting distribution products/i)
+  assert.match(shortRead, /Creator Growth OS[^.]*Community Engine[^.]*AI Agent Studio[^.]*additional capabilities/i)
+  assert.match(shortRead, /Indy[^.]*roadmap/i)
+  assertPublicCompanyScope(shortRead)
+  assertNoAchievedOwnership(shortRead)
 })
 
 test('the company thesis explains its distribution-first public loop in order', () => {

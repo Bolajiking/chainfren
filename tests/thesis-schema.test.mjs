@@ -7,7 +7,40 @@ import { PUBLIC_CITATIONS } from '../content/chainfren-thesis/citations.mjs'
 import { THESIS_CLAIMS, THESIS_EDGES } from '../content/chainfren-thesis/claims.mjs'
 import { DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS } from '../content/chainfren-thesis/public-system.mjs'
 import { PUBLIC_PRODUCT_MATURITY, PUBLIC_INITIATIVE_MATURITY } from '../content/chainfren-thesis/public-config.mjs'
-import { validateCitations, validateManifest, validateProductGroups, validatePublicSystem, validateStages } from '../lib/thesis/schema.mjs'
+import { validateCitations, validateClaims, validateEdges, validateManifest, validateProductGroups, validatePublicSystem, validateReferences, validateStages } from '../lib/thesis/schema.mjs'
+
+const canonicalClaimRows = [
+  ['african-attention-value', 'the-gap', 'context'],
+  ['african-value-gap', 'the-gap', 'diagnosis'],
+  ['extractive-systems', 'the-trap', 'diagnosis'],
+  ['rented-relationships', 'the-trap', 'diagnosis'],
+  ['blockchain-open-rails', 'the-unlock', 'mechanism'],
+  ['distribution-first', 'the-company', 'execution'],
+  ['attention-to-participation', 'the-thesis', 'mechanism'],
+  ['participation-to-ownership', 'the-thesis', 'mission'],
+  ['ownership-to-value', 'the-thesis', 'outcome'],
+  ['chainfren-mission', 'the-company', 'mission'],
+  ['tivi-flagship', 'what-we-build', 'execution'],
+  ['african-built-ecosystem', 'the-road-ahead', 'outcome'],
+]
+
+const canonicalEdgeRows = [
+  ['extractive-systems', 'african-value-gap', 'causes'],
+  ['extractive-systems', 'rented-relationships', 'causes'],
+  ['rented-relationships', 'african-attention-value', 'constrains'],
+  ['african-attention-value', 'attention-to-participation', 'enables'],
+  ['blockchain-open-rails', 'participation-to-ownership', 'enables'],
+  ['distribution-first', 'attention-to-participation', 'enables'],
+  ['attention-to-participation', 'participation-to-ownership', 'enables'],
+  ['participation-to-ownership', 'ownership-to-value', 'enables'],
+  ['ownership-to-value', 'african-built-ecosystem', 'enables'],
+  ['chainfren-mission', 'distribution-first', 'enables'],
+  ['chainfren-mission', 'tivi-flagship', 'enables'],
+  ['tivi-flagship', 'participation-to-ownership', 'enables'],
+  ['blockchain-open-rails', 'tivi-flagship', 'enables'],
+  ['distribution-first', 'tivi-flagship', 'enables'],
+  ['tivi-flagship', 'ownership-to-value', 'enables'],
+]
 
 test('defines the public thesis version and nine unique ordered chapters', () => {
   assert.equal(THESIS_CONTENT_VERSION, '2026.2')
@@ -20,10 +53,57 @@ test('defines the public thesis version and nine unique ordered chapters', () =>
   assert.equal(new Set(THESIS_MANIFEST.map((chapter) => chapter.slug)).size, 9)
 })
 
-test('defines twelve unique public claims and the canonical edge count', () => {
-  assert.equal(THESIS_CLAIMS.length, 12)
-  assert.equal(new Set(THESIS_CLAIMS.map((claim) => claim.id)).size, 12)
-  assert.equal(THESIS_EDGES.length, 15)
+test('defines the exact ordered public claim and edge contracts', () => {
+  assert.deepEqual(THESIS_CLAIMS.map(({ id, chapterSlug, type }) => [id, chapterSlug, type]), canonicalClaimRows)
+  assert.deepEqual(THESIS_CLAIMS.map(({ order }) => order), canonicalClaimRows.map((_, index) => index + 1))
+  assert.deepEqual(THESIS_EDGES.map(({ from, to, relation }) => [from, to, relation]), canonicalEdgeRows)
+  assert.equal(new Set(THESIS_CLAIMS.map((claim) => claim.id)).size, canonicalClaimRows.length)
+  assert.equal(new Set(THESIS_EDGES.map((edge) => edge.id)).size, canonicalEdgeRows.length)
+  assert.doesNotThrow(() => validateClaims(THESIS_CLAIMS, new Set(THESIS_MANIFEST.map(({ slug }) => slug)), new Set(PUBLIC_CITATIONS.map(({ id }) => id))))
+  assert.doesNotThrow(() => validateEdges(THESIS_EDGES, new Set(THESIS_CLAIMS.map(({ id }) => id))))
+})
+
+test('claim validation rejects reordered rows, invalid ownership, and obsolete proof framing', () => {
+  const reordered = THESIS_CLAIMS.map((claim) => ({ ...claim }))
+  ;[reordered[0], reordered[1]] = [reordered[1], reordered[0]]
+  assert.throws(() => validateClaims(reordered, new Set(THESIS_MANIFEST.map(({ slug }) => slug)), new Set()), /canonical claim rows/)
+
+  const wrongChapter = THESIS_CLAIMS.map((claim) => ({ ...claim }))
+  wrongChapter.find(({ id }) => id === 'tivi-flagship').chapterSlug = 'the-road-ahead'
+  assert.throws(() => validateClaims(wrongChapter, new Set(THESIS_MANIFEST.map(({ slug }) => slug)), new Set()), /canonical claim rows/)
+
+  const proofTitle = THESIS_CLAIMS.map((claim) => ({ ...claim }))
+  proofTitle[0].title = 'Proof that Star Factor works'
+  assert.throws(() => validateClaims(proofTitle, new Set(THESIS_MANIFEST.map(({ slug }) => slug)), new Set()), /proof/i)
+
+  const reorderedNumbers = THESIS_CLAIMS.map((claim) => ({ ...claim }))
+  ;[reorderedNumbers[0].order, reorderedNumbers[1].order] = [reorderedNumbers[1].order, reorderedNumbers[0].order]
+  assert.throws(() => validateClaims(reorderedNumbers, new Set(THESIS_MANIFEST.map(({ slug }) => slug)), new Set()), /canonical claim order/)
+})
+
+test('edge validation rejects reordered rows and unknown endpoints', () => {
+  const reordered = THESIS_EDGES.map((edge) => ({ ...edge }))
+  ;[reordered[0], reordered[1]] = [reordered[1], reordered[0]]
+  assert.throws(() => validateEdges(reordered, new Set(THESIS_CLAIMS.map(({ id }) => id))), /canonical edge order/)
+
+  const unknown = THESIS_EDGES.map((edge) => ({ ...edge }))
+  unknown[0].from = 'missing-claim'
+  assert.throws(() => validateEdges(unknown, new Set(THESIS_CLAIMS.map(({ id }) => id))), /unknown claim/)
+})
+
+test('uses the synchronized revision date and revised chapter subjects', () => {
+  assert(THESIS_MANIFEST.every(({ updatedAt }) => updatedAt === '2026-08-25'))
+  assert.doesNotMatch(THESIS_MANIFEST.map(({ summary }) => summary).join('\n'), /Star Factor is a later|Products and Solutions/i)
+  assert.match(THESIS_MANIFEST.find(({ slug }) => slug === 'the-gap').summary, /Africans|African attention/i)
+  assert.match(THESIS_MANIFEST.find(({ slug }) => slug === 'the-company').summary, /distribution-first/i)
+  assert.match(THESIS_MANIFEST.find(({ slug }) => slug === 'what-we-build').summary, /TiVi/i)
+})
+
+test('manifest claim references must agree with claim chapter ownership', () => {
+  assert.doesNotThrow(() => validateReferences(THESIS_MANIFEST, THESIS_CLAIMS, PUBLIC_CITATIONS))
+  const wrongOwner = THESIS_MANIFEST.map((chapter) => ({ ...chapter, mapClaimIds: [...chapter.mapClaimIds] }))
+  wrongOwner.find(({ slug }) => slug === 'the-gap').mapClaimIds[0] = 'tivi-flagship'
+  assert.throws(() => validateReferences(wrongOwner, THESIS_CLAIMS, PUBLIC_CITATIONS), /belongs to chapter what-we-build/)
 })
 
 test('uses only the exact public CTA routes', () => {
@@ -47,6 +127,18 @@ test('defines the exact public distribution and value sequences', () => {
   assert(DISTRIBUTION_LOOP.every((item) => item.href))
   assert(VALUE_PATH.every((item) => item.href))
   assert(ROADMAP_HORIZONS.every((item) => item.href))
+  assert.match(DISTRIBUTION_LOOP.find(({ id }) => id === 'star-factor').summary, /development/i)
+  assert.match(ROADMAP_HORIZONS.map(({ summary }) => summary).join(' '), /Indy[^.]*directional/i)
+})
+
+test('public system validation keeps Star Factor in development and Indy directional', () => {
+  const withoutDevelopment = { DISTRIBUTION_LOOP: DISTRIBUTION_LOOP.map((item) => ({ ...item })), VALUE_PATH, ROADMAP_HORIZONS }
+  withoutDevelopment.DISTRIBUTION_LOOP.find(({ id }) => id === 'star-factor').summary = 'An audience participation product.'
+  assert.throws(() => validatePublicSystem(withoutDevelopment, new Set(THESIS_MANIFEST.map(({ slug }) => slug))), /Star Factor.*development/)
+
+  const withoutDirection = { DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS: ROADMAP_HORIZONS.map((item) => ({ ...item })) }
+  withoutDirection.ROADMAP_HORIZONS.find(({ id }) => id === 'compounding-value').summary = 'Build toward durable value on open rails.'
+  assert.throws(() => validatePublicSystem(withoutDirection, new Set(THESIS_MANIFEST.map(({ slug }) => slug))), /Indy.*directional/)
 })
 
 test('rejects noncanonical manifest slugs and private horizon content', () => {

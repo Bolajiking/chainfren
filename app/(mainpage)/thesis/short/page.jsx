@@ -4,7 +4,7 @@ import ArticleJsonLd from '../components/ArticleJsonLd'
 import styles from '../thesis.module.css'
 
 const title = 'The Chainfren thesis, short read'
-const description = 'A five-minute path through Chainfren’s public argument for how creators and communities can keep more of the relationships they build.'
+const description = 'A five-minute path through Chainfren’s argument for how Africans can turn attention into participation, ownership, and value.'
 const canonicalUrl = 'https://www.chainfren.com/thesis/short'
 
 export const metadata = {
@@ -18,12 +18,12 @@ export const metadata = {
 export default function ShortThesisPage() {
   return (
     <main className={styles.shortRead}>
-      <ArticleJsonLd canonicalUrl={canonicalUrl} headline={title} description={description} dateModified="2026-07-21" />
+      <ArticleJsonLd canonicalUrl={canonicalUrl} headline={title} description={description} dateModified="2026-08-25" />
       <article>
         <header>
           <p>Chainfren thesis, short read</p>
           <h1>Attention is the start. Ownership is the work after.</h1>
-          <p>A five-minute path through the public argument for how creators and communities can keep more of the relationships they build.</p>
+          <p>A five-minute path through the argument for how Africans can turn attention into participation, ownership, and value.</p>
         </header>
         <ShortRead />
       </article>

@@ -96,6 +96,9 @@ test('thesis hub keeps the two reading entrances distinct from publication modes
     assert.match(hub, new RegExp(`['\\"]${href.replaceAll('/', '\\/')}['\\"]`))
   }
   assert.doesNotMatch(hub, /https?:\/\/[^'"\s]*(?:fonts|googleapis|typekit)/i)
+  assert.match(hub, /Africans[^.]*attention/i)
+  assert.doesNotMatch(hub, /African creators have already won the attention|first public edition/i)
+  assert.match(hub, /2026\.2/)
 })
 
 test('the five-minute reader imports its dedicated MDX source without reader controls', () => {
@@ -129,19 +132,28 @@ test('thesis discovery metadata uses canonical public URLs and unique chapter me
   assert.match(reader, /\/thesis\/read\/\$\{chapter\.slug\}/)
 })
 
-test('thesis social image is local, branded, and contains the approved thesis line', () => {
+test('thesis social image is local, branded, and uses the current all-Africans line', () => {
   const ogImage = readFileSync(ogImagePath, 'utf8')
 
   assert.match(ogImage, /new ImageResponse/)
   assert.match(ogImage, /contentType\s*=\s*['"]image\/png['"]/)
   assert.match(ogImage, /size\s*=\s*\{\s*width:\s*1200,\s*height:\s*630\s*\}/)
   assert.match(ogImage, /The Chainfren thesis/)
-  assert.match(ogImage, /African creators have already won the attention\. The next fight is ownership\./)
+  assert.match(ogImage, /Africans[^.]*attention[^.]*ownership/i)
+  assert.doesNotMatch(ogImage, /African creators have already won the attention|2026\.1/)
+  assert.match(ogImage, /2026\.2/)
   assert.match(ogImage, /#08153C|#09011B/)
   assert.match(ogImage, /#5ACDFF|#CBF0B8/)
   assert.match(ogImage, /logodark\.svg/)
   assert.doesNotMatch(ogImage, /borderRadius:\s*999/)
   assert.doesNotMatch(ogImage, /fetch\(|\.ttf|\.woff/i)
+})
+
+test('the short entry surface uses the current revision and all-Africans description', () => {
+  const shortRead = readFileSync(shortReadPagePath, 'utf8')
+  assert.match(shortRead, /dateModified="2026-08-25"/)
+  assert.match(shortRead, /Africans[^.]*attention/i)
+  assert.doesNotMatch(shortRead, /African creators have already won the attention/i)
 })
 
 test('short and chapter pages render public article JSON-LD with release identifiers', () => {

@@ -3,7 +3,7 @@ export const DISTRIBUTION_LOOP = [
   { id: 'creator-network', title: 'Creator Network', summary: 'Trusted distribution for creators, brands, and campaigns.', maturity: 'live', href: '/creator-network' },
   { id: 'tivi', title: 'TiVi / Media Launchpad', summary: 'A launchpad for media experiences and owned audience relationships.', maturity: 'early-access', maturityId: 'media-launchpad', href: '/products/media-launchpad' },
   { id: 'additional-capabilities', title: 'Additional capabilities', summary: 'Practical tools for owned relationships and growth.', href: '/products' },
-  { id: 'star-factor', title: 'Star Factor', summary: 'A public test of audience participation.', maturity: 'building', href: '/thesis/read/the-road-ahead' },
+  { id: 'star-factor', title: 'Star Factor', summary: 'An audience participation product now in development.', maturity: 'building', href: '/thesis/read/the-road-ahead' },
 ]
 
 export const VALUE_PATH = [
@@ -14,8 +14,8 @@ export const VALUE_PATH = [
 ]
 
 export const ROADMAP_HORIZONS = [
-  { id: 'foundation', title: 'Foundation', summary: 'Strengthen the public product foundation.', href: '/products' },
+  { id: 'foundation', title: 'Foundation', summary: 'Strengthen TiVi and the public product foundation.', href: '/products' },
   { id: 'distribution', title: 'Distribution', summary: 'Connect trusted attention with practical distribution.', href: '/contact' },
-  { id: 'participation', title: 'Participation', summary: 'Explore audience participation through public experiments.', href: '/thesis/read/the-road-ahead' },
-  { id: 'compounding-value', title: 'Compounding Value', summary: 'Build toward durable, owned value.', href: '/thesis/read/the-thesis' },
+  { id: 'participation', title: 'Participation', summary: 'Build Star Factor as a careful test of audience participation.', href: '/thesis/read/the-road-ahead' },
+  { id: 'compounding-value', title: 'Open ecosystem', summary: 'Keep Indy directional while building toward durable value on open rails.', href: '/thesis/read/the-thesis' },
 ]

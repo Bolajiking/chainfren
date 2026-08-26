@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { THESIS_CLAIMS, THESIS_EDGES } from '../content/chainfren-thesis/claims.mjs'
 import { THESIS_MAP_LAYOUT } from '../content/chainfren-thesis/map-layout.mjs'
 import { canLoadDesktopMap, resolveMapClaim } from '../lib/thesis/ownership-map.mjs'
+import { validateClaims, validateEdges, validateLayout } from '../lib/thesis/schema.mjs'
 
 const root = new URL('..', import.meta.url)
 const source = (path) => readFileSync(new URL(path, root), 'utf8')
@@ -48,12 +49,53 @@ test('map data covers every claim and only connects known layout endpoints', () 
     assert(THESIS_MAP_LAYOUT[edge.from])
     assert(THESIS_MAP_LAYOUT[edge.to])
   }
+  assert.doesNotThrow(() => validateLayout(THESIS_MAP_LAYOUT, claimIds))
+  assert.doesNotThrow(() => validateEdges(THESIS_EDGES, claimIds))
+})
+
+const hasDirectedPath = (start, finish) => {
+  const next = new Map()
+  for (const { from, to } of THESIS_EDGES) next.set(from, [...(next.get(from) || []), to])
+  const pending = [start]
+  const visited = new Set()
+  while (pending.length) {
+    const current = pending.shift()
+    if (current === finish) return true
+    if (visited.has(current)) continue
+    visited.add(current)
+    pending.push(...(next.get(current) || []))
+  }
+  return false
+}
+
+test('the map preserves the public value path and company execution paths', () => {
+  for (const [sourceId, targetId] of [
+    ['african-attention-value', 'attention-to-participation'],
+    ['attention-to-participation', 'participation-to-ownership'],
+    ['participation-to-ownership', 'ownership-to-value'],
+    ['ownership-to-value', 'african-built-ecosystem'],
+    ['chainfren-mission', 'distribution-first'],
+    ['distribution-first', 'tivi-flagship'],
+    ['chainfren-mission', 'tivi-flagship'],
+  ]) assert.equal(hasDirectedPath(sourceId, targetId), true, `${sourceId} must resolve to ${targetId}`)
+})
+
+test('each claim resolves through schema, layout, and the chapter link component', () => {
+  const hub = source('app/(mainpage)/thesis/components/ThesisHub.jsx')
+  assert.doesNotThrow(() => validateClaims(THESIS_CLAIMS, new Set([
+    'the-gap', 'the-trap', 'the-unlock', 'the-thesis', 'the-company', 'what-we-build', 'how-we-work', 'the-road-ahead', 'build-with-us',
+  ]), new Set()))
+  for (const claim of THESIS_CLAIMS) {
+    assert(THESIS_MAP_LAYOUT[claim.id])
+    assert.equal(resolveMapClaim(THESIS_CLAIMS, claim.id), claim.id)
+  }
+  assert.match(hub, /claimHref:\s*['"]\/thesis\/map\?claim=participation-to-ownership['"]/)
 })
 
 test('map deep links choose a valid claim and default invalid or absent claim IDs', () => {
   assert.equal(resolveMapClaim(THESIS_CLAIMS, 'chainfren-mission'), 'chainfren-mission')
-  assert.equal(resolveMapClaim(THESIS_CLAIMS, 'not-a-claim'), 'attention-to-ownership')
-  assert.equal(resolveMapClaim(THESIS_CLAIMS, null), 'attention-to-ownership')
+  assert.equal(resolveMapClaim(THESIS_CLAIMS, 'not-a-claim'), 'african-attention-value')
+  assert.equal(resolveMapClaim(THESIS_CLAIMS, null), 'african-attention-value')
 })
 
 test('map deep links fall back to the first available claim when the named default changes', () => {
