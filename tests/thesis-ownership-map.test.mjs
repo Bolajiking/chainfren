@@ -8,6 +8,43 @@ import { validateClaims, validateEdges, validateLayout } from '../lib/thesis/sch
 
 const root = new URL('..', import.meta.url)
 const source = (path) => readFileSync(new URL(path, root), 'utf8')
+const CANVAS = { width: 1280, height: 540 }
+const NODE = { width: 240, height: 60, edgePadding: 8 }
+
+const nodeRect = ({ x, y }, padding = 0) => ({
+  left: x - padding,
+  right: x + NODE.width + padding,
+  top: y - padding,
+  bottom: y + NODE.height + padding,
+})
+
+const rectanglesOverlap = (one, two) => (
+  one.left <= two.right
+  && one.right >= two.left
+  && one.top <= two.bottom
+  && one.bottom >= two.top
+)
+
+const segmentIntersectsRectangle = (start, finish, rect) => {
+  let low = 0
+  let high = 1
+  const delta = { x: finish.x - start.x, y: finish.y - start.y }
+  for (const [origin, change, min, max] of [
+    [start.x, delta.x, rect.left, rect.right],
+    [start.y, delta.y, rect.top, rect.bottom],
+  ]) {
+    if (change === 0) {
+      if (origin < min || origin > max) return false
+      continue
+    }
+    const first = (min - origin) / change
+    const second = (max - origin) / change
+    low = Math.max(low, Math.min(first, second))
+    high = Math.min(high, Math.max(first, second))
+    if (low > high) return false
+  }
+  return true
+}
 
 test('ownership map route supplies a server-readable claim outline', () => {
   assert.equal(existsSync(new URL('app/(mainpage)/thesis/map/page.jsx', root)), true)
@@ -53,6 +90,38 @@ test('map data covers every claim and only connects known layout endpoints', () 
   assert.doesNotThrow(() => validateEdges(THESIS_EDGES, claimIds))
 })
 
+test('map nodes fit the canvas and rendered rectangles never overlap', () => {
+  const entries = Object.entries(THESIS_MAP_LAYOUT)
+  for (const [id, position] of entries) {
+    const rect = nodeRect(position)
+    assert(rect.left >= 0 && rect.top >= 0 && rect.right <= CANVAS.width && rect.bottom <= CANVAS.height, `${id} must fit inside the canvas`)
+  }
+  for (let first = 0; first < entries.length; first += 1) {
+    for (let second = first + 1; second < entries.length; second += 1) {
+      const [firstId, firstPosition] = entries[first]
+      const [secondId, secondPosition] = entries[second]
+      assert.equal(rectanglesOverlap(nodeRect(firstPosition), nodeRect(secondPosition)), false, `${firstId} must not overlap ${secondId}`)
+    }
+  }
+})
+
+test('every straight edge clears every padded non-endpoint node rectangle', () => {
+  for (const edge of THESIS_EDGES) {
+    const from = THESIS_MAP_LAYOUT[edge.from]
+    const to = THESIS_MAP_LAYOUT[edge.to]
+    const start = { x: from.x + NODE.width / 2, y: from.y + NODE.height / 2 }
+    const finish = { x: to.x + NODE.width / 2, y: to.y + NODE.height / 2 }
+    for (const [claimId, position] of Object.entries(THESIS_MAP_LAYOUT)) {
+      if (claimId === edge.from || claimId === edge.to) continue
+      assert.equal(
+        segmentIntersectsRectangle(start, finish, nodeRect(position, NODE.edgePadding)),
+        false,
+        `${edge.from} -> ${edge.to} must clear ${claimId}`,
+      )
+    }
+  }
+})
+
 const hasDirectedPath = (start, finish) => {
   const next = new Map()
   for (const { from, to } of THESIS_EDGES) next.set(from, [...(next.get(from) || []), to])
@@ -81,7 +150,6 @@ test('the map preserves the public value path and company execution paths', () =
 })
 
 test('each claim resolves through schema, layout, and the chapter link component', () => {
-  const hub = source('app/(mainpage)/thesis/components/ThesisHub.jsx')
   assert.doesNotThrow(() => validateClaims(THESIS_CLAIMS, new Set([
     'the-gap', 'the-trap', 'the-unlock', 'the-thesis', 'the-company', 'what-we-build', 'how-we-work', 'the-road-ahead', 'build-with-us',
   ]), new Set()))
@@ -89,7 +157,37 @@ test('each claim resolves through schema, layout, and the chapter link component
     assert(THESIS_MAP_LAYOUT[claim.id])
     assert.equal(resolveMapClaim(THESIS_CLAIMS, claim.id), claim.id)
   }
-  assert.match(hub, /claimHref:\s*['"]\/thesis\/map\?claim=participation-to-ownership['"]/)
+})
+
+test('desktop edges expose direction, relation text, and accessible claim titles', () => {
+  const desktop = source('app/(mainpage)/thesis/components/OwnershipMapDesktop.jsx')
+  assert.match(desktop, /<marker\s+id="ownership-arrow"/)
+  assert.match(desktop, /markerEnd="url\(#ownership-arrow\)"/)
+  assert.match(desktop, /className={styles\.mapEdgeLabel}/)
+  assert.match(desktop, /\{edge\.relation\}/)
+  assert.match(desktop, /aria-label={`\${sourceClaim\.title} \${edge\.relation} \${targetClaim\.title}`}/)
+  assert.match(desktop, /<title>\{`\${sourceClaim\.title} \${edge\.relation} \${targetClaim\.title}`\}<\/title>/)
+})
+
+test('the non-JavaScript outline exposes the exact ordered relationships', () => {
+  const page = source('app/(mainpage)/thesis/map/page.jsx')
+  const tree = source('app/(mainpage)/thesis/components/OwnershipTree.jsx')
+  assert.match(page, /import\s*{\s*THESIS_CLAIMS,\s*THESIS_EDGES\s*}/)
+  assert.match(page, /<OwnershipTree\s+claims={THESIS_CLAIMS}\s+edges={THESIS_EDGES}\s*\/>/)
+  assert.match(tree, /function OwnershipTree\(\{ claims, edges \}\)/)
+  assert.match(tree, /<ol className={styles\.ownershipRelationships}>/)
+  assert.match(tree, /\{edges\.map\(\(edge\)\s*=>/)
+  assert.match(tree, /claimsById\.get\(edge\.from\)/)
+  assert.match(tree, /claimsById\.get\(edge\.to\)/)
+  assert.match(tree, /\{edge\.relation\}/)
+  assert.match(tree, /aria-label="Exact ordered claim relationships"/)
+})
+
+test('the Hub ownership-map card uses the canonical plain route', () => {
+  const hub = source('app/(mainpage)/thesis/components/ThesisHub.jsx')
+  assert.match(hub, /\{ href: ['"]\/thesis\/map['"], title: ['"]The ownership map['"]/)
+  assert.doesNotMatch(hub, /claimHref|\/thesis\/map\?claim=/)
+  assert.match(hub, /<Link key={href} href={href}/)
 })
 
 test('map deep links choose a valid claim and default invalid or absent claim IDs', () => {

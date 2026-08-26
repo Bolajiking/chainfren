@@ -1,7 +1,7 @@
 import ClaimDeepLink from '../components/ClaimDeepLink'
 import OwnershipMapLoader from '../components/OwnershipMapLoader'
 import OwnershipTree from '../components/OwnershipTree'
-import { THESIS_CLAIMS } from '@/content/chainfren-thesis/claims.mjs'
+import { THESIS_CLAIMS, THESIS_EDGES } from '@/content/chainfren-thesis/claims.mjs'
 import styles from '../thesis.module.css'
 
 const title = 'Ownership map | The Chainfren thesis'
@@ -24,7 +24,7 @@ export default function OwnershipMapPage() {
         <p>Follow the public argument, claim by claim. The outline below works without JavaScript; the map adds a desktop view when space permits.</p>
       </header>
       <OwnershipMapLoader />
-      <OwnershipTree claims={THESIS_CLAIMS} />
+      <OwnershipTree claims={THESIS_CLAIMS} edges={THESIS_EDGES} />
       <ClaimDeepLink />
     </main>
   )

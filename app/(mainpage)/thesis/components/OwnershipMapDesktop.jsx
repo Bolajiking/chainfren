@@ -8,13 +8,21 @@ import { THESIS_CLAIMS, THESIS_EDGES } from '@/content/chainfren-thesis/claims.m
 import { THESIS_MAP_LAYOUT } from '@/content/chainfren-thesis/map-layout.mjs'
 
 const CANVAS = { width: 1280, height: 540 }
+const NODE = { width: 240, height: 60 }
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value))
+const center = (position) => ({ x: position.x + NODE.width / 2, y: position.y + NODE.height / 2 })
+const nodeBoundaryPoint = (from, to) => {
+  const delta = { x: to.x - from.x, y: to.y - from.y }
+  const scale = 1 / Math.max(Math.abs(delta.x) / (NODE.width / 2), Math.abs(delta.y) / (NODE.height / 2))
+  return { x: from.x + delta.x * scale, y: from.y + delta.y * scale }
+}
 
 export default function OwnershipMapDesktop() {
   const claims = THESIS_CLAIMS
   const edges = THESIS_EDGES
   const layout = THESIS_MAP_LAYOUT
   const validIds = useMemo(() => new Set(claims.map((claim) => claim.id)), [claims])
+  const claimsById = useMemo(() => new Map(claims.map((claim) => [claim.id, claim])), [claims])
   const start = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('claim')
   const [selected, setSelected] = useState(resolveMapClaim(claims, start))
   const [view, setView] = useState({ x: 0, y: 0, scale: 0.9 })
@@ -45,8 +53,28 @@ export default function OwnershipMapDesktop() {
       </div>
       <div className={styles.mapViewport} role="region" aria-label="Ownership claim map" aria-describedby="map-help" onPointerDown={(event) => { drag.current = point(event); event.currentTarget.setPointerCapture(event.pointerId) }} onPointerMove={(event) => { if (!drag.current) return; const next = point(event); setView((current) => ({ ...current, x: current.x + next.x - drag.current.x, y: current.y + next.y - drag.current.y })); drag.current = next }} onPointerUp={() => { drag.current = null }}>
         <svg viewBox={`0 0 ${CANVAS.width} ${CANVAS.height}`}>
+          <defs>
+            <marker id="ownership-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+              <path d="M 0 0 L 8 4 L 0 8 z" />
+            </marker>
+          </defs>
           <g transform={`translate(${view.x} ${view.y}) scale(${view.scale})`}>
-            {edges.map((edge) => { const from = layout[edge.from]; const to = layout[edge.to]; return <line key={edge.id} className={styles.mapEdge} x1={from.x + 120} y1={from.y + 30} x2={to.x + 120} y2={to.y + 30} /> })}
+            {edges.map((edge) => {
+              const sourceClaim = claimsById.get(edge.from)
+              const targetClaim = claimsById.get(edge.to)
+              const sourceCenter = center(layout[edge.from])
+              const targetCenter = center(layout[edge.to])
+              const start = nodeBoundaryPoint(sourceCenter, targetCenter)
+              const finish = nodeBoundaryPoint(targetCenter, sourceCenter)
+              const label = { x: (start.x + finish.x) / 2, y: (start.y + finish.y) / 2 - 6 }
+              return (
+                <g key={edge.id} role="img" aria-label={`${sourceClaim.title} ${edge.relation} ${targetClaim.title}`}>
+                  <title>{`${sourceClaim.title} ${edge.relation} ${targetClaim.title}`}</title>
+                  <line className={styles.mapEdge} x1={start.x} y1={start.y} x2={finish.x} y2={finish.y} markerEnd="url(#ownership-arrow)" />
+                  <text className={styles.mapEdgeLabel} x={label.x} y={label.y} textAnchor="middle">{edge.relation}</text>
+                </g>
+              )
+            })}
             {claims.map((claim) => { const position = layout[claim.id]; const active = claim.id === selected; return <g key={claim.id} className={`${styles.mapNode} ${active ? styles.mapNodeActive : ''}`} transform={`translate(${position.x} ${position.y})`} tabIndex="0" role="button" aria-pressed={active} aria-label={`Select ${claim.title}`} onClick={() => select(claim.id)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(claim.id) } }}><rect width="240" height="60" rx="12" /><text x="16" y="26">{claim.title}</text><text x="16" y="45">{claim.type}</text></g> })}
           </g>
         </svg>
