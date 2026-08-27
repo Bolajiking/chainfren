@@ -195,6 +195,7 @@ const assertPublicHorizon = (source) => {
   assert.match(source, /direction[^.]*public[^.]*not every part[^.]*settled/i)
   assert.match(source, /Star Factor[^.]*being built[^.]*proof milestone[^.]*participatory entertainment/i)
   assert.match(source, /Indy[^.]*longer direction/i)
+  assert.doesNotMatch(source, /Indy\s*<MaturityBadge|Indy\s+Directional/i)
   assert.match(source, /participation[^.]*durable value[^.]*trading screen/i)
   assert.match(source, /Africans[^.]*distribute[^.]*own[^.]*earn/i)
   assert.match(source, /open rails built by Africans for Africans/i)
