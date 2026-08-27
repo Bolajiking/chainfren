@@ -80,7 +80,7 @@ Verified on 2026-08-27 after the reconstructed publication artifacts were regene
 | `pdfinfo public/downloads/chainfren-thesis-2026.2.pdf` | 0 | Tagged, readable 14-page A4 PDF. |
 | `pdftotext public/downloads/chainfren-thesis-2026.2.pdf -` | 0 | Chapter order, product names, status labels, and open-rails framing are present. No stale flagship, live-core, or separate Media Launchpad label was found. |
 
-- Source SHA-256: `5d129b70ddc6699a84a41cb0aeb8413e8b8f3b9508108a0cb6ac536e2a64c176`.
-- PDF SHA-256: `fc99d7b785f99aa0ad9925c886bdc6ea0d147263bb7cd6baea018aa56d706ac4`.
-- Rendered inspection covered the cover, contents, The Gap, The Unlock, What We Build, The Road Ahead, and Build With Us. The pages have readable type, intact hierarchy, clear status metadata, working text flow, and no visible clipping or overlap.
+- Source SHA-256: `c4760537fb5cc996cdb5bd431520df43ce125f44253cd77834c2605c16a2fecf`.
+- PDF SHA-256: `d98cc54af25a6daf3105716f987c879f72eac5ff7427c880a7dd3f517f51f24a`.
+- Final print remediation made contents entries block-level, kept product groups from breaking between a heading and their products, and removed raw route URLs from the reading copy. The artifact was regenerated and re-inspected across the cover, contents, The Gap, The Unlock, What We Build, The Road Ahead, and Build With Us. The pages have readable type, intact hierarchy, clear status metadata, working text flow, and no visible clipping or overlap.
 - Browser QA covered the hub, reader, short read, product chapter, and ownership map at desktop and mobile widths. It found and corrected the only public-language defect: a Road Ahead badge that made `Directional` read as part of Indy's name.

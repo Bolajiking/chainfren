@@ -11,7 +11,7 @@ Our products and solutions are the practical layer. They let us turn what we lea
   const products = group.itemIds.map((itemId) => records.find((record) => record.id === itemId)).filter(Boolean)
   const headingLevel = ['chapter', 'product group'].length
   return (
-    <section key={group.id} aria-labelledby={`product-group-${group.id}`}>
+    <section key={group.id} data-thesis-product-group aria-labelledby={`product-group-${group.id}`}>
       <div
         id={`product-group-${group.id}`}
         className={styles.productGroupHeading}

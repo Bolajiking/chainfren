@@ -189,6 +189,16 @@ test('the print edition keeps paragraph rhythm for long-form prose', () => {
   assert.match(css, /\.chapter p\s*\{[^}]*margin:/s)
 })
 
+test('the print edition preserves contents entries, product groups, and public product names', () => {
+  const css = source('app/(mainpage)/thesis/print/print.module.css')
+  const products = source('content/chainfren-thesis/chapters/06-what-we-build.mdx')
+
+  assert.match(css, /\.contents li\s*\{[^}]*display:\s*block/s)
+  assert.match(products, /data-thesis-product-group/)
+  assert.match(css, /section\[data-thesis-product-group\][^{]*\{[^}]*break-inside:\s*avoid/s)
+  assert.doesNotMatch(css, /attr\(href\)/)
+})
+
 test('the PDF generator gives every chapter a protected print boundary', () => {
   const generator = source('scripts/generate-thesis-pdf.mjs')
   assert.match(generator, /main\[data-thesis-print\] > article > header \{ padding-top: 20mm; \}/)
