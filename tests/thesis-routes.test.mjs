@@ -161,7 +161,7 @@ test('thesis social image is local, branded, and uses the current all-Africans l
 
 test('the short entry surface uses the current revision and all-Africans description', () => {
   const shortRead = readFileSync(shortReadPagePath, 'utf8')
-  assert.match(shortRead, /dateModified="2026-08-25"/)
+  assert.match(shortRead, /dateModified="2026-08-26"/)
   assert.match(shortRead, /Africans[^.]*attention/i)
   assert.doesNotMatch(shortRead, /African creators have already won the attention/i)
 })

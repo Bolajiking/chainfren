@@ -177,17 +177,17 @@ test('defines the exact public distribution and value sequences', () => {
   assert(VALUE_PATH.every((item) => item.href))
   assert(ROADMAP_HORIZONS.every((item) => item.href))
   assert.match(DISTRIBUTION_LOOP.find(({ id }) => id === 'star-factor').summary, /development/i)
-  assert.match(ROADMAP_HORIZONS.map(({ summary }) => summary).join(' '), /Indy[^.]*directional/i)
+  assert.match(ROADMAP_HORIZONS.map(({ summary }) => summary).join(' '), /Indy[^.]*longer direction/i)
 })
 
-test('public system validation keeps Star Factor in development and Indy directional', () => {
+test('public system validation keeps Star Factor in development and Indy as a longer direction', () => {
   const withoutDevelopment = { DISTRIBUTION_LOOP: DISTRIBUTION_LOOP.map((item) => ({ ...item })), VALUE_PATH, ROADMAP_HORIZONS }
   withoutDevelopment.DISTRIBUTION_LOOP.find(({ id }) => id === 'star-factor').summary = 'An audience participation product.'
   assert.throws(() => validatePublicSystem(withoutDevelopment, new Set(THESIS_MANIFEST.map(({ slug }) => slug))), /Star Factor.*development/)
 
   const withoutDirection = { DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS: ROADMAP_HORIZONS.map((item) => ({ ...item })) }
   withoutDirection.ROADMAP_HORIZONS.find(({ id }) => id === 'compounding-value').summary = 'Build toward durable value on open rails.'
-  assert.throws(() => validatePublicSystem(withoutDirection, new Set(THESIS_MANIFEST.map(({ slug }) => slug))), /Indy.*directional/)
+  assert.throws(() => validatePublicSystem(withoutDirection, new Set(THESIS_MANIFEST.map(({ slug }) => slug))), /Indy.*longer direction/)
 })
 
 test('rejects noncanonical manifest slugs and private horizon content', () => {

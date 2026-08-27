@@ -10,7 +10,7 @@ const baseline = [
   ['ownership-to-value', 'Ownership can create durable value', 'When people can keep a relationship, the value created through it can stay closer and grow through continued participation.', 'outcome', 'the-thesis', 9],
   ['chainfren-mission', "Chainfren's mission", 'Chainfren exists to enable Africans to own the full value their attention generates on the internet.', 'mission', 'the-company', 10],
   ['tivi-product', 'TiVi gives participation a product home', 'TiVi gives creators and organisations a media channel they can control and a place where audience relationships can continue after attention.', 'execution', 'what-we-build', 11],
-  ['african-built-ecosystem', 'An African-built open ecosystem', 'The ambition is an open ecosystem built by Africans where people can distribute, participate, own, and earn on practical rails.', 'outcome', 'the-road-ahead', 12],
+  ['african-built-ecosystem', 'An African-built open ecosystem', 'The ambition is for Africans to distribute, own, and earn on open rails built by Africans for Africans.', 'outcome', 'the-road-ahead', 12],
 ]
 
 export const THESIS_CLAIMS = baseline.map(([id, title, summary, type, chapterSlug, order]) => ({ id, title, summary, type, chapterSlug, order, publicCitationIds: [] }))

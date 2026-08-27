@@ -19,7 +19,7 @@ export const metadata = {
 export default function ShortThesisPage() {
   return (
     <main className={styles.shortRead}>
-      <ArticleJsonLd canonicalUrl={canonicalUrl} headline={title} description={description} dateModified="2026-08-25" />
+      <ArticleJsonLd canonicalUrl={canonicalUrl} headline={title} description={description} dateModified="2026-08-26" />
       <article>
         <header>
           <p>Chainfren thesis {THESIS_CONTENT_VERSION}, short read</p>

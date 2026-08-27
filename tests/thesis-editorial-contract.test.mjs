@@ -138,7 +138,7 @@ const assertNoHardCodedMaturity = (source) => {
 const assertStarFactorBuildingStatus = (source) => {
   const starFactorBlock = proseBlocks(source).find((block) => /Star Factor/i.test(block))
   assert.ok(starFactorBlock, 'Star Factor must have a prose block')
-  assert.match(starFactorBlock, /Star Factor[\s\S]*currently being built|currently being built[\s\S]*Star Factor/i)
+  assert.match(starFactorBlock, /Star Factor[\s\S]*being built|being built[\s\S]*Star Factor/i)
   const affirmativeStatusClaims = starFactorBlock.replace(/\b(?:is\s+)?not\s+(?:currently\s+)?available\b/gi, '')
   assert.doesNotMatch(affirmativeStatusClaims, /\b(?:launched|live|available|later)\b/i)
 }
@@ -191,13 +191,14 @@ const assertOwnershipTest = (source) => {
 }
 
 const assertPublicHorizon = (source) => {
-  assert.match(source, /## Present building[\s\S]*## Roadmap direction[\s\S]*## Company ambition/i)
-  assert.match(source, /Star Factor[^.]*being built/i)
-  assert.match(source, /Indy[^.]*roadmap/i)
+  assert.doesNotMatch(source, /Present building/i)
+  assert.match(source, /direction[^.]*public[^.]*not every part[^.]*settled/i)
+  assert.match(source, /Star Factor[^.]*being built[^.]*proof milestone[^.]*participatory entertainment/i)
+  assert.match(source, /Indy[^.]*longer direction/i)
+  assert.match(source, /participation[^.]*durable value[^.]*trading screen/i)
   assert.match(source, /Africans[^.]*distribute[^.]*own[^.]*earn/i)
-  assert.match(source, /open rails built by Africans/i)
-  assert.match(source, /foundational infrastructure/i)
-  assert.match(source, /wider open ecosystem|open ecosystem/i)
+  assert.match(source, /open rails built by Africans for Africans/i)
+  assert.match(source, /<RoadmapHorizons\s*\/>/)
 }
 
 const removeIdea = (source, idea) => source.replace(
@@ -306,20 +307,19 @@ test('the short read stands alone as the complete five-minute thesis', () => {
   assert.match(shortRead, /distribution-first/i)
   assert.match(shortRead, /right to leave/i)
   assert.match(shortRead, /African-built open ecosystem/i)
+  assert.match(shortRead, /attract, build dependence, then extract/i)
+  assert.match(shortRead, /open rails enabled by blockchain/i)
+  assert.match(shortRead, /not a trading screen/i)
   assertNames(shortRead, ['Africans', 'TiVi', 'Star Factor', 'Sabi', 'Creator Network', 'Creator Growth OS', 'Community Engine', 'AI Agent Studio', 'Indy'])
 })
 
 test('the short read states public product roles and maturity accurately', () => {
-  assert.match(shortRead, /TiVi[^.]*live/i)
+  assert.match(shortRead, /Live:[\s\S]{0,360}TiVi[\s\S]{0,360}Creator Growth OS[\s\S]{0,360}Creator Network/i)
   assert.doesNotMatch(shortRead, /Media Launchpad|flagship|live core/i)
   assertStarFactorBuildingStatus(shortRead)
-  assert.match(shortRead, /Sabi[^.]*Creator Network[^.]*supporting distribution products/i)
-  assert.match(shortRead, /Sabi[^.]*(?:building|being built)/i)
-  assert.match(shortRead, /Creator Network[^.]*live/i)
-  assert.match(shortRead, /Creator Growth OS[^.]*live/i)
-  assert.match(shortRead, /Community Engine[^.]*early access/i)
-  assert.match(shortRead, /AI Agent Studio[^.]*early access/i)
-  assert.match(shortRead, /Indy is a roadmap product/i)
+  assert.match(shortRead, /Early access:[\s\S]{0,240}Community Engine[\s\S]{0,240}AI Agent Studio/i)
+  assert.match(shortRead, /Building:[\s\S]{0,240}Star Factor[\s\S]{0,240}Sabi/i)
+  assert.match(shortRead, /Roadmap:[\s\S]{0,180}Indy[\s\S]{0,180}Directional/i)
   assertPublicCompanyScope(shortRead)
   assertNoAchievedOwnership(shortRead)
 })
@@ -534,15 +534,21 @@ test('the ownership helper rejects each missing ownership principle', () => {
 
 test('the horizon helper rejects missing ambitions and collapsed horizons', () => {
   const requiredIdeas = [
+    'direction',
+    'public',
+    'settled',
+    'proof milestone',
+    'longer direction',
+    'participation',
+    'durable value',
+    'trading screen',
     'distribute',
     'own',
     'earn',
-    'open rails built by Africans',
-    'foundational infrastructure',
-    'wider open ecosystem',
+    'open rails built by Africans for Africans',
   ]
   for (const idea of requiredIdeas) {
     assert.throws(() => assertPublicHorizon(removeIdea(chapters.horizon, idea)), { name: 'AssertionError' })
   }
-  assert.throws(() => assertPublicHorizon(chapters.horizon.replace(/## Roadmap direction/i, '## Present building')), { name: 'AssertionError' })
+  assert.throws(() => assertPublicHorizon(chapters.horizon.replace(/## A longer direction/i, '## Present building')), { name: 'AssertionError' })
 })
