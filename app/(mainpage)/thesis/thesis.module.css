@@ -156,6 +156,15 @@
 .publicSystem li > a { font-size: 18px; font-weight: 600; }
 .publicSystem li > span { border: 1px solid currentColor; border-radius: 999px; display: inline-block; font-size: 11px; letter-spacing: .06em; margin-left: 8px; padding: 2px 7px; text-transform: uppercase; }
 .publicSystem li p { font-size: 16px; line-height: 1.45; margin: 7px 0 0; }
+.maturityBadge { color: rgba(8, 21, 60, .72); display: inline-block; font-size: 12px; font-weight: 400; line-height: 1.2; padding: 2px 0; }
+.productGroupHeading { color: rgba(8, 21, 60, .72); font-size: 14px; font-weight: 400; letter-spacing: .02em; line-height: 1.3; margin: 34px 0 10px; }
+.productGroupHeading + ul { list-style: none; margin: 0; padding: 0; }
+.productEntry { border-top: 1px solid rgba(8, 21, 60, .25); margin: 0; padding: 14px 0; }
+.productEntry:last-child { border-bottom: 1px solid rgba(8, 21, 60, .25); }
+.productEntryHeader { align-items: baseline; display: flex; flex-wrap: wrap; gap: 8px 14px; }
+.productName { color: var(--thesis-navy); font-size: clamp(18px, 1.6vw, 21px); font-weight: 600; line-height: 1.3; text-decoration: none; text-underline-offset: 4px; }
+.productName:hover { text-decoration: underline; }
+.productDescription { color: rgba(8, 21, 60, .78); font-size: 16px; line-height: 1.5; margin: 7px 0 0; }
 .chapterRail, .readerContext { display: none; }
 .desktopPager { border-top: var(--thesis-border); display: flex; gap: 16px; justify-content: space-between; margin: 64px auto 0; max-width: 720px; padding-top: 22px; }
 .desktopPager a { color: var(--thesis-navy); display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; min-height: 44px; text-decoration: none; }

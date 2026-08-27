@@ -117,11 +117,15 @@ const assertGroupedProductRenderer = (source) => {
   assert.match(source, /const\s+records\s*=\s*\[\.\.\.PUBLIC_PRODUCT_MATURITY,\s*\.\.\.PUBLIC_INITIATIVE_MATURITY]/)
   assert.match(source, /PUBLIC_PRODUCT_GROUPS\.map\(\(group\)\s*=>/)
   assert.match(source, /group\.itemIds\.map\(\(itemId\)\s*=>\s*records\.find\(\(record\)\s*=>\s*record\.id\s*===\s*itemId\)\)/)
-  assert.match(source, /<section\b[\s\S]*?<ul>[\s\S]*?products\.map\(\(product\)\s*=>[\s\S]*?<li\b[\s\S]*?<a\s+href={product\.href}>{product\.label}<\/a>[\s\S]*?<p>{product\.description}<\/p>[\s\S]*?<MaturityBadge\s+stage={product\.id}\s*\/>[\s\S]*?<\/li>[\s\S]*?<\/ul>[\s\S]*?<\/section>/)
   assert.match(source, /<section\s+key={group\.id}\s+aria-labelledby={`product-group-\${group\.id}`}>/)
   assert.match(source, /const\s+headingLevel\s*=\s*\[['"]chapter['"],\s*['"]product group['"]]\.length/)
-  assert.match(source, /<div\s+id={`product-group-\${group\.id}`}\s+role="heading"\s+aria-level={headingLevel}>{group\.label}<\/div>/)
+  assert.match(source, /<div\s+[\s\S]*?id={`product-group-\${group\.id}`}[\s\S]*?className={styles\.productGroupHeading}[\s\S]*?role="heading"[\s\S]*?aria-level={headingLevel}[\s\S]*?>\s*{group\.label}\s*<\/div>/)
+  assert.match(source, /<section\b[\s\S]*?<ul>[\s\S]*?products\.map\(\(product\)\s*=>[\s\S]*?<li\s+key={product\.id}\s+className={styles\.productEntry}>[\s\S]*?<div\s+className={styles\.productEntryHeader}>[\s\S]*?<a\s+href={product\.href}\s+className={styles\.productName}>{product\.label}<\/a>[\s\S]*?<MaturityBadge\s+stage={product\.id}\s*\/>[\s\S]*?<\/div>[\s\S]*?<p\s+className={styles\.productDescription}>{product\.description}<\/p>[\s\S]*?<\/li>[\s\S]*?<\/ul>[\s\S]*?<\/section>/)
   assert.doesNotMatch(source, /PUBLIC_PRODUCT_MATURITY\.map/)
+  assert.doesNotMatch(source, /DistributionLoop|ValuePath/)
+  assert.doesNotMatch(source, /Media Launchpad|flagship|live core|currently being built|not currently available/i)
+  assert.doesNotMatch(source, /TiVi|Star Factor|Sabi|Creator Network|Creator Growth OS|Community Engine|AI Agent Studio|Indy/i)
+  assert.match(source.trim(), /\}\)\}$/)
 }
 
 const assertNoHardCodedMaturity = (source) => {
@@ -352,16 +356,14 @@ test('the canonical product groups define the exact rendered product order', () 
 })
 
 test('the product thesis states each product role and maturity without overstating availability', () => {
-  assert.match(chapters.products, /We build for the part after attention/i)
-  assert.match(chapters.products, /Our products and solutions are the practical layer/i)
-  assert.doesNotMatch(proseBlocks(chapters.products).slice(0, 2).join(' '), /TiVi|Star Factor|Sabi|Creator Network|Creator Growth OS|Community Engine|AI Agent Studio|Indy/i)
-  assert.doesNotMatch(chapters.products, /flagship|live core/i)
-  assertStarFactorBuildingStatus(chapters.products)
-  assert.match(chapters.products, /Sabi[^.]*Creator Network[^.]*supporting distribution products/i)
-  assert.match(chapters.products, /Creator Growth OS[^.]*Community Engine[^.]*AI Agent Studio[^.]*additional capabilities/i)
-  assert.match(chapters.products, /Indy[^.]*roadmap product[^.]*not currently available/i)
+  assert.deepEqual(proseBlocks(chapters.products), [
+    'We build for the part after attention. A creator, a brand, or a community needs a way to keep the relationship that brought people together. That can mean a clearer way to reach people, a useful place to gather, or a product that makes participation feel worth returning to.',
+    'Our products and solutions are the practical layer. They let us turn what we learn from culture and distribution into tools people can use.',
+  ])
+  assert.doesNotMatch(proseBlocks(chapters.products).join(' '), /TiVi|Star Factor|Sabi|Creator Network|Creator Growth OS|Community Engine|AI Agent Studio|Indy/i)
+  assert.doesNotMatch(chapters.products, /Media Launchpad|flagship|live core|currently being built|not currently available/i)
+  assert.doesNotMatch(chapters.products, /TiVi|Star Factor|Sabi|Creator Network|Creator Growth OS|Community Engine|AI Agent Studio|Indy/i)
   assertNoHardCodedMaturity(chapters.products)
-  assertSabiBuildingStatus(chapters.products)
 })
 
 test('the ownership test begins with African context and keeps control practical', () => {
@@ -388,11 +390,18 @@ test('the grouped product renderer rejects a flat or incomplete source fixture',
     chapters.products.replace('<MaturityBadge stage={product.id} />', ''),
     chapters.products.replace('[...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY]', '[...PUBLIC_PRODUCT_MATURITY]'),
     chapters.products.replace('aria-labelledby={`product-group-${group.id}`}', 'aria-label={group.label}'),
-    chapters.products.replace('id={`product-group-${group.id}`} ', ''),
+    chapters.products.replace('id={`product-group-${group.id}`}', ''),
+    chapters.products.replace('className={styles.productGroupHeading}', ''),
+    chapters.products.replace('className={styles.productEntry}', ''),
+    chapters.products.replace('className={styles.productEntryHeader}', ''),
+    chapters.products.replace('className={styles.productName}', ''),
+    chapters.products.replace('className={styles.productDescription}', ''),
     chapters.products.replace('aria-level={headingLevel}', ''),
+    chapters.products.replace('const headingLevel', "const note = 'TiVi is our supporting distribution product'\n  const headingLevel"),
+    `${chapters.products}\n\n<aside>An individual product argument.</aside>`,
   ]
-  for (const source of badRenderers) {
-    assert.throws(() => assertGroupedProductRenderer(source), { name: 'AssertionError' })
+  for (const [index, source] of badRenderers.entries()) {
+    assert.throws(() => assertGroupedProductRenderer(source), { name: 'AssertionError' }, `fixture ${index} must fail`)
   }
 })
 

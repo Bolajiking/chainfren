@@ -1,17 +1,10 @@
-import DistributionLoop from '@/app/(mainpage)/thesis/components/DistributionLoop'
-import ValuePath from '@/app/(mainpage)/thesis/components/ValuePath'
 import MaturityBadge from '@/app/(mainpage)/thesis/components/MaturityBadge'
+import styles from '@/app/(mainpage)/thesis/thesis.module.css'
 import { PUBLIC_PRODUCT_GROUPS, PUBLIC_PRODUCT_MATURITY, PUBLIC_INITIATIVE_MATURITY } from '@/content/chainfren-thesis/public-config.mjs'
 
-Our flagship product is TiVi. Media Launchpad is TiVi, a place for audiences to participate in media and continue the relationship afterward.
+We build for the part after attention. A creator, a brand, or a community needs a way to keep the relationship that brought people together. That can mean a clearer way to reach people, a useful place to gather, or a product that makes participation feel worth returning to.
 
-Star Factor is currently being built. It explores audience participation in entertainment while the work remains in development.
-
-Sabi and Creator Network are supporting distribution products. Sabi is being built to give stories and broadcasts a public home. Creator Network connects creators and brands through audience fit and cultural context.
-
-Creator Growth OS, Community Engine, and AI Agent Studio are additional capabilities. They help creators and communities manage growth, participation, and practical work around the relationships they earn.
-
-Indy is a roadmap product and is not currently available. It holds a longer direction for independent creation and participation.
+Our products and solutions are the practical layer. They let us turn what we learn from culture and distribution into tools people can use.
 
 {PUBLIC_PRODUCT_GROUPS.map((group) => {
   const records = [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY]
@@ -19,21 +12,25 @@ Indy is a roadmap product and is not currently available. It holds a longer dire
   const headingLevel = ['chapter', 'product group'].length
   return (
     <section key={group.id} aria-labelledby={`product-group-${group.id}`}>
-      <div id={`product-group-${group.id}`} role="heading" aria-level={headingLevel}>{group.label}</div>
+      <div
+        id={`product-group-${group.id}`}
+        className={styles.productGroupHeading}
+        role="heading"
+        aria-level={headingLevel}
+      >
+        {group.label}
+      </div>
       <ul>
         {products.map((product) => (
-          <li key={product.id}>
-            <a href={product.href}>{product.label}</a>{' '}
-            <MaturityBadge stage={product.id} />
+          <li key={product.id} className={styles.productEntry}>
+            <div className={styles.productEntryHeader}>
+              <a href={product.href} className={styles.productName}>{product.label}</a>
+              <MaturityBadge stage={product.id} />
+            </div>
+            <p className={styles.productDescription}>{product.description}</p>
           </li>
         ))}
       </ul>
     </section>
   )
 })}
-
-<DistributionLoop />
-
-<ValuePath />
-
-The groupings make the public state of the work clear. Distribution creates a route into people's lives, while products give participation a useful form. The roadmap stays separate from what people can use now.
