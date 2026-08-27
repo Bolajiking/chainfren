@@ -68,3 +68,19 @@ Every changed path belongs to the approved thesis revision: thesis routes and co
 ## Task 6 scope audit
 
 Task 6 changes 11 approved paths: the short-read page metadata, Chapter 08, the short read, manifest, claims, public system, schema, editorial and schema contracts, route metadata contract, and this review record. `git diff --check` passed with no output. No generated content hash, checksum, or PDF artifact changed; Task 8 owns those files.
+
+## Final artifact verification
+
+Verified on 2026-08-27 after the reconstructed publication artifacts were regenerated.
+
+| Command | Exit | Result |
+| --- | ---: | --- |
+| `npm run thesis:artifacts` | 0 | Regenerated the canonical source hash, tagged PDF, and checksum file. |
+| `npm run thesis:verify-release` | 0 | Release validation passed with 150 tests passed and no failures. |
+| `pdfinfo public/downloads/chainfren-thesis-2026.2.pdf` | 0 | Tagged, readable 14-page A4 PDF. |
+| `pdftotext public/downloads/chainfren-thesis-2026.2.pdf -` | 0 | Chapter order, product names, status labels, and open-rails framing are present. No stale flagship, live-core, or separate Media Launchpad label was found. |
+
+- Source SHA-256: `5d129b70ddc6699a84a41cb0aeb8413e8b8f3b9508108a0cb6ac536e2a64c176`.
+- PDF SHA-256: `fc99d7b785f99aa0ad9925c886bdc6ea0d147263bb7cd6baea018aa56d706ac4`.
+- Rendered inspection covered the cover, contents, The Gap, The Unlock, What We Build, The Road Ahead, and Build With Us. The pages have readable type, intact hierarchy, clear status metadata, working text flow, and no visible clipping or overlap.
+- Browser QA covered the hub, reader, short read, product chapter, and ownership map at desktop and mobile widths. It found and corrected the only public-language defect: a Road Ahead badge that made `Directional` read as part of Indy's name.
