@@ -86,6 +86,8 @@ test('about keeps four simple public visitor paths', () => {
     assert.ok(PUBLIC_CTAS[key].href)
   }
   assert.doesNotMatch(contentSource, /PUBLIC_CTAS\.supporters/)
+  assert.match(componentSource, /j\.label/)
+  assert.doesNotMatch(componentSource, /j\.cta/)
 })
 
 test('about structured data matches visible content', () => {
@@ -322,7 +324,7 @@ Do not render status, maturity, or `runsOn` fields.
 
 - [ ] **Step 4: Simplify the final visitor paths**
 
-Render `ABOUT.join.items` as four compact linked cards. Reuse the existing card grid and `ArrowRight`. Do not add another banner after the cards.
+Render `ABOUT.join.items` as four compact linked cards. Reuse the existing card grid and `ArrowRight`. Render the canonical call-to-action text with `{j.label}`, not `{j.cta}`, because spreading `PUBLIC_CTAS` creates `label` and `href` fields. Do not add another banner after the cards.
 
 - [ ] **Step 5: Align the route schema with visible content**
 
