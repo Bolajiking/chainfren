@@ -57,13 +57,13 @@ export const ABOUT = {
         n: '01',
         t: 'The gap',
         lead: 'Africa is online. The value still leaves.',
-        body: 'African creators, brands, and audiences shape what the internet watches and values. Too little of that value returns as lasting control, direct relationships, or income.',
+        body: 'African creators, brands, and audiences shape what people watch and value online. Too little of that value returns as lasting control, direct relationships, or income.',
       },
       {
         n: '02',
         t: 'The trap',
         lead: 'Attract, build dependence, then extract.',
-        body: 'Platforms and middlemen help people find an audience. The problem begins when that access becomes dependence and someone else can change discovery, data, distribution, or payment without a practical way to leave.',
+        body: 'Platforms and middlemen help people find an audience. The problem begins when access becomes dependence. Someone else can change how people discover you, how you reach your audience, or how you get paid, and you have no practical way to leave.',
       },
       {
         n: '03',
