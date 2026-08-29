@@ -31,6 +31,10 @@ const ABOUT_DESCRIPTION_OVERRIDES = {
   sabi: "Chainfren's home for broadcasts and publications on blockchains, AI, and the technologies unlocking the African economy.",
 }
 
+const ABOUT_HREF_OVERRIDES = {
+  'star-factor': 'https://starfactor.xyz',
+}
+
 const withoutComments = (source) => source
   .replace(/\/\*[\s\S]*?\*\//g, '')
   .replace(/^\s*\/\/.*$/gm, '')
@@ -85,7 +89,7 @@ test('About build items are the exact public-record projection', () => {
     return {
       name: ABOUT_DISPLAY_NAME_OVERRIDES[id] ?? record.label,
       line: ABOUT_DESCRIPTION_OVERRIDES[id] ?? record.description,
-      href: record.href,
+      href: ABOUT_HREF_OVERRIDES[id] ?? record.href,
     }
   })
 
@@ -99,6 +103,9 @@ test('About build items are the exact public-record projection', () => {
     sabi?.line,
     "Chainfren's home for broadcasts and publications on blockchains, AI, and the technologies unlocking the African economy.",
   )
+
+  const starFactor = ABOUT.build.items.find((item) => item.name === 'Star Factor')
+  assert.equal(starFactor?.href, 'https://starfactor.xyz')
 })
 
 test('About argument keeps the approved four-step path to the thesis', () => {

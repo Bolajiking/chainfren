@@ -31,7 +31,7 @@ const ABOUT_OFFERINGS = PUBLIC_ABOUT_OFFERING_IDS.map((id) => {
     line: id === 'sabi'
       ? "Chainfren's home for broadcasts and publications on blockchains, AI, and the technologies unlocking the African economy."
       : record.description,
-    href: record.href,
+    href: id === 'star-factor' ? 'https://starfactor.xyz' : record.href,
   }
 })
 
