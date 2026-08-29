@@ -154,7 +154,9 @@ const ABOUT_OFFERINGS = PUBLIC_ABOUT_OFFERING_IDS.map((id) => {
   if (!record) throw new Error(`Missing public About offering: ${id}`)
   return {
     name: id === 'media-launchpad' ? 'Media Launchpad (TiVi)' : record.label,
-    line: record.description,
+    line: id === 'sabi'
+      ? "Chainfren's home for broadcasts and publications on blockchains, AI, and the technologies unlocking the African economy."
+      : record.description,
     href: record.href,
   }
 })
