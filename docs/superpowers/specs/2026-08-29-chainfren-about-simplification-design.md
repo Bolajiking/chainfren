@@ -33,16 +33,19 @@ Each step should use a short lead and a compact explanation. The argument should
 
 ### 3. What we build
 
-Show a simple list of six public offerings:
+Show a simple list of seven public offerings:
 
-1. TiVi
+1. Media Launchpad (TiVi)
 2. Creator Growth OS
 3. Community Engine
 4. AI Agent Studio
 5. Creator Network
 6. Sabi
+7. Star Factor
 
 Each item should contain only its public name, one plain description, and a link where a public destination exists. Do not show status labels, platform notes, internal categories, or product maturity language.
+
+The About page uses `Media Launchpad (TiVi)` as the visible name for the canonical TiVi product record. This is a presentation label only. The underlying product record, description, and destination remain canonical.
 
 The descriptions must follow the approved public product context and avoid claims that overstate availability or results.
 
@@ -94,7 +97,7 @@ The implementation should remove unused component state, imports, and rendering 
 Verification should confirm that:
 
 - The page renders only the four approved sections.
-- The six approved offerings appear once and in the approved order.
+- The seven approved offerings appear once and in the approved order.
 - No status or maturity label appears in the product list.
 - Removed sections no longer appear in the page or its structured data.
 - The full thesis link and four visitor paths work.

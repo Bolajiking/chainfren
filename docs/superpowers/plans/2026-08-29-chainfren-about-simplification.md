@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Replace the long About page with a concise public overview containing the intro, four-step argument, six-offering list, and four visitor paths.
+**Goal:** Replace the long About page with a concise public overview containing the intro, four-step argument, seven-offering list, and four visitor paths.
 
 **Architecture:** Keep the existing `/about` route, content module, and page component. Use the thesis public configuration as the source for product names, descriptions, links, and visitor destinations, while omitting maturity data from the About page. Remove deleted sections from rendering, content, metadata, and structured data so the route has one coherent public contract.
 
@@ -13,7 +13,7 @@
 ## File map
 
 - Create `tests/about-page.test.mjs`: source and data contract for the simplified About page.
-- Modify `app/config/aboutContent.js`: keep only the intro, concise argument, six public offerings, and four visitor paths.
+- Modify `app/config/aboutContent.js`: keep only the intro, concise argument, seven public offerings, and four visitor paths.
 - Modify `app/components/AboutPage.jsx`: render only the four approved sections and remove dead helpers, state, and imports.
 - Modify `app/(mainpage)/about/page.jsx`: remove founder and FAQ structured data while keeping AboutPage, Organization references, and breadcrumb data.
 
@@ -53,14 +53,16 @@ const offeringIds = [
   'ai-agent-studio',
   'creator-network',
   'sabi',
+  'star-factor',
 ]
 
-test('about content selects the six approved public offerings in order', () => {
-  assert.match(contentSource, /PUBLIC_ABOUT_OFFERING_IDS\s*=\s*\[[\s\S]*'media-launchpad'[\s\S]*'creator-growth-os'[\s\S]*'community-engine'[\s\S]*'ai-agent-studio'[\s\S]*'creator-network'[\s\S]*'sabi'[\s\S]*\]/)
+test('about content selects the seven approved public offerings in order', () => {
+  assert.match(contentSource, /PUBLIC_ABOUT_OFFERING_IDS\s*=\s*\[[\s\S]*'media-launchpad'[\s\S]*'creator-growth-os'[\s\S]*'community-engine'[\s\S]*'ai-agent-studio'[\s\S]*'creator-network'[\s\S]*'sabi'[\s\S]*'star-factor'[\s\S]*\]/)
   for (const id of offeringIds) {
     assert.ok(publicRecords.some((record) => record.id === id))
   }
-  assert.doesNotMatch(contentSource, /\b(?:Indy|Star Factor|Media Launchpad)\b/)
+  assert.doesNotMatch(contentSource, /\bIndy\b/)
+  assert.match(contentSource, /Media Launchpad \(TiVi\)/)
 })
 
 test('about product rendering omits status and platform metadata', () => {
@@ -139,6 +141,7 @@ const PUBLIC_ABOUT_OFFERING_IDS = [
   'ai-agent-studio',
   'creator-network',
   'sabi',
+  'star-factor',
 ]
 
 const publicOfferingRecords = [
@@ -149,7 +152,11 @@ const publicOfferingRecords = [
 const ABOUT_OFFERINGS = PUBLIC_ABOUT_OFFERING_IDS.map((id) => {
   const record = publicOfferingRecords.find((item) => item.id === id)
   if (!record) throw new Error(`Missing public About offering: ${id}`)
-  return { name: record.label, line: record.description, href: record.href }
+  return {
+    name: id === 'media-launchpad' ? 'Media Launchpad (TiVi)' : record.label,
+    line: record.description,
+    href: record.href,
+  }
 })
 ```
 
@@ -412,7 +419,7 @@ Capture desktop and mobile views. Confirm:
 
 - [ ] **Step 4: Verify links**
 
-Confirm the full thesis link, six product links, and four visitor links resolve to intended local routes without a 404 response.
+Confirm the full thesis link, seven product links, and four visitor links resolve to intended local routes without a 404 response. Star Factor should resolve to `/thesis/read/the-road-ahead`.
 
 - [ ] **Step 5: Fix and retest any in-scope defects**
 
