@@ -11,6 +11,7 @@ const PUBLIC_ABOUT_OFFERING_IDS = [
   'ai-agent-studio',
   'creator-network',
   'sabi',
+  'star-factor',
 ]
 
 const publicOfferingRecords = new Map(
@@ -26,8 +27,10 @@ const ABOUT_OFFERINGS = PUBLIC_ABOUT_OFFERING_IDS.map((id) => {
   }
 
   return {
-    name: record.label,
-    line: record.description,
+    name: id === 'media-launchpad' ? 'Media Launchpad (TiVi)' : record.label,
+    line: id === 'sabi'
+      ? "Chainfren's home for broadcasts and publications on blockchains, AI, and the technologies unlocking the African economy."
+      : record.description,
     href: record.href,
   }
 })

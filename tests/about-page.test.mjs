@@ -20,7 +20,16 @@ const APPROVED_OFFERING_IDS = [
   'ai-agent-studio',
   'creator-network',
   'sabi',
+  'star-factor',
 ]
+
+const ABOUT_DISPLAY_NAME_OVERRIDES = {
+  'media-launchpad': 'Media Launchpad (TiVi)',
+}
+
+const ABOUT_DESCRIPTION_OVERRIDES = {
+  sabi: "Chainfren's home for broadcasts and publications on blockchains, AI, and the technologies unlocking the African economy.",
+}
 
 const withoutComments = (source) => source
   .replace(/\/\*[\s\S]*?\*\//g, '')
@@ -62,26 +71,43 @@ test('About offerings are the approved canonical public records in order', () =>
     assert.ok(canonicalRecords.has(id), `${id} must resolve to a canonical public record`)
   }
 
-  for (const legacyName of ['Indy', 'Star Factor', 'Media Launchpad']) {
-    assert.doesNotMatch(
-      executableContent,
-      new RegExp(`['"]${legacyName}['"]`),
-      `${legacyName} must not be hardcoded as a visible About offering`,
-    )
-  }
+  assert.doesNotMatch(
+    executableContent,
+    /['"]Indy['"]/,
+    'Indy must not be hardcoded as a visible About offering',
+  )
 })
 
 test('About build items are the exact public-record projection', () => {
   const expectedItems = APPROVED_OFFERING_IDS.map((id) => {
     const record = canonicalRecords.get(id)
     assert.ok(record, `${id} must resolve to a canonical public record`)
-    return { name: record.label, line: record.description, href: record.href }
+    return {
+      name: ABOUT_DISPLAY_NAME_OVERRIDES[id] ?? record.label,
+      line: ABOUT_DESCRIPTION_OVERRIDES[id] ?? record.description,
+      href: record.href,
+    }
   })
 
   assert.deepEqual(ABOUT.build.items, expectedItems)
   for (const item of ABOUT.build.items) {
-    assert.deepEqual(Object.keys(item).sort(), ['href', 'line', 'name'])
+    assert.deepEqual(Object.keys(item), ['name', 'line', 'href'])
   }
+
+  const sabi = ABOUT.build.items.find((item) => item.name === 'Sabi')
+  assert.equal(
+    sabi?.line,
+    "Chainfren's home for broadcasts and publications on blockchains, AI, and the technologies unlocking the African economy.",
+  )
+})
+
+test('About argument keeps the approved four-step path to the thesis', () => {
+  assert.deepEqual(
+    ABOUT.argument.steps.map((step) => step.t),
+    ['The gap', 'The trap', 'The unlock', 'The thesis'],
+  )
+  assert.equal(ABOUT.argument.steps.length, 4)
+  assert.equal(ABOUT.argument.more.href, '/thesis')
 })
 
 test('About content exposes exactly the approved top-level sections in order', () => {
