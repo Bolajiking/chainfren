@@ -47,7 +47,7 @@ Each item should contain only its public name, one plain description, and a link
 
 The About page uses `Media Launchpad (TiVi)` as the visible name for the canonical TiVi product record. This is a presentation label only. The underlying product record, description, and destination remain canonical.
 
-The About page uses this public description for Sabi: `Chainfren's home for broadcasts and publications on blockchains, AI, and the technologies unlocking the African economy.` This About-specific description replaces the shorter canonical description on this page only.
+The About page uses this exact public description for Sabi: `Chainfren's home for broadcasts and publications on blockchains, AI, and the technologies unlocking the African economy.` This About-specific description replaces the shorter canonical description on this page only. The humanizer audit must preserve this approved sentence exactly.
 
 The descriptions must follow the approved public product context and avoid claims that overstate availability or results.
 

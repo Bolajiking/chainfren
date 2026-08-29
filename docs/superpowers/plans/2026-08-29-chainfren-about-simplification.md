@@ -63,6 +63,7 @@ test('about content selects the seven approved public offerings in order', () =>
   }
   assert.doesNotMatch(contentSource, /\bIndy\b/)
   assert.match(contentSource, /Media Launchpad \(TiVi\)/)
+  assert.match(contentSource, /Chainfren's home for broadcasts and publications on blockchains, AI, and the technologies unlocking the African economy\./)
 })
 
 test('about product rendering omits status and platform metadata', () => {
@@ -252,7 +253,7 @@ Delete `numbers`, `company`, `principles`, `road`, `founder`, and `faq` from `AB
 
 - [ ] **Step 5: Run the humanizer audit on all visible copy**
 
-Check the draft for inflated claims, promotional language, generic conclusions, repetitive cadence, passive voice, and em or en dashes. Preserve the approved meaning and revise any remaining AI patterns. Confirm the serialized visible copy contains no `—` or `–` characters.
+Check the draft for inflated claims, promotional language, generic conclusions, repetitive cadence, passive voice, and em or en dashes. Preserve the approved meaning and revise any remaining AI patterns. Confirm the serialized visible copy contains no `—` or `–` characters. Preserve the user-approved Sabi sentence exactly as specified.
 
 - [ ] **Step 6: Run the focused test**
 
