@@ -84,6 +84,10 @@ test('About build items are the exact public-record projection', () => {
   }
 })
 
+test('About content exposes exactly the approved top-level sections in order', () => {
+  assert.deepEqual(Object.keys(ABOUT), ['meta', 'hero', 'argument', 'build', 'join'])
+})
+
 test('product rendering is a simple name and description list without maturity metadata', () => {
   assert.match(executableComponent, /ABOUT\.build\.items/)
   assert.match(executableComponent, /\bit\.name\b/)
@@ -91,7 +95,12 @@ test('product rendering is a simple name and description list without maturity m
 
   for (const removedToken of [
     /\bStageChip\b/,
+    /\bMaturityBadge\b/,
     /\bSTAGE_TONE\b/,
+    /\bmaturity\b/i,
+    /\b(?:Stage|Maturity|Status|Phase|State)(?:Chip|Badge|Pill|Tag|Label)\b/i,
+    /\b(?:Chip|Badge|Pill|Tag|Label)(?:Stage|Maturity|Status|Phase|State)\b/i,
+    /<[A-Z][A-Za-z0-9]*(?:Badge|Chip|Pill|Tag|Status|Maturity|Stage)\b/,
     /\.stage\b/,
     /\brunsOn\b/,
     /Runs on/i,
@@ -101,9 +110,14 @@ test('product rendering is a simple name and description list without maturity m
 })
 
 test('the About page renders exactly four marked content sections in order', () => {
-  const renderedSections = [
-    ...executableComponent.matchAll(/data-about-section\s*=\s*['"]([^'"]+)['"]/g),
-  ].map((match) => match[1])
+  const sectionTags = [...executableComponent.matchAll(/<section\b[^>]*>/g)].map((match) => match[0])
+  assert.equal(sectionTags.length, 4, 'AboutPage must render exactly four section elements')
+
+  const renderedSections = sectionTags.map((tag) => {
+    const markers = [...tag.matchAll(/data-about-section\s*=\s*['"]([^'"]+)['"]/g)]
+    assert.equal(markers.length, 1, 'each section must carry exactly one data-about-section marker')
+    return markers[0][1]
+  })
 
   assert.deepEqual(renderedSections, ['hero', 'argument', 'build', 'join'])
   for (const section of renderedSections) {
@@ -143,9 +157,14 @@ test('About structured data keeps the page entity and breadcrumb but removes FAQ
 
   const significantLinks = executableRoute.match(/significantLink\s*:\s*\[([\s\S]*?)\]/)
   assert.ok(significantLinks, 'AboutPage schema must define significantLink')
+  const significantLinkEntries = significantLinks[1]
+    .split(',')
+    .map((entry) => entry.replace(/\s+/g, ''))
+    .filter(Boolean)
   assert.deepEqual(
-    [...significantLinks[1].matchAll(/\$\{SITE\.url\}(\/[^`'"]+)/g)].map((match) => match[1]),
-    ['/products', '/for-creators', '/for-brands', '/creator-network', '/sabi', '/contact'],
+    significantLinkEntries,
+    ['/products', '/for-creators', '/for-brands', '/creator-network', '/sabi', '/contact']
+      .map((path) => '`${SITE.url}' + path + '`'),
   )
 
   for (const removedToken of [
