@@ -1,8 +1,9 @@
 export const DISTRIBUTION_LOOP = [
-  { id: 'sabi', title: 'Sabi', summary: 'An owned media surface for cultural signal.', maturity: 'building', href: '/sabi' },
+  { id: 'sabi', title: 'Sabi', summary: 'A media and broadcasting product that Chainfren is building.', maturity: 'building', href: '/sabi' },
   { id: 'creator-network', title: 'Creator Network', summary: 'Trusted distribution for creators, brands, and campaigns.', maturity: 'live', href: '/creator-network' },
-  { id: 'star-factor', title: 'Star Factor', summary: 'A later public test of audience participation.', maturity: 'later', href: '/thesis/read/the-road-ahead' },
-  { id: 'products-and-solutions', title: 'Products and Solutions', summary: 'Practical tools for owned relationships and growth.', href: '/products' },
+  { id: 'tivi', title: 'TiVi', summary: 'A media channel where participation and audience relationships can continue.', maturity: 'live', maturityId: 'media-launchpad', href: '/products/media-launchpad' },
+  { id: 'additional-capabilities', title: 'Additional capabilities', summary: 'Practical tools for owned relationships and growth.', href: '/products' },
+  { id: 'star-factor', title: 'Star Factor', summary: 'A participatory entertainment product in development.', maturity: 'building', href: '/thesis/read/the-road-ahead' },
 ]
 
 export const VALUE_PATH = [
@@ -13,8 +14,8 @@ export const VALUE_PATH = [
 ]
 
 export const ROADMAP_HORIZONS = [
-  { id: 'foundation', title: 'Foundation', summary: 'Strengthen the public product foundation.', href: '/products' },
-  { id: 'distribution', title: 'Distribution', summary: 'Connect trusted attention with practical distribution.', href: '/contact' },
-  { id: 'participation', title: 'Participation', summary: 'Explore audience participation through public experiments.', href: '/thesis/read/the-road-ahead' },
-  { id: 'compounding-value', title: 'Compounding Value', summary: 'Build toward durable, owned value.', href: '/thesis/read/the-thesis' },
+  { id: 'foundation', title: 'Foundation', summary: 'Keep improving the public products that give participation a place to continue.', href: '/products' },
+  { id: 'distribution', title: 'Distribution', summary: 'Connect trusted attention with distribution that fits its cultural context.', href: '/contact' },
+  { id: 'participation', title: 'Participation', summary: 'Star Factor is being built as a proof milestone for participatory entertainment.', href: '/thesis/read/the-road-ahead' },
+  { id: 'compounding-value', title: 'Open ecosystem', summary: 'Indy remains a longer direction as we work toward Africans distributing, owning, and earning on open rails built by Africans for Africans.', href: '/thesis/read/the-thesis' },
 ]

@@ -5,9 +5,9 @@ import Link from 'next/link'
 import styles from '../thesis.module.css'
 import { resolveMapClaim } from '@/lib/thesis/ownership-map.mjs'
 import { THESIS_CLAIMS, THESIS_EDGES } from '@/content/chainfren-thesis/claims.mjs'
-import { THESIS_MAP_LAYOUT } from '@/content/chainfren-thesis/map-layout.mjs'
+import { THESIS_MAP_GEOMETRY, THESIS_MAP_LAYOUT, THESIS_MAP_ROUTES } from '@/content/chainfren-thesis/map-layout.mjs'
 
-const CANVAS = { width: 1280, height: 540 }
+const { canvas: CANVAS, node: NODE } = THESIS_MAP_GEOMETRY
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value))
 
 export default function OwnershipMapDesktop() {
@@ -15,6 +15,7 @@ export default function OwnershipMapDesktop() {
   const edges = THESIS_EDGES
   const layout = THESIS_MAP_LAYOUT
   const validIds = useMemo(() => new Set(claims.map((claim) => claim.id)), [claims])
+  const claimsById = useMemo(() => new Map(claims.map((claim) => [claim.id, claim])), [claims])
   const start = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('claim')
   const [selected, setSelected] = useState(resolveMapClaim(claims, start))
   const [view, setView] = useState({ x: 0, y: 0, scale: 0.9 })
@@ -45,9 +46,28 @@ export default function OwnershipMapDesktop() {
       </div>
       <div className={styles.mapViewport} role="region" aria-label="Ownership claim map" aria-describedby="map-help" onPointerDown={(event) => { drag.current = point(event); event.currentTarget.setPointerCapture(event.pointerId) }} onPointerMove={(event) => { if (!drag.current) return; const next = point(event); setView((current) => ({ ...current, x: current.x + next.x - drag.current.x, y: current.y + next.y - drag.current.y })); drag.current = next }} onPointerUp={() => { drag.current = null }}>
         <svg viewBox={`0 0 ${CANVAS.width} ${CANVAS.height}`}>
+          <defs>
+            <marker id="ownership-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+              <path d="M 0 0 L 8 4 L 0 8 z" />
+            </marker>
+          </defs>
           <g transform={`translate(${view.x} ${view.y}) scale(${view.scale})`}>
-            {edges.map((edge) => { const from = layout[edge.from]; const to = layout[edge.to]; return <line key={edge.id} className={styles.mapEdge} x1={from.x + 120} y1={from.y + 30} x2={to.x + 120} y2={to.y + 30} /> })}
-            {claims.map((claim) => { const position = layout[claim.id]; const active = claim.id === selected; return <g key={claim.id} className={`${styles.mapNode} ${active ? styles.mapNodeActive : ''}`} transform={`translate(${position.x} ${position.y})`} tabIndex="0" role="button" aria-pressed={active} aria-label={`Select ${claim.title}`} onClick={() => select(claim.id)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(claim.id) } }}><rect width="240" height="60" rx="12" /><text x="16" y="26">{claim.title}</text><text x="16" y="45">{claim.type}</text></g> })}
+            {edges.map((edge) => {
+              const sourceClaim = claimsById.get(edge.from)
+              const targetClaim = claimsById.get(edge.to)
+              const route = THESIS_MAP_ROUTES[edge.id]
+              const labelStart = route.points[route.labelSegment]
+              const labelFinish = route.points[route.labelSegment + 1]
+              const label = { x: (labelStart.x + labelFinish.x) / 2, y: (labelStart.y + labelFinish.y) / 2 }
+              return (
+                <g key={edge.id} role="img" aria-label={`${sourceClaim.title} ${edge.relation} ${targetClaim.title}`}>
+                  <title>{`${sourceClaim.title} ${edge.relation} ${targetClaim.title}`}</title>
+                  <polyline className={styles.mapEdge} points={route.points.map(({ x, y }) => `${x},${y}`).join(' ')} markerEnd="url(#ownership-arrow)" />
+                  <text className={styles.mapEdgeLabel} x={label.x} y={label.y} textAnchor="middle" dominantBaseline="middle">{edge.relation}</text>
+                </g>
+              )
+            })}
+            {claims.map((claim) => { const position = layout[claim.id]; const active = claim.id === selected; return <g key={claim.id} className={`${styles.mapNode} ${active ? styles.mapNodeActive : ''}`} transform={`translate(${position.x} ${position.y})`} tabIndex="0" role="button" aria-pressed={active} aria-label={`Select ${claim.title}`} onClick={() => select(claim.id)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(claim.id) } }}><rect width={NODE.width} height={NODE.height} rx="12" /><text x="16" y="26">{claim.title}</text><text x="16" y="45">{claim.type}</text></g> })}
           </g>
         </svg>
       </div>

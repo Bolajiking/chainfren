@@ -20,11 +20,6 @@ export const metadata = {
   },
 }
 
-// AboutPage is the node search engines should treat as the authoritative
-// description of the company, so it carries `mainEntity` pointing at the
-// sitewide Organization rather than describing the company a second time.
-// The FAQ is emitted as data because these are the exact questions an
-// evaluator or an answer engine asks about a company they have not met.
 const schema = [
   {
     '@context': 'https://schema.org',
@@ -42,37 +37,9 @@ const schema = [
       `${SITE.url}/for-creators`,
       `${SITE.url}/for-brands`,
       `${SITE.url}/creator-network`,
+      `${SITE.url}/sabi`,
+      `${SITE.url}/contact`,
     ],
-  },
-  // The founder as a resolvable entity rather than a name in a paragraph.
-  // `founder` on the Organization is what lets a knowledge graph connect the
-  // person to the company, which is the difference between "a company in Lagos"
-  // and "the company Bolaji Majiyagbe founded" when someone searches either.
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    '@id': `${SITE.url}/about#founder`,
-    name: ABOUT.founder.name,
-    jobTitle: 'Founder',
-    worksFor: { '@id': ID.org },
-    address: { '@type': 'PostalAddress', addressLocality: 'Lagos', addressCountry: 'NG' },
-    knowsAbout: ['creator economy', 'audience ownership', 'African creator economy', 'stablecoin settlement'],
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    '@id': ID.org,
-    founder: { '@id': `${SITE.url}/about#founder` },
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    '@id': `${SITE.url}/about#faq`,
-    mainEntity: ABOUT.faq.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a },
-    })),
   },
   breadcrumbSchema([
     { name: 'Home', path: '/' },

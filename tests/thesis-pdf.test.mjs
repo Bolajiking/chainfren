@@ -2,6 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { EventEmitter } from 'node:events'
+import { spawnSync } from 'node:child_process'
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
 import { waitForOwnedServerReadiness } from '../lib/thesis/owned-server-readiness.mjs'
@@ -12,10 +13,14 @@ const source = (path) => readFileSync(new URL(path, root), 'utf8')
 test('canonical PDF exports use versioned download paths and labeled checksums', () => {
   const download = source('app/(mainpage)/thesis/download/page.jsx')
   const generator = source('scripts/generate-thesis-pdf.mjs')
-  assert.match(download, /\/downloads\/chainfren-thesis-2026\.1\.pdf/)
+  assert.match(download, /THESIS_CONTENT_VERSION/)
+  assert.match(download, /releaseBase/)
+  assert.match(download, /`\/downloads\/\$\{releaseBase\}\.pdf`/)
   assert.doesNotMatch(download, /\.sha256/)
-  assert.match(generator, /public\/downloads\/chainfren-thesis-2026\.1\.pdf/)
-  assert.match(generator, /public\/downloads\/chainfren-thesis-2026\.1\.sha256/)
+  assert.match(generator, /THESIS_CONTENT_VERSION/)
+  assert.match(generator, /releaseBase = `chainfren-thesis-\$\{THESIS_CONTENT_VERSION\}`/)
+  assert.match(generator, /join\(root, 'public\/downloads', `\$\{releaseBase\}\.pdf`\)/)
+  assert.match(generator, /join\(root, 'public\/downloads', `\$\{releaseBase\}\.sha256`\)/)
   assert.match(generator, /Source SHA-256:/)
   assert.match(generator, /PDF SHA-256:/)
   assert.equal((download.match(/<a\b/g) || []).length, 1)
@@ -115,7 +120,7 @@ test('owned readiness does not treat an HTTP-ready endpoint as owned without the
 })
 
 test('released checksums match the canonical source inputs and PDF artifact', () => {
-  const checksum = source('public/downloads/chainfren-thesis-2026.1.sha256')
+  const checksum = source('public/downloads/chainfren-thesis-2026.2.sha256')
   const sourceMatch = checksum.match(/^Source SHA-256:\s*([a-f0-9]{64})$/m)
   const pdfMatch = checksum.match(/^PDF SHA-256:\s*([a-f0-9]{64})$/m)
   assert.ok(sourceMatch, 'checksum includes a labeled source hash')
@@ -132,7 +137,9 @@ test('released checksums match the canonical source inputs and PDF artifact', ()
   assert.equal(hash.digest('hex'), sourceMatch[1])
   const generated = source('content/chainfren-thesis/generated-content-hash.mjs')
   assert.match(generated, new RegExp(`THESIS_CONTENT_HASH = ['\"]${sourceMatch[1]}['\"]`))
-  assert.equal(createHash('sha256').update(readFileSync(new URL('public/downloads/chainfren-thesis-2026.1.pdf', root))).digest('hex'), pdfMatch[1])
+  assert.equal(createHash('sha256').update(readFileSync(new URL('public/downloads/chainfren-thesis-2026.2.pdf', root))).digest('hex'), pdfMatch[1])
+  assert.ok(statSync(new URL('public/downloads/chainfren-thesis-2026.1.pdf', root)).isFile())
+  assert.ok(statSync(new URL('public/downloads/chainfren-thesis-2026.1.sha256', root)).isFile())
 })
 
 test('site metadata uses the generated thesis content hash', () => {
@@ -145,7 +152,22 @@ test('site metadata uses the generated thesis content hash', () => {
   assert.match(print, /THESIS_CONTENT_VERSION/)
   assert.match(print, /THESIS_CONTENT_HASH/)
   assert.match(download, /THESIS_CONTENT_HASH/)
-  assert.match(config, /THESIS_CONTENT_VERSION = '2026\.1'/)
+  assert.match(config, /THESIS_CONTENT_VERSION = '2026\.2'/)
+})
+
+test('all current release surfaces derive their version from canonical config', () => {
+  for (const path of [
+    'app/(mainpage)/thesis/components/ThesisHub.jsx',
+    'app/(mainpage)/thesis/opengraph-image/route.jsx',
+    'app/(mainpage)/thesis/download/page.jsx',
+    'app/(mainpage)/thesis/short/page.jsx',
+    'scripts/generate-thesis-pdf.mjs',
+    'scripts/validate-thesis-content.mjs',
+  ]) {
+    const text = source(path)
+    assert.match(text, /THESIS_CONTENT_VERSION/, `${path} imports or uses canonical version`)
+    assert.doesNotMatch(text, /['"`]2026\.2['"`]/, `${path} has no independent active-version literal`)
+  }
 })
 
 test('the download route is styled with the thesis brand contract and stays touch safe', () => {
@@ -165,4 +187,29 @@ test('the print edition keeps paragraph rhythm for long-form prose', () => {
   const css = source('app/(mainpage)/thesis/print/print.module.css')
 
   assert.match(css, /\.chapter p\s*\{[^}]*margin:/s)
+})
+
+test('the print edition preserves contents entries, product groups, and public product names', () => {
+  const css = source('app/(mainpage)/thesis/print/print.module.css')
+  const products = source('content/chainfren-thesis/chapters/06-what-we-build.mdx')
+
+  assert.match(css, /\.contents li\s*\{[^}]*display:\s*block/s)
+  assert.match(products, /data-thesis-product-group/)
+  assert.match(css, /section\[data-thesis-product-group\][^{]*\{[^}]*break-inside:\s*avoid/s)
+  assert.doesNotMatch(css, /attr\(href\)/)
+})
+
+test('the PDF generator gives every chapter a protected print boundary', () => {
+  const generator = source('scripts/generate-thesis-pdf.mjs')
+  assert.match(generator, /main\[data-thesis-print\] > article > header \{ padding-top: 20mm; \}/)
+})
+
+test('the current PDF is exported as a tagged accessible document', () => {
+  const generator = source('scripts/generate-thesis-pdf.mjs')
+  assert.match(generator, /tagged:\s*true/)
+
+  const pdfPath = new URL('public/downloads/chainfren-thesis-2026.2.pdf', root)
+  const info = spawnSync('pdfinfo', [pdfPath.pathname], { encoding: 'utf8' })
+  assert.equal(info.status, 0, info.stderr || 'pdfinfo must inspect the current artifact')
+  assert.match(info.stdout, /^Tagged:\s+yes$/m)
 })

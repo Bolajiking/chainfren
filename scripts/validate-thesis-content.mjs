@@ -2,18 +2,34 @@ import { existsSync, lstatSync, readdirSync, readFileSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import { join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { THESIS_CONTENT_VERSION, PUBLIC_CTAS, PUBLIC_PRODUCT_MATURITY, PUBLIC_INITIATIVE_MATURITY } from '../content/chainfren-thesis/public-config.mjs'
+import { THESIS_CONTENT_VERSION, PUBLIC_CTAS, PUBLIC_PRODUCT_GROUPS, PUBLIC_PRODUCT_MATURITY, PUBLIC_INITIATIVE_MATURITY } from '../content/chainfren-thesis/public-config.mjs'
 import { THESIS_CONTENT_HASH } from '../content/chainfren-thesis/generated-content-hash.mjs'
 import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
 import { PUBLIC_CITATIONS } from '../content/chainfren-thesis/citations.mjs'
 import { THESIS_CLAIMS, THESIS_EDGES } from '../content/chainfren-thesis/claims.mjs'
 import { THESIS_MAP_LAYOUT } from '../content/chainfren-thesis/map-layout.mjs'
 import { DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS } from '../content/chainfren-thesis/public-system.mjs'
-import { validateManifest, validateCitations, validateClaims, validateEdges, validateLayout, validateCtas, validatePublicSystem, validateStages, validateReferences } from '../lib/thesis/schema.mjs'
+import { validateManifest, validateCitations, validateClaims, validateEdges, validateLayout, validateCtas, validateProductGroups, validatePublicSystem, validateStages, validateReferences } from '../lib/thesis/schema.mjs'
+
+const PRIVATE_RELEASE_QUALIFIER = String.raw`(?:private|confidential|internal)`
 
 const blockedPatterns = [
   [/\/Users\//, 'local user path'], [/second-brain/i, 'private knowledge store'], [/CF-C-\d+/i, 'internal identifier'],
   [/signed\s+revenue/i, 'sensitive commercial term'], [/runway/i, 'sensitive operating term'], [/decision-rights/i, 'sensitive governance term'], [/control\s+matrix/i, 'sensitive control term'], [/risk\s+register/i, 'sensitive risk term'], [/\u2014|\u2013/, 'dash punctuation'],
+  [/\bfundraising\s+(?:terms?|plans?)\b/i, 'private fundraising term'],
+  [/\b(?:customer\s+pipelines?|(?:private|confidential|internal)\s+(?:customer\s+information|(?:customer\s+)?pipelines?))\b/i, 'private customer term'],
+  [/\b(?:private|confidential|internal)\s+roadmaps?\b/i, 'private roadmap term'],
+  [/\b(?:private|confidential|internal)\s+launch\s+gates?\b/i, 'private launch term'],
+  [/\b(?:private|confidential|internal)\s+partner\s+terms?\b/i, 'private partner term'],
+  [/\b(?:private|confidential|internal)\s+creator\s+terms?\b/i, 'private creator term'],
+  [/\b(?:private|confidential|internal)\s+risk\s+records?\b/i, 'private risk term'],
+  [/\bspeculative\s+token\s+plans?\b/i, 'private token term'],
+  [/\b(?:private|confidential|internal)\s+pricing\s+models?\b/i, 'private pricing term'],
+  [new RegExp(String.raw`\b${PRIVATE_RELEASE_QUALIFIER}\s+financial\s+models?\b`, 'i'), 'private financial model'],
+  [new RegExp(String.raw`\b${PRIVATE_RELEASE_QUALIFIER}\s+credentials?\b`, 'i'), 'private credential'],
+  [new RegExp(String.raw`\b${PRIVATE_RELEASE_QUALIFIER}\s+security\s+issues?\b`, 'i'), 'private security issue'],
+  [new RegExp(String.raw`\b${PRIVATE_RELEASE_QUALIFIER}\s+operating\s+structures?\b`, 'i'), 'private operating structure'],
+  [new RegExp(String.raw`\b${PRIVATE_RELEASE_QUALIFIER}\s+decision\s+systems?\b`, 'i'), 'private decision system'],
   [new RegExp(['come', 'ownity'].join('[\\s_-]*'), 'i'), 'excluded venture'],
 ]
 
@@ -103,6 +119,7 @@ const publicRecords = () => ({
   ctas: PUBLIC_CTAS,
   productMaturity: PUBLIC_PRODUCT_MATURITY,
   initiativeMaturity: PUBLIC_INITIATIVE_MATURITY,
+  productGroups: PUBLIC_PRODUCT_GROUPS,
   distributionLoop: DISTRIBUTION_LOOP,
   valuePath: VALUE_PATH,
   roadmapHorizons: ROADMAP_HORIZONS,
@@ -111,7 +128,7 @@ const publicRecords = () => ({
 export function validateThesisContent({ allowMissingContent = false, contentDirectory = new URL('../content/chainfren-thesis/', import.meta.url), generatedDirectory, generatedDirectoryRequested = generatedDirectory !== undefined } = {}) {
   const errors = []
   try {
-    if (THESIS_CONTENT_VERSION !== '2026.1') throw new Error('Content version must be 2026.1')
+    if (!/^\d{4}\.\d+$/.test(THESIS_CONTENT_VERSION)) throw new Error('Content version must use YYYY.release format')
     validateManifest(THESIS_MANIFEST)
     const claimIds = new Set(THESIS_CLAIMS.map((claim) => claim.id))
     validateCitations(PUBLIC_CITATIONS, claimIds)
@@ -121,6 +138,7 @@ export function validateThesisContent({ allowMissingContent = false, contentDire
     validateCtas(PUBLIC_CTAS)
     validatePublicSystem({ DISTRIBUTION_LOOP, VALUE_PATH, ROADMAP_HORIZONS }, new Set(THESIS_MANIFEST.map((chapter) => chapter.slug)))
     validateStages([...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY])
+    validateProductGroups(PUBLIC_PRODUCT_GROUPS, [...PUBLIC_PRODUCT_MATURITY, ...PUBLIC_INITIATIVE_MATURITY])
     validateReferences(THESIS_MANIFEST, THESIS_CLAIMS, PUBLIC_CITATIONS)
     errors.push(...validatePublicDestinations(publicDestinations()))
   } catch (error) { errors.push(error.message) }
@@ -150,7 +168,7 @@ const defaultReleaseSourcePaths = (projectRoot) => [
   join(projectRoot, 'lib/thesis/public-content.js'),
   join(projectRoot, 'lib/thesis/public-presentation.mjs'),
   join(projectRoot, 'lib/thesis/json-ld.js'),
-  join(projectRoot, 'public/downloads/chainfren-thesis-2026.1.sha256'),
+  join(projectRoot, `public/downloads/chainfren-thesis-${THESIS_CONTENT_VERSION}.sha256`),
 ]
 
 const scanReleasePath = (path, errors, scannedPaths, label) => {
@@ -205,7 +223,7 @@ const releaseTreeContains = (directory, value) => {
 export function validateReleaseOutputs({
   projectRoot = PROJECT_ROOT,
   sourcePaths = defaultReleaseSourcePaths(projectRoot),
-  pdfPath = join(projectRoot, 'public/downloads/chainfren-thesis-2026.1.pdf'),
+  pdfPath = join(projectRoot, `public/downloads/chainfren-thesis-${THESIS_CONTENT_VERSION}.pdf`),
   buildDirectory = join(projectRoot, '.next/server/app/thesis'),
   extractPdfText = defaultPdfTextExtractor,
 } = {}) {

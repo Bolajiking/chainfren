@@ -27,7 +27,7 @@ export const SITE = {
   // most likely to lift when asked "what is Chainfren?" — it leads with the
   // category, names the audience, and states the differentiator.
   description:
-    'Chainfren is an ownership infrastructure company for the African creator economy. It builds products and done-with-you solutions that let creators, brands, and communities own their audience, their community, and their revenue — instead of renting them from platforms.',
+    'Chainfren is a distribution-first company working to help Africans keep more control of the identity, relationships, participation, and value created around their attention. Its public work includes creators, brands, and audiences.',
   sameAs: [
     'https://x.com/chainfren',
     'https://www.linkedin.com/company/chainfren',

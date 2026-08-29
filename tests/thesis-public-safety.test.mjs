@@ -10,7 +10,7 @@ import { DISTRIBUTION_LOOP, ROADMAP_HORIZONS, VALUE_PATH } from '../content/chai
 import { THESIS_MANIFEST } from '../content/chainfren-thesis/manifest.mjs'
 import { THESIS_CLAIMS } from '../content/chainfren-thesis/claims.mjs'
 import { PUBLIC_CITATIONS } from '../content/chainfren-thesis/citations.mjs'
-import { PUBLIC_CTAS, PUBLIC_INITIATIVE_MATURITY, PUBLIC_PRODUCT_MATURITY, THESIS_CONTENT_VERSION } from '../content/chainfren-thesis/public-config.mjs'
+import { PUBLIC_CTAS, PUBLIC_INITIATIVE_MATURITY, PUBLIC_PRODUCT_GROUPS, PUBLIC_PRODUCT_MATURITY, THESIS_CONTENT_VERSION } from '../content/chainfren-thesis/public-config.mjs'
 import { THESIS_CONTENT_HASH } from '../content/chainfren-thesis/generated-content-hash.mjs'
 import { CHAPTER_REGISTRY_SLUGS, createChapterRegistry } from '../lib/thesis/chapter-registry.mjs'
 
@@ -27,7 +27,7 @@ test('strict validation passes with all nine published chapter MDX files', () =>
 
 test('release source has every manifest chapter, registry entry, short read, and valid claim chapter', () => {
   const thesisRoot = new URL('../content/chainfren-thesis/', import.meta.url)
-  assert.equal(THESIS_CONTENT_VERSION, '2026.1')
+  assert.equal(THESIS_CONTENT_VERSION, '2026.2')
   assert.equal(THESIS_MANIFEST.length, 9)
   for (const chapter of THESIS_MANIFEST) {
     assert(existsSync(new URL(`chapters/${chapter.id}-${chapter.slug}.mdx`, thesisRoot)))
@@ -75,9 +75,12 @@ test('destination validation rejects a public CTA that lacks a matching route fi
 })
 
 test('company chapter systems keep the approved public sequences and component data boundary', () => {
-  assert.deepEqual(DISTRIBUTION_LOOP.map(({ id }) => id), ['sabi', 'creator-network', 'star-factor', 'products-and-solutions'])
+  assert.deepEqual(DISTRIBUTION_LOOP.map(({ id }) => id), ['sabi', 'creator-network', 'tivi', 'additional-capabilities', 'star-factor'])
   assert.deepEqual(VALUE_PATH.map(({ id }) => id), ['attention', 'participation', 'ownership', 'value'])
   assert.equal(ROADMAP_HORIZONS.length, 4)
+  assert.deepEqual(DISTRIBUTION_LOOP.find(({ id }) => id === 'tivi'), {
+    id: 'tivi', title: 'TiVi', summary: 'A media channel where participation and audience relationships can continue.', maturity: 'live', maturityId: 'media-launchpad', href: '/products/media-launchpad',
+  })
   assert(ROADMAP_HORIZONS.every(({ title, summary }) => !/\b(?:\d{4}|Q[1-4]|quarter|budget|targets?|metrics?|runway|signed\s+revenue|decision-rights|control\s+matrix|risk\s+register)\b/i.test(`${title} ${summary}`)))
 
   for (const [component, data] of [['DistributionLoop', 'DISTRIBUTION_LOOP'], ['ValuePath', 'VALUE_PATH'], ['RoadmapHorizons', 'ROADMAP_HORIZONS']]) {
@@ -86,6 +89,17 @@ test('company chapter systems keep the approved public sequences and component d
     assert.match(source, new RegExp(`${data}\\.map`))
     assert.match(source, /<ol/)
     assert.doesNotMatch(source, /['\"]use client['\"]/)
+  }
+})
+
+test('public product groups are recursively safety scanned', () => {
+  const originalItemId = PUBLIC_PRODUCT_GROUPS[0].itemIds[0]
+  try {
+    PUBLIC_PRODUCT_GROUPS[0].itemIds[0] = ['come', 'ownity'].join('')
+    const errors = validateThesisContent({ allowMissingContent: true, contentDirectory: new URL('../content/chainfren-thesis/', import.meta.url) })
+    assert(errors.some((error) => error.includes('Public thesis records') && error.includes('excluded venture')))
+  } finally {
+    PUBLIC_PRODUCT_GROUPS[0].itemIds[0] = originalItemId
   }
 })
 
@@ -154,6 +168,84 @@ test('safety helpers block local paths, sensitive operational terms, and dash pu
   assert.equal(collectSafetyViolations('generic revenue is not blocked', 'fixture').length, 0)
 })
 
+test('safety helpers block qualified private concept families with specific labels', () => {
+  const blockedFixtures = [
+    ['fundraising term', 'private fundraising term'],
+    ['fundraising terms', 'private fundraising term'],
+    ['fundraising plan', 'private fundraising term'],
+    ['fundraising plans', 'private fundraising term'],
+    ['customer pipeline', 'private customer term'],
+    ['customer pipelines', 'private customer term'],
+    ['private pipeline', 'private customer term'],
+    ['private customer information', 'private customer term'],
+    ['confidential roadmap', 'private roadmap term'],
+    ['internal roadmaps', 'private roadmap term'],
+    ['internal launch gate', 'private launch term'],
+    ['internal launch gates', 'private launch term'],
+    ['private launch gates', 'private launch term'],
+    ['confidential launch gate', 'private launch term'],
+    ['private partner terms', 'private partner term'],
+    ['confidential partner term', 'private partner term'],
+    ['private creator terms', 'private creator term'],
+    ['internal creator term', 'private creator term'],
+    ['internal risk record', 'private risk term'],
+    ['internal risk records', 'private risk term'],
+    ['speculative token plan', 'private token term'],
+    ['speculative token plans', 'private token term'],
+    ['private pricing model', 'private pricing term'],
+    ['private pricing models', 'private pricing term'],
+  ]
+
+  for (const [phrase, label] of blockedFixtures) {
+    assert.deepEqual(collectSafetyViolations(phrase, 'fixture'), [`fixture: blocked ${label}`])
+  }
+})
+
+test('safety helpers use every private qualifier for each release-boundary family', () => {
+  const families = [
+    { singular: 'financial model', plural: 'financial models', label: 'private financial model' },
+    { singular: 'credential', plural: 'credentials', label: 'private credential' },
+    { singular: 'security issue', plural: 'security issues', label: 'private security issue' },
+    { singular: 'operating structure', plural: 'operating structures', label: 'private operating structure' },
+    { singular: 'decision system', plural: 'decision systems', label: 'private decision system' },
+  ]
+
+  for (const qualifier of ['private', 'confidential', 'internal']) {
+    for (const { singular, plural, label } of families) {
+      for (const concept of [singular, plural]) {
+        const phrase = `${qualifier} ${concept}`
+        assert.deepEqual(collectSafetyViolations(phrase, 'fixture'), [`fixture: blocked ${label}`])
+      }
+    }
+  }
+})
+
+test('safety helpers allow public language and safe qualified near-misses', () => {
+  for (const publicPhrase of [
+    'customer',
+    'price',
+    'roadmap',
+    'public launch plan',
+    'public partner terms',
+    'creator terms published as public policy',
+    'private customer support',
+    'confidential product direction',
+    'internal launch checklist',
+    'private partner directory',
+    'internal creator workshop',
+    'internal risk review',
+    'speculative token research',
+    'private pricing page',
+    'public financial model discussion',
+    'credential portability',
+    'public security guidance',
+    'this public general description explains an operating structure',
+    'user decision systems',
+  ]) {
+    assert.deepEqual(collectSafetyViolations(publicPhrase, 'fixture'), [])
+  }
+})
+
 test('safety helpers block excluded-venture separator, whitespace, and newline variants', () => {
   const parts = ['come', 'ownity']
   for (const separator of [' ', '-', '_', '\n']) {
@@ -183,7 +275,7 @@ test('release verification scans checksum text artifacts from custom and default
     })
     assert(customErrors.some((error) => error.includes('custom.sha256') && error.includes('excluded venture')))
 
-    const defaultChecksum = join(root, 'public/downloads/chainfren-thesis-2026.1.sha256')
+    const defaultChecksum = join(root, 'public/downloads/chainfren-thesis-2026.2.sha256')
     mkdirSync(join(root, 'public/downloads'), { recursive: true })
     writeFileSync(defaultChecksum, `PDF SHA-256: ${blocked}`)
     const defaultErrors = validateReleaseOutputs({
@@ -192,7 +284,7 @@ test('release verification scans checksum text artifacts from custom and default
       buildDirectory,
       extractPdfText: () => 'clean PDF text',
     })
-    assert(defaultErrors.some((error) => error.includes('chainfren-thesis-2026.1.sha256') && error.includes('excluded venture')))
+    assert(defaultErrors.some((error) => error.includes('chainfren-thesis-2026.2.sha256') && error.includes('excluded venture')))
   } finally { rmSync(root, { recursive: true, force: true }) }
 })
 

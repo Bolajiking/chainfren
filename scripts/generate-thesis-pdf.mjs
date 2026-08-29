@@ -5,10 +5,13 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from 'playwright'
 import { THESIS_CONTENT_HASH } from '../content/chainfren-thesis/generated-content-hash.mjs'
+import { THESIS_CONTENT_VERSION } from '../content/chainfren-thesis/public-config.mjs'
 import { waitForOwnedServerReadiness } from '../lib/thesis/owned-server-readiness.mjs'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
-const defaultOutput = join(root, 'public/downloads/chainfren-thesis-2026.1.pdf')
+const releaseBase = `chainfren-thesis-${THESIS_CONTENT_VERSION}`
+const defaultOutput = join(root, 'public/downloads', `${releaseBase}.pdf`)
+const defaultChecksum = join(root, 'public/downloads', `${releaseBase}.sha256`)
 const port = 3099
 const baseUrl = `http://127.0.0.1:${port}`
 const ownsServer = process.argv.includes('--start-server')
@@ -75,11 +78,12 @@ try {
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
     await page.goto(printUrl, { waitUntil: 'networkidle' })
     await page.emulateMedia({ media: 'print' })
-    await page.pdf({ path: output, format: 'A4', printBackground: true, preferCSSPageSize: true })
+    await page.addStyleTag({ content: '@media print { main[data-thesis-print] > article > header { padding-top: 20mm; } }' })
+    await page.pdf({ path: output, format: 'A4', printBackground: true, preferCSSPageSize: true, tagged: true })
   } finally { await browser.close() }
   console.log(`Source SHA-256: ${THESIS_CONTENT_HASH}`)
   console.log(`PDF SHA-256: ${await sha256(output)}`)
-  await writeFile(join(root, 'public/downloads/chainfren-thesis-2026.1.sha256'), `Source SHA-256: ${THESIS_CONTENT_HASH}\nPDF SHA-256: ${await sha256(output)}\n`)
+  await writeFile(defaultChecksum, `Source SHA-256: ${THESIS_CONTENT_HASH}\nPDF SHA-256: ${await sha256(output)}\n`)
   console.log(`PDF: ${output}`)
 } catch (error) {
   primaryError = error

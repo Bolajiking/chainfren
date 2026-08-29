@@ -7,11 +7,23 @@ import { normalizeMaturityStage, normalizePublicCitations } from '../lib/thesis/
 test('maturity normalization accepts approved public records and keys only', () => {
   const record = PUBLIC_PRODUCT_MATURITY[0]
 
-  assert.deepEqual(normalizeMaturityStage(record), { label: record.label, maturity: record.maturity })
-  assert.deepEqual(normalizeMaturityStage(record.id), { label: record.label, maturity: record.maturity })
+  assert.deepEqual(normalizeMaturityStage(record), { label: record.label, maturity: record.maturity, displayMaturity: 'Live' })
+  assert.deepEqual(normalizeMaturityStage(record.id), { label: record.label, maturity: record.maturity, displayMaturity: 'Live' })
   assert.equal(normalizeMaturityStage({ ...record }), null)
   assert.equal(normalizeMaturityStage({ label: 'Anything', maturity: 'live' }), null)
   assert.equal(normalizeMaturityStage('anything'), null)
+})
+
+test('media launchpad maturity normalizes to the public TiVi live label', () => {
+  assert.deepEqual(normalizeMaturityStage('media-launchpad'), { label: 'TiVi', maturity: 'live', displayMaturity: 'Live' })
+})
+
+test('maturity normalization exposes only approved public status labels', () => {
+  assert.deepEqual(normalizeMaturityStage('community-engine'), {
+    label: 'Community Engine',
+    maturity: 'early-access',
+    displayMaturity: 'Early access',
+  })
 })
 
 test('citation normalization returns rendering-ready public records and rejects forged data', () => {
